@@ -1,0 +1,209 @@
+-- SPs (i.e. functions) are run in one transaction (i.e. locks are held until function completes)
+-- Locks are held for entire transaction
+-- Use JSON data for data with multiple records (i.e. goals, participants)
+-- Default locking level for SELECT is "ACCESS"; use "SELECT FOR UPDATE" to restrict 
+--   other SELECTs from reading from same row value(s) until the transaction finishes
+
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
+    pContractId INTEGER,
+    pClassId VARCHAR(50),
+    pTeacherUserId INTEGER,
+    pContractStartTS TIMESTAMPTZ,
+    pContractEndTS TIMESTAMPTZ,
+    pRevisionDeadlineTS TIMESTAMPTZ,
+    pRewardNotes VARCHAR(500),
+    pStudentLeaderRequirements VARCHAR(500),
+    pTeacherRequirements VARCHAR(500),
+    pStudentRequirements VARCHAR(500),
+    pGoalsRewardsJSON JSONB,
+    pParticipantsJSON JSONB,
+    pContractScanFile BYTEA
+) 
+RETURNS INTEGER
+AS
+$$
+BEGIN
+	
+	-- If ContractId is NULL, get a new contract Id value and update NextId table
+	IF(pContractId IS NULL) THEN
+	    -- Get new ContractId value
+	    SELECT NextValue INTO pContractId
+	    FROM $DB_NAME$.NextId
+	    WHERE IdType = 'Contract'
+	    FOR UPDATE OF NextId -- Use "Update" lock to restrict other transactions (that also specify "FOR UPDATE") from reading this value before transaction completes
+        ;
+	   
+	    -- Update next ID value
+	    UPDATE $DB_NAME$.NextId
+	    SET NextValue = NextValue +1
+	    WHERE IdType = 'Contract'
+	    ;
+	END IF;
+
+	-- S1: Upsert Contract Info
+	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, TeacherUserId, ContractStartTS, ContractEndTS, RevisionDeadlineTS, RewardNotes, 
+	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
+    VALUES(pContractId, pClassId, pTeacherUserId, pContractStartTS, pContractEndTS, pRevisionDeadlineTS, pRewardNotes, pStudentLeaderRequirements, 
+      pTeacherRequirements, pStudentRequirements, pContractScanFile)
+    ON CONFLICT (ContractId) DO UPDATE SET
+        ClassId = pClassId,
+        TeacherUserId = pTeacherUserId,
+	    ContractStartTS = pContractStartTS,
+	    ContractEndTS = pContractEndTS,
+	    RevisionDeadlineTS = pRevisionDeadlineTS,
+	    RewardNotes = pRewardNotes,
+	    StudentLeaderRequirements = pStudentLeaderRequirements,
+	    TeacherRequirements = pTeacherRequirements,
+	    StudentRequirements = pStudentRequirements,
+	    ContractScanFile = pContractScanFile
+    ;
+
+    -- S2a: Delete old goals (if applicable)
+    IF(pGoalsRewardsJSON->'deletedgoals') IS NOT NULL THEN
+        DELETE FROM $DB_NAME$.Contract_Goal
+        WHERE ContractId = pContractId
+        AND GoalId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pGoalsRewardsJSON->'deletedgoals') AS INTEGER
+            )
+        )
+        ;
+    END IF;
+    
+    -- S2b: Merge contract goals/rewards info
+    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, GoalDescription, RewardDescription, AchievedFlag, RewardDeliveredFlag, Comments)
+	SELECT 
+        pContractId,
+        COALESCE(
+            src.GoalId, -- Use original GoalId if provided (otherwise generate new one)
+            COALESCE((SELECT MAX(GoalId) FROM $DB_NAME$.Contract_Goal WHERE ContractId = pContractId), 0) + -- Get max GoalId for this contract
+            ROW_NUMBER() OVER(PARTITION BY src.GoalId /* GROUP NULLs (new goals) into same partition */ ORDER BY src.GoalId) -- Generate new GoalId values
+        ) AS NewGoalId,
+	    src.goalDescription, 
+	    src.RewardDescription,
+	    src.AchievedFlag,
+	    src.RewardDeliveredFlag,
+	    src.Comments
+	FROM JSONB_TO_RECORDSET(pGoalsRewardsJSON->'currentgoals')
+	  AS src(
+	   goalId INTEGER, 
+	   GoalDescription VARCHAR(500), 
+	   RewardDescription VARCHAR(500),
+	   AchievedFlag BOOLEAN,
+	   RewardDeliveredFlag BOOLEAN,
+	   Comments VARCHAR(1000)
+   ) -- Be careful with case-sensitivity with PG (use all lower-case to be safe)    
+    ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
+        GoalDescription = EXCLUDED.GoalDescription,
+        RewardDescription = EXCLUDED.RewardDescription,
+        AchievedFlag = EXCLUDED.AchievedFlag, 
+        RewardDeliveredFlag = EXCLUDED.AchievedFlag,
+        Comments = EXCLUDED.Comments -- "excluded" stores rows that could not be inserted
+    ;
+
+    -- S3a: Auto-register new users (??)
+    
+
+    -- S3b: Delete old participants (if applicable)
+    IF(pParticipantsJSON->'deletedparticipants') IS NOT NULL THEN
+        DELETE FROM $DB_NAME$.Contract_Party
+        WHERE ContractId = pContractId
+        AND PartyUserId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pParticipantsJSON->'deletedparticipants') AS INTEGER
+            )
+        )
+        ;
+    END IF;
+    
+    -- S3c: Merge participant info
+    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, SignatureTS)
+	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS
+	FROM JSONB_TO_RECORDSET(pParticipantsJSON->'participants') 
+	   AS src (userid INTEGER, contractrole CHAR(2), signaturets TIMESTAMPTZ)
+	INNER JOIN $DB_NAME$.user u ON src.userId = u.userId -- Only include users that are already registered
+	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
+		ContractRole = EXCLUDED.ContractRole,
+		SignatureTS = EXCLUDED.SignatureTS    
+	;
+	
+	-- Return the contractId (used if newly created)
+    RETURN pContractId;
+END
+$$
+LANGUAGE 'plpgsql';
+
+-- TO-DO: Update participant signatureScanFile separately
+-- TO-DO: Auto-register users (if userId is NULL)
+
+-- Test Call
+/*
+SELECT * FROM $DB_NAME$.SP_DCPUpsertContract(
+    NULL,
+    '903', -- Class ID
+    12, -- TeacherUserId
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP + INTERVAL '10' DAY,
+    CURRENT_TIMESTAMP + interval '5' DAY,
+    '',
+    '',
+    '',
+    '',
+    JSONB('
+    {
+        "deletegoals": [],
+        "currentgoals": 
+        [
+            {"goalid":null, "goaldescription": "New goal1", "rewarddescription": "Reward 1", "achievedflag": null, "rewarddeliveredflag": null, "comments":"Some comments"},
+            {"goalid":null, "goaldescription": "New goal2", "rewarddescription": "Reward 2", "achievedflag": true, "rewarddeliveredflag": false, "comments":"Some comments"}
+        ]
+    }
+    '),
+    NULL,
+    NULL);
+    
+*/
+
+/*
+{
+    "deletedparticipants": [],
+    "participants": 
+    [
+        {
+            "userId": 1,
+			"contractRole": "MR",
+			"signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 2,
+			"contractRole": "PL",
+			"signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 3,
+            "contractRole": "BL",
+            "signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 4,
+            "contractRole": "PT",
+            "signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 5,
+            "contractRole": "PT",
+            "signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 6,
+            "contractRole": "PT",
+            "signatureTS" : "2017-10-29 12:00:00.000000"
+        },
+        {
+            "userId": 7,
+            "contractRole": "PT",
+            "signatureTS" : null
+        }
+    ]
+}
+*/

@@ -1,0 +1,63 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
+    pUserId INTEGER, 
+    pUserType CHAR(2), 
+    pFirstName VARCHAR(100), 
+    pLastName VARCHAR(100), 
+    pSignatureScanFile BYTEA,
+    pUserDataJSON JSONB -- Use user data from here if provided
+) 
+RETURNS VOID AS
+$$
+DECLARE NewUserCount INTEGER; -- Track how many new users were created
+BEGIN	
+	
+	-- Merge in new user(s)
+	WITH ups AS (
+		INSERT INTO $DB_NAME$.user(UserId, UserType, FirstName, LastName, SignatureScanFile)
+		SELECT 
+		    COALESCE(
+		        src.UserId, -- Use UserId if provided (i.e. update existing user)
+		        ROW_NUMBER() OVER(ORDER BY CASE WHEN src.UserId IS NULL THEN 0 ELSE 1 END ASC, LastName, FirstName) + 
+		        (id.NextValue - 1) -- Use newly generated UserId (i.e. create new user)
+	        )
+		    AS UserIdFinal,
+		    src.UserType, 
+		    src.FirstName, 
+		    src.LastName, 
+		    src.SignatureScanFile
+        FROM (
+            -- Bulk Upsert (get source rows from JSON parameter)
+            SELECT src.FirstName, src.LastName, src.UserId, src.UserType, NULL AS SignatureScanFile -- SignatureScanFile not supported in BULK upsert
+            FROM JSONB_TO_RECORDSET(pUserDataJSON->'users') AS src(FirstName VARCHAR(100), LastName VARCHAR(100), UserId INTEGER, UserType CHAR(2))
+            WHERE pUserDataJSON IS NOT NULL
+
+            UNION ALL
+            
+            -- Individual Upsert (get source rows from input parameters)
+            SELECT pFirstName AS FirstName, pLastName AS LastName, pUserId AS UserId, pUserType AS UserType, pSignatureScanFile AS SignatureScanFile
+            WHERE pUserDataJSON IS NULL           
+        ) src
+	    CROSS JOIN ( -- Get next ID value to use
+		    SELECT NextValue
+		    FROM $DB_NAME$.NextId 
+		    WHERE IdType = 'User'
+		    FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
+		) id
+		ON CONFLICT(UserId) DO UPDATE SET
+		    FirstName = EXCLUDED.FirstName,
+		    LastName = EXCLUDED.LastName,
+		    UserType = EXCLUDED.UserType    
+		    RETURNING xmax -- The xmax value contains the "version" number of the new row (0 = insert, anything else = update)
+	    )
+	    SELECT SUM(CASE WHEN xmax = 0 THEN 1 ELSE 0 END) INTO NewUserCount FROM ups
+	;	
+	
+	-- Increment UserId value
+	UPDATE $DB_NAME$.NextId
+	SET NextValue = NextValue + COALESCE(NewUserCount,0)
+	WHERE IdType = 'User'
+	;	
+	
+END;
+$$
+LANGUAGE 'plpgsql';
