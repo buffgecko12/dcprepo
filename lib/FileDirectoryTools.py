@@ -16,19 +16,19 @@ def DeleteDirectoryContents(path):
         
 # Delete a directory
 def DeleteDirectory(path):
-    print("Deleting directory: \"" + path + "\" ..."),
+    print("Deleting directory: \"" + path + "\" ...", end="")
     os.rmdir(path)
     print("SUCCESS")
 
 # Delete a file    
 def DeleteFile(path):
-    print("Deleting file: \"" + path + "\" ..."),
+    print("Deleting file: \"" + path + "\" ...", end="")
     os.remove(path)
     print("SUCCESS")
 
 # Create a directory
 def CreateDirectory(path):
-    print("Creating new directory: \"" + path + "\" ..."),
+    print("Creating new directory: \"" + path + "\" ...", end="")
     os.mkdir(path)
     print("SUCCESS")
 

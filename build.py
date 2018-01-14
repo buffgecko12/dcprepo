@@ -69,7 +69,7 @@ if(os.listdir(SRC_DIR)):
             tgt_file_path = JoinPath(new_tgt_dir_path, src_file)
             tgt_file = ""
 
-            print("Copying file: \"" + tgt_file_path + "\" ..."),
+            print("Copying file: \"" + tgt_file_path + "\" ...", end="")
             
             # Loop through source file
             while(src_file_fh):
@@ -122,7 +122,7 @@ for install_file in install_files:
     RunSQLFile(SERVER_NAME, myuser, mypass, mydb, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + myfile + '.log'), '### ' + mycomment, True)
 
 if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
-    print "### Configuring Django"
+    print("### Configuring Django")
     env_dict = dict(os.environ)
     env_dict["PYTHONPATH"] = DJANGO_LIB
 
@@ -133,7 +133,7 @@ if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
     print("")
 
 # Verify install completed successfully
-print("Verifying install ..."),
+print("Verifying install ...", end="")
 
 # Open cursor and query sample table
 conn = OpenDBConnection(database=DB_NAME, user=DB_USER, password=DB_PASS)

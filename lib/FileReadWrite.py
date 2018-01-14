@@ -8,7 +8,7 @@ def FileExists(file_path):
 # Read in a complete file from path and return output as string
 def FileRead(file_path):
     if not FileExists(file_path):
-        print "The file '" + file_path + "' does not exist -- can't read."
+        print ("The file '" + file_path + "' does not exist -- can't read.")
         return ""
     
     fileHandle = open(file_path,'r')
@@ -30,7 +30,7 @@ def FileOpenForWrite(file_path):
 # Open a file to read
 def FileOpenForRead(file_path):
     if(not FileExists(file_path)):
-        print "File " + file_path + " does not exist or can't be accessed."
+        print("File " + file_path + " does not exist or can't be accessed.")
         return ""
     
     file_handle = open(file_path,'r')
@@ -59,4 +59,4 @@ def FileClose(file_handle):
     file_handle.close()
 
 if __name__ == '__main__':
-    print FileRead('src/Test_SP.spl')
+    print(FileRead('src/Test_SP.spl'))
