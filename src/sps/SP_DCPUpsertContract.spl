@@ -121,7 +121,7 @@ BEGIN
 	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS
 	FROM JSONB_TO_RECORDSET(pParticipantsJSON->'participants') 
 	   AS src (userid INTEGER, contractrole CHAR(2), signaturets TIMESTAMPTZ)
-	INNER JOIN $DB_NAME$.user u ON src.userId = u.userId -- Only include users that are already registered
+	INNER JOIN $DB_NAME$.Users u ON src.userId = u.userId -- Only include users that are already registered
 	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
 		ContractRole = EXCLUDED.ContractRole,
 		SignatureTS = EXCLUDED.SignatureTS    

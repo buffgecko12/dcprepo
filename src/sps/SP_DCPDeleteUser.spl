@@ -10,7 +10,7 @@ BEGIN
 	-- Look at handling case of child tables (contract_party, contract)
 	
     -- Delete user(s)
-	DELETE FROM $DB_NAME$.User
+	DELETE FROM $DB_NAME$.Users
 	WHERE UserId IN (
 	    -- Single user delete (ignore JSON)
 	    SELECT pUserId WHERE pUserId IS NOT NULL

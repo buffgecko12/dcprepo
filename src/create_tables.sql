@@ -1,11 +1,15 @@
 -- Create tables
-CREATE TABLE $DB_NAME$.User (
+CREATE TABLE $DB_NAME$.Users (
     UserId INTEGER NOT NULL,
-    UserType CHAR(2) NOT NULL,
+    UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
     SignatureScanFile BYTEA,
-    -- May need to add separate key to access source "user" table from school (i.e. cedula/StudentIdNo)
+    PhoneNumber VARCHAR(25),
+    EmailAddress VARCHAR(250),
+    Password VARCHAR(128),
+    Last_Login TIMESTAMPTZ,
+    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId)
 );
 
@@ -22,7 +26,7 @@ CREATE TABLE $DB_NAME$.Contract (
     StudentRequirements VARCHAR(500),
     ContractScanFile BYTEA, -- Same as BLOB data type
     PRIMARY KEY (ContractId),
-    FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.User (UserId)
+    FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId)
 );
 
 CREATE TABLE $DB_NAME$.Contract_Goal (
@@ -44,7 +48,7 @@ CREATE TABLE $DB_NAME$.Contract_Party (
     SignatureTS TIMESTAMPTZ,
     PRIMARY KEY (ContractId, PartyUserId),
     FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract(ContractId),
-    FOREIGN KEY (PartyUserId) REFERENCES $DB_NAME$.User(UserId)    
+    FOREIGN KEY (PartyUserId) REFERENCES $DB_NAME$.Users(UserId)    
 );
 
 CREATE TABLE $DB_NAME$.NextId (

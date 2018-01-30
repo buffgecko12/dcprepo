@@ -13,7 +13,7 @@ BEGIN
 	
 	-- Merge in new user(s)
 	WITH ups AS (
-		INSERT INTO $DB_NAME$.user(UserId, UserType, FirstName, LastName, SignatureScanFile)
+		INSERT INTO $DB_NAME$.Users(UserId, UserType, FirstName, LastName, SignatureScanFile)
 		SELECT 
 		    COALESCE(
 		        src.UserId, -- Use UserId if provided (i.e. update existing user)
