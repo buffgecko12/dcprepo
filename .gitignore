@@ -3,3 +3,5 @@
 *.pydevproject
 *.gitignore
 *.prefs
+install
+build_output.txt
