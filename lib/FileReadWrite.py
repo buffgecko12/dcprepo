@@ -8,11 +8,11 @@ def FileExists(file_path):
 # Read in a complete file from path and return output as string
 def FileRead(file_path):
     if not FileExists(file_path):
-        print ("The file '" + file_path + "' does not exist -- can't read.")
+        print("The file '" + file_path + "' does not exist -- can't read.")
         return ""
     
     fileHandle = open(file_path,'r')
-    myfile = file.read(fileHandle)
+    myfile = fileHandle.read()
     fileHandle.close()
     return myfile
 

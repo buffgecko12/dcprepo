@@ -107,6 +107,8 @@ install_files = [
     ("create_tables.sql", "Creating tables", DB_USER, DB_PASS, DB_NAME),
     ("create_views.sql", "Creating views", DB_USER, DB_PASS, DB_NAME),
     ("create_sps.sql", "Creating SPs", DB_USER, DB_PASS, DB_NAME),
+#    ("create_triggers.sql", "Creating Triggers", DB_USER, DB_PASS, DB_NAME),
+#    ("create_indexes.sql", "Creating Indexes", DB_USER, DB_PASS, DB_NAME),
     ("sample_data.sql", "Creating some sample data", DB_USER, DB_PASS, DB_NAME),
 ]
 
@@ -118,19 +120,29 @@ for install_file in install_files:
     mypass = install_file[3]
     mydb = install_file[4]
 
+    # Do some steps before creating sample data
+    if(mycomment == "Creating some sample data"):
+        if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
+            print("### Configuring Django")
+            env_dict = dict(os.environ)
+            env_dict["PYTHONPATH"] = DJANGO_LIB
+        
+            ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
+            ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
+                                             'from django.contrib.auth import get_user_model; ' + \
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'S\',\'Chris\',\'Khosravi\',\'123 123 1234\',\'joe@smith.com\'); ' + \
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'A\',\'Mark\',\'David\',\'56 9 3130 1966\',\'mark@david.com\'); ' + \
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'U\',\'Joe\',\'Smith\',\'+56 9 3120 3495\',\'thereal@joesmith.com\'); ' + \
+                                             
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'U\',\'Cristiano\',\'Ronaldo\',\'+56 9 619 2843\',\'elmejor@delmundo.com\'); ' + \
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'U\',\'Beauden\',\'Barrett\',\'+23 643 2345 44\',\'therugbyking@allblacks.com\'); ' + \
+                                             'get_user_model().objects.create_user(\'adminadmin\',\'U\',\'Nelson\',\'Mandela\',\'+56 9 2342 6434\',\'madiba@springboks.com\'); ' + \
+                                             '"'
+                                             , 'Y', my_env = env_dict)
+            print("")
+
     # Run install file    
     RunSQLFile(SERVER_NAME, myuser, mypass, mydb, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + myfile + '.log'), '### ' + mycomment, True)
-
-if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
-    print("### Configuring Django")
-    env_dict = dict(os.environ)
-    env_dict["PYTHONPATH"] = DJANGO_LIB
-
-    ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
-    ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "from django.contrib.auth.models import User; ' + \
-                                     'User.objects.create_superuser(\'admin\', \'admin\@example.com\', \'adminadmin\')"'
-                                     , 'Y', my_env = env_dict)
-    print("")
 
 # Verify install completed successfully
 print("Verifying install ...", end="")
