@@ -1,0 +1,19 @@
+-- RETURNS SETOF <TABLE_NAME> -- uses table/view column definition
+-- RETURNS record AS ... -- Anonymous records (no field names)
+-- RETURNS TABLE (col1 int, col2 text, ...) AS -- explicit return type definition
+
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUser(
+    pUserId INTEGER
+)
+RETURNS SETOF $DB_NAME$Views.Users
+AS
+$$
+BEGIN
+    RETURN QUERY
+    SELECT UserId, UserType, FirstName, LastName, SignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login
+    FROM $DB_NAME$Views.Users
+    WHERE (UserId = pUserId OR pUserId IS NULL) -- Return single user (if specified, otherwise return all)
+    ;
+END;
+$$
+LANGUAGE 'plpgsql';

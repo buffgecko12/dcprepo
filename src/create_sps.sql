@@ -3,3 +3,4 @@
 \i install/sps/SP_DCPUpsertContract.spl
 \i install/sps/SP_DCPUpsertUser.spl
 \i install/sps/SP_DCPDeleteUser.spl
+\i install/sps/SP_DCPGetUser.spl
