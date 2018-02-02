@@ -3,5 +3,6 @@
 *.pydevproject
 *.gitignore
 *.prefs
+*.ini
 install
 build_output.txt
