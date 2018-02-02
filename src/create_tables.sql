@@ -1,6 +1,7 @@
 -- Create tables
 CREATE TABLE $DB_NAME$.Users (
     UserId INTEGER NOT NULL,
+    UserName VARCHAR(50),
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,

@@ -1,6 +1,7 @@
 -- TO-DO: Tighten up logic for returning/incrementing UserId values
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
     pUserId INTEGER, 
+    pUserName VARCHAR(50), 
     pUserType CHAR(1), 
     pFirstName VARCHAR(100), 
     pLastName VARCHAR(100), 
@@ -22,17 +23,18 @@ BEGIN
     FOR UPDATE; -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
     
     -- Merge in new user
-    INSERT INTO $DB_NAME$.Users(UserId, UserType, FirstName, LastName, SignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
-    VALUES(COALESCE(pUserId, NewUserId), pUserType, pFirstName, pLastName, pSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
+    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, SignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
+    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
 	    SignatureScanFile = EXCLUDED.SignatureScanFile,
-	    UserType = EXCLUDED.UserType,
+        UserName = EXCLUDED.UserName,
+        UserType = EXCLUDED.UserType,
 	    PhoneNumber = EXCLUDED.PhoneNumber,
 	    EmailAddress = EXCLUDED.EmailAddress,
-	    Password = COALESCE(Users.Password, EXCLUDED.Password), -- If no value provided, keep existing one (i.e. don't allow NULL once set)
-	    Last_Login = COALESCE(Users.Last_Login, EXCLUDED.Last_Login) -- If no value provided, keep existing one (i.e. don't allow NULL once set)
+	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow NULL once set)
+	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow NULL once set)
     ;   
     
     -- Increment UserId value
