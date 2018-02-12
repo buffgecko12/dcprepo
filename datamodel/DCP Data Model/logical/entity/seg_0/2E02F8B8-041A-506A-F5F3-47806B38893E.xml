@@ -1,0 +1,66 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2E02F8B8-041A-506A-F5F3-47806B38893E" name="User_Student">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 20:24:33 UTC</createdTime>
+<comment>Student-specific information</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="UserId" id="EEABDBEC-6603-D5EC-404A-E6FE3C4D7118">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 21:26:33 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>8E7EF377-DE20-7FDD-AEEB-318C4BCA752D</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<preferredAbbreviation>StudentUserId</preferredAbbreviation>
+</Attribute>
+<Attribute name="ClassId" id="6F6B6935-0761-2CF5-9975-61096A91A6D7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 19:06:28 UTC</createdTime>
+<comment>Unique ID for a class</comment>
+<generatorID>6EC302A1-D83B-F0D2-1470-C413B11EFC52</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>3C27C694-F68D-EDEE-0847-C80552BE9FC7</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1A14B9E9-4DA1-39BA-F19A-33FDBF6CDB01" name="User_Student PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 21:06:56 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>EEABDBEC-6603-D5EC-404A-E6FE3C4D7118</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

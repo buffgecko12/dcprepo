@@ -1,0 +1,96 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="229200A4-67E5-2487-5554-8B529F48A359" name="Contract_Party">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 23:54:46 UTC</createdTime>
+<comment>Parties associated with a given contract.  This includes teachers, students, as well as their roles for a given contract.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractId" id="85F341F0-CF92-D257-12D6-02885C0B7D60">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:02:09 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>8FC3DACF-33A5-3EA6-FA8A-F9771145F596</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<preferredAbbreviation>ContractId</preferredAbbreviation>
+</Attribute>
+<Attribute name="PartyUserId" id="A2904F6A-3049-DD03-C604-74D3D0953153">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 21:01:11 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>7E3DB64E-CA8C-1AC3-5A97-9D8B8ECC452C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
+<synonym>PartyUserId</synonym>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<preferredAbbreviation>PartyUserId</preferredAbbreviation>
+</Attribute>
+<Attribute name="ContractRole" id="812E79FB-0A53-3FDB-253B-E854B93C072D">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 00:04:53 UTC</createdTime>
+<comment>Party&apos;s role:&lt;br/&gt;&lt;br/&gt;MR - mentor (i.e. teacher)&lt;br/&gt;PL - primary group leader&lt;br/&gt;BL - backup group leader&lt;br/&gt;PT - participant (i.e. student)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SignatureTS" id="5E00BB91-29AB-017C-389E-66E621454876">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 00:09:25 UTC</createdTime>
+<comment>Date/Time contract was signed by each participant&lt;br/&gt;&lt;br/&gt;Timestamp precision is used for digital signatures (i.e. student absent from class signs and accepts the contract digitally)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CBA711A2-261B-2F73-5AA5-751CC9B62E16" name="Contract_Party PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 21:28:58 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A2904F6A-3049-DD03-C604-74D3D0953153</attributeRef>
+<attributeRef>85F341F0-CF92-D257-12D6-02885C0B7D60</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="6FB35F07-ACAD-87E3-337B-31D514BCA561" mainViewID="CC30F5D4-265A-7953-30B7-196F420D86C6">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 22:15:28 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

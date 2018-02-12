@@ -1,0 +1,59 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CF9AFA39-4104-FE56-DB03-4E5CF45C1471" name="NextId">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 21:10:24 UTC</createdTime>
+<comment>ID-generating table.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="IDType" id="6086DDEB-9553-4754-32B0-09D6CBA4FE13">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 21:10:53 UTC</createdTime>
+<comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+</engineerTo>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NextValue" id="27128E83-C9FD-9445-BD34-6DC417318220">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 21:11:34 UTC</createdTime>
+<comment>Next ID value to be used.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="07CB033F-3599-25DF-72DE-9DF9328E4F9B" name="NextId PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 15:22:12 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>6086DDEB-9553-4754-32B0-09D6CBA4FE13</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

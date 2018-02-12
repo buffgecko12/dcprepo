@@ -1,0 +1,6 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BIDocument class="oracle.dbtools.crest.model.businessinfo.BIDocument" name="Doc_1" directorySegmentName="seg_0" id="2F5F9828-676E-4B21-AB64-96F06B2CE187">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 20:55:58 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+</BIDocument>

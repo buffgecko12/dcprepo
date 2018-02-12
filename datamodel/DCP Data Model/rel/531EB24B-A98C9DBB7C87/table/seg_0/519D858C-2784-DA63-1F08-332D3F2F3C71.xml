@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="519D858C-2784-DA63-1F08-332D3F2F3C71" name="NextId">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:18:38 UTC</createdTime>
+<comment>ID-generating table.</comment>
+<generatorID>CF9AFA39-4104-FE56-DB03-4E5CF45C1471</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDType" id="9679B54A-9A32-7DE6-25AE-35D467D9F99E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:18:38 UTC</createdTime>
+<comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
+<generatorID>6086DDEB-9553-4754-32B0-09D6CBA4FE13</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NextValue" id="D25B952A-5DE3-8C81-46E0-39F1312F607B">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:18:38 UTC</createdTime>
+<comment>Next ID value to be used.</comment>
+<generatorID>27128E83-C9FD-9445-BD34-6DC417318220</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="576C57D1-D9FD-701E-5B68-0003EBABEE73" name="NextId_PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:18:38 UTC</createdTime>
+<generatorID>07CB033F-3599-25DF-72DE-9DF9328E4F9B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9679B54A-9A32-7DE6-25AE-35D467D9F99E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="277EB1A5-845A-BCB4-4968-23E9CF00A141">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 22:15:28 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

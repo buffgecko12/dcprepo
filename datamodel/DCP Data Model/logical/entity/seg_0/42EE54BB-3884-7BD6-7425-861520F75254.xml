@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="42EE54BB-3884-7BD6-7425-861520F75254" name="Contract_Goal">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 23:57:09 UTC</createdTime>
+<comment>Goals and rewards associated with a contract.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractId" id="71CE7D34-8228-577E-89E5-EA9E1755498B">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:02:09 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>630FA4FA-92CB-0ABB-3D95-9D3290CA5F9C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="GoalId" id="30734726-4BEB-576D-FEDD-CB5068F5BF83">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-08 20:09:25 UTC</createdTime>
+<comment>Unique identifier for a goal</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DifficultyLevel" id="4BFD9048-9B74-384D-1F8E-B67B1BEE87FD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 01:27:31 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="GoalDescription" id="1FDE3BE7-7E73-41F9-5A78-D08E9FEB0CAF">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-07 14:48:02 UTC</createdTime>
+<comment>Description of contract goal.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="AchievedFlag" id="DD706BC5-A7F1-9DD1-60F8-7D88D912D123">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-10-09 20:39:06 UTC</createdTime>
+<comment>Was the goal achieved?</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E3AA8BD5-59DF-3AE5-402E-94852C5A7D52" name="Contract_Goal PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 21:18:22 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>30734726-4BEB-576D-FEDD-CB5068F5BF83</newElementsIDs>
+<usedAttributes>
+<attributeRef>30734726-4BEB-576D-FEDD-CB5068F5BF83</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

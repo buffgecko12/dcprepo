@@ -1,0 +1,147 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2EC877D5-5E3A-ADB9-493E-357C4DF3F969" name="Contract">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 22:34:43 UTC</createdTime>
+<comment>Main contract table.  Defines the agreement between students and teachers for a given assignment or goal.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractId" id="AF187891-81BB-CE3E-B7F7-E8F9B979124B">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 23:18:49 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ClassId" id="5EBA8F57-3882-1D63-C6AA-D156740C16DC">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 19:14:08 UTC</createdTime>
+<comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
+<generatorID>FDE1345D-E6C5-7DA6-2908-A219E4A6C1C7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>3C27C694-F68D-EDEE-0847-C80552BE9FC7</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractType" id="F902E7A4-A135-7311-17AA-C6FCF2BA1849">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 00:47:36 UTC</createdTime>
+<comment>Type of contract:&lt;br/&gt;&lt;br/&gt;I = individual&lt;br/&gt;G = group&lt;br/&gt;C = class</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractValidPeriod" id="D1A3DBA2-5A9A-E424-0453-F16C46654A3F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 20:12:33 UTC</createdTime>
+<comment>Valid time for contract</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<domain>8A71BA55-18F8-0894-E400-8A9EC452DADC</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RevisionDeadlineTS" id="D91C11FA-130D-2DAE-473F-41F5D78AD37B">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 23:46:55 UTC</createdTime>
+<comment>Revision deadline timestamp</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="StudentLeaderRequirements" id="BF0E9F69-56B4-735B-BF3F-A76067F4D1A3">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 20:45:22 UTC</createdTime>
+<comment>Any additional requirements for student group leaders</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TeacherRequirements" id="3D6E211A-468D-609D-40C6-DA9CEFA74AE6">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 20:49:36 UTC</createdTime>
+<comment>Any additional requirements for teachers</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="StudentRequirements" id="5D8C4831-0B0E-5861-71CE-1FCF79EE12B9">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-24 20:50:01 UTC</createdTime>
+<comment>Any additional requirements for students</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7C39509B-7D7F-8975-5ECE-F52F3705C189" name="Contract PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2017-09-23 23:22:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<newElementsIDs>AF187891-81BB-CE3E-B7F7-E8F9B979124B</newElementsIDs>
+<usedAttributes>
+<attributeRef>AF187891-81BB-CE3E-B7F7-E8F9B979124B</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,24 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Diagram class="oracle.dbtools.crest.swingui.relational.DPVRelationalSubView" name="From_LM_Metadata" id="793158AC-D04E-F96D-970E-AD13806CB391">
+<createdBy>ravioli</createdBy>
+<modifiedBy>ravioli</modifiedBy>
+<createdTime>2018-02-09 03:18:38 UTC</createdTime>
+<autoRoute>false</autoRoute>
+<boxInbox>true</boxInbox>
+<showLegend>false</showLegend>
+<showLabels>false</showLabels>
+<showRelAttributes>false</showRelAttributes>
+<gridEnabled>false</gridEnabled>
+<showGrid>false</showGrid>
+<diagramColor>-1</diagramColor>
+<display>false</display>
+<generatorId>EC7D5934-105F-8961-8817-9751B391A666</generatorId>
+<notation>0</notation>
+<objectViews>
+<OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="519D858C-2784-DA63-1F08-332D3F2F3C71" otype="Table" vid="FAECB0AD-4481-525E-5D56-6E7811EDA565">
+<hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
+<bounds x="140" y="200" width="170" height="110"/>
+<generatorID>1CE4B240-3651-98DB-E9D8-5329A826C604</generatorID>
+</OView>
+</objectViews>
+</Diagram>

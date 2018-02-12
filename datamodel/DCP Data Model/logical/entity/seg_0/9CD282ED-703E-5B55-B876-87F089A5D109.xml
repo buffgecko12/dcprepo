@@ -1,0 +1,111 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="9CD282ED-703E-5B55-B876-87F089A5D109" name="Contract_Party_Goal_Reward">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 02:42:26 UTC</createdTime>
+<comment>Tracks goal achievement and reward fulfilment for each contract party</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractId" id="FBD402AF-BE2E-9E6A-0CEE-8BAA3792593F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:02:09 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>42135B1B-1485-F363-CF82-A3B0F5E5ED95</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>85F341F0-CF92-D257-12D6-02885C0B7D60</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PartyUserId" id="0DB6C232-3D5C-AFA2-8B7A-7445327A5A16">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 02:45:26 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>42135B1B-1485-F363-CF82-A3B0F5E5ED95</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>A2904F6A-3049-DD03-C604-74D3D0953153</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="GoalId" id="32407956-6832-E758-58A7-F80F278D72D7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 02:53:53 UTC</createdTime>
+<comment>Unique identifier for a goal</comment>
+<generatorID>9E7A3940-1F87-6119-8518-92A0441F8062</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>30734726-4BEB-576D-FEDD-CB5068F5BF83</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RewardId" id="72EC26F6-6A54-7F6E-8378-A9D240618D6A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 03:05:11 UTC</createdTime>
+<comment>Unique identifier for a contract reward</comment>
+<generatorID>C8570598-9381-2AF3-5557-7BC4811538CB</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<referedAttribute>DC4E81CD-8E48-464A-A3DA-C50D13086635</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RewardDeliveredFlag" id="46CB09CE-51DB-9EA1-645E-269DB168AC78">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 02:42:56 UTC</createdTime>
+<comment>Has the reward been delivered?</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="F8A6BA43-46A8-01CC-992E-104ED01E54CB" name="Contract_Party_Reward PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-09 02:44:06 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>0DB6C232-3D5C-AFA2-8B7A-7445327A5A16</attributeRef>
+<attributeRef>FBD402AF-BE2E-9E6A-0CEE-8BAA3792593F</attributeRef>
+<attributeRef>32407956-6832-E758-58A7-F80F278D72D7</attributeRef>
+<attributeRef>72EC26F6-6A54-7F6E-8378-A9D240618D6A</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
