@@ -274,12 +274,12 @@
 			</domain>
 		</domains>
 		<constraints>
-			<pk value="{table}_PK"/>
-			<fk value="{child}_{parent}_FK"/>
+			<pk value="PK"/>
+			<fk value="FK"/>
 			<ck value="{table}_CK"/>
 			<un value="{table}_{column}_UN"/>
-			<idx value="{table}_{column}_IDX"/>
-			<automatic_idx value="{table}_{column}_IDX"/>
+			<idx value="IDX"/>
+			<automatic_idx value="IDX"/>
 			<colck value="CK_{table}_{column}"/>
 			<colnnc value="NNC_{table abbr}_{column}"/>
 			<column_foreign_key value="{ref column}"/>
@@ -389,7 +389,7 @@
 	<model_compare_storage_props_filter>
 	</model_compare_storage_props_filter>
 	<naming_options>
-		<model_options objectid="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87">
+		<model_options objectid="C1763D4A-34AA-450E-EBA5-123D025C2B76">
 			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Table" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />
 			<naming_option class_name="oracle.dbtools.crest.model.design.relational.Column" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />
 			<naming_option class_name="oracle.dbtools.crest.model.design.relational.TableView" max_name_length="30" case_type="2" valid_characters="" all_valid="true" />

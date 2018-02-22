@@ -5,7 +5,7 @@
 <comment>User information.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,7 +22,7 @@
 <comment>Unique ID for each user</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -35,7 +35,7 @@
 <comment>User role:&lt;br/&gt;&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SF - staff&lt;br/&gt;OT - other</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -49,7 +49,7 @@
 <comment>User&apos;s first name.  &lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -62,20 +62,20 @@
 <comment>User&apos;s last name.&lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <domain>5487AEA6-53D6-4440-3BD0-194C9422F683</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="SignatureScanFile" id="3ABDD3ED-45F8-F5F9-C2D1-707A4C970C8B">
+<Attribute name="DefaultSignatureScanFile" id="3ABDD3ED-45F8-F5F9-C2D1-707A4C970C8B">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-10-07 20:22:10 UTC</createdTime>
 <comment>Scanned image of person&apos;s signature.&lt;br/&gt;&lt;br/&gt;To be used to re-create digital version of contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -90,7 +90,7 @@
 <createdTime>2017-10-07 20:20:37 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

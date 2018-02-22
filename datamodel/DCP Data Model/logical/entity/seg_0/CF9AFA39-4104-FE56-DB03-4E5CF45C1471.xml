@@ -5,7 +5,9 @@
 <comment>ID-generating table.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="8D76B6FB-668A-D7AC-B0DB-B82BE9EF5BA2" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
+<item key="86AC83A6-5D03-2DE6-4C42-FD24A2F5AD1B" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,9 +24,13 @@
 <comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="8D76B6FB-668A-D7AC-B0DB-B82BE9EF5BA2" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
+<item key="86AC83A6-5D03-2DE6-4C42-FD24A2F5AD1B" value="true"/>
 </engineerTo>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="NextValue" id="27128E83-C9FD-9445-BD34-6DC417318220">
@@ -33,7 +39,9 @@
 <comment>Next ID value to be used.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="8D76B6FB-668A-D7AC-B0DB-B82BE9EF5BA2" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
+<item key="86AC83A6-5D03-2DE6-4C42-FD24A2F5AD1B" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -46,9 +54,10 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2017-10-07 15:22:12 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="false"/>
+<item key="8D76B6FB-668A-D7AC-B0DB-B82BE9EF5BA2" value="true"/>
+<item key="31C69BF7-10DB-B303-E207-3F8D2417D3B7" value="true"/>
+<item key="86AC83A6-5D03-2DE6-4C42-FD24A2F5AD1B" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

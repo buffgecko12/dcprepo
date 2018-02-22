@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DistinctType class="oracle.dbtools.crest.model.design.datatypes.DistinctType" name="TSRANGE" directorySegmentName="seg_0" id="EEE8724D-82E8-A3F1-A94D-AF31D0E778E8">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 00:03:45 UTC</createdTime>
+<comment>tsrange data type (postgres) - timestamp range&lt;br/&gt;period data type (teradata)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<predefined>false</predefined>
+<logicalDataType>LOGDT017</logicalDataType>
+<precision>0</precision>
+<scale>0</scale>
+</DistinctType>

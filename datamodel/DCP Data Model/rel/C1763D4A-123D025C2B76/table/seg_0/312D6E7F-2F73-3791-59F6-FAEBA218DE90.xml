@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="312D6E7F-2F73-3791-59F6-FAEBA218DE90" name="Contract_Revision">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Contract revision details</comment>
+<generatorID>AC90F751-5414-FADF-61DD-418FCAE18C1D</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="AE4AC5F5-6E17-46B0-7B5B-582C674843AA">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>FFB8D2A5-8550-4459-5B37-07EB9717C6A5</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5316E078-7E49-AEBD-2E8A-97E43CCF66B3" referredColumn="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
+</associations>
+</Column>
+<Column name="RevisionDescription" id="F3630042-7E1F-2C05-71F9-981C65471CA0">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Description of revisions made to original contract</comment>
+<generatorID>68E374FA-0164-B8F3-2600-6E62C21843E2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ApprovalTS" id="9CEAF662-4457-CD71-DB4A-21EC53F4C126">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Timestamp of when revision was approved	</comment>
+<generatorID>8953A638-1DAB-2499-A1E0-8CFB607AEE35</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ApprovedByTeacherUserId" id="B7F09F97-6B48-2E60-50A5-27384AEE5F96">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>UserId of teacher who approved the revision</comment>
+<generatorID>2458E41F-52F3-2A37-BEC8-1CF8AFA621A2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ApprovedByStudentUserId" id="AF767453-A052-8772-5C76-BE29C5D5CF71">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>UserId of student group leader who approved revision</comment>
+<generatorID>1D3456E7-79D5-982E-032E-58765A7DE522</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="296096B4-4744-8BBA-9B4F-02990ABB3620" name="PKv5">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>55068D52-915D-EF5A-C313-A3FF5A6D9CE0</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AE4AC5F5-6E17-46B0-7B5B-582C674843AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0AB7B555-319A-1789-7572-93EDFBE68C96" name="FKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>E46B0E65-6A18-EBF6-CF70-A3D18B1AA571</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AE4AC5F5-6E17-46B0-7B5B-582C674843AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
