@@ -1,0 +1,11 @@
+*.pyc
+*.project
+*.pydevproject
+*.gitignore
+*.prefs
+*.ini
+*.example
+*.settings
+install
+build_output.txt
+*.ini
