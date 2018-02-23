@@ -4,9 +4,8 @@
 <createdTime>2018-02-09 18:13:06 UTC</createdTime>
 <comment>Class info</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,9 +21,8 @@
 <createdTime>2018-02-09 18:13:56 UTC</createdTime>
 <comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -51,16 +49,14 @@
 <createdTime>2018-02-09 18:16:12 UTC</createdTime>
 <comment>How to display class name</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">

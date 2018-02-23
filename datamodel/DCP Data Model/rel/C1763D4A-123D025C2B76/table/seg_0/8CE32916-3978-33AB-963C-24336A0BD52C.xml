@@ -23,6 +23,8 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="8E093785-A89E-175E-F0F4-6BADE7C42A5A" referredColumn="9A9C6D4F-F727-7FB6-CAE3-D464E3848B67"/>
+<colAssociation fkAssociation="488203FA-4387-71DC-946C-DC8071066D43" referredColumn="0888F997-9A85-AB57-ECE3-62F60CA60399"/>
+<colAssociation fkAssociation="E8CD6E2E-BD7B-D4DD-B04E-585989917B4E" referredColumn="57E938D2-DABD-C7B2-150D-C2D533B6B5B4"/>
 </associations>
 </Column>
 <Column name="PartyUserId" id="256992DA-E7ED-93C8-42D5-94DA1B742D91">
@@ -88,7 +90,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="527C6C05-E1EF-2202-9572-5BDF52C11074" name="PKv9">
+<ind_PK_UK id="527C6C05-E1EF-2202-9572-5BDF52C11074" name="PKv11">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>F8A6BA43-46A8-01CC-992E-104ED01E54CB</generatorID>
@@ -115,7 +117,7 @@
 <colUsage columnID="3C37C6C1-BB92-FB83-9E5B-0E6A38C87D72"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="B5AF6B64-A138-078D-02C1-61FBFAF45192" name="FKv14">
+<ind_PK_UK id="B5AF6B64-A138-078D-02C1-61FBFAF45192" name="FKv8">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>9E7A3940-1F87-6119-8518-92A0441F8062</generatorID>
@@ -124,9 +126,10 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="47DBF672-84C2-794A-D406-620150F3A379"/>
+<colUsage columnID="3C37C6C1-BB92-FB83-9E5B-0E6A38C87D72"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="892209C3-AD0D-D976-D324-198C869183E2" name="FKv15">
+<ind_PK_UK id="892209C3-AD0D-D976-D324-198C869183E2" name="FKv14">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>C8570598-9381-2AF3-5557-7BC4811538CB</generatorID>
@@ -135,9 +138,10 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="B642F742-A164-7F14-8167-2991AE6DC47E"/>
+<colUsage columnID="3C37C6C1-BB92-FB83-9E5B-0E6A38C87D72"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="57A15A57-F305-126B-3CC0-96C5A7CA18BC" name="FKv6">
+<ind_PK_UK id="57A15A57-F305-126B-3CC0-96C5A7CA18BC" name="FKv10">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>42135B1B-1485-F363-CF82-A3B0F5E5ED95</generatorID>

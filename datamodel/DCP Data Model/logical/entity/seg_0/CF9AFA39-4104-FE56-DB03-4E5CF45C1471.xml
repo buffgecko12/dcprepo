@@ -4,9 +4,8 @@
 <createdTime>2017-09-24 21:10:24 UTC</createdTime>
 <comment>ID-generating table.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,23 +21,22 @@
 <createdTime>2017-09-24 21:10:53 UTC</createdTime>
 <comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="NextValue" id="27128E83-C9FD-9445-BD34-6DC417318220">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-24 21:11:34 UTC</createdTime>
 <comment>Next ID value to be used.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>

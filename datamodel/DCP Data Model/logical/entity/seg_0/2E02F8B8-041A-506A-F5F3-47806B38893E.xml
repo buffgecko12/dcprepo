@@ -4,9 +4,8 @@
 <createdTime>2017-10-07 20:24:33 UTC</createdTime>
 <comment>Student-specific information</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -42,7 +41,6 @@
 <engineerTo>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <referedAttribute>3C27C694-F68D-EDEE-0847-C80552BE9FC7</referedAttribute>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

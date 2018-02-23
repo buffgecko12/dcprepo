@@ -4,9 +4,8 @@
 <createdTime>2018-02-09 02:42:26 UTC</createdTime>
 <comment>Tracks goal achievement and reward fulfilment for each contract party</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -82,14 +81,43 @@
 <createdTime>2018-02-09 02:42:56 UTC</createdTime>
 <comment>Has the reward been delivered?</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT006</logicalDatatype>
 <domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractId1" id="C4ECFB6E-032B-1E05-6E73-E871FA05E13C">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-23 19:04:29 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>C8570598-9381-2AF3-5557-7BC4811538CB</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<referedAttribute>2985C964-7F25-1264-0AC0-ABB0EC4E2BE5</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractId2" id="CB0E1BB5-A2AF-06E3-CD2B-D938255CBDC7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-23 19:04:29 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>9E7A3940-1F87-6119-8518-92A0441F8062</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<referedAttribute>71CE7D34-8228-577E-89E5-EA9E1755498B</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
@@ -107,6 +135,8 @@
 <attributeRef>FBD402AF-BE2E-9E6A-0CEE-8BAA3792593F</attributeRef>
 <attributeRef>32407956-6832-E758-58A7-F80F278D72D7</attributeRef>
 <attributeRef>72EC26F6-6A54-7F6E-8378-A9D240618D6A</attributeRef>
+<attributeRef>C4ECFB6E-032B-1E05-6E73-E871FA05E13C</attributeRef>
+<attributeRef>CB0E1BB5-A2AF-06E3-CD2B-D938255CBDC7</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

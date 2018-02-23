@@ -4,9 +4,8 @@
 <createdTime>2017-09-23 23:54:46 UTC</createdTime>
 <comment>Parties associated with a given contract.  This includes teachers, students, as well as their roles for a given contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -55,9 +54,8 @@
 <createdTime>2017-09-24 00:04:53 UTC</createdTime>
 <comment>Party&apos;s role:&lt;br/&gt;&lt;br/&gt;MR - mentor (i.e. teacher)&lt;br/&gt;PL - primary group leader&lt;br/&gt;BL - backup group leader&lt;br/&gt;PT - participant (i.e. student)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -70,9 +68,8 @@
 <createdTime>2017-09-24 00:09:25 UTC</createdTime>
 <comment>Date/Time contract was signed by each participant&lt;br/&gt;&lt;br/&gt;Timestamp precision is used for digital signatures (i.e. student absent from class signs and accepts the contract digitally)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -85,9 +82,8 @@
 <createdTime>2018-02-21 22:49:02 UTC</createdTime>
 <comment>Person&apos;s signature for given contract.  If not specified, use DefaultSignatureScanFile from user profile</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -101,9 +97,8 @@
 <createdTime>2018-02-21 22:49:49 UTC</createdTime>
 <comment>Guardian sign timestamp.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -116,9 +111,8 @@
 <createdTime>2018-02-21 22:50:24 UTC</createdTime>
 <comment>Guardian&apos;s signature</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>

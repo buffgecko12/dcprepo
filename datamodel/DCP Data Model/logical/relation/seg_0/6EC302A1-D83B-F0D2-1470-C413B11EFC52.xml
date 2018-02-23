@@ -10,7 +10,7 @@
 <dominantRole>D845F59D-C900-01B9-9928-929807506AA3</dominantRole>
 <identifying>false</identifying>
 <optionalSource>false</optionalSource>
-<optionalTarget>true</optionalTarget>
+<optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>D845F59D-C900-01B9-9928-929807506AA3</sourceEntity>
 <targetCardinalityString>1</targetCardinalityString>

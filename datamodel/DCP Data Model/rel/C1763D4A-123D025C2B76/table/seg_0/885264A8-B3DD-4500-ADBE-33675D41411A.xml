@@ -18,7 +18,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="NextValue" id="526C31EE-F1D1-9120-B5EB-75FB9DA0DF94">
@@ -35,7 +36,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="9E5A6EB3-6FEC-8E3A-F248-0CFC4088FA2A" name="PKv3">
+<ind_PK_UK id="9E5A6EB3-6FEC-8E3A-F248-0CFC4088FA2A" name="PKv1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>07CB033F-3599-25DF-72DE-9DF9328E4F9B</generatorID>

@@ -3,9 +3,8 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 01:11:55 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -36,9 +35,8 @@
 <createdTime>2018-02-09 01:18:10 UTC</createdTime>
 <comment>Unique identifier for a contract reward</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -50,11 +48,9 @@
 <createdTime>2018-02-09 01:19:27 UTC</createdTime>
 <comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
@@ -65,9 +61,8 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 01:23:39 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -87,6 +82,7 @@
 <pk>true</pk>
 <usedAttributes>
 <attributeRef>DC4E81CD-8E48-464A-A3DA-C50D13086635</attributeRef>
+<attributeRef>2985C964-7F25-1264-0AC0-ABB0EC4E2BE5</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="56BEB667-801E-7E10-A277-A2EA94188B26" name="User">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="56BEB667-801E-7E10-A277-A2EA94188B26" name="Users">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-10-07 20:19:30 UTC</createdTime>
 <comment>User information.</comment>

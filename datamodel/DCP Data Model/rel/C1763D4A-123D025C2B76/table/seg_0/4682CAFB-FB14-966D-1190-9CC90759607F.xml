@@ -40,9 +40,9 @@
 <Column name="DifficultyLevel" id="D63DD8C8-C5E1-0907-3A5E-99A86E3A4B67">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Difficulty level of goal:&lt;br/&gt;&lt;br/&gt;E - Easy&lt;br/&gt;M - Meduim&lt;br/&gt;D - Difficult</comment>
 <generatorID>4BFD9048-9B74-384D-1F8E-B67B1BEE87FD</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
@@ -77,7 +77,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="96960B90-F0C4-2AEE-497B-6B04D6EE7213" name="PKv11">
+<ind_PK_UK id="96960B90-F0C4-2AEE-497B-6B04D6EE7213" name="PKv13">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:43 UTC</createdTime>
 <generatorID>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</generatorID>
@@ -87,6 +87,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="1F9353B4-AE72-50CE-B562-2560FD678616"/>
+<colUsage columnID="57E938D2-DABD-C7B2-150D-C2D533B6B5B4"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="76C3A720-FF09-45CD-09B6-72A0823C01F1" name="FK">

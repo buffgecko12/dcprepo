@@ -43,12 +43,11 @@
 <comment>How to display class name</comment>
 <generatorID>E17E775C-9408-A2AE-BD57-50E53C1679B6</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>50</dataTypeSize>
-<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
@@ -65,7 +64,7 @@
 <colUsage columnID="3F5483B0-8B8B-2FA7-9FB7-4FF0B6A806AA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="0EA0455B-872E-831C-8800-F995CD160B8A" name="FKv1">
+<ind_PK_UK id="0EA0455B-872E-831C-8800-F995CD160B8A" name="FKv15">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>CBBE57CE-4E0A-8171-3A36-0B29BC75BBC3</generatorID>

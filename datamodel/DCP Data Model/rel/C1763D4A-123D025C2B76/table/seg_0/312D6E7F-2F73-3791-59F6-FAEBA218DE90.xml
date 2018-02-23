@@ -75,7 +75,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="296096B4-4744-8BBA-9B4F-02990ABB3620" name="PKv1">
+<ind_PK_UK id="296096B4-4744-8BBA-9B4F-02990ABB3620" name="PKv12">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>55068D52-915D-EF5A-C313-A3FF5A6D9CE0</generatorID>
@@ -87,7 +87,18 @@
 <colUsage columnID="AE4AC5F5-6E17-46B0-7B5B-582C674843AA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="0AB7B555-319A-1789-7572-93EDFBE68C96" name="FKv11">
+<ind_PK_UK id="B8D6D6AD-2E5B-8C27-A42B-FC0803D48D5F" name="IDX">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-23 19:08:56 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>E46B0E65-6A18-EBF6-CF70-A3D18B1AA571</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="AE4AC5F5-6E17-46B0-7B5B-582C674843AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0AB7B555-319A-1789-7572-93EDFBE68C96" name="FKv5">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>E46B0E65-6A18-EBF6-CF70-A3D18B1AA571</generatorID>

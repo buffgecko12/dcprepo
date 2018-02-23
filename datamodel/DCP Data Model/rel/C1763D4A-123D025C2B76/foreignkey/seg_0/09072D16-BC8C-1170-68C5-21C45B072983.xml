@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="09072D16-BC8C-1170-68C5-21C45B072983" containerWithKeyObject="46CA7907-F029-1F11-F9E5-EA81C19D7554" localFKIndex="E9C9737E-B10A-9F60-0F5B-39F2D0FE4B9C" name="FKv7">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="09072D16-BC8C-1170-68C5-21C45B072983" containerWithKeyObject="46CA7907-F029-1F11-F9E5-EA81C19D7554" localFKIndex="E9C9737E-B10A-9F60-0F5B-39F2D0FE4B9C" name="FKv1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>7E3DB64E-CA8C-1AC3-5A97-9D8B8ECC452C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<referredTableLongName>User</referredTableLongName>
+<referredTableLongName>Users</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
 <referredTableID>6A92728E-2AB9-3A2C-00AB-726B00EB80FE</referredTableID>
 <keyObject>563CF527-089B-65B0-9C3D-A31C0EABF4A4</keyObject>

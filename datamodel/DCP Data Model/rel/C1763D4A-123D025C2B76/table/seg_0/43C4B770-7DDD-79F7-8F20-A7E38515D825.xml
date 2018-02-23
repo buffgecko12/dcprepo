@@ -42,7 +42,6 @@
 <comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
 <generatorID>8AFC272A-C63B-83CB-2E8E-019D4A268EFB</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
@@ -64,7 +63,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="1484FF55-E802-A570-558D-D2E4C239C806" name="PKv2">
+<ind_PK_UK id="1484FF55-E802-A570-558D-D2E4C239C806" name="PKv9">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>A6B9BCB9-AEDE-FA59-8001-D3E7EB07CAC7</generatorID>
@@ -74,9 +73,10 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="4B0D81A5-464E-28A5-B92A-E8C940A8E9A5"/>
+<colUsage columnID="0888F997-9A85-AB57-ECE3-62F60CA60399"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="6356C727-4DDA-8B08-7D2B-38699A7F9DBC" name="FKv13">
+<ind_PK_UK id="6356C727-4DDA-8B08-7D2B-38699A7F9DBC" name="FKv7">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>

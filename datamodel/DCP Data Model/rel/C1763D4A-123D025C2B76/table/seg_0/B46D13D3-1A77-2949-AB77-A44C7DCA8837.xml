@@ -75,7 +75,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="B48C78B6-8AB7-B342-58E9-1B490926FBB8" name="PKv4">
+<ind_PK_UK id="B48C78B6-8AB7-B342-58E9-1B490926FBB8" name="PKv2">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
