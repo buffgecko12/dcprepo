@@ -1089,8 +1089,8 @@
 		<mapping rdbms="DB2/UDB 7.1">UNKNOWN</mapping>
 	</logicaltype>
 	<logicaltype name="TSTZRANGE" objectid="A00CF224-8E47-8D8C-EB8C-54250C2E4A82">
-		<mapping rdbms="Oracle Database 12cR2">UNKNOWN</mapping>
-		<mapping rdbms="Oracle Database 12c">UNKNOWN</mapping>
+		<mapping rdbms="Oracle Database 12cR2">TSTZRANGE</mapping>
+		<mapping rdbms="Oracle Database 12c">TSTZRANGE</mapping>
 		<mapping rdbms="Oracle Database 11g">UNKNOWN</mapping>
 		<mapping rdbms="Oracle Database 10g">UNKNOWN</mapping>
 		<mapping rdbms="Oracle9i">UNKNOWN</mapping>
