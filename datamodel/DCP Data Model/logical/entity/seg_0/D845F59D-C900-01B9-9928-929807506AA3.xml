@@ -4,8 +4,9 @@
 <createdTime>2018-02-09 18:13:06 UTC</createdTime>
 <comment>Class info</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -21,8 +22,9 @@
 <createdTime>2018-02-09 18:13:56 UTC</createdTime>
 <comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -36,7 +38,7 @@
 <generatorID>CBBE57CE-4E0A-8171-3A36-0B29BC75BBC3</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>DE50E935-F766-241A-7FA9-9FD7B63A3E11</referedAttribute>
 <use>0</use>
@@ -49,8 +51,9 @@
 <createdTime>2018-02-09 18:16:12 UTC</createdTime>
 <comment>How to display class name</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -65,8 +68,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:14:02 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -44,12 +44,23 @@
 <comment>Type of contract:&lt;br/&gt;&lt;br/&gt;I = individual&lt;br/&gt;G = group&lt;br/&gt;C = class</comment>
 <generatorID>F902E7A4-A135-7311-17AA-C6FCF2BA1849</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>1</dataTypeSize>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TeacherUserId" id="E30003E0-012C-B06F-F778-273C723673C5">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 23:17:15 UTC</createdTime>
+<comment>UserId of teacher associated with contract</comment>
+<generatorID>C23E1A4D-57BD-8729-842C-E0FB4D8E4BDF</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ContractValidPeriod" id="3A2398C1-13AA-5C1A-D997-FD8D0BD8D36E">
@@ -58,10 +69,9 @@
 <comment>Valid time for contract</comment>
 <generatorID>D1A3DBA2-5A9A-E424-0453-F16C46654A3F</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>5141DEA3-7D25-005A-2775-C21570375D0E</logicalDatatype>
+<logicalDatatype>A00CF224-8E47-8D8C-EB8C-54250C2E4A82</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -71,6 +81,7 @@
 <comment>Revision deadline timestamp</comment>
 <generatorID>D91C11FA-130D-2DAE-473F-41F5D78AD37B</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
 <use>0</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
@@ -118,7 +129,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="563042AA-B9C2-3FB3-A361-D58C468197E8" name="PKv1">
+<ind_PK_UK id="563042AA-B9C2-3FB3-A361-D58C468197E8" name="PKv10">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:43 UTC</createdTime>
 <generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
@@ -130,7 +141,7 @@
 <colUsage columnID="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="8008798F-FD69-C577-7784-99B59C2E935C" name="FKv12">
+<ind_PK_UK id="8008798F-FD69-C577-7784-99B59C2E935C" name="FKv5">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>FDE1345D-E6C5-7DA6-2908-A219E4A6C1C7</generatorID>

@@ -53,12 +53,24 @@
 <engineerTo>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>1</dataTypeSize>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TeacherUserId" id="C23E1A4D-57BD-8729-842C-E0FB4D8E4BDF">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:54:26 UTC</createdTime>
+<comment>UserId of teacher associated with contract</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="ContractValidPeriod" id="D1A3DBA2-5A9A-E424-0453-F16C46654A3F">
 <createdBy>ravioli</createdBy>
@@ -68,10 +80,9 @@
 <engineerTo>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>5141DEA3-7D25-005A-2775-C21570375D0E</logicalDatatype>
+<logicalDatatype>A00CF224-8E47-8D8C-EB8C-54250C2E4A82</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="RevisionDeadlineTS" id="D91C11FA-130D-2DAE-473F-41F5D78AD37B">
@@ -82,9 +93,9 @@
 <engineerTo>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="StudentLeaderRequirements" id="BF0E9F69-56B4-735B-BF3F-A76067F4D1A3">

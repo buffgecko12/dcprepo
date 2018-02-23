@@ -3,8 +3,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 01:11:55 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,7 +23,7 @@
 <generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
 <use>0</use>
@@ -35,8 +36,9 @@
 <createdTime>2018-02-09 01:18:10 UTC</createdTime>
 <comment>Unique identifier for a contract reward</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -48,8 +50,9 @@
 <createdTime>2018-02-09 01:19:27 UTC</createdTime>
 <comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -62,8 +65,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 01:23:39 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -78,7 +82,7 @@
 <createdTime>2018-02-09 01:12:34 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="E3EBCCF4-5EBE-5564-29A5-3EA849B14699" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

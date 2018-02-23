@@ -4,8 +4,9 @@
 <createdTime>2018-02-09 19:08:44 UTC</createdTime>
 <comment>Classes assigned to a teacher</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,7 +24,7 @@
 <generatorID>0083C51F-AEF3-C38A-140F-8F8B708A60D6</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>89176FB4-BCE1-7CD6-2BEC-EC1B582D251F</referedAttribute>
 <use>0</use>
@@ -39,7 +40,7 @@
 <generatorID>2175B2FB-D731-DFA4-89E6-640A2D707181</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>3C27C694-F68D-EDEE-0847-C80552BE9FC7</referedAttribute>
 <use>0</use>
@@ -54,7 +55,7 @@
 <createdTime>2018-02-09 19:10:25 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

@@ -44,7 +44,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="C4ABF852-DF98-1206-A865-52AC9A20A8B8" name="PKv10">
+<ind_PK_UK id="C4ABF852-DF98-1206-A865-52AC9A20A8B8" name="PKv6">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>1A14B9E9-4DA1-39BA-F19A-33FDBF6CDB01</generatorID>
@@ -67,7 +67,7 @@
 <colUsage columnID="AE880D06-8547-249D-104B-63D117729E2C"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="54BB2B1B-223C-E38A-BFCF-7CDAB42DBC21" name="FKv2">
+<ind_PK_UK id="54BB2B1B-223C-E38A-BFCF-7CDAB42DBC21" name="FKv10">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>8E7EF377-DE20-7FDD-AEEB-318C4BCA752D</generatorID>
@@ -78,7 +78,7 @@
 <colUsage columnID="081FFC6F-F3AE-F0FD-667D-4946CDF7EADC"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="11F1CE94-AD70-8A76-916A-BC2B3CB5B7BA" name="FKv9">
+<ind_PK_UK id="11F1CE94-AD70-8A76-916A-BC2B3CB5B7BA" name="FKv2">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>6EC302A1-D83B-F0D2-1470-C413B11EFC52</generatorID>

@@ -4,8 +4,9 @@
 <createdTime>2018-02-09 02:42:26 UTC</createdTime>
 <comment>Tracks goal achievement and reward fulfilment for each contract party</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,7 +24,7 @@
 <generatorID>42135B1B-1485-F363-CF82-A3B0F5E5ED95</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>85F341F0-CF92-D257-12D6-02885C0B7D60</referedAttribute>
 <use>0</use>
@@ -38,7 +39,7 @@
 <generatorID>42135B1B-1485-F363-CF82-A3B0F5E5ED95</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>A2904F6A-3049-DD03-C604-74D3D0953153</referedAttribute>
 <use>0</use>
@@ -53,7 +54,7 @@
 <generatorID>9E7A3940-1F87-6119-8518-92A0441F8062</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>30734726-4BEB-576D-FEDD-CB5068F5BF83</referedAttribute>
 <use>0</use>
@@ -68,7 +69,7 @@
 <generatorID>C8570598-9381-2AF3-5557-7BC4811538CB</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>DC4E81CD-8E48-464A-A3DA-C50D13086635</referedAttribute>
 <use>0</use>
@@ -81,8 +82,9 @@
 <createdTime>2018-02-09 02:42:56 UTC</createdTime>
 <comment>Has the reward been delivered?</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -97,7 +99,7 @@
 <createdTime>2018-02-09 02:44:06 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="531EB24B-FEB5-77C7-AE2C-A98C9DBB7C87" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

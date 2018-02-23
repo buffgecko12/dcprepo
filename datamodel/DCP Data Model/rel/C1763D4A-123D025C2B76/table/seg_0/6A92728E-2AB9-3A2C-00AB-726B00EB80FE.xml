@@ -21,6 +21,19 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="UserName" id="E119B9ED-0798-4D93-44AF-A35A5E3F9341">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>User-specifid user name</comment>
+<generatorID>F585BE06-9C3D-07CE-C44E-9D8C76610F99</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="UserType" id="F7DDA05D-C951-7C00-5423-255CBBB83209">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
@@ -61,7 +74,7 @@
 <Column name="DefaultSignatureScanFile" id="3109F716-0954-F5FB-CAEF-A7CCF69C4125">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
-<comment>Scanned image of person&apos;s signature.&lt;br/&gt;&lt;br/&gt;To be used to re-create digital version of contract.</comment>
+<comment>Scanned image of person&apos;s signature to be used to generate contract digitally.&lt;br/&gt;&lt;br/&gt;This field to be used if user doesn&apos;t provide new signature for a contract.</comment>
 <generatorID>3ABDD3ED-45F8-F5F9-C2D1-707A4C970C8B</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -71,9 +84,64 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="PhoneNumber" id="EC95E675-39FB-0834-A291-1A7416A07495">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Phone number</comment>
+<generatorID>56735B68-31C2-9990-DD36-B3CC624B06B3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EmailAddress" id="391B28E1-81C7-8611-A012-A1C42AF35971">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Email address</comment>
+<generatorID>43CD1392-8BC4-0CAC-F148-04BE7A9510F0</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Password" id="F8402895-07B5-25B5-6ECC-3C2F9B24FC41">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Hashed password value</comment>
+<generatorID>B54B64A0-350D-CBF9-C061-38961BE45BA8</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>128</dataTypeSize>
+<ownDataTypeParameters>128,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Last_Login" id="E69EE358-54B1-6913-04FC-1D4034EFF198">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Last login timestamp</comment>
+<generatorID>5C02A1AC-EB84-2797-88D5-E86C6E401121</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="563CF527-089B-65B0-9C3D-A31C0EABF4A4" name="PKv9">
+<ind_PK_UK id="563CF527-089B-65B0-9C3D-A31C0EABF4A4" name="PKv5">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 01:24:44 UTC</createdTime>
 <generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
