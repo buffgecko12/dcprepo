@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="domains">
+   <domains>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Comments" id="20CA4969-5802-ECAB-5E54-965AC0DBF9F6">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-10-09 20:40:15 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypeSize>1000</dataTypeSize>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Name (Person)" id="5487AEA6-53D6-4440-3BD0-194C9422F683">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-10-07 14:59:31 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypeSize>100</dataTypeSize>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Flag" id="57E9802B-A079-FA56-0EDD-CC9E619EEE7D">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-10-09 20:38:31 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT006</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Timestamp" id="6D3F6CFE-F371-A990-DB03-067F7194548D">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-09-23 22:38:46 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>6</dataTypePrecision>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT046</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="DescriptionField" id="8318227B-30D2-3AFF-2886-6E1C37B7339C">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-09-24 20:44:08 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypeSize>500</dataTypeSize>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="UserId" id="8E4A1998-36C6-B109-7E74-8436D3D13074">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-09-23 22:22:57 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT011</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="BinaryField" id="906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-10-07 15:47:54 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT029</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="ObjectID" id="C156DD6B-7DE0-3155-0140-EBC7D983755A">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-09-23 23:04:55 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT011</logicalDatatype>
+         <checkConstraint>
+            <implementationDef dbType="Generic Constraint" definition="%column% IS NOT NULL"/>
+         </checkConstraint>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Unknown" id="DOM3000004">
+         <createdBy>ravioli</createdBy>
+         <createdTime>2017-09-23 22:15:28 UTC</createdTime>
+         <ownerDesignName>System</ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>defaultdomains</fileName>
+         <logicalDatatype>LOGDT017</logicalDatatype>
+      </Domain>
+   </domains>
+</DomainFile>
