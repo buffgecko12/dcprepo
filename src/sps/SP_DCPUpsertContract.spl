@@ -7,9 +7,9 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
     pClassId VARCHAR(50),
+    pContractType CHAR(1),
     pTeacherUserId INTEGER,
-    pContractStartTS TIMESTAMP WITH TIME ZONE,
-    pContractEndTS TIMESTAMP WITH TIME ZONE,
+    pContractValidPeriod TSTZRANGE,
     pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
     pStudentLeaderRequirements VARCHAR(500),
     pTeacherRequirements VARCHAR(500),
@@ -39,15 +39,15 @@ BEGIN
 	END IF;
 
 	-- S1: Upsert Contract Info
-	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, TeacherUserId, ContractStartTS, ContractEndTS, RevisionDeadlineTS,  
+	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, RevisionDeadlineTS,  
 	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements)
-    VALUES(pContractId, pClassId, pTeacherUserId, pContractStartTS, pContractEndTS, pRevisionDeadlineTS, pStudentLeaderRequirements, 
+    VALUES(pContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pRevisionDeadlineTS, pStudentLeaderRequirements, 
       pTeacherRequirements, pStudentRequirements)
     ON CONFLICT (ContractId) DO UPDATE SET
         ClassId = pClassId,
+        ContractType = pContractType,
         TeacherUserId = pTeacherUserId,
-	    ContractStartTS = pContractStartTS,
-	    ContractEndTS = pContractEndTS,
+	    ContractValidPeriod = pContractValidPeriod,
 	    RevisionDeadlineTS = pRevisionDeadlineTS,
 	    StudentLeaderRequirements = pStudentLeaderRequirements,
 	    TeacherRequirements = pTeacherRequirements,
@@ -67,7 +67,7 @@ BEGIN
     END IF;
     
     -- S2b: Merge contract goals/rewards info
-    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, GoalDescription, RewardDescription, AchievedFlag, RewardDeliveredFlag, Comments)
+    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AchievedFlag)
 	SELECT 
         pContractId,
         COALESCE(
@@ -75,26 +75,20 @@ BEGIN
             COALESCE((SELECT MAX(GoalId) FROM $DB_NAME$.Contract_Goal WHERE ContractId = pContractId), 0) + -- Get max GoalId for this contract
             ROW_NUMBER() OVER(PARTITION BY src.GoalId /* GROUP NULLs (new goals) into same partition */ ORDER BY src.GoalId) -- Generate new GoalId values
         ) AS NewGoalId,
-	    src.goalDescription, 
-	    src.RewardDescription,
-	    src.AchievedFlag,
-	    src.RewardDeliveredFlag,
-	    src.Comments
+        src.DifficultyLevel,
+	    src.GoalDescription, 
+	    src.AchievedFlag
 	FROM JSONB_TO_RECORDSET(pGoalsRewardsJSON->'currentgoals')
 	  AS src(
 	   goalId INTEGER, 
+	   DifficultyLevel CHAR(1),
 	   GoalDescription VARCHAR(500), 
-	   RewardDescription VARCHAR(500),
-	   AchievedFlag BOOLEAN,
-	   RewardDeliveredFlag BOOLEAN,
-	   Comments VARCHAR(1000)
+	   AchievedFlag BOOLEAN
    ) -- Be careful with case-sensitivity with PG (use all lower-case to be safe)    
     ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
+		DifficultyLevel = EXCLUDED.DifficultyLevel,
         GoalDescription = EXCLUDED.GoalDescription,
-        RewardDescription = EXCLUDED.RewardDescription,
-        AchievedFlag = EXCLUDED.AchievedFlag, 
-        RewardDeliveredFlag = EXCLUDED.AchievedFlag,
-        Comments = EXCLUDED.Comments -- "excluded" stores rows that could not be inserted
+        AchievedFlag = EXCLUDED.AchievedFlag -- "excluded" stores rows that could not be inserted
     ;
 
     -- S3a: Auto-register new users (??)
@@ -113,14 +107,15 @@ BEGIN
     END IF;
     
     -- S3c: Merge participant info
-    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, SignatureTS)
-	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS
+    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, SignatureTS, GuardianSignatureTS)
+	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS, src.GuardianSignatureTS
 	FROM JSONB_TO_RECORDSET(pParticipantsJSON->'participants') 
-	   AS src (userid INTEGER, contractrole CHAR(2), signaturets TIMESTAMP WITH TIME ZONE)
-	INNER JOIN $DB_NAME$.Users u ON src.userId = u.userId -- Only include users that are already registered
+	   AS src (UserId INTEGER, ContractRole CHAR(2), SignatureTS TIMESTAMP WITH TIME ZONE, GuardianSignatureTS TIMESTAMP WITH TIME ZONE)
+	INNER JOIN $DB_NAME$.Users u ON src.UserId = u.UserId -- Only include users that are already registered
 	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
 		ContractRole = EXCLUDED.ContractRole,
-		SignatureTS = EXCLUDED.SignatureTS    
+		SignatureTS = EXCLUDED.SignatureTS,
+		GuardianSignatureTS = EXCLUDED.SignatureTS
 	;
 	
 	-- Return the contractId (used if newly created)

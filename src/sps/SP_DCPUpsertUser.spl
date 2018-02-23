@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
     pUserType CHAR(1), 
     pFirstName VARCHAR(100), 
     pLastName VARCHAR(100), 
-    pSignatureScanFile BYTEA,
+    pDefaultSignatureScanFile BYTEA,
     pPhoneNumber VARCHAR(25),
     pEmailAddress VARCHAR(250),
     pPassword VARCHAR(128),
@@ -24,7 +24,7 @@ BEGIN
     
     -- Merge in new user
     INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
-    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
+    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
