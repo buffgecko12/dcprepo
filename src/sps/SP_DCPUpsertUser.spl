@@ -23,12 +23,12 @@ BEGIN
     FOR UPDATE; -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
     
     -- Merge in new user
-    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, SignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
+    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
     VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
-	    SignatureScanFile = EXCLUDED.SignatureScanFile,
+	    DefaultSignatureScanFile = EXCLUDED.DefaultSignatureScanFile,
         UserName = EXCLUDED.UserName,
         UserType = EXCLUDED.UserType,
 	    PhoneNumber = EXCLUDED.PhoneNumber,

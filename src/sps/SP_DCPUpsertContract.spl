@@ -8,16 +8,14 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
     pClassId VARCHAR(50),
     pTeacherUserId INTEGER,
-    pContractStartTS TIMESTAMPTZ,
-    pContractEndTS TIMESTAMPTZ,
-    pRevisionDeadlineTS TIMESTAMPTZ,
-    pRewardNotes VARCHAR(500),
+    pContractStartTS TIMESTAMP WITH TIME ZONE,
+    pContractEndTS TIMESTAMP WITH TIME ZONE,
+    pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
     pStudentLeaderRequirements VARCHAR(500),
     pTeacherRequirements VARCHAR(500),
     pStudentRequirements VARCHAR(500),
     pGoalsRewardsJSON JSONB,
-    pParticipantsJSON JSONB,
-    pContractScanFile BYTEA
+    pParticipantsJSON JSONB
 ) 
 RETURNS INTEGER
 AS
@@ -41,21 +39,19 @@ BEGIN
 	END IF;
 
 	-- S1: Upsert Contract Info
-	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, TeacherUserId, ContractStartTS, ContractEndTS, RevisionDeadlineTS, RewardNotes, 
-	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
-    VALUES(pContractId, pClassId, pTeacherUserId, pContractStartTS, pContractEndTS, pRevisionDeadlineTS, pRewardNotes, pStudentLeaderRequirements, 
-      pTeacherRequirements, pStudentRequirements, pContractScanFile)
+	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, TeacherUserId, ContractStartTS, ContractEndTS, RevisionDeadlineTS,  
+	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements)
+    VALUES(pContractId, pClassId, pTeacherUserId, pContractStartTS, pContractEndTS, pRevisionDeadlineTS, pStudentLeaderRequirements, 
+      pTeacherRequirements, pStudentRequirements)
     ON CONFLICT (ContractId) DO UPDATE SET
         ClassId = pClassId,
         TeacherUserId = pTeacherUserId,
 	    ContractStartTS = pContractStartTS,
 	    ContractEndTS = pContractEndTS,
 	    RevisionDeadlineTS = pRevisionDeadlineTS,
-	    RewardNotes = pRewardNotes,
 	    StudentLeaderRequirements = pStudentLeaderRequirements,
 	    TeacherRequirements = pTeacherRequirements,
-	    StudentRequirements = pStudentRequirements,
-	    ContractScanFile = pContractScanFile
+	    StudentRequirements = pStudentRequirements
     ;
 
     -- S2a: Delete old goals (if applicable)
@@ -120,7 +116,7 @@ BEGIN
     INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, SignatureTS)
 	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS
 	FROM JSONB_TO_RECORDSET(pParticipantsJSON->'participants') 
-	   AS src (userid INTEGER, contractrole CHAR(2), signaturets TIMESTAMPTZ)
+	   AS src (userid INTEGER, contractrole CHAR(2), signaturets TIMESTAMP WITH TIME ZONE)
 	INNER JOIN $DB_NAME$.Users u ON src.userId = u.userId -- Only include users that are already registered
 	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
 		ContractRole = EXCLUDED.ContractRole,

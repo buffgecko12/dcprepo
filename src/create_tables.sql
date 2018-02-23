@@ -1,3 +1,5 @@
+-- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
+
 -- Create tables
 CREATE TABLE $DB_NAME$.Users (
     UserId INTEGER NOT NULL,
@@ -5,11 +7,11 @@ CREATE TABLE $DB_NAME$.Users (
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
-    SignatureScanFile BYTEA,
+    DefaultSignatureScanFile BYTEA,
     PhoneNumber VARCHAR(25),
     EmailAddress VARCHAR(250),
     Password VARCHAR(128),
-    Last_Login TIMESTAMPTZ,
+    Last_Login TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId)
 );
@@ -17,15 +19,13 @@ CREATE TABLE $DB_NAME$.Users (
 CREATE TABLE $DB_NAME$.Contract (
     ContractId INTEGER NOT NULL,
     ClassId VARCHAR(50) NOT NULL,
+    ContractType CHAR(1) NOT NULL DEFAULT 'G',
     TeacherUserId INTEGER NOT NULL,
-    ContractStartTS TIMESTAMPTZ NOT NULL,
-    ContractEndTS TIMESTAMPTZ NOT NULL,
-    RevisionDeadlineTS TIMESTAMPTZ NOT NULL,
-    RewardNotes VARCHAR(500),
+    ContractValidPeriod TSTZRANGE NOT NULL,
+    RevisionDeadlineTS TIMESTAMP WITH TIME ZONE NOT NULL,
     StudentLeaderRequirements VARCHAR(500),
     TeacherRequirements VARCHAR(500),
-    StudentRequirements VARCHAR(500),
-    ContractScanFile BYTEA, -- Same as BLOB data type
+    StudentRequirements VARCHAR(500)
     PRIMARY KEY (ContractId),
     FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId)
 );
@@ -46,7 +46,7 @@ CREATE TABLE $DB_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
     PartyUserId INTEGER NOT NULL,
     ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
-    SignatureTS TIMESTAMPTZ,
+    SignatureTS TIMESTAMP WITH TIME ZONE,
     PRIMARY KEY (ContractId, PartyUserId),
     FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract(ContractId),
     FOREIGN KEY (PartyUserId) REFERENCES $DB_NAME$.Users(UserId)    
