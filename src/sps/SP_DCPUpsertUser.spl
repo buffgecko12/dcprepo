@@ -1,5 +1,4 @@
--- TO-DO: Tighten up logic for returning/incrementing UserId values
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
     pUserId INTEGER, 
     pUserName VARCHAR(50), 
     pUserType CHAR(1), 
@@ -12,17 +11,27 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
     pLast_Login TIMESTAMPTZ
 ) 
 RETURNS INTEGER AS
-$$
+$BODY$
 DECLARE NewUserId INTEGER; -- Track how many new users were created
 BEGIN   
-        
-    -- Get new userid
-    SELECT NextValue INTO NewUserId
-    FROM $DB_NAME$.NextId
-    WHERE IdType = 'User'
-    FOR UPDATE; -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
+
+	-- Get next userid value (for new user only)
+	IF(NewUserId IS NULL) THEN
+		-- Get next userid
+	    SELECT NextValue INTO NewUserId
+	    FROM $DB_NAME$.NextId
+	    WHERE IdType = 'User'
+	    FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
+		;
+		
+	    -- Increment UserId value
+	    UPDATE $DB_NAME$.NextId
+	    SET NextValue = NextValue + 1
+	    WHERE IdType = 'User'
+	    ;		
+    END IF;
     
-    -- Merge in new user
+    -- Upsert user
     INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
     VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
@@ -33,17 +42,12 @@ BEGIN
         UserType = EXCLUDED.UserType,
 	    PhoneNumber = EXCLUDED.PhoneNumber,
 	    EmailAddress = EXCLUDED.EmailAddress,
-	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow NULL once set)
-	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow NULL once set)
+	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
+	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
     ;   
     
-    -- Increment UserId value
-    UPDATE $DB_NAME$.NextId
-    SET NextValue = NextValue + CASE WHEN pUserId IS NULL THEN 1 ELSE 0 END
-    WHERE IdType = 'User'
-    ;   
-    
+	-- Return new userid (if new user)
     RETURN NewUserId;   
 END;
-$$
+$BODY$
 LANGUAGE 'plpgsql';

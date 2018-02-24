@@ -1,32 +1,26 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
-    pUserId INTEGER, 
-    pUserIdListJSON JSONB -- Use user data from here if provided
+    pUserId INTEGER
 ) 
 RETURNS VOID AS
-$$
+$BODY$
 BEGIN	
 
-	-- Look at adding DeletedTS flag
-	-- Look at handling case of child tables (contract_party, contract)
-	
-    -- Delete user(s)
-	DELETE FROM $DB_NAME$.Users
-	WHERE UserId IN (
-	    -- Single user delete (ignore JSON)
-	    SELECT pUserId WHERE pUserId IS NOT NULL
+	-- TO-DO: Create separate "DeactivateUser" SP --> Set DeactivatedTS
 
-	    UNION ALL
+	-- Cascaded DELETEs (must delete from child tables first)
+	-- Retain objects associated with user (set user = deactivated user)
+	UPDATE $DB_NAME$.Contract_Party_Goal_Reward SET PartyUserId = 0 WHERE PartyUserId = pUserId;
+	UPDATE $DB_NAME$.Contract_Party SET PartyUserId = 0 WHERE PartyUserId = pUserId;
+	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0 WHERE TeacherUserId = pUserId; 
 
-	    -- Bulk user delete (only look at JSON parameter)
-        SELECT CAST(
-            JSONB_ARRAY_ELEMENTS_TEXT(pUserIdListJSON->'userids') AS INTEGER
-        ) AS UserId
-		WHERE pUserIdListJSON IS NOT NULL
-	)
-	;
-	
+	-- Delete user info
+	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
+	DELETE FROM $DB_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
+	DELETE FROM $DB_NAME$.User_Student WHERE StudentUserId = pUserId;
+	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
+		
 -- Ignore foreign key violation errors
 EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
-$$
+$BODY$
 LANGUAGE 'plpgsql';
