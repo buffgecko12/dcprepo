@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
     pUserId INTEGER
 ) 
 RETURNS VOID AS
-$BODY$
+$$
 BEGIN	
 
 	-- TO-DO: Create separate "DeactivateUser" SP --> Set DeactivatedTS
@@ -22,5 +22,5 @@ BEGIN
 -- Ignore foreign key violation errors
 EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
-$BODY$
+$$
 LANGUAGE 'plpgsql';

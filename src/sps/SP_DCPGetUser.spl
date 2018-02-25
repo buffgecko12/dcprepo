@@ -9,7 +9,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUser(
 )
 RETURNS SETOF $DB_NAME$Views.Users
 AS
-$BODY$
+$$
 BEGIN
     RETURN QUERY
     SELECT UserId, Username, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login
@@ -19,5 +19,5 @@ BEGIN
     AND (Username = pUsername OR pUsername IS NULL)
     ;
 END;
-$BODY$
+$$
 LANGUAGE 'plpgsql';

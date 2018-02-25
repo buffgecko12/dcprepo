@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
     pLast_Login TIMESTAMPTZ
 ) 
 RETURNS INTEGER AS
-$BODY$
+$$
 DECLARE NewUserId INTEGER; -- Track how many new users were created
 BEGIN   
 
@@ -49,5 +49,5 @@ BEGIN
 	-- Return new userid (if new user)
     RETURN NewUserId;   
 END;
-$BODY$
+$$
 LANGUAGE 'plpgsql';
