@@ -145,10 +145,6 @@ CREATE TABLE $DB_NAME$.NextId (
     PRIMARY KEY (IDType)
 );
 
--- SAMPLE TABLE
+-- Sample table
 CREATE TABLE $DB_NAME$.t1 (c1 VARCHAR(100));
 INSERT INTO $DB_NAME$.t1 (c1) VALUES('$DB_CHECK_VALUE$');
-
--- Load default values
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('Contract', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('User', 1);

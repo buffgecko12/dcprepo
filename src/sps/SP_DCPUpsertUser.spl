@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
     pUserId INTEGER, 
     pUserName VARCHAR(50), 
-    pUserType CHAR(1), 
+    pUserType CHAR(2), 
     pFirstName VARCHAR(100), 
     pLastName VARCHAR(100), 
     pDefaultSignatureScanFile BYTEA,
@@ -16,7 +16,7 @@ DECLARE NewUserId INTEGER; -- Track how many new users were created
 BEGIN   
 
 	-- Get next userid value (for new user only)
-	IF(NewUserId IS NULL) THEN
+	IF(pUserId IS NULL) THEN
 		-- Get next userid
 	    SELECT NextValue INTO NewUserId
 	    FROM $DB_NAME$.NextId

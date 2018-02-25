@@ -4,9 +4,6 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
 RETURNS VOID AS
 $$
 BEGIN	
-
-	-- TO-DO: Create separate "DeactivateUser" SP --> Set DeactivatedTS
-
 	-- Cascaded DELETEs (must delete from child tables first)
 	-- Retain objects associated with user (set user = deactivated user)
 	UPDATE $DB_NAME$.Contract_Party_Goal_Reward SET PartyUserId = 0 WHERE PartyUserId = pUserId;
