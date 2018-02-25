@@ -13,6 +13,7 @@ CREATE TABLE $DB_NAME$.Users (
     EmailAddress VARCHAR(250),
     Password VARCHAR(128),
     Last_Login TIMESTAMP WITH TIME ZONE,
+    DeactivatedTS TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId)
 );

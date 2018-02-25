@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeactivateUser (
+    pUserId INTEGER
+) 
+RETURNS VOID AS
+$$
+BEGIN	
+
+	-- Set DeactivatedTS value
+	UPDATE $DB_NAME$.Users 
+	SET DeactivatedTS = current_timestamp
+	WHERE UserId = pUserId
+	;
+		
+END;
+$$
+LANGUAGE 'plpgsql';
