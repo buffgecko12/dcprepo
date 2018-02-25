@@ -5,6 +5,7 @@
 <comment>Parties associated with a given contract.  This includes teachers, students, as well as their roles for a given contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -23,6 +24,7 @@
 <generatorID>8FC3DACF-33A5-3EA6-FA8A-F9771145F596</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
@@ -39,6 +41,7 @@
 <generatorID>7E3DB64E-CA8C-1AC3-5A97-9D8B8ECC452C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
@@ -55,6 +58,7 @@
 <comment>Party&apos;s role:&lt;br/&gt;&lt;br/&gt;MR - mentor (i.e. teacher)&lt;br/&gt;PL - primary group leader&lt;br/&gt;BL - backup group leader&lt;br/&gt;PT - participant (i.e. student)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
@@ -69,6 +73,7 @@
 <comment>Date/Time contract was signed by each participant&lt;br/&gt;&lt;br/&gt;Timestamp precision is used for digital signatures (i.e. student absent from class signs and accepts the contract digitally)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -83,6 +88,7 @@
 <comment>Person&apos;s signature for given contract.  If not specified, use DefaultSignatureScanFile from user profile</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -98,6 +104,7 @@
 <comment>Guardian sign timestamp.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -112,6 +119,7 @@
 <comment>Guardian&apos;s signature</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -127,6 +135,7 @@
 <createdTime>2017-09-24 21:28:58 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>

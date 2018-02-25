@@ -5,6 +5,7 @@
 <comment>Goals and rewards associated with a contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -23,6 +24,7 @@
 <generatorID>630FA4FA-92CB-0ABB-3D95-9D3290CA5F9C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
@@ -37,6 +39,7 @@
 <comment>Unique identifier for a goal</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -50,6 +53,7 @@
 <comment>Difficulty level of goal:&lt;br/&gt;&lt;br/&gt;E - Easy&lt;br/&gt;M - Meduim&lt;br/&gt;D - Difficult</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
@@ -64,6 +68,7 @@
 <comment>Description of contract goal.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -77,6 +82,7 @@
 <comment>Was the goal achieved?</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -92,6 +98,7 @@
 <createdTime>2017-09-24 21:18:22 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>

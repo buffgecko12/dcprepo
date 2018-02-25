@@ -5,6 +5,7 @@
 <comment>Contract revision details</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -23,6 +24,7 @@
 <generatorID>E46B0E65-6A18-EBF6-CF70-A3D18B1AA571</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
@@ -37,6 +39,7 @@
 <comment>Description of revisions made to original contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -50,6 +53,7 @@
 <comment>Timestamp of when revision was approved	</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -63,6 +67,7 @@
 <comment>UserId of teacher who approved the revision</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -76,6 +81,7 @@
 <comment>UserId of student group leader who approved revision</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -90,6 +96,7 @@
 <createdTime>2017-09-29 00:54:17 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>

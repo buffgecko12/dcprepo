@@ -4,6 +4,7 @@
 <createdTime>2018-02-09 01:11:55 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -22,6 +23,7 @@
 <generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
@@ -36,6 +38,7 @@
 <comment>Unique identifier for a contract reward</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
@@ -49,6 +52,7 @@
 <comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
@@ -62,6 +66,7 @@
 <createdTime>2018-02-09 01:23:39 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
@@ -77,6 +82,7 @@
 <createdTime>2018-02-09 01:12:34 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>
