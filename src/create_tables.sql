@@ -1,23 +1,6 @@
 -- Tables must be created in correct order to allow for referential integrity constraints
 -- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
 
--- User profiles
-CREATE TABLE $DB_NAME$.Users (
-    UserId INTEGER NOT NULL,
-    UserName VARCHAR(50),
-    UserType CHAR(2) NOT NULL DEFAULT 'ST',
-    FirstName VARCHAR(100) NOT NULL,
-    LastName VARCHAR(100) NOT NULL,
-    DefaultSignatureScanFile BYTEA,
-    PhoneNumber VARCHAR(25),
-    EmailAddress VARCHAR(250),
-    Password VARCHAR(128),
-    Last_Login TIMESTAMP WITH TIME ZONE,
-    DeactivatedTS TIMESTAMP WITH TIME ZONE,
-    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
-    PRIMARY KEY(UserId)
-);
-
 -- Schools
 CREATE TABLE $DB_NAME$.School (
 	SchoolId INTEGER NOT NULL,
@@ -35,6 +18,23 @@ CREATE TABLE $DB_NAME$.Class (
 	ClassDisplayName VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ClassId),
 	FOREIGN KEY (SchoolId) REFERENCES $DB_NAME$.School (SchoolId)
+);
+
+-- User profiles
+CREATE TABLE $DB_NAME$.Users (
+    UserId INTEGER NOT NULL,
+    UserName VARCHAR(50),
+    UserType CHAR(2) NOT NULL DEFAULT 'ST',
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    DefaultSignatureScanFile BYTEA,
+    PhoneNumber VARCHAR(25),
+    EmailAddress VARCHAR(250),
+    Password VARCHAR(128),
+    Last_Login TIMESTAMP WITH TIME ZONE,
+    DeactivatedTS TIMESTAMP WITH TIME ZONE,
+    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
+    PRIMARY KEY(UserId)
 );
 
 -- Additional teacher user info
