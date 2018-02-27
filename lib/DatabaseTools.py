@@ -24,7 +24,7 @@ def RunSQLFile(server, user, password, database, encoding, source_file, output_f
         print (display_msg)
 
     # Execute file
-    process = ExecuteProcess('psql -L ' + output_file + ' -f ' + source_file + ' ' + database + ' ' + user, wait_flag, my_env)
+    process = ExecuteProcess('psql -h ' + server + ' -L ' + output_file + ' -f ' + source_file + ' ' + database + ' ' + user, wait_flag, my_env)
 
     print("")
     return process
