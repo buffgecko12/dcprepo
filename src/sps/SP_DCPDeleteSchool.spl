@@ -1,23 +1,22 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
-    pUserId INTEGER
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteSchool (
+    pSchoolId INTEGER
 ) 
-RETURNS VOID AS
-$$
+RETURNS VOID AS $$
+DECLARE 
+	myclass RECORD;
 BEGIN	
 	-- Cascaded DELETEs (must delete from child tables first)
-	-- Retain objects associated with user (set user = deactivated user)
-	UPDATE $DB_NAME$.Contract_Party_Goal_Reward SET PartyUserId = 0 WHERE PartyUserId = pUserId;
-	UPDATE $DB_NAME$.Contract_Party SET PartyUserId = 0 WHERE PartyUserId = pUserId;
-	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0 WHERE TeacherUserId = pUserId; 
-
-	-- Delete user info
-	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
-	DELETE FROM $DB_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
-	DELETE FROM $DB_NAME$.User_Student WHERE StudentUserId = pUserId;
-	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
+	-- Delete all classes associated with school
+	FOR myclass IN 
+		SELECT ClassId FROM $DB_NAME$.Class WHERE SchoolId = pSchoolId
+	LOOP
+		PERFORM $DB_NAME$Views.SP_DCPDeleteClass(myclass.ClassId); -- PERFORM runs function and discards the results
+	END LOOP;
+	
+	-- Delete school
+	DELETE FROM $DB_NAME$.School WHERE SchoolId = pSchoolId;
 		
 -- Ignore foreign key violation errors
 EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
