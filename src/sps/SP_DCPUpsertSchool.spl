@@ -1,0 +1,32 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertSchool (
+	pSchoolId INTEGER,
+	pSchoolDisplayName VARCHAR(100),
+	pAddress VARCHAR(100),
+	pCity VARCHAR(100),
+	pDepartment VARCHAR(100)
+) 
+RETURNS INTEGER AS
+$$
+DECLARE NewSchoolId INTEGER; -- Return new school id (if created)
+BEGIN   
+
+	-- Get next id value (for new school only)
+	IF(pSchoolId IS NULL) THEN
+	    SELECT * FROM SP_$DB_NAME$GetNextId('school') INTO NewSchoolId;		
+    END IF;
+    
+    -- Upsert school
+    INSERT INTO $DB_NAME$.School(SchoolId, SchoolDisplayName, Address, City, Department)
+    VALUES(COALESCE(pSchoolId, NewSchoolId), pSchoolDisplayName, pAddress, pCity, pDepartment)
+    ON CONFLICT(SchoolId) DO UPDATE SET
+	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,
+	    Address = EXCLUDED.Address,
+	    City = EXCLUDED.City,
+        Department = EXCLUDED.Department
+    ;   
+    
+	-- Return new id (if new school)
+    RETURN NewSchoolId;   
+END;
+$$
+LANGUAGE 'plpgsql';

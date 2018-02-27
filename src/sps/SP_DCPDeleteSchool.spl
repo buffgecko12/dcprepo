@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
+    pUserId INTEGER
+) 
+RETURNS VOID AS
+$$
+BEGIN	
+	-- Cascaded DELETEs (must delete from child tables first)
+	-- Retain objects associated with user (set user = deactivated user)
+	UPDATE $DB_NAME$.Contract_Party_Goal_Reward SET PartyUserId = 0 WHERE PartyUserId = pUserId;
+	UPDATE $DB_NAME$.Contract_Party SET PartyUserId = 0 WHERE PartyUserId = pUserId;
+	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0 WHERE TeacherUserId = pUserId; 
+
+	-- Delete user info
+	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
+	DELETE FROM $DB_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
+	DELETE FROM $DB_NAME$.User_Student WHERE StudentUserId = pUserId;
+	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
+		
+-- Ignore foreign key violation errors
+EXCEPTION WHEN foreign_key_violation THEN NULL;
+END;
+$$
+LANGUAGE 'plpgsql';
