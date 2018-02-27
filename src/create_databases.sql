@@ -1,3 +1,4 @@
+-- TO-DO: Check for correct default encoding (UTF8 vs. WIN1252)
 -- Objects should be created by application user
 
 -- Create new DB and connect to it

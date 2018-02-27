@@ -3,7 +3,7 @@ SELECT $DB_NAME$Views.SP_$DB_NAME$UpsertUser (0, 'DEACTIVATED', 'ST', '', '', NU
 SELECT $DB_NAME$Views.SP_$DB_NAME$DeactivateUser(0);
 
 -- Load NextId initial values
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('Contract', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('User', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('School', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('Class', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('contract', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('user', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('school', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('class', 1);
