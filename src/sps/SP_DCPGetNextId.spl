@@ -1,0 +1,26 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$GetNextId (
+	pIdType VARCHAR(50)
+) 
+RETURNS INTEGER AS
+$$
+DECLARE NewId INTEGER; -- Store new Id value
+BEGIN   
+
+	-- Get next id
+    SELECT NextValue INTO NewId
+    FROM $DB_NAME$.NextId
+    WHERE IdType = pIdType
+    FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
+	;
+	
+    -- Increment id value
+    UPDATE $DB_NAME$.NextId
+    SET NextValue = NextValue + 1
+    WHERE IdType = pIdType
+    ;		
+
+	-- Return new id
+    RETURN NewId;   
+END;
+$$
+LANGUAGE 'plpgsql';

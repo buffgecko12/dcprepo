@@ -2,6 +2,8 @@
 -- RETURNS record AS ... -- Anonymous records (no field names)
 -- RETURNS TABLE (col1 int, col2 text, ...) AS -- explicit return type definition
 
+-- RETURN QUERY -- adds query results to final resultset rows (doesn't return yet)
+
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUser(
     pUserId INTEGER,
     pUsername VARCHAR(50),

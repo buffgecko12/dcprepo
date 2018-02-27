@@ -17,18 +17,7 @@ BEGIN
 
 	-- Get next userid value (for new user only)
 	IF(pUserId IS NULL) THEN
-		-- Get next userid
-	    SELECT NextValue INTO NewUserId
-	    FROM $DB_NAME$.NextId
-	    WHERE IdType = 'User'
-	    FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
-		;
-		
-	    -- Increment UserId value
-	    UPDATE $DB_NAME$.NextId
-	    SET NextValue = NextValue + 1
-	    WHERE IdType = 'User'
-	    ;		
+	    SELECT * FROM SP_$DB_NAME$GetNextId('user') INTO NewUserId;		
     END IF;
     
     -- Upsert user

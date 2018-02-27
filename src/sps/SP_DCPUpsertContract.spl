@@ -27,14 +27,14 @@ BEGIN
 	    -- Get new ContractId value
 	    SELECT NextValue INTO pContractId
 	    FROM $DB_NAME$.NextId
-	    WHERE IdType = 'Contract'
+	    WHERE IdType = 'contract'
 	    FOR UPDATE OF NextId -- Use "Update" lock to restrict other transactions (that also specify "FOR UPDATE") from reading this value before transaction completes
         ;
 	   
 	    -- Update next ID value
 	    UPDATE $DB_NAME$.NextId
 	    SET NextValue = NextValue +1
-	    WHERE IdType = 'Contract'
+	    WHERE IdType = 'contract'
 	    ;
 	END IF;
 
