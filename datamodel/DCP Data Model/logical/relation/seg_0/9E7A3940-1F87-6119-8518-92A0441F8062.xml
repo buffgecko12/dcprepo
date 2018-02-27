@@ -5,10 +5,8 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <sourcePk>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</sourcePk>
-<targetPk>F8A6BA43-46A8-01CC-992E-104ED01E54CB</targetPk>
 <dominantRole>42EE54BB-3884-7BD6-7425-861520F75254</dominantRole>
 <identifying>true</identifying>
 <optionalSource>false</optionalSource>
