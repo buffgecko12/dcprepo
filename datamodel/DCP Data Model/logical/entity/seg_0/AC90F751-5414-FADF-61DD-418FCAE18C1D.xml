@@ -5,7 +5,7 @@
 <comment>Contract revision details</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,7 +23,7 @@
 <generatorID>E46B0E65-6A18-EBF6-CF70-A3D18B1AA571</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
 <use>0</use>
@@ -37,7 +37,7 @@
 <comment>Description of revisions made to original contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -50,7 +50,7 @@
 <comment>Timestamp of when revision was approved	</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
@@ -63,7 +63,7 @@
 <comment>UserId of teacher who approved the revision</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -76,7 +76,7 @@
 <comment>UserId of student group leader who approved revision</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -90,7 +90,7 @@
 <createdTime>2017-09-29 00:54:17 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

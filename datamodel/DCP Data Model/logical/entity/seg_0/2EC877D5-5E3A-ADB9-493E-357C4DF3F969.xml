@@ -5,7 +5,7 @@
 <comment>Main contract table.  Defines the agreement between students and teachers for a given assignment or goal.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,7 +22,7 @@
 <comment>Unique ID for a contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -36,7 +36,7 @@
 <generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <referedAttribute>49E992F5-ECF1-D1FE-6F69-0D9F33BD5F41</referedAttribute>
 <use>0</use>
@@ -50,7 +50,7 @@
 <comment>Type of contract:&lt;br/&gt;&lt;br/&gt;I = individual&lt;br/&gt;G = group&lt;br/&gt;C = class</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -65,7 +65,7 @@
 <generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <referedAttribute>56858341-4FF3-C1BE-5B24-525AC77814E4</referedAttribute>
 <use>0</use>
@@ -79,7 +79,7 @@
 <comment>Valid time for contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -92,7 +92,7 @@
 <comment>Revision deadline timestamp</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -105,7 +105,7 @@
 <comment>Any additional requirements for student group leaders</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -119,7 +119,7 @@
 <comment>Any additional requirements for teachers</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -133,7 +133,7 @@
 <comment>Any additional requirements for students</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -148,7 +148,7 @@
 <createdTime>2017-09-23 23:22:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F86BB970-2ED2-6AAF-EE22-24790069FAE7" value="true"/>
+<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <newElementsIDs>AF187891-81BB-CE3E-B7F7-E8F9B979124B,FC016790-76D0-C0F3-9386-ECE41443BB16</newElementsIDs>
