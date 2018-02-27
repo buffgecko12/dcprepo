@@ -12,6 +12,7 @@ SRC_DIR = params["src_dir"]
 TGT_DIR = params["tgt_dir"]
 
 SERVER_NAME = params["server_name"]
+CHAR_SET = params["char_set"]
 DB_ADMIN_USER = params["db_admin_user"]
 DB_ADMIN_DATABASE = params["db_admin_database"]
 
@@ -139,7 +140,7 @@ for install_file in install_files:
             print("")
 
     # Run install file    
-    RunSQLFile(SERVER_NAME, myuser, mypass, mydb, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + myfile + '.log'), '### ' + mycomment, True)
+    RunSQLFile(SERVER_NAME, myuser, mypass, mydb, CHAR_SET, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + myfile + '.log'), '### ' + mycomment, True)
 
 # Verify install completed successfully
 print("Verifying install ...", end="")

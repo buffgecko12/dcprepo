@@ -6,15 +6,20 @@ def OpenDBConnection(user, password, database, server = "localhost"):
     conn = psycopg2.connect(host=server, dbname=database, user=user, password=password)
     return conn
 
-def RunSQLFile(server, user, password, database, source_file, output_file, display_msg, wait_flag):
+def RunSQLFile(server, user, password, database, encoding, source_file, output_file, display_msg, wait_flag):
 
-    # Set shell call's password environment variable if password is included
+    # Copy default environment variable
+    my_env = os.environ
+
+    # Set password environment variable (if provided)
     if(password):
-        my_env = os.environ
-        my_env["PGPASSWORD"] = password # Copy application user's password to environment variables
-    else:
-        my_env = None # Use default
+        my_env["PGPASSWORD"] = password
 
+    # Set client encoding (if provided)
+    if(encoding):
+        my_env["PGCLIENTENCODING"] = encoding
+
+    # Print message to screen (if provided)
     if(display_msg):
         print (display_msg)
 
