@@ -9,17 +9,15 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUser(
     pUsername VARCHAR(50),
     pEmailAddress VARCHAR(250)
 )
-RETURNS SETOF $DB_NAME$Views.Users
-AS
-$$
+RETURNS SETOF $DB_NAME$Views.Users AS $$
 BEGIN
     RETURN QUERY
+    -- Lookup a single user based on userid OR emailaddres / username
     SELECT UserId, Username, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login
     FROM $DB_NAME$Views.Users
-    WHERE (UserId = pUserId OR pUserId IS NULL) -- Return single user (if specified, otherwise return all)
+    WHERE (UserId = pUserId OR pUserId IS NULL)
     AND (EmailAddress = pEmailAddress OR pEmailAddress IS NULL)
     AND (Username = pUsername OR pUsername IS NULL)
     ;
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
