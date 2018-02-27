@@ -41,7 +41,6 @@
 <engineerTo>
 <item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
 </engineerTo>
-<nullsAllowed>true</nullsAllowed>
 <referedAttribute>3C27C694-F68D-EDEE-0847-C80552BE9FC7</referedAttribute>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
