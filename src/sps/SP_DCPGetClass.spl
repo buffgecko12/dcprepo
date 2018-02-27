@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetClass(
+    pClassId INTEGER
+)
+RETURNS SETOF $DB_NAME$Views.Class AS $$
+BEGIN
+    RETURN QUERY -- Return these query results
+    SELECT ClassId, SchoolId, ClassDisplayName
+    FROM $DB_NAME$Views.Class
+    WHERE ClassId = pClassId
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

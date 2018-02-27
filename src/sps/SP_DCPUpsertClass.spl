@@ -1,0 +1,27 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertClass (
+	pClassId INTEGER,
+	pSchoolId INTEGER,
+	pClassDisplayName VARCHAR(100)
+) 
+RETURNS INTEGER AS $$
+DECLARE 
+	NewClassId INTEGER; -- Return new class id (if created)
+BEGIN   
+
+	-- Get next id value (for new class only)
+	IF(pClassId IS NULL) THEN
+	    SELECT * FROM SP_$DB_NAME$GetNextId('class') INTO NewClassId;		
+    END IF;
+    
+    -- Upsert class
+    INSERT INTO $DB_NAME$.Class(ClassId, SchoolId, ClassDisplayName)
+    VALUES(COALESCE(pClassId, NewClassId), pSchoolId, pClassDisplayName)
+    ON CONFLICT(ClassId) DO UPDATE SET
+	    SchoolId = EXCLUDED.SchoolId,
+	    ClassDisplayName = EXCLUDED.ClassDisplayName
+    ;   
+    
+	-- Return new id (if new class)
+    RETURN NewClassId;   
+END;
+$$ LANGUAGE 'plpgsql';
