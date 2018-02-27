@@ -1,8 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
     pUserId INTEGER
 ) 
-RETURNS VOID AS
-$$
+RETURNS VOID AS $$
 BEGIN	
 	-- Cascaded DELETEs (must delete from child tables first)
 	-- Retain objects associated with user (set user = deactivated user)
@@ -19,5 +18,4 @@ BEGIN
 -- Ignore foreign key violation errors
 EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';

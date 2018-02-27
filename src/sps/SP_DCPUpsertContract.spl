@@ -17,9 +17,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pGoalsRewardsJSON JSONB,
     pParticipantsJSON JSONB
 ) 
-RETURNS INTEGER
-AS
-$$
+RETURNS INTEGER AS $$
 BEGIN
 	
 	-- If ContractId is NULL, get a new contract Id value and update NextId table
@@ -121,8 +119,7 @@ BEGIN
 	-- Return the contractId (used if newly created)
     RETURN pContractId;
 END
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 -- TO-DO: Update participant signatureScanFile separately
 -- TO-DO: Auto-register users (if userId is NULL)

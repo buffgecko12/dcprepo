@@ -10,9 +10,9 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
     pPassword VARCHAR(128),
     pLast_Login TIMESTAMPTZ
 ) 
-RETURNS INTEGER AS
-$$
-DECLARE NewUserId INTEGER; -- Track how many new users were created
+RETURNS INTEGER AS $$
+DECLARE 
+	NewUserId INTEGER; -- Track how many new users were created
 BEGIN   
 
 	-- Get next userid value (for new user only)
@@ -38,5 +38,4 @@ BEGIN
 	-- Return new userid (if new user)
     RETURN NewUserId;   
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';

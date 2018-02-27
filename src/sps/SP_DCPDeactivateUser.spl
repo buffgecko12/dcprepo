@@ -1,8 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeactivateUser (
     pUserId INTEGER
 ) 
-RETURNS VOID AS
-$$
+RETURNS VOID AS $$
 BEGIN	
 
 	-- Set DeactivatedTS value
@@ -12,5 +11,4 @@ BEGIN
 	;
 		
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';

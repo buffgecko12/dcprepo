@@ -1,9 +1,9 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$GetNextId (
 	pIdType VARCHAR(50)
 ) 
-RETURNS INTEGER AS
-$$
-DECLARE NewId INTEGER; -- Store new Id value
+RETURNS INTEGER AS $$
+DECLARE 
+	NewId INTEGER; -- Store new Id value
 BEGIN   
 
 	-- Get next id
@@ -22,5 +22,4 @@ BEGIN
 	-- Return new id
     RETURN NewId;   
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
