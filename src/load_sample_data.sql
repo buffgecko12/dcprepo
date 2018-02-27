@@ -2,6 +2,9 @@
 SELECT * FROM SP_$DB_NAME$UpsertSchool(NULL, 'Guillermo Leon Valencia Colegio (sede integrado)', 'Calle 15A Nro 7 - 48','Duitama','Boyaca');
 SELECT * FROM SP_$DB_NAME$UpsertSchool(NULL, 'Instituto Técnico Industrial Rafael Reyes', 'Carrera 18 # 23-116','Duitama','Boyaca');
 
+SELECT * FROM SP_$DB_NAME$UpsertClass(NULL, 1, '10-03');
+SELECT * FROM SP_$DB_NAME$UpsertClass(NULL, 1, '10-01');
+
 
 /*
 -- Create a contract (including participants)
