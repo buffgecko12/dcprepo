@@ -1,0 +1,19 @@
+add schools
+add classes
+
+add teacher: 
+- info (users, user_teacher)
+- classes (user_teacher_class)
+
+add student
+- info (users, user_student)
+
+add contract: 
+- info (contract)
+- goals (contract_goal)
+- rewards (contract_rewards)
+- parties (contract_party, contract_party_goal_reward)
+
+NEW STUFF
+- Tables for tracking rankings / feedback
+- field for ContractScanFile (paper copy)
