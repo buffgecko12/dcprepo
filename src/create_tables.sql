@@ -71,23 +71,13 @@ CREATE TABLE $DB_NAME$.Contract (
     TeacherUserId INTEGER NOT NULL,
     ContractValidPeriod TSTZRANGE NOT NULL,
     RevisionDeadlineTS TIMESTAMP WITH TIME ZONE NOT NULL,
+    RevisionDescription VARCHAR(500),
     StudentLeaderRequirements VARCHAR(500),
     TeacherRequirements VARCHAR(500),
     StudentRequirements VARCHAR(500),
+    ContractScanFile BYTEA,
     PRIMARY KEY (ContractId),
     FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $DB_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
-);
-
--- Contract revision
-CREATE TABLE $DB_NAME$.Contract_Revision (
-	ContractId INTEGER NOT NULL,
-	RevisionDescription VARCHAR(500) NOT NULL,
-	ApprovalTS TIMESTAMP WITH TIME ZONE NOT NULL,
-	ApprovedByTeacherUserId INTEGER NOT NULL,
-	ApprovedByStudentUserId INTEGER NOT NULL,
-	PRIMARY KEY (ContractId),
-	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
-
 );
 
 -- Contract parties (students, teachers)
@@ -95,13 +85,20 @@ CREATE TABLE $DB_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
     PartyUserId INTEGER NOT NULL,
     ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
-    SignatureTS TIMESTAMP WITH TIME ZONE,
-    SignatureScanFile BYTEA,
-    GuardianSignatureTS TIMESTAMP WITH TIME ZONE,
-    GuardianSignatureScanFile BYTEA,
     PRIMARY KEY (ContractId, PartyUserId),
     FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId),
     FOREIGN KEY (PartyUserId) REFERENCES $DB_NAME$.Users (UserId)    
+);
+
+CREATE TABLE $DB_NAME$.Contract_Party_Signature (
+	ContractId INTEGER,
+	PartyUserId INTEGER,
+	SignatureType CHAR(1),
+	SignatureScanFile BYTEA,
+	SignatureTS TIMESTAMP WITH TIME ZONE,
+	LogonUserId INTEGER,
+	PRIMARY KEY (ContractId, PartyUserId, SignatureType),
+	FOREIGN KEY (LogonUserId) REFERENCES $DB_NAME$.Users (UserId)
 );
 
 -- Contract goals

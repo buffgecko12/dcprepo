@@ -11,9 +11,11 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pTeacherUserId INTEGER,
     pContractValidPeriod TSTZRANGE,
     pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
+    pRevisionDescription VARCHAR(500),
     pStudentLeaderRequirements VARCHAR(500),
     pTeacherRequirements VARCHAR(500),
     pStudentRequirements VARCHAR(500),
+    pContractScanFile BYTEA,
     pGoalsRewardsJSON JSONB,
     pParticipantsJSON JSONB
 ) 
@@ -37,19 +39,21 @@ BEGIN
 	END IF;
 
 	-- S1: Upsert Contract Info
-	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, RevisionDeadlineTS,  
-	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements)
-    VALUES(pContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pRevisionDeadlineTS, pStudentLeaderRequirements, 
-      pTeacherRequirements, pStudentRequirements)
+	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, RevisionDeadlineTS, RevisionDescription, 
+	  StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
+    VALUES(pContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pRevisionDeadlineTS, pRevisionDescription, pStudentLeaderRequirements, 
+      pTeacherRequirements, pStudentRequirements, pContractScanFile)
     ON CONFLICT (ContractId) DO UPDATE SET
-        ClassId = pClassId,
-        ContractType = pContractType,
-        TeacherUserId = pTeacherUserId,
-	    ContractValidPeriod = pContractValidPeriod,
-	    RevisionDeadlineTS = pRevisionDeadlineTS,
-	    StudentLeaderRequirements = pStudentLeaderRequirements,
-	    TeacherRequirements = pTeacherRequirements,
-	    StudentRequirements = pStudentRequirements
+        ClassId = EXCLUDED.ClassId,
+        ContractType = EXCLUDED.ContractType,
+        TeacherUserId = EXCLUDED.TeacherUserId,
+	    ContractValidPeriod = EXCLUDED.ContractValidPeriod,
+	    RevisionDeadlineTS = EXCLUDED.RevisionDeadlineTS,
+		RevisionDescription = EXCLUDED.RevisionDescription,
+	    StudentLeaderRequirements = EXCLUDED.StudentLeaderRequirements,
+	    TeacherRequirements = EXCLUDED.TeacherRequirements,
+	    StudentRequirements = EXCLUDED.StudentRequirements,
+	    ContractScanFile = EXCLUDED.ContractScanFile
     ;
 
     -- S2a: Delete old goals (if applicable)
@@ -105,15 +109,13 @@ BEGIN
     END IF;
     
     -- S3c: Merge participant info
-    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, SignatureTS, GuardianSignatureTS)
-	SELECT pContractId AS ContractId, src.UserId, src.ContractRole, src.SignatureTS, src.GuardianSignatureTS
+    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
+	SELECT pContractId AS ContractId, src.UserId, src.ContractRole
 	FROM JSONB_TO_RECORDSET(pParticipantsJSON->'participants') 
-	   AS src (UserId INTEGER, ContractRole CHAR(2), SignatureTS TIMESTAMP WITH TIME ZONE, GuardianSignatureTS TIMESTAMP WITH TIME ZONE)
+	   AS src (UserId INTEGER, ContractRole CHAR(2))
 	INNER JOIN $DB_NAME$.Users u ON src.UserId = u.UserId -- Only include users that are already registered
 	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
-		ContractRole = EXCLUDED.ContractRole,
-		SignatureTS = EXCLUDED.SignatureTS,
-		GuardianSignatureTS = EXCLUDED.SignatureTS
+		ContractRole = EXCLUDED.ContractRole
 	;
 	
 	-- Return the contractId (used if newly created)

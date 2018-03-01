@@ -13,8 +13,8 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.Us
 
 -- Contract info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract AS SELECT * FROM $DB_NAME$.Contract;
-CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Revision AS SELECT * FROM $DB_NAME$.Contract_Revision;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party AS SELECT * FROM $DB_NAME$.Contract_Party;
+CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party_Signature AS SELECT * FROM $DB_NAME$.Contract_Party_Signature;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Goal AS SELECT * FROM $DB_NAME$.Contract_Goal;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Reward AS SELECT * FROM $DB_NAME$.Contract_Reward;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party_Goal_Reward AS SELECT * FROM $DB_NAME$.Contract_Party_Goal_Reward;
