@@ -5,6 +5,7 @@
 <comment>ID-generating table.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
@@ -22,6 +23,7 @@
 <comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
@@ -36,6 +38,7 @@
 <comment>Next ID value to be used.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
@@ -50,6 +53,7 @@
 <createdTime>2017-10-07 15:22:12 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>

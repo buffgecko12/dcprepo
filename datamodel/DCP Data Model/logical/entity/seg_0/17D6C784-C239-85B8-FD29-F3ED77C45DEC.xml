@@ -4,9 +4,9 @@
 <createdTime>2018-02-09 18:17:14 UTC</createdTime>
 <comment>School Info</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,9 +22,9 @@
 <createdTime>2018-02-09 18:17:29 UTC</createdTime>
 <comment>Unique ID for school</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -35,9 +35,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:17:46 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -50,9 +50,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:18:04 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -65,9 +65,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:18:42 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -80,9 +80,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:19:00 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -98,6 +98,7 @@
 <createdTime>2018-02-09 18:17:43 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
 <item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>

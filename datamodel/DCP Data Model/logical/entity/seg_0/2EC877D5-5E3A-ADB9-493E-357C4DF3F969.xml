@@ -5,7 +5,8 @@
 <comment>Main contract table.  Defines the agreement between students and teachers for a given assignment or goal.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,7 +23,8 @@
 <comment>Unique ID for a contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -36,7 +38,8 @@
 <generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>49E992F5-ECF1-D1FE-6F69-0D9F33BD5F41</referedAttribute>
 <use>0</use>
@@ -50,7 +53,8 @@
 <comment>Type of contract:&lt;br/&gt;&lt;br/&gt;I = individual&lt;br/&gt;G = group&lt;br/&gt;C = class</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -61,11 +65,12 @@
 <Attribute name="TeacherUserId" id="724A4C2D-6153-4680-54AA-D34AE1E0DDE8">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-23 19:01:15 UTC</createdTime>
-<comment>UserId of teacher associated with contract</comment>
+<comment>Unique ID for each user</comment>
 <generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <referedAttribute>56858341-4FF3-C1BE-5B24-525AC77814E4</referedAttribute>
 <use>0</use>
@@ -79,7 +84,8 @@
 <comment>Valid time for contract</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -92,11 +98,26 @@
 <comment>Revision deadline timestamp</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RevisionDescription" id="E96D9A5A-D002-5D8F-AB75-8A68F9EE504F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-01 03:05:23 UTC</createdTime>
+<comment>Description of proposed revisions to contract.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="true"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="StudentLeaderRequirements" id="BF0E9F69-56B4-735B-BF3F-A76067F4D1A3">
@@ -105,7 +126,8 @@
 <comment>Any additional requirements for student group leaders</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -119,7 +141,8 @@
 <comment>Any additional requirements for teachers</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -133,12 +156,28 @@
 <comment>Any additional requirements for students</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractScanFile" id="A0F52832-A4B9-2F8D-E1CD-74A512C93B2D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-01 01:42:36 UTC</createdTime>
+<comment>Contract scan file (if printed)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
@@ -148,7 +187,8 @@
 <createdTime>2017-09-23 23:22:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="186BA820-E11B-9A96-36A8-78084264151D" value="true"/>
+<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <newElementsIDs>AF187891-81BB-CE3E-B7F7-E8F9B979124B</newElementsIDs>
