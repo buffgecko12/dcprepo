@@ -1,6 +1,3 @@
-add schools
-add classes
-
 add teacher: 
 - info (users, user_teacher)
 - classes (user_teacher_class)
@@ -14,6 +11,15 @@ add contract:
 - rewards (contract_rewards)
 - parties (contract_party, contract_party_goal_reward)
 
-NEW STUFF
-- Tables for tracking rankings / feedback
-- field for ContractScanFile (paper copy)
+Reputation
+- add user_reputation_event
+  - top performer
+  - submitted feedback
+  - organized project
+  - project vote (poor / average / excellent)
+- add reputation field to user table
+
+Feedback
+- add event_feedback table
+  - comments
+  - organizer performance
