@@ -1,5 +1,5 @@
-SPs
----
+Create SPs
+----------
 Teacher: 
 - info (users, user_teacher)
 - classes (user_teacher_class)
@@ -13,8 +13,8 @@ Contract:
 - rewards (contract_rewards)
 - parties (contract_party, contract_party_goal_reward)
 
-Tables
-------
+Create Tables
+-------------
 Feedback
 - comments
 - organizer performance
