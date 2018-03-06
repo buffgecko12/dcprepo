@@ -174,8 +174,8 @@
 <backgroundColor>-16777216</backgroundColor>
 <lineWidth>1</lineWidth>
 <points>
-<point x="855" y="470"/>
-<point x="855" y="504"/>
+<point x="874" y="470"/>
+<point x="874" y="504"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="DFA140D0-CD3B-E461-767F-8CC7DF0490DA" otype="FKIndexAssociation" vid_source="935C1E67-7D4E-B6C0-482F-DC35C6DB30AD" vid_target="BA4B2DDE-E25F-7DD1-76DC-16288E06A4D2">
