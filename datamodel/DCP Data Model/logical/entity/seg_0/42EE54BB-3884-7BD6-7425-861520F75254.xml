@@ -1,12 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="42EE54BB-3884-7BD6-7425-861520F75254" name="Contract_Goal">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="42EE54BB-3884-7BD6-7425-861520F75254" name="Contract Goal">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-23 23:57:09 UTC</createdTime>
 <comment>Goals and rewards associated with a contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -24,8 +23,7 @@
 <generatorID>630FA4FA-92CB-0ABB-3D95-9D3290CA5F9C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
 <use>0</use>
@@ -39,8 +37,7 @@
 <comment>Unique identifier for a goal</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -53,8 +50,7 @@
 <comment>Difficulty level of goal:&lt;br/&gt;&lt;br/&gt;E - Easy&lt;br/&gt;M - Meduim&lt;br/&gt;D - Difficult</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -68,8 +64,7 @@
 <comment>Description of contract goal.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -82,8 +77,7 @@
 <comment>Was the goal achieved?</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -93,13 +87,12 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="E3AA8BD5-59DF-3AE5-402E-94852C5A7D52" name="Contract_Goal PK">
+<identifier id="E3AA8BD5-59DF-3AE5-402E-94852C5A7D52" name="PKv1">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-24 21:18:22 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <newElementsIDs>30734726-4BEB-576D-FEDD-CB5068F5BF83,630FA4FA-92CB-0ABB-3D95-9D3290CA5F9C</newElementsIDs>

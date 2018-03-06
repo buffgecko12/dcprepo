@@ -5,8 +5,7 @@
 <comment>ID-generating table.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,8 +22,7 @@
 <comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -38,8 +36,7 @@
 <comment>Next ID value to be used.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -48,13 +45,12 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="07CB033F-3599-25DF-72DE-9DF9328E4F9B" name="NextId PK">
+<identifier id="07CB033F-3599-25DF-72DE-9DF9328E4F9B" name="PKv5">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-10-07 15:22:12 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

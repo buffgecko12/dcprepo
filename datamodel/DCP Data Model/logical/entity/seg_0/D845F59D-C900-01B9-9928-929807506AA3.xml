@@ -5,8 +5,7 @@
 <comment>Class info</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,8 +22,7 @@
 <comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -38,8 +36,7 @@
 <generatorID>CBBE57CE-4E0A-8171-3A36-0B29BC75BBC3</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <referedAttribute>DE50E935-F766-241A-7FA9-9FD7B63A3E11</referedAttribute>
 <use>0</use>
@@ -53,8 +50,7 @@
 <comment>How to display class name</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -64,14 +60,13 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="5987BF48-CE2E-A31D-1A98-137B150D463F" name="Class PK">
+<identifier id="5987BF48-CE2E-A31D-1A98-137B150D463F" name="PK">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:14:02 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="false"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="false"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

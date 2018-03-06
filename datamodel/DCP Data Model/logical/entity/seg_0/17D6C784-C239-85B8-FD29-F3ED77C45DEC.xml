@@ -5,8 +5,7 @@
 <comment>School Info</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -23,8 +22,7 @@
 <comment>Unique ID for school</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -36,8 +34,7 @@
 <createdTime>2018-02-09 18:17:46 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -51,8 +48,7 @@
 <createdTime>2018-02-09 18:18:04 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -66,8 +62,7 @@
 <createdTime>2018-02-09 18:18:42 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -81,8 +76,7 @@
 <createdTime>2018-02-09 18:19:00 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -93,13 +87,12 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="CCA9AD07-150E-A3A9-CE2B-C14DADB4698A" name="School PK">
+<identifier id="CCA9AD07-150E-A3A9-CE2B-C14DADB4698A" name="PKv6">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 18:17:43 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

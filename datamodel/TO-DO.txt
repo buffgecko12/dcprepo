@@ -1,25 +1,20 @@
-add teacher: 
+SPs
+---
+Teacher: 
 - info (users, user_teacher)
 - classes (user_teacher_class)
 
-add student
+Student:
 - info (users, user_student)
 
-add contract: 
+Contract:
 - info (contract)
 - goals (contract_goal)
 - rewards (contract_rewards)
 - parties (contract_party, contract_party_goal_reward)
 
-Reputation
-- add user_reputation_event
-  - top performer
-  - submitted feedback
-  - organized project
-  - project vote (poor / average / excellent)
-- add reputation field to user table
-
+Tables
+------
 Feedback
-- add event_feedback table
-  - comments
-  - organizer performance
+- comments
+- organizer performance

@@ -1,12 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="229200A4-67E5-2487-5554-8B529F48A359" name="Contract_Party">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="229200A4-67E5-2487-5554-8B529F48A359" name="Contract Party">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-23 23:54:46 UTC</createdTime>
 <comment>Parties associated with a given contract.  This includes teachers, students, as well as their roles for a given contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -24,8 +23,7 @@
 <generatorID>8FC3DACF-33A5-3EA6-FA8A-F9771145F596</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
 <use>0</use>
@@ -41,8 +39,7 @@
 <generatorID>7E3DB64E-CA8C-1AC3-5A97-9D8B8ECC452C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
 <synonym>PartyUserId</synonym>
@@ -58,8 +55,7 @@
 <comment>Party&apos;s role:&lt;br/&gt;&lt;br/&gt;MR - mentor (i.e. teacher)&lt;br/&gt;PL - primary group leader&lt;br/&gt;BL - backup group leader&lt;br/&gt;PT - participant (i.e. student)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -69,13 +65,12 @@
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="CBA711A2-261B-2F73-5AA5-751CC9B62E16" name="Contract_Party PK">
+<identifier id="CBA711A2-261B-2F73-5AA5-751CC9B62E16" name="PKv2">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-24 21:28:58 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>

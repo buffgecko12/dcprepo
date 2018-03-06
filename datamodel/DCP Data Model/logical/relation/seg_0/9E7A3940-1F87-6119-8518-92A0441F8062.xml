@@ -1,11 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_17" directorySegmentName="seg_0" id="9E7A3940-1F87-6119-8518-92A0441F8062">
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FKv4" directorySegmentName="seg_0" id="9E7A3940-1F87-6119-8518-92A0441F8062">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-09 02:53:53 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="F1B6DF8D-A3DA-5795-B9D4-D050391C6427" value="false"/>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <sourcePk>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</sourcePk>
 <identifying>true</identifying>

@@ -5,7 +5,7 @@
 <comment>User information.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <adequatelyNormalized>NO</adequatelyNormalized>
 <expectedVolumes>0</expectedVolumes>
@@ -22,7 +22,7 @@
 <comment>Unique ID for each user</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -35,7 +35,7 @@
 <comment>User-specifid user name</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -49,7 +49,7 @@
 <comment>User role:&lt;br/&gt;&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SF - staff&lt;br/&gt;OT - other</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -63,7 +63,7 @@
 <comment>User&apos;s first name.  &lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -76,7 +76,7 @@
 <comment>User&apos;s last name.&lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -89,7 +89,7 @@
 <comment>Scanned image of person&apos;s signature to be used to generate contract digitally.&lt;br/&gt;&lt;br/&gt;This field to be used if user doesn&apos;t provide new signature for a contract.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -103,7 +103,7 @@
 <comment>Phone number</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -118,7 +118,7 @@
 <comment>Email address</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -133,7 +133,7 @@
 <comment>Hashed password value</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -142,13 +142,13 @@
 <dataTypeSize>128</dataTypeSize>
 <ownDataTypeParameters>128,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="Last_Login" id="5C02A1AC-EB84-2797-88D5-E86C6E401121">
+<Attribute name="Last Login" id="5C02A1AC-EB84-2797-88D5-E86C6E401121">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-02-22 22:43:05 UTC</createdTime>
 <comment>Last login timestamp</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -156,14 +156,29 @@
 <logicalDatatype>LOGDT046</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="Reputation" id="58557865-DF8C-0CBA-0E17-642703386E13">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 03:02:47 UTC</createdTime>
+<commentInRDBMS>User reputation (points accrued based on participation in program)</commentInRDBMS>
+<generatorID>81DF1553-FBC5-E220-BD4C-688AD7CC06B6</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
-<identifier id="C2C23535-EFE0-74B2-E37C-5503421EE68C" name="User PK">
+<identifier id="C2C23535-EFE0-74B2-E37C-5503421EE68C" name="PKv11">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-10-07 20:20:37 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
-<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
