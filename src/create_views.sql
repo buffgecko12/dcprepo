@@ -1,6 +1,6 @@
 -- User info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login 
+SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, Last_Login 
 FROM $DB_NAME$.Users 
 WHERE DeactivatedTS IS NULL;
 
@@ -10,6 +10,7 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.Class AS SELECT * FROM $DB_NAME$.Class;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher AS SELECT * FROM $DB_NAME$.User_Teacher;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher_Class AS SELECT * FROM $DB_NAME$.User_Teacher_Class;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.User_Student;
+CREATE OR REPLACE VIEW $DB_NAME$Views.User_Reputation_Event AS SELECT * FROM $DB_NAME$.User_Reputation_Event;
 
 -- Contract info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract AS SELECT * FROM $DB_NAME$.Contract;

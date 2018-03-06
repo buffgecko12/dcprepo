@@ -8,6 +8,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
     pPhoneNumber VARCHAR(25),
     pEmailAddress VARCHAR(250),
     pPassword VARCHAR(128),
+    pReputationValue INTEGER,
     pLast_Login TIMESTAMPTZ
 ) 
 RETURNS INTEGER AS $$
@@ -21,8 +22,8 @@ BEGIN
     END IF;
     
     -- Upsert user
-    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
-    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
+    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, Last_Login)
+    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pReputationValue, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
@@ -32,6 +33,7 @@ BEGIN
 	    PhoneNumber = EXCLUDED.PhoneNumber,
 	    EmailAddress = EXCLUDED.EmailAddress,
 	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
+	    ReputationValue = COALESCE(EXCLUDED.ReputationValue, Users.ReputationValue), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
     ;   
     

@@ -15,6 +15,7 @@ BEGIN
 	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
 	DELETE FROM $DB_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
 	DELETE FROM $DB_NAME$.User_Student WHERE StudentUserId = pUserId;
+	DELETE FROM $DB_NAME$.User_Reputation_Event WHERE UserId = pUserId;
 	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
 		
 -- Ignore foreign key violation errors

@@ -4,7 +4,7 @@
 -- Schools
 CREATE TABLE $DB_NAME$.School (
 	SchoolId INTEGER NOT NULL,
-	SchoolDisplayName VARCHAR(100),
+	SchoolDisplayName VARCHAR(100) NOT NULL,
 	Address VARCHAR(100),
 	City VARCHAR(100),
 	Department VARCHAR(100),
@@ -23,7 +23,7 @@ CREATE TABLE $DB_NAME$.Class (
 -- User profiles
 CREATE TABLE $DB_NAME$.Users (
     UserId INTEGER NOT NULL,
-    UserName VARCHAR(50),
+    UserName VARCHAR(50) NOT NULL,
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
@@ -31,6 +31,7 @@ CREATE TABLE $DB_NAME$.Users (
     PhoneNumber VARCHAR(25),
     EmailAddress VARCHAR(250),
     Password VARCHAR(128),
+    ReputationValue INTEGER,
     Last_Login TIMESTAMP WITH TIME ZONE,
     DeactivatedTS TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
@@ -91,14 +92,15 @@ CREATE TABLE $DB_NAME$.Contract_Party (
 );
 
 CREATE TABLE $DB_NAME$.Contract_Party_Signature (
-	ContractId INTEGER,
-	PartyUserId INTEGER,
-	SignatureType CHAR(1),
+	ContractId INTEGER NOT NULL,
+	PartyUserId INTEGER NOT NULL,
+	SignatureType CHAR(1) NOT NULL,
 	SignatureScanFile BYTEA,
 	SignatureTS TIMESTAMP WITH TIME ZONE,
-	LogonUserId INTEGER,
+	LogonUserId INTEGER NOT NULL,
 	PRIMARY KEY (ContractId, PartyUserId, SignatureType),
-	FOREIGN KEY (LogonUserId) REFERENCES $DB_NAME$.Users (UserId)
+	FOREIGN KEY (LogonUserId) REFERENCES $DB_NAME$.Users (UserId),
+	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party(ContractId, PartyUserId)
 );
 
 -- Contract goals
@@ -109,7 +111,7 @@ CREATE TABLE $DB_NAME$.Contract_Goal (
     GoalDescription VARCHAR(500) NOT NULL,
     AchievedFlag BOOLEAN,
     PRIMARY KEY (ContractId, GoalId),
-    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId) -- Produces error if row deleted from referenced table first
+    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
 );
 
 -- Contract rewards
@@ -133,6 +135,19 @@ CREATE TABLE $DB_NAME$.Contract_Party_Goal_Reward (
 	FOREIGN KEY (ContractId, GoalId) REFERENCES $DB_NAME$.Contract_Goal (ContractId, GoalId),
 	FOREIGN KEY (ContractId, RewardId) REFERENCES $DB_NAME$.Contract_Reward (ContractId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party (ContractId, PartyUserId)
+);
+
+-- Events that affect user reputation
+CREATE TABLE $DB_NAME$.User_Reputation_Event (
+	EventId BIGSERIAL NOT NULL,
+	UserId INTEGER NOT NULL,
+	EventType CHAR(2) NOT NULL,
+	EventTS TIMESTAMP WITH TIME ZONE NOT NULL,
+	PointValue SMALLINT NOT NULL,
+	ContractId INTEGER,
+	PRIMARY KEY (EventId),
+	FOREIGN KEY (UserId) REFERENCES $DB_NAME$.Users (UserId),
+	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
 );
 
 -- Next ID lookup
