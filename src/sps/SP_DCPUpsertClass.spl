@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertClass (
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertClass (
 	pClassId INTEGER,
 	pSchoolId INTEGER,
 	pClassDisplayName VARCHAR(100)
@@ -10,7 +10,7 @@ BEGIN
 
 	-- Get next id value (for new class only)
 	IF(pClassId IS NULL) THEN
-	    SELECT * FROM SP_$DB_NAME$GetNextId('class') INTO NewClassId;		
+	    SELECT * FROM SP_DCPGetNextId('class') INTO NewClassId;		
     END IF;
     
     -- Upsert class
