@@ -17,7 +17,7 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>FADD5F8E-0806-E5FC-EBE5-F92A98042A63</logicalDatatype>
+<logicalDatatype>3EC19900-1AC0-453D-866F-91081BC2A898</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
