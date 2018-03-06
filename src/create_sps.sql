@@ -8,6 +8,14 @@
 \i install/sps/SP_DCPGetUser.spl
 \i install/sps/SP_DCPDeactivateUser.spl
 
+-- Teacher
+\i install/sps/SP_DCPUpsertTeacher.spl
+
+-- Student
+\i install/sps/SP_DCPUpsertStudent.spl
+\i install/sps/SP_DCPGetStudent.spl
+
+
 -- School
 \i install/sps/SP_DCPUpsertSchool.spl
 \i install/sps/SP_DCPDeleteSchool.spl

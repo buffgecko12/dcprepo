@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertTeacher (
+    pTeacherUserId INTEGER, 
+    pClassInfo JSONB
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+    -- S1: Add teacher info
+    INSERT INTO $DB_NAME$.User_Teacher(TeacherUserId)
+    VALUES(pTeacherUserId)
+    ON CONFLICT(TeacherUserId) DO NOTHING -- TO-DO: Update this when more fields are added
+    ;
+    
+    -- S2: Add class info
+    IF(pClassInfo IS NOT NULL) THEN
+
+    	-- S2a: Delete classes
+		DELETE FROM $DB_NAME$.User_Teacher_Class
+		WHERE TeacherUserId = pTeacherUserId
+		AND ClassId IN (
+			SELECT CAST (
+				JSONB_ARRAY_ELEMENTS_TEXT(pClassInfo->'deletedclasses') AS INTEGER
+			)
+		)
+		;    
+    
+    	-- S2b: Update classes
+		INSERT INTO $DB_NAME$.User_Teacher_Class (TeacherUserId, ClassId)
+		SELECT pTeacherUserId, src.classid
+		FROM JSONB_TO_RECORDSET(pClassInfo->'currentclasses')
+		AS src (classid INTEGER)
+		ON CONFLICT (TeacherUserId, ClassId) DO NOTHING -- TO-DO: Update this when more fields are added
+		;
+    END IF;
+    
+END;
+$$ LANGUAGE 'plpgsql';

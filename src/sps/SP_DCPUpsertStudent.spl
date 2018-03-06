@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertStudent (
+    pStudentUserId INTEGER, 
+    pClassId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+    -- Add student info
+    INSERT INTO $DB_NAME$.User_Student(StudentUserId, ClassId)
+    VALUES(pStudentUserId, pClassId)
+    ON CONFLICT(StudentUserId) DO UPDATE SET
+	    ClassId = EXCLUDED.ClassId
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

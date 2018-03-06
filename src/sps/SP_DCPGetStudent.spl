@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetStudent(
+    pStudentUserId INTEGER
+)
+RETURNS TABLE (StudentUserId INTEGER, ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER, Last_Login TIMESTAMP WITH TIME ZONE) AS $$
+BEGIN
+    RETURN QUERY
+	SELECT us.StudentUserId, us.classid, u.firstname, u.lastname, u.defaultsignaturescanfile, u.phonenumber, u.emailaddress, u.reputationvalue, u.last_login
+	FROM $DB_NAME$.Users u
+	INNER JOIN $DB_NAME$.User_Student us ON u.userid = us.studentuserid
+	WHERE us.StudentUserId = pStudentUserId
+	;
+END;
+$$ LANGUAGE 'plpgsql';
