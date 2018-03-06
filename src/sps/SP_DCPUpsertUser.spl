@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
     pUserId INTEGER, 
     pUserName VARCHAR(50), 
     pUserType CHAR(2), 
@@ -13,17 +13,21 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_$DB_NAME$UpsertUser (
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
-	NewUserId INTEGER; -- Track how many new users were created
+	MyUserId INTEGER; -- Track how many new users were created
 BEGIN   
 
-	-- Get next userid value (for new user only)
+	-- Get userid
 	IF(pUserId IS NULL) THEN
-	    SELECT * FROM SP_$DB_NAME$GetNextId('user') INTO NewUserId;		
+		-- Create user (get next userid)
+	    SELECT * FROM SP_DCPGetNextId('user') INTO MyUserId;
+    ELSE
+    	-- Update user (use provided userid)
+    	MyUserId = pUserId;
     END IF;
     
     -- Upsert user
     INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, Last_Login)
-    VALUES(COALESCE(pUserId, NewUserId), pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pReputationValue, pLast_Login)
+    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pReputationValue, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
@@ -37,7 +41,7 @@ BEGIN
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
     ;   
     
-	-- Return new userid (if new user)
-    RETURN NewUserId;   
+	-- Return userid
+    RETURN MyUserId;   
 END;
 $$ LANGUAGE 'plpgsql';
