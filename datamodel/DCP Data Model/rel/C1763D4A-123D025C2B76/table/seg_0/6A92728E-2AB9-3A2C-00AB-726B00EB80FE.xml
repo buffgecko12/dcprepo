@@ -1,0 +1,157 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6A92728E-2AB9-3A2C-00AB-726B00EB80FE" name="Users">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>User information.</comment>
+<generatorID>56BEB667-801E-7E10-A277-A2EA94188B26</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="UserId" id="D6DB780E-1D10-F79A-0B6B-7620E578C528">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>F4454D5A-16C2-2EDD-4C6C-675393D147E4</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UserName" id="E119B9ED-0798-4D93-44AF-A35A5E3F9341">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>User-specifid user name</comment>
+<generatorID>F585BE06-9C3D-07CE-C44E-9D8C76610F99</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UserType" id="F7DDA05D-C951-7C00-5423-255CBBB83209">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>User role:&lt;br/&gt;&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SF - staff&lt;br/&gt;OT - other</comment>
+<generatorID>82C0BA22-F218-269F-071B-DCE5F8D7B8D2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FirstName" id="06415DD9-B4BF-1E32-EDBC-D2749EB56E7E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>User&apos;s first name.  &lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
+<generatorID>4E5E633B-7BA3-B036-9B3A-D289D1CA6DE0</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>5487AEA6-53D6-4440-3BD0-194C9422F683</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LastName" id="C97B6612-AE70-8A8D-47B6-F4596012039D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>User&apos;s last name.&lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
+<generatorID>7B1E72A2-CAF5-01D3-048F-DE71673E0646</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>5487AEA6-53D6-4440-3BD0-194C9422F683</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DefaultSignatureScanFile" id="3109F716-0954-F5FB-CAEF-A7CCF69C4125">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Scanned image of person&apos;s signature to be used to generate contract digitally.&lt;br/&gt;&lt;br/&gt;This field to be used if user doesn&apos;t provide new signature for a contract.</comment>
+<generatorID>3ABDD3ED-45F8-F5F9-C2D1-707A4C970C8B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PhoneNumber" id="EC95E675-39FB-0834-A291-1A7416A07495">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Phone number</comment>
+<generatorID>56735B68-31C2-9990-DD36-B3CC624B06B3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EmailAddress" id="391B28E1-81C7-8611-A012-A1C42AF35971">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Email address</comment>
+<generatorID>43CD1392-8BC4-0CAC-F148-04BE7A9510F0</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Password" id="F8402895-07B5-25B5-6ECC-3C2F9B24FC41">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Hashed password value</comment>
+<generatorID>B54B64A0-350D-CBF9-C061-38961BE45BA8</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>128</dataTypeSize>
+<ownDataTypeParameters>128,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Last_Login" id="E69EE358-54B1-6913-04FC-1D4034EFF198">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 22:46:55 UTC</createdTime>
+<comment>Last login timestamp</comment>
+<generatorID>5C02A1AC-EB84-2797-88D5-E86C6E401121</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="563CF527-089B-65B0-9C3D-A31C0EABF4A4" name="PKv9">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D6DB780E-1D10-F79A-0B6B-7620E578C528"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="43C4B770-7DDD-79F7-8F20-A7E38515D825" name="Contract_Reward">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>E8802E35-ED65-026F-4410-6F7BEC0F8F62</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="0888F997-9A85-AB57-ECE3-62F60CA60399">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>2985C964-7F25-1264-0AC0-ABB0EC4E2BE5</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8CA45A70-71C1-0DCF-4EE8-D430D7B2B96F" referredColumn="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
+</associations>
+</Column>
+<Column name="RewardId" id="4B0D81A5-464E-28A5-B92A-E8C940A8E9A5">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Unique identifier for a contract reward</comment>
+<generatorID>DC4E81CD-8E48-464A-A3DA-C50D13086635</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DifficultyLevel" id="0AE39BAE-6EC7-744A-1E7C-760E185F8653">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
+<generatorID>8AFC272A-C63B-83CB-2E8E-019D4A268EFB</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RewardDescription" id="7360D233-31A0-255E-9A5D-2731F03A3066">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>75B28C33-0760-25C6-ABCB-607BA7DE0CE7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1484FF55-E802-A570-558D-D2E4C239C806" name="PKv7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>A6B9BCB9-AEDE-FA59-8001-D3E7EB07CAC7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B0D81A5-464E-28A5-B92A-E8C940A8E9A5"/>
+<colUsage columnID="0888F997-9A85-AB57-ECE3-62F60CA60399"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6356C727-4DDA-8B08-7D2B-38699A7F9DBC" name="FKv10">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0888F997-9A85-AB57-ECE3-62F60CA60399"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

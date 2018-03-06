@@ -23,6 +23,3 @@ Feedback
 - add event_feedback table
   - comments
   - organizer performance
-
-  
-  FART

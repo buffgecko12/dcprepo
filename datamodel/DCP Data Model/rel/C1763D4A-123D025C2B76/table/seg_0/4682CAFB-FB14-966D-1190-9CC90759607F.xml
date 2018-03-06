@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4682CAFB-FB14-966D-1190-9CC90759607F" name="Contract_Goal">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Goals and rewards associated with a contract.</comment>
+<generatorID>42EE54BB-3884-7BD6-7425-861520F75254</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="57E938D2-DABD-C7B2-150D-C2D533B6B5B4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>71CE7D34-8228-577E-89E5-EA9E1755498B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FC2011B0-EFFD-C4FE-F8E0-4A12108535A9" referredColumn="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
+</associations>
+</Column>
+<Column name="GoalId" id="1F9353B4-AE72-50CE-B562-2560FD678616">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Unique identifier for a goal</comment>
+<generatorID>30734726-4BEB-576D-FEDD-CB5068F5BF83</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DifficultyLevel" id="D63DD8C8-C5E1-0907-3A5E-99A86E3A4B67">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Difficulty level of goal:&lt;br/&gt;&lt;br/&gt;E - Easy&lt;br/&gt;M - Meduim&lt;br/&gt;D - Difficult</comment>
+<generatorID>4BFD9048-9B74-384D-1F8E-B67B1BEE87FD</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="GoalDescription" id="79E65066-D487-C37C-BFFE-AD69896CA8CD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Description of contract goal.</comment>
+<generatorID>1FDE3BE7-7E73-41F9-5A78-D08E9FEB0CAF</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AchievedFlag" id="748DA2B0-8025-99F3-EC74-B8E2137F0B39">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Was the goal achieved?</comment>
+<generatorID>DD706BC5-A7F1-9DD1-60F8-7D88D912D123</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="96960B90-F0C4-2AEE-497B-6B04D6EE7213" name="PKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<generatorID>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1F9353B4-AE72-50CE-B562-2560FD678616"/>
+<colUsage columnID="57E938D2-DABD-C7B2-150D-C2D533B6B5B4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="76C3A720-FF09-45CD-09B6-72A0823C01F1" name="FK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>630FA4FA-92CB-0ABB-3D95-9D3290CA5F9C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="57E938D2-DABD-C7B2-150D-C2D533B6B5B4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,196 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A5A3FCB-E1FE-65FC-E377-365B80D3CE9D" name="Contract">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Main contract table.  Defines the agreement between students and teachers for a given assignment or goal.</comment>
+<generatorID>2EC877D5-5E3A-ADB9-493E-357C4DF3F969</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="E0BA874B-D78E-DDDE-C501-410B51C4031D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>AF187891-81BB-CE3E-B7F7-E8F9B979124B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ClassId" id="3E221EB1-7463-0F71-89AD-8E8290BF3BDD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
+<generatorID>5EBA8F57-3882-1D63-C6AA-D156740C16DC</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C6F899DC-377C-B122-E4E8-54169C7BB094" referredColumn="862425B8-590A-032F-1A12-08F9EDD2C2B4"/>
+</associations>
+</Column>
+<Column name="ContractType" id="51C5797B-C4B2-26BC-D57F-88994335F972">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Type of contract:&lt;br/&gt;&lt;br/&gt;I = individual&lt;br/&gt;G = group&lt;br/&gt;C = class</comment>
+<generatorID>F902E7A4-A135-7311-17AA-C6FCF2BA1849</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TeacherUserId" id="E30003E0-012C-B06F-F778-273C723673C5">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 23:17:15 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>C23E1A4D-57BD-8729-842C-E0FB4D8E4BDF</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C6F899DC-377C-B122-E4E8-54169C7BB094" referredColumn="FACAB66C-A4B5-45D6-215B-A58B6578F856"/>
+</associations>
+</Column>
+<Column name="ContractValidPeriod" id="3A2398C1-13AA-5C1A-D997-FD8D0BD8D36E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Valid time for contract</comment>
+<generatorID>D1A3DBA2-5A9A-E424-0453-F16C46654A3F</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A00CF224-8E47-8D8C-EB8C-54250C2E4A82</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RevisionDeadlineTS" id="C3A926A7-4445-DC55-E4AB-F549D68287FB">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Revision deadline timestamp</comment>
+<generatorID>D91C11FA-130D-2DAE-473F-41F5D78AD37B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RevisionDescription" id="0922543F-4369-9716-1D42-A8BECAA58092">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-01 03:06:14 UTC</createdTime>
+<comment>Description of proposed revisions to contract.</comment>
+<generatorID>E96D9A5A-D002-5D8F-AB75-8A68F9EE504F</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="StudentLeaderRequirements" id="5B68E926-087E-A2CD-065C-A8574E9B9A9C">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Any additional requirements for student group leaders</comment>
+<generatorID>BF0E9F69-56B4-735B-BF3F-A76067F4D1A3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TeacherRequirements" id="D6603EE3-929F-6CB7-44FA-FD55C7232BDD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Any additional requirements for teachers</comment>
+<generatorID>3D6E211A-468D-609D-40C6-DA9CEFA74AE6</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="StudentRequirements" id="4BC50664-9F69-D262-C74A-E4C1384D6845">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Any additional requirements for students</comment>
+<generatorID>5D8C4831-0B0E-5861-71CE-1FCF79EE12B9</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractScanFile" id="41F84027-032F-D362-FBE7-9738CAD7F7F3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-01 02:55:50 UTC</createdTime>
+<comment>Contract scan file (if printed)</comment>
+<generatorID>A0F52832-A4B9-2F8D-E1CD-74A512C93B2D</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="563042AA-B9C2-3FB3-A361-D58C468197E8" name="PKv2">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0F8D6D78-C523-EE31-9DD0-9CC0E29821A6" name="IDX">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-01 02:55:50 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>FC016790-76D0-C0F3-9386-ECE41443BB16</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="E30003E0-012C-B06F-F778-273C723673C5"/>
+<colUsage columnID="3E221EB1-7463-0F71-89AD-8E8290BF3BDD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="79BF3794-C389-ABEC-0587-745B864D7621" name="FKv4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-23 19:08:56 UTC</createdTime>
+<generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E30003E0-012C-B06F-F778-273C723673C5"/>
+<colUsage columnID="3E221EB1-7463-0F71-89AD-8E8290BF3BDD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

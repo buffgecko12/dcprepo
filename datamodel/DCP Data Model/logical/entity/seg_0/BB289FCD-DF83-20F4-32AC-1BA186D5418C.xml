@@ -1,0 +1,121 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BB289FCD-DF83-20F4-32AC-1BA186D5418C" name="User_Reputation_Event">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 03:29:25 UTC</createdTime>
+<comment>Tracks changes to user reputation</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="EventId" id="2CF8D4A7-3649-72C0-F828-F72FE7887D55">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 03:33:58 UTC</createdTime>
+<comment>Unique event identifier</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>FADD5F8E-0806-E5FC-EBE5-F92A98042A63</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="UserId" id="6E6CFCB8-3BA1-35EC-D452-146B914C9569">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:38:58 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>9FC1BA21-B336-7CA6-56B9-D415E12B97C3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="EventType" id="96D5D0C7-228E-5515-2274-9A2AD6EF451C">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 03:31:35 UTC</createdTime>
+<comment>Triggering event</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="EventTS" id="05F6D17F-DD86-4060-562D-83F3D613399A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 03:34:16 UTC</createdTime>
+<comment>Event timestamp</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ContractId" id="22DDA06A-243C-FDDD-939C-1462C66B9A80">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:44:14 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>FD5AA273-108E-0EBF-EED1-624B092CA4AD</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>AF187891-81BB-CE3E-B7F7-E8F9B979124B</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PointValue" id="4CDA51D4-C833-EE0F-7B41-63838C096ACB">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:30:14 UTC</createdTime>
+<comment>Reputation point amount (can be negative)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="71919ACC-B276-C0D8-4AC6-B1E057CE8B53" name="User_Reputation_Event PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:31:30 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>2CF8D4A7-3649-72C0-F828-F72FE7887D55</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,145 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C4544DDA-216F-2F00-E603-E5EAC4639534" name="User_Reputation_Event">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Tracks changes to user reputation</comment>
+<generatorID>BB289FCD-DF83-20F4-32AC-1BA186D5418C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="EventId" id="DD1668F7-83C1-0A86-4481-ED263F88C3A6">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Unique event identifier</comment>
+<generatorID>2CF8D4A7-3649-72C0-F828-F72FE7887D55</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>FADD5F8E-0806-E5FC-EBE5-F92A98042A63</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UserId" id="058508CD-01B6-C3C3-2E6F-A0EE739BFE0E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>6E6CFCB8-3BA1-35EC-D452-146B914C9569</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="19EFCF55-0939-036A-6E36-42D85F9A4F64" referredColumn="D6DB780E-1D10-F79A-0B6B-7620E578C528"/>
+</associations>
+</Column>
+<Column name="EventType" id="847B4CE8-067D-6E3B-C591-184C23E40323">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Triggering event</comment>
+<generatorID>96D5D0C7-228E-5515-2274-9A2AD6EF451C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EventTS" id="CD794DA2-D2FB-F2CE-6990-4D679CDDC0B9">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Event timestamp</comment>
+<generatorID>05F6D17F-DD86-4060-562D-83F3D613399A</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractId" id="C4EE03D3-0B19-1A2D-DCFC-ECE3AEE3E7C7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>22DDA06A-243C-FDDD-939C-1462C66B9A80</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C5B7735A-7A38-0750-9632-ACC11CDFA57F" referredColumn="E0BA874B-D78E-DDDE-C501-410B51C4031D"/>
+</associations>
+</Column>
+<Column name="PointValue" id="A01CF860-5788-E689-4324-32830C52C85E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<comment>Reputation point amount (can be negative)</comment>
+<generatorID>4CDA51D4-C833-EE0F-7B41-63838C096ACB</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7E60FF00-B64C-D01E-CD59-A299E63514FA" name="PKv10">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<generatorID>71919ACC-B276-C0D8-4AC6-B1E057CE8B53</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DD1668F7-83C1-0A86-4481-ED263F88C3A6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A054B2AA-FD43-4608-4590-88E3E2CA1120" name="IDX">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>FD5AA273-108E-0EBF-EED1-624B092CA4AD</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="C4EE03D3-0B19-1A2D-DCFC-ECE3AEE3E7C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A4780102-FB1F-F873-0C90-A617A521F5C6" name="FKv14">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<generatorID>9FC1BA21-B336-7CA6-56B9-D415E12B97C3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="058508CD-01B6-C3C3-2E6F-A0EE739BFE0E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9D933C8F-BC79-EFB7-299F-6E3CD0473EBD" name="FKv17">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:49:08 UTC</createdTime>
+<generatorID>FD5AA273-108E-0EBF-EED1-624B092CA4AD</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4EE03D3-0B19-1A2D-DCFC-ECE3AEE3E7C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

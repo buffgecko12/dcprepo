@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_29" directorySegmentName="seg_0" id="FD5AA273-108E-0EBF-EED1-624B092CA4AD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-04 04:43:30 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="C1763D4A-34AA-450E-EBA5-123D025C2B76" value="true"/>
+</engineerTo>
+<sourcePk>7C39509B-7D7F-8975-5ECE-F52F3705C189</sourcePk>
+<dominantRole>2EC877D5-5E3A-ADB9-493E-357C4DF3F969</dominantRole>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>2EC877D5-5E3A-ADB9-493E-357C4DF3F969</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>BB289FCD-DF83-20F4-32AC-1BA186D5418C</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

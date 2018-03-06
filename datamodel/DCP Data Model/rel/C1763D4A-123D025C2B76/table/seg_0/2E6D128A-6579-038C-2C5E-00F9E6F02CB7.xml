@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="2E6D128A-6579-038C-2C5E-00F9E6F02CB7" name="Class">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Class info</comment>
+<generatorID>D845F59D-C900-01B9-9928-929807506AA3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ClassId" id="3F5483B0-8B8B-2FA7-9FB7-4FF0B6A806AA">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
+<generatorID>3C27C694-F68D-EDEE-0847-C80552BE9FC7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolId" id="B201F933-7BE0-C461-FBE5-29675B817A9C">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>Unique ID for school</comment>
+<generatorID>BCAEAB8A-A8D3-8501-FFB0-C59C5D055628</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="67B6442C-E99F-3909-4F42-3F0A3472D34C" referredColumn="1B409D0B-5F9A-F158-74FE-75CC3D265B7E"/>
+</associations>
+</Column>
+<Column name="ClassDisplayName" id="4D1FAA3D-656A-0E67-23F8-2B981ECF1033">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<comment>How to display class name</comment>
+<generatorID>E17E775C-9408-A2AE-BD57-50E53C1679B6</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="97B8BF73-E95C-13ED-23A2-31CDA5BF166F" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:43 UTC</createdTime>
+<generatorID>5987BF48-CE2E-A31D-1A98-137B150D463F</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3F5483B0-8B8B-2FA7-9FB7-4FF0B6A806AA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="0EA0455B-872E-831C-8800-F995CD160B8A" name="FKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-02-22 01:24:44 UTC</createdTime>
+<generatorID>CBBE57CE-4E0A-8171-3A36-0B29BC75BBC3</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B201F933-7BE0-C461-FBE5-29675B817A9C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
