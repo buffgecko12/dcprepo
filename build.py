@@ -132,9 +132,9 @@ for install_file in install_files:
             ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
             ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
                     'from django.contrib.auth import get_user_model; ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',None,\'ST\',\'Hirofumi\',\'Yamaguchi\',None,\'123 123 1234\',\'joe@smith.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',None,\'AD\',\'Mark\',\'David\',None,\'56 9 3130 1966\',\'mark@david.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',None,\'PT\',\'Joe\',\'Smith\',None,\'+56 9 3120 3495\',\'thereal@joesmith.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'joe@smith.com\',\'TR\',\'Hirofumi\',\'Yamaguchi\',None,\'123 123 1234\',\'joe@smith.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'mark@david.com\',\'ST\',\'Mark\',\'David\',None,\'56 9 3130 1966\',\'mark@david.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'thereal@joesmith.com\',\'SF\',\'Joe\',\'Smith\',None,\'+56 9 3120 3495\',\'thereal@joesmith.com\'); ' + \
                     '"'
                  , 'Y', my_env = env_dict)
             print("")

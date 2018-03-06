@@ -1,11 +1,8 @@
 Create SPs
 ----------
 Teacher: 
-- info (users, user_teacher)
-- classes (user_teacher_class)
+- get (info, classes)
 
-Student:
-- info (users, user_student)
 
 Contract:
 - info (contract)
