@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="60E6B7D4-3C2C-4250-B97A-33D0B7648861" name="NextId">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>ID-generating table.</comment>
+<generatorID>CF9AFA39-4104-FE56-DB03-4E5CF45C1471</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="IDType" id="F786DCAE-E7A5-D6BC-8D88-62FCD5AAEAD7">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Type of ID being generated:&lt;br/&gt;&lt;br/&gt;&apos;Contract&apos;&lt;br/&gt;&apos;User&apos;</comment>
+<generatorID>6086DDEB-9553-4754-32B0-09D6CBA4FE13</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NextValue" id="EB3E5CBB-0A19-E914-55B1-FE58792A0894">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Next ID value to be used.</comment>
+<generatorID>27128E83-C9FD-9445-BD34-6DC417318220</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F445E498-7CE9-2AD2-407C-02D9AD2EF6A6" name="PKv16">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>07CB033F-3599-25DF-72DE-9DF9328E4F9B</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F786DCAE-E7A5-D6BC-8D88-62FCD5AAEAD7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" mainViewID="446069E3-BB3B-ABF7-2C6C-CF4B5F543FD0">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:09 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>3FD120B5-9F4E-6278-D5E2-746D192C8319</selectedRDBMSSite>
+</relationalModel>

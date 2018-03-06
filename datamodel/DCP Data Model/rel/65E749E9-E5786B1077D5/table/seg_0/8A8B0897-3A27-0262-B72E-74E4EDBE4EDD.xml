@@ -1,0 +1,54 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="User_Teacher">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Teacher-specific information.</comment>
+<generatorID>334935A8-9287-B690-0A4C-5FE7A40B2033</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="TeacherUserId" id="2128FC24-FEAC-4E8D-5B9E-29269C4FD060">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>89176FB4-BCE1-7CD6-2BEC-EC1B582D251F</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E89A78EE-FDE6-658D-6CCB-69353AFF981A" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1EA54C1D-16F9-8619-336C-958217012A58" name="PKv9">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>E878968F-4744-3A69-938B-B5EFBFBB08A2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="872986C1-D6E3-F16F-389B-79F2B8EC4593" name="FKv15">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>EE56AAEA-DAB3-715E-2BAC-C17E2AD646AC</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

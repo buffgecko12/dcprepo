@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="F500B4B9-CD09-1A9D-5FB7-CC126E7B3F8E" containerWithKeyObject="23989B44-D302-77E7-F0F9-C4A90C4D0EB4" localFKIndex="360FDCBC-24F8-6FAE-B964-3773C4F20D77" name="FKv14">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>7E3DB64E-CA8C-1AC3-5A97-9D8B8ECC452C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableLongName>Users</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>07B4EEFD-D59E-2B8C-5F52-DCC0A5906473</referredTableID>
+<keyObject>D6A62047-06D3-9C8B-9AD2-E0A14D79445F</keyObject>
+<referredKeyID>D6A62047-06D3-9C8B-9AD2-E0A14D79445F</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>UserId</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

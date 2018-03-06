@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B8759DA4-84A4-04F6-D9CA-43FF802396E0" name="Contract_Reward">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>E8802E35-ED65-026F-4410-6F7BEC0F8F62</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="383C4A86-6E2B-557A-85FC-6C114B20F4AD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>2985C964-7F25-1264-0AC0-ABB0EC4E2BE5</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0B739EA1-9B31-72C3-36A6-0A2032413D7D" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+</associations>
+</Column>
+<Column name="RewardId" id="886F0883-8E96-EC5D-FD64-1909E1C82A4E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Unique identifier for a contract reward</comment>
+<generatorID>DC4E81CD-8E48-464A-A3DA-C50D13086635</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DifficultyLevel" id="9599DFB7-8338-11F1-78B1-2C7EBF915C91">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
+<generatorID>8AFC272A-C63B-83CB-2E8E-019D4A268EFB</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RewardDescription" id="60E2E786-4693-2208-8599-883842000BCA">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>75B28C33-0760-25C6-ABCB-607BA7DE0CE7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F600B1B6-815B-4CD9-7441-BC23451C1E88" name="PKv14">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>A6B9BCB9-AEDE-FA59-8001-D3E7EB07CAC7</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="886F0883-8E96-EC5D-FD64-1909E1C82A4E"/>
+<colUsage columnID="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CAE8CF9A-B68F-9717-0A50-E947F562E94D" name="FKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:23:41 UTC</createdTime>
+<generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

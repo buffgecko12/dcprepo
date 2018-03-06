@@ -1,0 +1,122 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="1B428CA4-197A-B655-E53E-F8A1106C3A08" name="Contract Party Signature">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:26:58 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ContractId" id="13FCCD66-A193-CBBD-4DBE-F5202B4066E8">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:32:22 UTC</createdTime>
+<comment>Unique ID for a contract</comment>
+<generatorID>7CC932F0-E04F-6A4F-D082-0368D97C5FA6</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<referedAttribute>85F341F0-CF92-D257-12D6-02885C0B7D60</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PartyUserId" id="3A7AEEF5-5BC1-029A-1450-AFDE93AE7AA3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:32:22 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>7CC932F0-E04F-6A4F-D082-0368D97C5FA6</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<referedAttribute>A2904F6A-3049-DD03-C604-74D3D0953153</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SignatureType" id="504F16D6-E616-464A-21BB-65ADFB8B5348">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:27:19 UTC</createdTime>
+<comment>Reason for signature&lt;br/&gt;&lt;br/&gt;A - participant acceptance&lt;br/&gt;R - contract revision&lt;br/&gt;G - guardian approval</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SignatureScanFile" id="78633C51-2A64-E9A0-4EAC-7B4F54BBC980">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:27:54 UTC</createdTime>
+<comment>Digital copy of signature (can be inherited from user&apos;s profile)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SignatureTS" id="BCDE5E94-5798-EA4A-6D17-C81061368E4F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:28:18 UTC</createdTime>
+<comment>Signature timestamp</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LogonUserId" id="697F1021-BA5F-1490-EFEA-3B0B9720A22A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:30:28 UTC</createdTime>
+<comment>Unique ID for each user</comment>
+<generatorID>4FF0CFA2-7F78-776C-91BC-98EEB7B76513</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<referedAttribute>F4454D5A-16C2-2EDD-4C6C-675393D147E4</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="42554BD7-41BE-08DB-938B-3EA5016BE8F9" name="PKv4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-06 01:30:14 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<engineerTo>
+<item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>3A7AEEF5-5BC1-029A-1450-AFDE93AE7AA3</attributeRef>
+<attributeRef>13FCCD66-A193-CBBD-4DBE-F5202B4066E8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
