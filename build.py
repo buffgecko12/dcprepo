@@ -124,7 +124,7 @@ for install_file in install_files:
     mydb = install_file[4]
 
     # Do some steps before creating sample data
-    if(mycomment == "Creating some sample data"):
+    if(mycomment == "Creating some sample data"): # TO-DO: Move this to separate file
         if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
             print("### Configuring Django")
             env_dict = dict(os.environ)
