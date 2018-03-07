@@ -1,13 +1,23 @@
 Create SPs
 ----------
-Contract:
-- info (contract)
-- goals (contract_goal)
-- rewards (contract_rewards)
-- parties (contract_party, contract_party_goal_reward)
+Approve Contract
+- add signatures (contract_party_signatures)
 
-Create Tables
--------------
+Revise Contract
+- modify revision field (contract)
+- add signatures (contract_party_signatures)
+
+Complete Contract
+- reward delivery (contract_party_goal_reward)
+- rating + feedback (teacher & student)
+
+
+Create/Modify Tables
+--------------------
 Feedback
 - comments
 - organizer performance
+		
+Contract Goal
+- add SelectedFlag to designate whether students accepted that goal or not (re-use table to store all available goals)
+

@@ -135,7 +135,9 @@ for install_file in install_files:
                     'from django.contrib.auth import get_user_model; ' + \
                     'get_user_model().objects.create_user(\'adminadmin\',\'joe@smith.com\',\'TR\',\'Hirofumi\',\'Yamaguchi\',None,\'123 123 1234\',\'joe@smith.com\'); ' + \
                     'get_user_model().objects.create_user(\'adminadmin\',\'orokusaki\',\'TR\',\'Oroku\',\'Saki\',None,\'321 321 4321\',\'oroku@saki.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'mark@david.com\',\'ST\',\'Mark\',\'David\',None,\'56 9 3130 1966\',\'mark@david.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student1\',\'ST\',\'Q\',\'Dunno\',None,\'56 9 3130 1966\',\'mark@david.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student2\',\'ST\',\'Murr\',\'Beckham\',None,\'57 310 1265\',\'yakko@elsa.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student3\',\'ST\',\'Sal\',\'Bond\',None,\'123 123 4567\',\'mushu@pork.com\'); ' + \
                     'get_user_model().objects.create_user(\'adminadmin\',\'thereal@joesmith.com\',\'SF\',\'Joe\',\'Smith\',None,\'+56 9 3120 3495\',\'thereal@joesmith.com\'); ' + \
                     '"'
                  , 'Y', my_env = env_dict)
