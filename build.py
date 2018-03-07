@@ -112,6 +112,7 @@ install_files = [
 #    ("create_indexes.sql", "Creating Indexes", DB_USER, DB_PASS, DB_NAME),
     ("load_initial_data.sql", "Loading initial data", DB_USER, DB_PASS, DB_NAME),
     ("load_sample_data.sql", "Creating some sample data", DB_USER, DB_PASS, DB_NAME),
+    ("run_tests.sql", "Running tests", DB_USER, DB_PASS, DB_NAME),
 ]
 
 # Loop through and execute install files
