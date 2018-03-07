@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPReviseContract(
+    pContractId INTEGER,
+    pRevisionDescription VARCHAR(500)
+) 
+RETURNS VOID AS $$
+BEGIN
+	-- Update revision notes
+	UPDATE $DB_NAME$.Contract
+	SET RevisionDescription = pRevisionDescription
+	WHERE ContractId = pContractId
+	AND RevisionDeadlineTS > CURRENT_TIMESTAMP -- Only update if revision deadline has not already passed
+	;
+END
+$$ LANGUAGE 'plpgsql';

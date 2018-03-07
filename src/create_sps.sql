@@ -25,6 +25,8 @@
 
 -- Contract
 \i install/sps/SP_DCPUpsertContract.spl
+\i install/sps/SP_DCPApproveContract.spl
+\i install/sps/SP_DCPReviseContract.spl
 
 -- Other
 \i install/sps/SP_DCPGetNextId.spl

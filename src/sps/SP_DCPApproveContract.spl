@@ -1,0 +1,27 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPApproveContract(
+    pContractId INTEGER,
+    pPartyUserId INTEGER,
+    pApprovalType CHAR(1),
+    pSignatureScanFile BYTEA,
+    pApprovalTS TIMESTAMP WITH TIME ZONE,
+    pLogonUserId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN
+	-- Update signature	
+	INSERT INTO $DB_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, SignatureScanFile, ApprovalTS, LogonUserId)
+	SELECT pContractId, pPartyUserId, pApprovalType, pSignatureScanFile, pApprovalTS, pLogonUserId
+	FROM $DB_NAME$Views.Contract_Party -- Make sure party user exists
+	WHERE ContractId = pContractId
+	AND PartyUserId = pPartyUserId
+	ON CONFLICT (ContractId, PartyUserId, ApprovalType) DO UPDATE SET 
+		SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
+		ApprovalTS = COALESCE(EXCLUDED.ApprovalTS, Contract_Party_Approval.ApprovalTS),
+		LogonUserId = pLogonUserId
+	;
+	
+	-- TO-DO: Set "RevisionApprovalTS" field if all required signatures for contract revision have been submitted
+	-- TO-DO: Set "ContractApprovalTS" field if all required signatures for contract have been submitted
+	
+END
+$$ LANGUAGE 'plpgsql';
