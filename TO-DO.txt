@@ -1,9 +1,5 @@
 Create SPs
 ----------
-Teacher: 
-- get (info, classes)
-
-
 Contract:
 - info (contract)
 - goals (contract_goal)

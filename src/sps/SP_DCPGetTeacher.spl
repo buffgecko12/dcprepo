@@ -1,0 +1,25 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetTeacher(
+    pTeacherUserId INTEGER
+)
+RETURNS TABLE (TeacherUserId INTEGER, ClassInfo JSONB) AS $$
+BEGIN
+    RETURN QUERY
+	SELECT ut.TeacherUserId, utc.ClassInfo
+	FROM $DB_NAME$Views.Users u
+	INNER JOIN $DB_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
+	LEFT JOIN (
+		SELECT 
+			utc.TeacherUserId,
+			JSONB_AGG(
+				( -- Create rows
+					SELECT myrow FROM (SELECT utc.ClassId, c.ClassDisplayName) myrow
+				)
+			) AS ClassInfo
+		FROM $DB_NAME$Views.User_Teacher_Class utc
+		INNER JOIN $DB_NAME$Views.Class c ON utc.ClassId = c.ClassId
+		GROUP BY utc.TeacherUserId
+	) utc ON ut.TeacherUserId = utc.TeacherUserId
+	WHERE ut.TeacherUserId = pTeacherUserId
+	;	
+END;
+$$ LANGUAGE 'plpgsql';
