@@ -10,6 +10,7 @@
 
 -- Teacher
 \i install/sps/SP_DCPUpsertTeacher.spl
+\i install/sps/SP_DCPGetTeacher.spl
 
 -- Student
 \i install/sps/SP_DCPUpsertStudent.spl
