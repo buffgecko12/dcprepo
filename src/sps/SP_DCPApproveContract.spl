@@ -7,7 +7,21 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPApproveContract(
     pLogonUserId INTEGER
 ) 
 RETURNS VOID AS $$
+DECLARE
+	bContractApprovedFlag BOOLEAN;
+	bRevisionApprovedFlag BOOLEAN;
 BEGIN
+
+	-- Get approval info for contract
+	SELECT 
+		CASE WHEN ContractApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END,
+		CASE WHEN RevisionApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END
+		INTO bContractApprovedFlag, bRevisionApprovedFlag
+	FROM $DB_NAME$Views.Contract
+	WHERE ContractId = pContractId
+	FOR UPDATE -- Lock table row so it's not read until after function completes
+	;
+	
 	-- Update signature	
 	INSERT INTO $DB_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, SignatureScanFile, ApprovalTS, LogonUserId)
 	SELECT pContractId, pPartyUserId, pApprovalType, pSignatureScanFile, pApprovalTS, pLogonUserId
@@ -20,8 +34,59 @@ BEGIN
 		LogonUserId = pLogonUserId
 	;
 	
-	-- TO-DO: Set "RevisionApprovalTS" field if all required signatures for contract revision have been submitted
-	-- TO-DO: Set "ContractApprovalTS" field if all required signatures for contract have been submitted
-	
+	-- Mark revision as approved if it has been approved by all required parties (skip if already approved)
+	IF (NOT bRevisionApprovedFlag) THEN
+		UPDATE $DB_NAME$.Contract
+		SET RevisionApprovalTS = pApprovalTS
+		WHERE ContractId = pContractId
+		AND EXISTS (
+			SELECT 1
+			FROM (
+				SELECT 
+					SUM(CASE WHEN cp.ContractRole IN ('PL','BL') AND cpa.ApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumLeadersApproved,
+					SUM(CASE WHEN cp.ContractRole IN ('MR') AND cpa.ApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumMentorsApproved,
+					SUM(CASE WHEN cp.ContractRole IN ('MR') THEN 1 ELSE 0 END) NumMentors
+				FROM $DB_NAME$Views.Contract c
+				INNER JOIN $DB_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId AND cp.ContractRole IN ('MR','PL','BL') -- Get mentor and primary/secondary group leaders
+				LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'R' -- Check for "Revision" approvals
+				WHERE c.ContractId = pContractId
+			) src
+			WHERE src.NumMentors = NumMentorsApproved -- Make sure all mentors approved
+			AND src.NumLeadersApproved > 0 -- Make sure at least one of the student leaders approved
+		)
+		;
+	END IF;
+
+	-- Mark contract as approved if it has been approved by all required parties (skip if already approved)
+	IF (NOT bContractApprovedFlag) THEN
+		UPDATE $DB_NAME$.Contract
+		SET ContractApprovalTS = pApprovalTS
+		WHERE ContractId = pContractId
+		AND EXISTS (
+			SELECT 1
+			FROM (
+				SELECT
+					COUNT(*) AS NumParties,
+					SUM(
+						CASE 
+							WHEN cpa.ApprovalTS IS NOT NULL THEN -- Party has already approved
+								CASE 
+									WHEN NOT c.GuardianApprovalFlag THEN 1 -- Guardian approval flag IS NOT required
+									WHEN cpg.ApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
+									ELSE 0 -- NOT APPROVED
+								END
+							ELSE 0 -- Party has not approved yet
+						END	
+					) AS NumPartiesApproved
+				FROM $DB_NAME$Views.Contract c
+				INNER JOIN $DB_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get all contract parties (participants, mentor)
+				LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info (Contract)
+				LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpg ON cp.ContractId = cpg.ContractId AND cp.PartyUserId = cpg.PartyUserId AND cp.ContractRole <> 'MR' AND cpg.ApprovalType = 'G' -- Get non-mentor participants guardian approval info
+				WHERE c.ContractId = pContractId
+			) src
+			WHERE NumParties = NumPartiesApproved -- Only return if all parties have approved
+		) 
+		;
+	END IF;
 END
 $$ LANGUAGE 'plpgsql';
