@@ -15,8 +15,5 @@ BEGIN
 	
 	-- Delete school
 	DELETE FROM $DB_NAME$.School WHERE SchoolId = pSchoolId;
-		
--- Ignore foreign key violation errors
-EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
 $$ LANGUAGE 'plpgsql';

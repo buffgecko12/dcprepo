@@ -9,7 +9,7 @@ BEGIN
 	DELETE FROM $DB_NAME$.Contract_Party_Approval WHERE PartyUserId = pUserId;
 	DELETE FROM $DB_NAME$.Contract_Party_Goal_Reward WHERE PartyUserId = pUserId;
 	DELETE FROM $DB_NAME$.Contract_Party WHERE PartyUserId = pUserId;
-	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0 WHERE TeacherUserId = pUserId; 
+	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0, ClassId = 0 WHERE TeacherUserId = pUserId; 
 
 	-- Delete user info
 	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
@@ -18,7 +18,5 @@ BEGIN
 	DELETE FROM $DB_NAME$.User_Reputation_Event WHERE UserId = pUserId;
 	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
 
--- Ignore foreign key violation errors
-EXCEPTION WHEN foreign_key_violation THEN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
