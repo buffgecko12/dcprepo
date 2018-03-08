@@ -78,10 +78,10 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="GuardianSignatureFlag" id="EE69A6BA-EE82-850A-1A60-5DB037B4EF2D">
+<Column name="GuardianApprovalFlag" id="EE69A6BA-EE82-850A-1A60-5DB037B4EF2D">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-07 23:23:20 UTC</createdTime>
-<commentInRDBMS>Track if guardian signature is required.</commentInRDBMS>
+<commentInRDBMS>Track if guardian approval is required.</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
