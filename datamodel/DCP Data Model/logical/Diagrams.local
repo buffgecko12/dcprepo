@@ -1,6 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<oracle.dbtools.crest.model.design.logical.LogicalDesign>
-   <object objectType="main_view" objectID="CC30F5D4-265A-7953-30B7-196F420D86C6" name="Logical" visible="false"/>
-   <object objectType="sub_view" objectID="46D15217-C03D-F063-89BA-9843DDB45931" name="Contract" visible="false"/>
-   <object objectType="sub_view" objectID="EC7D5934-105F-8961-8817-9751B391A666" name="Metadata" visible="false"/>
-</oracle.dbtools.crest.model.design.logical.LogicalDesign>

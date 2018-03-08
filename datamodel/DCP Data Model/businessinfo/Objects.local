@@ -1,4 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign>
-   <object objectType="Document" objectID="2F5F9828-676E-4B21-AB64-96F06B2CE187" name="Doc_1" seqName="seg_0" propertyClassName="oracle.dbtools.crest.model.businessinfo.BIDocument" propertyParentId="277EB1A5-845A-BCB4-4968-23E9CF00A141" propertySourceId="" propertyTargetId=""/>
-</oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign>
