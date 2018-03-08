@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pContractType CHAR(1),
     pTeacherUserId INTEGER,
     pContractValidPeriod TSTZRANGE,
-    pGuardianSignatureFlag BOOLEAN,
+    pGuardianApprovalFlag BOOLEAN,
     pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
     pRevisionDescription VARCHAR(500),
     pStudentLeaderRequirements VARCHAR(500),
@@ -32,16 +32,16 @@ BEGIN
 
 	-- S1: GENERAL
 	-- S1a: Upsert general info
-	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianSignatureFlag, 
+	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
 	  RevisionDeadlineTS, RevisionDescription, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
-    VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianSignatureFlag, pRevisionDeadlineTS, 
+    VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
       pRevisionDescription, pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, pContractScanFile)
     ON CONFLICT (ContractId) DO UPDATE SET
         ClassId = EXCLUDED.ClassId,
         ContractType = EXCLUDED.ContractType,
         TeacherUserId = EXCLUDED.TeacherUserId,
 	    ContractValidPeriod = EXCLUDED.ContractValidPeriod,
-	    GuardianSignatureFlag = EXCLUDED.GuardianSignatureFlag,
+	    GuardianApprovalFlag = EXCLUDED.GuardianApprovalFlag,
 	    RevisionDeadlineTS = EXCLUDED.RevisionDeadlineTS,
 		RevisionDescription = EXCLUDED.RevisionDescription,
 	    StudentLeaderRequirements = EXCLUDED.StudentLeaderRequirements,

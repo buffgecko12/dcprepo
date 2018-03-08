@@ -71,7 +71,7 @@ CREATE TABLE $DB_NAME$.Contract (
     ContractType CHAR(1) NOT NULL DEFAULT 'G',
     TeacherUserId INTEGER NOT NULL,
     ContractValidPeriod TSTZRANGE NOT NULL,
-    GuardianSignatureFlag BOOLEAN,
+    GuardianApprovalFlag BOOLEAN,
     RevisionDeadlineTS TIMESTAMP WITH TIME ZONE NOT NULL,
     RevisionDescription VARCHAR(500),
     RevisionApprovalTS TIMESTAMP WITH TIME ZONE,
