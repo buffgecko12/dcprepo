@@ -27,7 +27,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	100,100,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
 	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null}]}'),
 	JSONB('{"currentrewards": [{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"},{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"}]}'),
-	JSONB('{"currentparties": [{"partyuserid": 101,"contractrole": "PL"},{"partyuserid": 102,"contractrole": "BL"},{"partyuserid": 103,"contractrole": "PT"}]}')
+	JSONB('{"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 101,"contractrole": "PL"},{"partyuserid": 102,"contractrole": "BL"},{"partyuserid": 103,"contractrole": "PT"}]}')
 );
 
 -- Modify contact
@@ -35,7 +35,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	100,1,'G',1,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
 	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description"}]}'),
 	JSONB('{"deletedrewards": [1],"currentrewards": [{"rewardid": 2, "difficultylevel": "E","rewarddescription": "Some new description"}]}'),
-	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 103,"contractrole": "PL"}]}')
+	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
 -- Approve initial contract

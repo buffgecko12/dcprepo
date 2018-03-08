@@ -43,5 +43,5 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	NULL,1,'G',1,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
 	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null}]}'),
 	JSONB('{"currentrewards": [{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"},{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"}]}'),
-	JSONB('{"currentparties": [{"partyuserid": 3,"contractrole": "PL"},{"partyuserid": 4,"contractrole": "BL"},{"partyuserid": 5,"contractrole": "PT"}]}')
+	JSONB('{"currentparties": [{"partyuserid": 2,"contractrole": "MR"},{"partyuserid": 3,"contractrole": "PL"},{"partyuserid": 4,"contractrole": "BL"},{"partyuserid": 5,"contractrole": "PT"}]}')
 );
