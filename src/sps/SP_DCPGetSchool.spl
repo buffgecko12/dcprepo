@@ -6,7 +6,7 @@ BEGIN
     RETURN QUERY -- Return these query results
     SELECT SchoolId, SchoolDisplayName, Address, City, Department
     FROM $DB_NAME$Views.School
-    WHERE SchoolId = pSchoolId -- Return school (if specified, otherwise return all)
+    WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
     ;
 END;
 $$ LANGUAGE 'plpgsql';
