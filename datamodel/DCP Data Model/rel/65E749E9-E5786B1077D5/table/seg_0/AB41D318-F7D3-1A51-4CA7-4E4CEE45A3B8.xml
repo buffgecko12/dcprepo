@@ -1,9 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AB41D318-F7D3-1A51-4CA7-4E4CEE45A3B8" name="Contract_Party_Signature">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AB41D318-F7D3-1A51-4CA7-4E4CEE45A3B8" name="Contract_Party_Approval">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:37:19 UTC</createdTime>
 <generatorID>1B428CA4-197A-B655-E53E-F8A1106C3A08</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>contract_party_signature</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -40,10 +41,10 @@
 <colAssociation fkAssociation="86CD6468-1DE0-0DC0-A70C-6DAAB78E5AEA" referredColumn="3672FA92-922B-58F0-76E2-1FF67CCD7CC4"/>
 </associations>
 </Column>
-<Column name="SignatureType" id="2F8EF511-7E9B-FC79-AA10-8542C3DD4D3A">
+<Column name="ApprovalType" id="2F8EF511-7E9B-FC79-AA10-8542C3DD4D3A">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:37:19 UTC</createdTime>
-<comment>Reason for signature&lt;br/&gt;&lt;br/&gt;A - participant acceptance&lt;br/&gt;R - contract revision&lt;br/&gt;G - guardian approval</comment>
+<comment>Approval type:&lt;br/&gt;&lt;br/&gt;C - contract&lt;br/&gt;R - revision&lt;br/&gt;G - guardian</comment>
 <generatorID>504F16D6-E616-464A-21BB-65ADFB8B5348</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
