@@ -10,7 +10,7 @@ BEGIN
 	SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.Last_Login
 	FROM $DB_NAME$Views.Users u
 	INNER JOIN $DB_NAME$Views.User_Student us ON u.UserId = us.StudentUserId
-	WHERE us.StudentUserId = pStudentUserId
+	WHERE (us.StudentUserId = pStudentUserId OR pStudentUserId IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';

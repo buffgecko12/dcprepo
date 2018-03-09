@@ -19,7 +19,7 @@ BEGIN
 		INNER JOIN $DB_NAME$Views.Class c ON utc.ClassId = c.ClassId
 		GROUP BY utc.TeacherUserId
 	) utc ON ut.TeacherUserId = utc.TeacherUserId
-	WHERE ut.TeacherUserId = pTeacherUserId
+	WHERE (ut.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 	;	
 END;
 $$ LANGUAGE 'plpgsql';
