@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUser(
 RETURNS SETOF $DB_NAME$Views.Users AS $$
 BEGIN
     RETURN QUERY
-    -- Lookup a single user based on userid OR emailaddres / username
+    -- Lookup a single user based on userid OR emailaddress / username
     SELECT UserId, Username, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, Last_Login
     FROM $DB_NAME$Views.Users
     WHERE (UserId = pUserId OR pUserId IS NULL)
