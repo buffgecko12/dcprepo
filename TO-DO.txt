@@ -2,7 +2,7 @@ Create SPs
 ----------
 Complete Contract
 - reward delivery (contract_party_goal_reward)
-- rating + feedback (teacher & student)
+- rating/reputation + feedback (teacher & student)
 
 Delete Contract
 
