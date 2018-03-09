@@ -1,7 +1,10 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetStudent(
     pStudentUserId INTEGER
 )
-RETURNS TABLE (StudentUserId INTEGER, ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER, Last_Login TIMESTAMP WITH TIME ZONE) AS $$
+RETURNS TABLE (
+	StudentUserId INTEGER, ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, 
+	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER, Last_Login TIMESTAMP WITH TIME ZONE
+) AS $$
 BEGIN
     RETURN QUERY
 	SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.Last_Login
