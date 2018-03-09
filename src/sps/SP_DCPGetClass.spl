@@ -6,7 +6,7 @@ BEGIN
     RETURN QUERY -- Return these query results
     SELECT ClassId, SchoolId, ClassDisplayName
     FROM $DB_NAME$Views.Class
-    WHERE ClassId = pClassId
+    WHERE (ClassId = pClassId OR pClassId IS NULL)
     ;
 END;
 $$ LANGUAGE 'plpgsql';
