@@ -3,11 +3,13 @@
 \i install/sps/SP_DCPUpsertUser.spl
 \i install/sps/SP_DCPDeleteUser.spl
 \i install/sps/SP_DCPGetUser.spl
+\i install/sps/SP_DCPUpsertUserReputationEvent.spl
 \i install/sps/SP_DCPDeactivateUser.spl
 
 -- Teacher
 \i install/sps/SP_DCPUpsertTeacher.spl
 \i install/sps/SP_DCPGetTeacher.spl
+\i install/sps/SP_DCPGetTeacherClass.spl
 
 -- Student
 \i install/sps/SP_DCPUpsertStudent.spl
