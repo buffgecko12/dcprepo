@@ -5,10 +5,10 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes
 
 -- Add users
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe@smith.com',NULL,0,NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (101, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,0,NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,0,NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,0,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe@smith.com',NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (101, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,NULL);
 
 -- Add teacher info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'));
@@ -44,6 +44,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', NULL, current_
 -- Revise contract
 SELECT * FROM $DB_NAME$Views.SP_DCPReviseContract(100,'test revision');
 
+-- Add reputation events
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 1)
 
 -- Get school/class info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetSchool(100);
@@ -52,6 +54,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100);
 -- Get user info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacher(100);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, 100);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 
 -- Other
