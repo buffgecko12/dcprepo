@@ -45,7 +45,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', NULL, current_
 SELECT * FROM $DB_NAME$Views.SP_DCPReviseContract(100,'test revision');
 
 -- Add reputation events
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 1)
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 1);
 
 -- Get school/class info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetSchool(100);
@@ -57,6 +57,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacher(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetUserReputationEvent(1,NULL,NULL);
 
 -- Other
 SELECT * FROM $DB_NAME$Views.SP_DCPDeactivateUser(101);

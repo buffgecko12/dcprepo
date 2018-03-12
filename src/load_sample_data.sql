@@ -45,3 +45,9 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"currentrewards": [{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"},{"rewardid": null, "difficultylevel": "M","rewarddescription": "Some description"}]}'),
 	JSONB('{"currentparties": [{"partyuserid": 2,"contractrole": "MR"},{"partyuserid": 3,"contractrole": "PL"},{"partyuserid": 4,"contractrole": "BL"},{"partyuserid": 5,"contractrole": "PT"}]}')
 );
+
+
+-- Add reputation events
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'BP', current_timestamp, 10, 1);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'OP', current_timestamp, 30, 1);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(4,'TP', current_timestamp, 15, 1);

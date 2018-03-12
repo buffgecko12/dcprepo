@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUserReputationEvent(
+    pUserId INTEGER,
+	pContractId INTEGER,
+	pEventId BIGINT
+)
+RETURNS SETOF $DB_NAME$Views.User_Reputation_Event AS $$
+BEGIN
+    RETURN QUERY
+    -- Lookup a single user based on userid OR emailaddress / username
+    SELECT EventId, UserId, EventType, EventTS, PointValue, ContractId
+    FROM $DB_NAME$Views.User_Reputation_Event
+    WHERE (UserId = pUserId OR pUserId IS NULL)
+    AND (EventId = pEventId OR pEventId IS NULL)
+    AND (ContractId = pContractId OR pContractId IS NULL)
+    ORDER BY UserId, EventTS
+    ;
+END;
+$$ LANGUAGE 'plpgsql';
