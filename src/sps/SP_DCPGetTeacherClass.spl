@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetTeacherClass(
+    pTeacherUserId INTEGER,
+    pClassId INTEGER
+)
+RETURNS TABLE (TeacherUserId INTEGER, ClassId INTEGER) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT utc.TeacherUserId, utc.ClassId
+    FROM $DB_NAME$Views.User_Teacher_Class utc
+	WHERE (utc.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (utc.ClassId = pClassId OR pClassId IS NULL)
+	ORDER BY 1,2
+	;	
+END;
+$$ LANGUAGE 'plpgsql';
