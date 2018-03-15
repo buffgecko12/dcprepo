@@ -5,19 +5,27 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUserReputationEvent (
 	pPointValue INTEGER,
 	pContractId INTEGER
 ) 
-RETURNS VOID AS $$
+RETURNS INTEGER AS $$
+DECLARE
+	NewEventId BIGINT;
 BEGIN   
 
     -- Upsert event
-    INSERT INTO $DB_NAME$.User_Reputation_Event(UserId, EventType, EventTS, PointValue, ContractId)
-    VALUES(pUserId, pEventType, COALESCE(pEventTS, CURRENT_TIMESTAMP), pPointValue, pContractId)
-    ON CONFLICT(EventId) DO NOTHING -- No use case for UPDATE (if added, change UPDATE below to only run after an INSERTed row)
+    WITH ins AS (
+	    INSERT INTO $DB_NAME$.User_Reputation_Event(UserId, EventType, EventTS, PointValue, ContractId)
+	    VALUES(pUserId, pEventType, COALESCE(pEventTS, CURRENT_TIMESTAMP), pPointValue, pContractId)
+	    ON CONFLICT(EventId) DO NOTHING -- No use case for UPDATE (if added, change UPDATE below to only run after an INSERTed row)
+	    RETURNING EventId
+    )
+    SELECT EventId FROM ins INTO NewEventId
     ;   
 
     UPDATE $DB_NAME$.Users
     SET ReputationValue = ReputationValue + pPointValue
     WHERE UserId = pUserId
     ;
+    
+    RETURN NewEventId;
     
 END;
 $$ LANGUAGE 'plpgsql';
