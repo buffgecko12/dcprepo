@@ -112,6 +112,7 @@ CREATE TABLE $DB_NAME$.Contract_Goal (
     GoalId INTEGER NOT NULL,
     DifficultyLevel CHAR(1) NOT NULL DEFAULT 'M',
     GoalDescription VARCHAR(500) NOT NULL,
+    AcceptedFlag BOOLEAN,
     AchievedFlag BOOLEAN,
     PRIMARY KEY (ContractId, GoalId),
     FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)

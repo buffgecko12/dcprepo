@@ -75,6 +75,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="AcceptedFlag" id="10A8788B-2128-F0F2-1D73-B388DDAF9D64">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-03-16 14:23:44 UTC</createdTime>
+<commentInRDBMS>Whether goal was accepted by student.&lt;br/&gt;&lt;br/&gt;This allows the same table to track all potential goals offered.</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="39F9FF6B-AE98-E428-D4B3-8AD15B107FED" name="PKv1">

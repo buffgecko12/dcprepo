@@ -11,6 +11,3 @@ Create/Modify Tables
 Feedback
 - comments
 - organizer performance
-		
-Contract Goal
-- add AcceptedFlag to designate whether students accepted that goal or not (re-use table to store all available goals)

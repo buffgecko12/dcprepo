@@ -64,7 +64,7 @@ BEGIN
     END IF;
     
     -- S2b: Update current goals
-    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AchievedFlag)
+    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag)
 	SELECT 
         MyContractId,
         COALESCE(
@@ -74,17 +74,20 @@ BEGIN
         ) AS NewGoalId,
         src.DifficultyLevel,
 	    src.GoalDescription, 
+	    src.AcceptedFlag,
 	    src.AchievedFlag
 	FROM JSONB_TO_RECORDSET(pGoalInfo->'currentgoals')
 	  AS src(
 	   goalId INTEGER, 
 	   DifficultyLevel CHAR(1),
 	   GoalDescription VARCHAR(500), 
+	   AcceptedFlag BOOLEAN,
 	   AchievedFlag BOOLEAN
    ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
     ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
 		DifficultyLevel = EXCLUDED.DifficultyLevel,
         GoalDescription = EXCLUDED.GoalDescription,
+        AcceptedFlag = EXCLUDED.AcceptedFlag,
         AchievedFlag = EXCLUDED.AchievedFlag -- "excluded" stores rows that could not be inserted
     ;
     
