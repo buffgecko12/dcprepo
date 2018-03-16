@@ -38,6 +38,12 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
+-- Get contract info
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContract(100);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContractReward(100,2,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContractParty(100,100);
+
 -- Approve initial contract
 SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', NULL, current_timestamp, 101);
 
