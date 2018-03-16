@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractGoal(
     pContractId INTEGER,
-    pGoalId INTEGER
+    pGoalId INTEGER,
+    pDifficultyLevel CHAR(1)
 )
 RETURNS SETOF $DB_NAME$Views.Contract_Goal AS $$
 BEGIN
