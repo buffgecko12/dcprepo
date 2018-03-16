@@ -126,7 +126,6 @@ BEGIN
         RewardDescription = EXCLUDED.RewardDescription -- "excluded" stores rows that could not be inserted
     ;
     
-    
 	-- S4: PARTIES
     -- S4a: Delete old parties (if applicable)
     IF(pPartyInfo->'deletedparties') IS NOT NULL THEN
