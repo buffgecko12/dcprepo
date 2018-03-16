@@ -30,6 +30,10 @@
 \i install/sps/SP_DCPUpsertContract.spl
 \i install/sps/SP_DCPApproveContract.spl
 \i install/sps/SP_DCPReviseContract.spl
+\i install/sps/SP_DCPGetContract.spl
+\i install/sps/SP_DCPGetContractGoal.spl
+\i install/sps/SP_DCPGetContractReward.spl
+\i install/sps/SP_DCPGetContractParty.spl
 
 -- Other
 \i install/sps/SP_DCPGetNextId.spl

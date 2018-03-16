@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractParty(
+    pContractId INTEGER,
+    pPartyUserId INTEGER
+)
+RETURNS SETOF $DB_NAME$Views.Contract_Party AS $$
+BEGIN
+    RETURN QUERY
+    SELECT ContractId, PartyUserId, ContractRole
+    FROM $DB_NAME$Views.Contract_Party
+    WHERE (ContractId = pContractId OR pContractId IS NULL)
+    AND (PartyUserId = pPartyUserId OR pPartyUserId IS NULL)
+	;
+END;
+$$ LANGUAGE 'plpgsql';

@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContract(
+    pContractId INTEGER
+)
+RETURNS SETOF $DB_NAME$Views.Contract AS $$
+BEGIN
+    RETURN QUERY
+    SELECT 
+    	ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription,
+		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS
+    FROM $DB_NAME$Views.Contract
+    WHERE (ContractId = pContractId OR pContractId IS NULL)
+	;
+END;
+$$ LANGUAGE 'plpgsql';
