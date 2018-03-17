@@ -28,6 +28,9 @@
 
 -- Contract
 \i install/sps/SP_DCPUpsertContract.spl
+\i install/sps/SP_DCPModifyContractGoals.spl
+\i install/sps/SP_DCPModifyContractRewards.spl
+\i install/sps/SP_DCPModifyContractParties.spl
 \i install/sps/SP_DCPApproveContract.spl
 \i install/sps/SP_DCPReviseContract.spl
 \i install/sps/SP_DCPGetContract.spl

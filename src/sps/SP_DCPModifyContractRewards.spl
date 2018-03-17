@@ -1,0 +1,47 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPModifyContractRewards(
+    pContractId INTEGER,
+    pRewardInfo JSONB
+) 
+RETURNS INTEGER AS $$
+BEGIN
+	
+    -- S3a: Delete old rewards (if applicable)
+    IF(pRewardInfo->'deletedrewards') IS NOT NULL THEN
+        DELETE FROM $DB_NAME$.Contract_Reward
+        WHERE ContractId = pContractId
+        AND RewardId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pRewardInfo->'deletedrewards') AS INTEGER
+            )
+        )
+        ;
+    END IF;
+    
+    -- Update current rewards (if applicable)
+    IF(pRewardInfo->'currentrewards') IS NOT NULL THEN 
+	    INSERT INTO $DB_NAME$.Contract_Reward (ContractId, RewardId, DifficultyLevel, RewardDescription)
+		SELECT 
+	        pContractId,
+	        COALESCE(
+	            src.RewardId, -- Use original RewardId if provided (otherwise generate new one)
+	            COALESCE((SELECT MAX(RewardId) FROM $DB_NAME$.Contract_Reward WHERE ContractId = pContractId), 0) + -- Get max RewardId for this contract
+	            ROW_NUMBER() OVER(PARTITION BY src.RewardId /* GROUP NULLs (new rewards) into same partition */ ORDER BY src.RewardId) -- Generate new RewardId values
+	        ) AS NewRewardId,
+	        src.DifficultyLevel,
+		    src.RewardDescription
+		FROM JSONB_TO_RECORDSET(pRewardInfo->'currentrewards')
+		  AS src(
+		   rewardId INTEGER, 
+		   DifficultyLevel CHAR(1),
+		   RewardDescription VARCHAR(500)
+	   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
+	    ON CONFLICT (ContractId, RewardId) DO UPDATE SET 
+			DifficultyLevel = EXCLUDED.DifficultyLevel,
+	        RewardDescription = EXCLUDED.RewardDescription -- "excluded" stores rows that could not be inserted
+	    ;
+	END IF;
+	    	
+	-- Return contractId
+    RETURN pContractId;
+END
+$$ LANGUAGE 'plpgsql';

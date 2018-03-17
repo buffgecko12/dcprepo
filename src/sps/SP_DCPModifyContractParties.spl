@@ -1,0 +1,35 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPModifyContractParties(
+    pContractId INTEGER,
+    pPartyInfo JSONB
+)
+RETURNS INTEGER AS $$
+BEGIN
+	
+    -- Delete old parties (if applicable)
+    IF(pPartyInfo->'deletedparties') IS NOT NULL THEN
+        DELETE FROM $DB_NAME$.Contract_Party
+        WHERE ContractId = pContractId
+        AND PartyUserId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pPartyInfo->'deletedparties') AS INTEGER
+            )
+        )
+        ;
+    END IF;
+    
+    -- Update current parties (if applicable)
+    IF(pPartyInfo->'currentparties') IS NOT NULL THEN 
+    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
+	SELECT pContractId AS ContractId, src.PartyUserId, src.ContractRole
+	FROM JSONB_TO_RECORDSET(pPartyInfo->'currentparties') 
+	   AS src (PartyUserId INTEGER, ContractRole CHAR(2))
+	INNER JOIN $DB_NAME$Views.Users u ON src.PartyUserId = u.UserId -- Only include users that are already registered
+	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
+		ContractRole = EXCLUDED.ContractRole
+	;
+	END IF;
+	    	
+	-- Return contractId
+    RETURN pContractId;
+END
+$$ LANGUAGE 'plpgsql';

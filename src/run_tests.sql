@@ -38,6 +38,22 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
+-- Modify contract goals/rewards/parties
+SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractGoals(
+	100,
+	JSONB('{"deletedgoals": [2],"currentgoals": [{"goalid": null, "difficultylevel": "D","goaldescription": "Some NEWER description"}]}')
+);
+
+SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractRewards(
+	100,
+	JSONB('{"deletedrewards": [2],"currentrewards": [{"rewardid": null, "difficultylevel": "E","rewarddescription": "Some NEWER description"}]}')
+);
+
+SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractParties(
+	100,
+	JSONB('{"deletedparties": [100],"currentparties": [{"partyuserid": null,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
+);
+
 -- Get contract info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContract(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);

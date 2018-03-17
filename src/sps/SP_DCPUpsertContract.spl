@@ -20,8 +20,7 @@ DECLARE
 	MyContractId INTEGER;
 BEGIN
 	
-	-- S0: SETUP
-	-- S0a: Get userid
+	-- Determine contractid
 	IF(pContractId IS NULL) THEN
 		-- Create contract (get new id)
 	    SELECT * FROM SP_DCPGetNextId('contract') INTO MyContractId;
@@ -30,8 +29,7 @@ BEGIN
     	MyContractId = pContractId;
     END IF;
 
-	-- S1: GENERAL
-	-- S1a: Upsert general info
+	-- Upsert general info
 	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
 	  RevisionDeadlineTS, RevisionDescription, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
     VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
@@ -50,106 +48,16 @@ BEGIN
 	    ContractScanFile = EXCLUDED.ContractScanFile
     ;
 
-    -- S2: GOALS
-    -- S2a: Delete old goals (if applicable)
-    IF(pGoalInfo->'deletedgoals') IS NOT NULL THEN
-        DELETE FROM $DB_NAME$.Contract_Goal
-        WHERE ContractId = MyContractId
-        AND GoalId IN (
-            SELECT CAST(
-                JSONB_ARRAY_ELEMENTS_TEXT(pGoalInfo->'deletedgoals') AS INTEGER
-            )
-        )
-        ;
-    END IF;
+    -- Update goals info
+    PERFORM $DB_NAME$Views.SP_DCPModifyContractGoals(MyContractId, pGoalInfo);
     
-    -- S2b: Update current goals
-    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag)
-	SELECT 
-        MyContractId,
-        COALESCE(
-            src.GoalId, -- Use original GoalId if provided (otherwise generate new one)
-            COALESCE((SELECT MAX(GoalId) FROM $DB_NAME$.Contract_Goal WHERE ContractId = MyContractId), 0) + -- Get max GoalId for this contract
-            ROW_NUMBER() OVER(PARTITION BY src.GoalId /* GROUP NULLs (new goals) into same partition */ ORDER BY src.GoalId) -- Generate new GoalId values
-        ) AS NewGoalId,
-        src.DifficultyLevel,
-	    src.GoalDescription, 
-	    src.AcceptedFlag,
-	    src.AchievedFlag
-	FROM JSONB_TO_RECORDSET(pGoalInfo->'currentgoals')
-	  AS src(
-	   goalId INTEGER, 
-	   DifficultyLevel CHAR(1),
-	   GoalDescription VARCHAR(500), 
-	   AcceptedFlag BOOLEAN,
-	   AchievedFlag BOOLEAN
-   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
-    ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
-		DifficultyLevel = EXCLUDED.DifficultyLevel,
-        GoalDescription = EXCLUDED.GoalDescription,
-        AcceptedFlag = EXCLUDED.AcceptedFlag,
-        AchievedFlag = EXCLUDED.AchievedFlag -- "excluded" stores rows that could not be inserted
-    ;
+    -- Update rewards info
+    PERFORM $DB_NAME$Views.SP_DCPModifyContractRewards(MyContractId, pRewardInfo);
     
-    -- S3: REWARDS
-    -- S3a: Delete old rewards (if applicable)
-    IF(pRewardInfo->'deletedrewards') IS NOT NULL THEN
-        DELETE FROM $DB_NAME$.Contract_Reward
-        WHERE ContractId = MyContractId
-        AND RewardId IN (
-            SELECT CAST(
-                JSONB_ARRAY_ELEMENTS_TEXT(pRewardInfo->'deletedrewards') AS INTEGER
-            )
-        )
-        ;
-    END IF;
-    
-    -- S3b: Update current rewards
-    INSERT INTO $DB_NAME$.Contract_Reward (ContractId, RewardId, DifficultyLevel, RewardDescription)
-	SELECT 
-        MyContractId,
-        COALESCE(
-            src.RewardId, -- Use original RewardId if provided (otherwise generate new one)
-            COALESCE((SELECT MAX(RewardId) FROM $DB_NAME$.Contract_Reward WHERE ContractId = MyContractId), 0) + -- Get max RewardId for this contract
-            ROW_NUMBER() OVER(PARTITION BY src.RewardId /* GROUP NULLs (new rewards) into same partition */ ORDER BY src.RewardId) -- Generate new RewardId values
-        ) AS NewRewardId,
-        src.DifficultyLevel,
-	    src.RewardDescription
-	FROM JSONB_TO_RECORDSET(pRewardInfo->'currentrewards')
-	  AS src(
-	   rewardId INTEGER, 
-	   DifficultyLevel CHAR(1),
-	   RewardDescription VARCHAR(500)
-   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
-    ON CONFLICT (ContractId, RewardId) DO UPDATE SET 
-		DifficultyLevel = EXCLUDED.DifficultyLevel,
-        RewardDescription = EXCLUDED.RewardDescription -- "excluded" stores rows that could not be inserted
-    ;
-    
-	-- S4: PARTIES
-    -- S4a: Delete old parties (if applicable)
-    IF(pPartyInfo->'deletedparties') IS NOT NULL THEN
-        DELETE FROM $DB_NAME$.Contract_Party
-        WHERE ContractId = MyContractId
-        AND PartyUserId IN (
-            SELECT CAST(
-                JSONB_ARRAY_ELEMENTS_TEXT(pPartyInfo->'deletedparties') AS INTEGER
-            )
-        )
-        ;
-    END IF;
+	-- Update parties info	
+    PERFORM $DB_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyInfo);
 
-    -- S4b: Update current parties
-    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
-	SELECT MyContractId AS ContractId, src.PartyUserId, src.ContractRole
-	FROM JSONB_TO_RECORDSET(pPartyInfo->'currentparties') 
-	   AS src (PartyUserId INTEGER, ContractRole CHAR(2))
-	INNER JOIN $DB_NAME$Views.Users u ON src.PartyUserId = u.UserId -- Only include users that are already registered
-	ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
-		ContractRole = EXCLUDED.ContractRole
-	;
-	
-	-- Return contractId
+    -- Return contractId
     RETURN MyContractId;
 END
 $$ LANGUAGE 'plpgsql';
