@@ -1,13 +1,14 @@
-Create SPs
-----------
-Complete Contract
+CONTRACTS
+---------
+Complete
 - reward delivery (contract_party_goal_reward)
 - rating/reputation + feedback (teacher & student)
 
-Delete Contract
+Delete
 
-Create/Modify Tables
---------------------
-Feedback
+Get
+
+FEEDBACK
+--------
 - comments
-- organizer performance
+- organizer performance / ratings
