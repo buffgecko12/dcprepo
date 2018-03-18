@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPAcceptContractGoal(
+    pContractId INTEGER,
+    pGoalId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN
+	UPDATE $DB_NAME$.Contract_Goal
+	SET AcceptedFlag = True
+	WHERE ContractId = pContractId
+	AND (GoalId = pGoalId OR pGoalId IS NULL)
+	;
+END
+$$ LANGUAGE 'plpgsql';

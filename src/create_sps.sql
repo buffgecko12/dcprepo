@@ -37,6 +37,7 @@
 \i install/sps/SP_DCPGetContractGoal.spl
 \i install/sps/SP_DCPGetContractReward.spl
 \i install/sps/SP_DCPGetContractParty.spl
+\i install/sps/SP_DCPAcceptContractGoal.spl
 
 -- Other
 \i install/sps/SP_DCPGetNextId.spl

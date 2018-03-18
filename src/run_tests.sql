@@ -60,6 +60,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractReward(100,2,NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractParty(100,100);
 
+-- Accept contract goal
+SELECT * FROM $DB_NAME$Views.SP_DCPAcceptContractGoal(100,2);
 -- Approve initial contract
 SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', NULL, current_timestamp, 101);
 
