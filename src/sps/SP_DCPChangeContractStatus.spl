@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPChangeContractStatus(
+    pContractId INTEGER,
+    pContractStatus CHAR(1)
+) 
+RETURNS VOID AS $$
+BEGIN
+	-- Set contract status
+	UPDATE $DB_NAME$.Contract
+	SET ContractStatus = pContractStatus
+	WHERE ContractId = pContractId
+	;
+END
+$$ LANGUAGE 'plpgsql';

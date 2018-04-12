@@ -38,6 +38,9 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
+-- Change status to 'active'
+SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'A');
+
 -- Modify contract goals/rewards/parties
 SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractGoals(
 	100,

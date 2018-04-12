@@ -80,6 +80,7 @@ CREATE TABLE $DB_NAME$.Contract (
     StudentRequirements VARCHAR(500),
     ContractScanFile BYTEA,
     ContractApprovalTS TIMESTAMP WITH TIME ZONE,
+    ContractStatus CHAR(1),
     PRIMARY KEY (ContractId),
     FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $DB_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
 );

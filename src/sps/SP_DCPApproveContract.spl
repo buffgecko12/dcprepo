@@ -87,6 +87,9 @@ BEGIN
 			WHERE NumParties = NumPartiesApproved -- Only return if all parties have approved
 		) 
 		;
+		
+		-- Set status to active
+		PERFORM $DB_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
 	END IF;
 END
 $$ LANGUAGE 'plpgsql';

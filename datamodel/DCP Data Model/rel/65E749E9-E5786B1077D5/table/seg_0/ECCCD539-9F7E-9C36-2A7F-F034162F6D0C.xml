@@ -81,6 +81,7 @@
 <Column name="GuardianApprovalFlag" id="EE69A6BA-EE82-850A-1A60-5DB037B4EF2D">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-07 23:23:20 UTC</createdTime>
+<comment>Whether guardian approval is required for participants.</comment>
 <commentInRDBMS>Track if guardian approval is required.</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -189,6 +190,19 @@
 <logicalDatatype>LOGDT046</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractStatus" id="45A35359-84B8-9D16-A6F9-1ACA1E4A737F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-04-11 22:47:43 UTC</createdTime>
+<comment>Contract status:&lt;br/&gt;&lt;br/&gt;D - draft (saved, but not submitted for approval)&lt;br/&gt;P - pending (submitted for approval, awaiting party approval)&lt;br/&gt;A - active (approved, ready-to-go)&lt;br/&gt;C - complete (completed)</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
