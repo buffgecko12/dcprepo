@@ -1,6 +1,6 @@
 -- User info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, Last_Login 
+SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login 
 FROM $DB_NAME$.Users 
 WHERE DeactivatedTS IS NULL;
 

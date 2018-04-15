@@ -133,12 +133,12 @@ for install_file in install_files:
             ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
             ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
                     'from django.contrib.auth import get_user_model; ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'joe@smith.com\',\'TR\',\'Hirofumi\',\'Yamaguchi\',None,\'123 123 1234\',\'joe@smith.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'orokusaki\',\'TR\',\'Oroku\',\'Saki\',None,\'321 321 4321\',\'oroku@saki.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'student1\',\'ST\',\'Q\',\'Dunno\',None,\'56 9 3130 1966\',\'mark@david.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'student2\',\'ST\',\'Murr\',\'Beckham\',None,\'57 310 1265\',\'yakko@elsa.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'student3\',\'ST\',\'Sal\',\'Bond\',None,\'123 123 4567\',\'mushu@pork.com\'); ' + \
-                    'get_user_model().objects.create_user(\'adminadmin\',\'thereal@joesmith.com\',\'SF\',\'Joe\',\'Smith\',None,\'+56 9 3120 3495\',\'thereal@joesmith.com\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'joe@smith.com\',\'TR\',\'Hirofumi\',\'Yamaguchi\',None,\'123 123 1234\',\'joe@smith.com\',\'U\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'orokusaki\',\'TR\',\'Oroku\',\'Saki\',None,\'321 321 4321\',\'oroku@saki.com\',\'U\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student1\',\'ST\',\'Q\',\'Dunno\',None,\'56 9 3130 1966\',\'mark@david.com\',\'U\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student2\',\'ST\',\'Murr\',\'Beckham\',None,\'57 310 1265\',\'yakko@elsa.com\',\'U\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'student3\',\'ST\',\'Sal\',\'Bond\',None,\'123 123 4567\',\'mushu@pork.com\',\'U\'); ' + \
+                    'get_user_model().objects.create_user(\'adminadmin\',\'thereal@joesmith.com\',\'SF\',\'Joe\',\'Smith\',None,\'+56 9 3120 3495\',\'thereal@joesmith.com\',\'U\'); ' + \
                     '"'
                  , 'Y', my_env = env_dict)
             print("")

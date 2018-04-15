@@ -8,6 +8,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
     pPhoneNumber VARCHAR(25),
     pEmailAddress VARCHAR(250),
     pPassword VARCHAR(128),
+    pUserRole CHAR(1),
     pLast_Login TIMESTAMPTZ
 ) 
 RETURNS INTEGER AS $$
@@ -25,8 +26,8 @@ BEGIN
     END IF;
     
     -- Upsert user
-    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, Last_Login)
-    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pLast_Login)
+    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login)
+    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
@@ -36,6 +37,7 @@ BEGIN
 	    PhoneNumber = EXCLUDED.PhoneNumber,
 	    EmailAddress = EXCLUDED.EmailAddress,
 	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
+	    UserRole = EXCLUDED.UserRole,
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
     ;   
     

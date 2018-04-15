@@ -3,11 +3,11 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetTeacher(
 )
 RETURNS TABLE (
 	TeacherUserId INTEGER, ClassInfo JSONB, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, 
-	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER, Last_Login TIMESTAMP WITH TIME ZONE
+	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT ut.TeacherUserId, utc.ClassInfo, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.Last_Login
+	SELECT ut.TeacherUserId, utc.ClassInfo, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
 	FROM $DB_NAME$Views.Users u
 	INNER JOIN $DB_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 	LEFT JOIN (
