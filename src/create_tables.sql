@@ -23,13 +23,13 @@ CREATE TABLE $DB_NAME$.Class (
 -- User profiles
 CREATE TABLE $DB_NAME$.Users (
     UserId INTEGER NOT NULL,
-    UserName VARCHAR(50) NOT NULL,
+    UserName VARCHAR(50) NOT NULL UNIQUE,
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
     DefaultSignatureScanFile BYTEA,
     PhoneNumber VARCHAR(25),
-    EmailAddress VARCHAR(250),
+    EmailAddress VARCHAR(250) UNIQUE,
     Password VARCHAR(128),
     ReputationValue INTEGER DEFAULT 0,
     UserRole CHAR(1),
