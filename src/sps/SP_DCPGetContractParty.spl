@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractParty(
     pContractId INTEGER,
-    pPartyUserId INTEGER
+    pPartyUserId INTEGER,
+    pContractRole CHAR(2)
 )
 RETURNS SETOF $DB_NAME$Views.Contract_Party AS $$
 BEGIN
@@ -9,6 +10,7 @@ BEGIN
     FROM $DB_NAME$Views.Contract_Party
     WHERE (ContractId = pContractId OR pContractId IS NULL)
     AND (PartyUserId = pPartyUserId OR pPartyUserId IS NULL)
+    AND (ContractRole = pContractRole OR pContractRole IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';

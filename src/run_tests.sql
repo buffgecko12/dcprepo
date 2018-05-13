@@ -61,7 +61,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractParties(
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContract(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractReward(100,2,NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPGetContractParty(100,100);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 
 -- Accept contract goal
 SELECT * FROM $DB_NAME$Views.SP_DCPAcceptContractGoal(100,2);
