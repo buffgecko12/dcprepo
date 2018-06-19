@@ -16,8 +16,14 @@ BEGIN
     SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login
     FROM $DB_NAME$Views.Users
     WHERE (UserId = pUserId OR pUserId IS NULL)
-    AND (EmailAddress = pEmailAddress OR pEmailAddress IS NULL)
     AND (Username = pUsername OR pUsername IS NULL)
+    AND (
+    	(
+    		EmailAddress = pEmailAddress AND
+    		TRIM(EmailAddress) <> '' -- Exclude empty e-mail addresses
+		) OR 
+    	pEmailAddress IS NULL
+	)
     ;
 END;
 $$ LANGUAGE 'plpgsql';
