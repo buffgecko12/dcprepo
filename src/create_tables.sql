@@ -29,7 +29,7 @@ CREATE TABLE $DB_NAME$.Users (
     LastName VARCHAR(100) NOT NULL,
     DefaultSignatureScanFile BYTEA,
     PhoneNumber VARCHAR(25),
-    EmailAddress VARCHAR(250) UNIQUE,
+    EmailAddress VARCHAR(250),
     Password VARCHAR(128),
     ReputationValue INTEGER DEFAULT 0,
     UserRole CHAR(1),
