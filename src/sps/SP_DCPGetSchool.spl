@@ -7,7 +7,7 @@ BEGIN
     SELECT SchoolId, SchoolDisplayName, Address, City, Department
     FROM $DB_NAME$Views.School
     WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
-    AND SchoolId > 0 -- Ignore reserve fields
+    ORDER BY SchoolDisplayName
     ;
 END;
 $$ LANGUAGE 'plpgsql';
