@@ -1,12 +1,16 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetClass(
     pClassId INTEGER
 )
-RETURNS SETOF $DB_NAME$Views.Class AS $$
+RETURNS TABLE (
+	ClassId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassDisplayName VARCHAR(100)
+) AS $$
 BEGIN
     RETURN QUERY -- Return these query results
-    SELECT ClassId, SchoolId, ClassDisplayName
-    FROM $DB_NAME$Views.Class
-    WHERE (ClassId = pClassId OR pClassId IS NULL)
+    SELECT cl.ClassId, cl.SchoolId, sc.SchoolDisplayName, cl.ClassDisplayName
+    FROM $DB_NAME$Views.Class cl
+    INNER JOIN $DB_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
+    WHERE (cl.ClassId = pClassId OR pClassId IS NULL)
+    ORDER BY sc.SchoolDisplayName, cl.SchoolId, cl.ClassDisplayName, cl.ClassId
     ;
 END;
 $$ LANGUAGE 'plpgsql';
