@@ -2,14 +2,16 @@
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 
 SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login 
 FROM $DB_NAME$.Users 
-WHERE DeactivatedTS IS NULL;
+WHERE DeactivatedTS IS NULL -- Ignore deactivated users
+AND UserId <> 0 -- Ignore reserve fields
+;
 
 CREATE OR REPLACE VIEW $DB_NAME$Views.UsersAll AS SELECT * FROM $DB_NAME$.Users;
-CREATE OR REPLACE VIEW $DB_NAME$Views.School AS SELECT * FROM $DB_NAME$.School;
-CREATE OR REPLACE VIEW $DB_NAME$Views.Class AS SELECT * FROM $DB_NAME$.Class;
-CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher AS SELECT * FROM $DB_NAME$.User_Teacher;
+CREATE OR REPLACE VIEW $DB_NAME$Views.School AS SELECT * FROM $DB_NAME$.School WHERE SchoolId <> 0;
+CREATE OR REPLACE VIEW $DB_NAME$Views.Class AS SELECT * FROM $DB_NAME$.Class WHERE ClassId <> 0;
+CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher AS SELECT * FROM $DB_NAME$.User_Teacher WHERE TeacherUserId <> 0;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher_Class AS SELECT * FROM $DB_NAME$.User_Teacher_Class;
-CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.User_Student;
+CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.User_Student WHERE StudentUserId <> 0;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Reputation_Event AS SELECT * FROM $DB_NAME$.User_Reputation_Event;
 
 -- Contract info
