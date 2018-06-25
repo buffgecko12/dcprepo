@@ -14,8 +14,10 @@ BEGIN
 			utc.TeacherUserId,
 			JSONB_AGG(
 				( -- Create rows
-					SELECT myrow FROM (SELECT utc.ClassId, c.ClassDisplayName) myrow
+					SELECT myrow 
+					FROM (SELECT utc.ClassId, c.ClassDisplayName) myrow
 				)
+				ORDER BY c.ClassDisplayName
 			) AS ClassInfo
 		FROM $DB_NAME$Views.User_Teacher_Class utc
 		INNER JOIN $DB_NAME$Views.Class c ON utc.ClassId = c.ClassId
