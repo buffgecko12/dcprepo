@@ -7,9 +7,8 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT ut.TeacherUserId, utc.ClassInfo, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
-	FROM $DB_NAME$Views.Users u
-	INNER JOIN $DB_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
+	SELECT t.TeacherUserId, utc.ClassInfo, t.Firstname, t.Lastname, t.DefaultSignatureScanFile, t.PhoneNumber, t.EmailAddress, t.ReputationValue
+	FROM $DB_NAME$Views.Teachers t
 	LEFT JOIN (
 		SELECT 
 			utc.TeacherUserId,
@@ -21,8 +20,8 @@ BEGIN
 		FROM $DB_NAME$Views.User_Teacher_Class utc
 		INNER JOIN $DB_NAME$Views.Class c ON utc.ClassId = c.ClassId
 		GROUP BY utc.TeacherUserId
-	) utc ON ut.TeacherUserId = utc.TeacherUserId
-	WHERE (ut.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	) utc ON t.TeacherUserId = utc.TeacherUserId
+	WHERE (t.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 	;	
 END;
 $$ LANGUAGE 'plpgsql';
