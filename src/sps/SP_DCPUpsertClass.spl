@@ -10,7 +10,7 @@ BEGIN
 
 	-- Get next id value (for new class only)
 	IF(pClassId IS NULL) THEN
-	    SELECT * FROM SP_DCPGetNextId('class') INTO NewClassId;		
+	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('class') INTO NewClassId;		
     END IF;
     
     -- Upsert class

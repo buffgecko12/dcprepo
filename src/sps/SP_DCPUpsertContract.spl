@@ -23,7 +23,7 @@ BEGIN
 	-- Determine contractid
 	IF(pContractId IS NULL) THEN
 		-- Create contract (get new id)
-	    SELECT * FROM SP_DCPGetNextId('contract') INTO MyContractId;
+	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('contract') INTO MyContractId;
     ELSE
     	-- Update contract (use provided id)
     	MyContractId = pContractId;

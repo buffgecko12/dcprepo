@@ -12,7 +12,7 @@ BEGIN
 
 	-- Get next id value (for new school only)
 	IF(pSchoolId IS NULL) THEN
-	    SELECT * FROM SP_DCPGetNextId('school') INTO NewSchoolId;		
+	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('school') INTO NewSchoolId;		
     END IF;
     
     -- Upsert school
