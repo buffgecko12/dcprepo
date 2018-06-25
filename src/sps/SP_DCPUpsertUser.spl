@@ -19,7 +19,7 @@ BEGIN
 	-- Get userid
 	IF(pUserId IS NULL) THEN
 		-- Create user (get next userid)
-	    SELECT * FROM SP_DCPGetNextId('user') INTO MyUserId;
+	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('user') INTO MyUserId;
     ELSE
     	-- Update user (use provided userid)
     	MyUserId = pUserId;
@@ -41,6 +41,15 @@ BEGIN
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
     ;   
     
+    -- Add additional info (new user)
+    IF(pUserId IS NULL) THEN
+	    IF(pUserType = 'ST') THEN
+	    	PERFORM $DB_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0); -- Create new student (unassigned class)
+		ELSEIF (pUserType = 'TR') THEN 
+	    	PERFORM $DB_NAME$Views.SP_DCPUpsertTeacher(MyUserId, NULL); -- Create new teacher (no classes)
+		END IF;
+	END IF;
+		
 	-- Return userid
     RETURN MyUserId;   
 END;

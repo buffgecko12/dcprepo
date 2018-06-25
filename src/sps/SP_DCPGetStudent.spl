@@ -1,16 +1,15 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetStudent(
-    pStudentUserId INTEGER
+    pStudentUserId INTEGER,
+    pClassId INTEGER
 )
-RETURNS TABLE (
-	StudentUserId INTEGER, ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, 
-	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER
-) AS $$
+RETURNS SETOF $DB_NAME$Views.Students AS $$
 BEGIN
     RETURN QUERY
-	SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
-	FROM $DB_NAME$Views.Users u
-	INNER JOIN $DB_NAME$Views.User_Student us ON u.UserId = us.StudentUserId
-	WHERE (us.StudentUserId = pStudentUserId OR pStudentUserId IS NULL)
+	SELECT * 
+	FROM $DB_NAME$Views.Students
+	WHERE (StudentUserId = pStudentUserId OR pStudentUserId IS NULL)
+	AND (ClassId = pClassId OR pClassId IS NULL)
+	ORDER BY Firstname, Lastname, ClassId
 	;
 END;
 $$ LANGUAGE 'plpgsql';

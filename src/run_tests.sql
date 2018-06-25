@@ -17,7 +17,6 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, JSONB('{"deletedclasses": 
 -- Add student info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,100);
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(102,100);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(103,100);
 
 -- Modify student info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,0);
@@ -32,7 +31,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 
 -- Modify contact
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
-	100,1,'G',1,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
+	100,1,'G',3,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
 	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description"}]}'),
 	JSONB('{"deletedrewards": [1],"currentrewards": [{"rewardid": 2, "difficultylevel": "E","rewarddescription": "Some new description"}]}'),
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
@@ -79,7 +78,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetSchool(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100);
 
 -- Get user info
-SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacher(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
