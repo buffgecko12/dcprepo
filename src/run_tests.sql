@@ -75,7 +75,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10
 
 -- Get school/class info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetSchool(100);
-SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100,NULL);
 
 -- Get user info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101, NULL);

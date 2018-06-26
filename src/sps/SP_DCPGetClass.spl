@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetClass(
-    pClassId INTEGER
+    pClassId INTEGER,
+    pSchoolId INTEGER
 )
 RETURNS TABLE (
 	ClassId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassDisplayName VARCHAR(100)
@@ -10,6 +11,7 @@ BEGIN
     FROM $DB_NAME$Views.Class cl
     INNER JOIN $DB_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
     WHERE (cl.ClassId = pClassId OR pClassId IS NULL)
+    AND (cl.SchoolId = pSchoolId OR pSchoolId IS NULL)
     ORDER BY sc.SchoolDisplayName, cl.SchoolId, cl.ClassDisplayName, cl.ClassId
     ;
 END;
