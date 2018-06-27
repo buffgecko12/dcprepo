@@ -1,5 +1,5 @@
 -- Create DEACTIVATED lookup entries (must be done in correct orders)
-SELECT $DB_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', NULL, NULL, NULL);
+SELECT $DB_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', 'DEACTIVATED', NULL, NULL, NULL);
 SELECT $DB_NAME$Views.SP_DCPUpsertClass (0, 0, 'DEACTIVATED');
 
 SELECT $DB_NAME$Views.SP_DCPUpsertUser (0, 'DEACTIVATED', 'ST', '', '', NULL, NULL, NULL,NULL,'U',NULL);

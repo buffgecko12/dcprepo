@@ -5,6 +5,7 @@
 CREATE TABLE $DB_NAME$.School (
 	SchoolId INTEGER NOT NULL,
 	SchoolDisplayName VARCHAR(100) NOT NULL,
+	SchoolAbbreviation VARCHAR(25),
 	Address VARCHAR(100),
 	City VARCHAR(100),
 	Department VARCHAR(100),

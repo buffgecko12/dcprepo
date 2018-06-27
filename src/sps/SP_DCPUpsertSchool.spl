@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertSchool (
 	pSchoolId INTEGER,
 	pSchoolDisplayName VARCHAR(100),
+	pSchoolAbbreviation VARCHAR(20),
 	pAddress VARCHAR(100),
 	pCity VARCHAR(100),
 	pDepartment VARCHAR(100)
@@ -16,10 +17,11 @@ BEGIN
     END IF;
     
     -- Upsert school
-    INSERT INTO $DB_NAME$.School(SchoolId, SchoolDisplayName, Address, City, Department)
-    VALUES(COALESCE(pSchoolId, NewSchoolId), pSchoolDisplayName, pAddress, pCity, pDepartment)
+    INSERT INTO $DB_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department)
+    VALUES(COALESCE(pSchoolId, NewSchoolId), pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment)
     ON CONFLICT(SchoolId) DO UPDATE SET
 	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,
+	    SchoolAbbreviation = EXCLUDED.SchoolAbbreviation,
 	    Address = EXCLUDED.Address,
 	    City = EXCLUDED.City,
         Department = EXCLUDED.Department

@@ -1,5 +1,5 @@
 -- Create schools/classes
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertSchool(100, 'School 1', 'My Address','Duitama','Boyaca'); -- Schools
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertSchool(100, 'Test School 1', 'TS1', 'My Address','Duitama','Boyaca'); -- Schools
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(100, 100, '10-03'); -- Classes
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes

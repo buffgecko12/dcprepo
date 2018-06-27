@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetSchool(
 RETURNS SETOF $DB_NAME$Views.School AS $$
 BEGIN
     RETURN QUERY -- Return these query results
-    SELECT SchoolId, SchoolDisplayName, Address, City, Department
+    SELECT SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department
     FROM $DB_NAME$Views.School
     WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
     ORDER BY SchoolDisplayName
