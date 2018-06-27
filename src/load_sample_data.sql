@@ -8,7 +8,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-05');
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertClass(NULL, 1, '9-03');
 
 -- Add teacher info + classes
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(3,
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(3, 1,
 	JSONB(
 	'{
 		"deletedclasses": [],
@@ -20,7 +20,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(3,
 	)
 );
 
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(4,
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(4, 1,
 	JSONB(
 	'{
 		"deletedclasses": [],

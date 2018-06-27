@@ -25,6 +25,21 @@
 <colAssociation fkAssociation="E89A78EE-FDE6-658D-6CCB-69353AFF981A" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
 </associations>
 </Column>
+<Column name="SchoolId" id="B64FABC3-9D30-227A-B1AC-1EAC083A8463">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-06-26 16:52:21 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D6BBDD34-3768-D888-DD91-46F089922FFE" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</associations>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="1EA54C1D-16F9-8619-336C-958217012A58" name="PKv9">
@@ -48,6 +63,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="419F182C-BFFD-04F8-A2EC-8AB7D8B73E23" name="FKv16">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-06-26 16:52:21 UTC</createdTime>
+<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B64FABC3-9D30-227A-B1AC-1EAC083A8463"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

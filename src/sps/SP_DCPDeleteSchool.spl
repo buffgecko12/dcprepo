@@ -12,6 +12,11 @@ BEGIN
 	LOOP
 		PERFORM $DB_NAME$Views.SP_DCPDeleteClass(myclass.ClassId); -- PERFORM runs function and discards the results
 	END LOOP;
+
+	-- Set schoolId as unassigned/deactivated
+	UPDATE $DB_NAME$.User_Teacher
+	SET SchoolId = 0
+	WHERE SchoolId = pSchoolId;
 	
 	-- Delete school
 	DELETE FROM $DB_NAME$.School WHERE SchoolId = pSchoolId;

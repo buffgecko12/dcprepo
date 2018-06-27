@@ -42,9 +42,10 @@ CREATE TABLE $DB_NAME$.Users (
 -- Additional teacher user info
 CREATE TABLE $DB_NAME$.User_Teacher (
 	TeacherUserId INTEGER NOT NULL,
+	SchoolId INTEGER,
 	PRIMARY KEY (TeacherUserId),
-	FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId)
-
+	FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId),
+	FOREIGN KEY(SchoolId) REFERENCES $DB_NAME$.School
 );
 
 -- Classes associated with a teacher

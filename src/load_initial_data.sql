@@ -5,7 +5,7 @@ SELECT $DB_NAME$Views.SP_DCPUpsertClass (0, 0, 'DEACTIVATED');
 SELECT $DB_NAME$Views.SP_DCPUpsertUser (0, 'DEACTIVATED', 'ST', '', '', NULL, NULL, NULL,NULL,'U',NULL);
 SELECT $DB_NAME$Views.SP_DCPDeactivateUser(0);
 
-SELECT $DB_NAME$Views.SP_DCPUpsertTeacher(0, JSONB('{"currentclasses": [{"classid":0}]}'));
+SELECT $DB_NAME$Views.SP_DCPUpsertTeacher(0, 0, JSONB('{"currentclasses": [{"classid":0}]}'));
 SELECT $DB_NAME$Views.SP_DCPUpsertStudent(0, 0);
 
 -- Load NextId initial values

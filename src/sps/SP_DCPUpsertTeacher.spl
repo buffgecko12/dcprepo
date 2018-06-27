@@ -1,14 +1,16 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertTeacher (
     pTeacherUserId INTEGER, 
+    pSchoolId INTEGER,
     pClassInfo JSONB
 ) 
 RETURNS VOID AS $$
 BEGIN   
 
     -- S1: Add teacher info
-    INSERT INTO $DB_NAME$.User_Teacher(TeacherUserId)
-    VALUES(pTeacherUserId)
-    ON CONFLICT(TeacherUserId) DO NOTHING -- TO-DO: Update this when more fields are added
+    INSERT INTO $DB_NAME$.User_Teacher(TeacherUserId, SchoolId)
+    VALUES(pTeacherUserId, pSchoolId)
+    ON CONFLICT(TeacherUserId) DO UPDATE SET
+    	SchoolId = EXCLUDED.SchoolId
     ;
     
     -- S2: Add class info
