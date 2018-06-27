@@ -17,7 +17,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(3, 1,
 			{"classid":2}
 		]	
 	}'
-	)
+	),
+	NULL, NULL, NULL, NULL, NULL
 );
 
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(4, 1,
@@ -29,7 +30,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(4, 1,
 			{"classid":3}
 		]	
 	}'
-	)
+	),
+	NULL, NULL, NULL, NULL, NULL
 );
 
 -- Add contract

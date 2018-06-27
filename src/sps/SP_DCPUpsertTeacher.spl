@@ -1,19 +1,34 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertTeacher (
     pTeacherUserId INTEGER, 
     pSchoolId INTEGER,
-    pClassInfo JSONB
+    pClassInfo JSONB,
+    pFirstName VARCHAR(100), 
+    pLastName VARCHAR(100), 
+    pDefaultSignatureScanFile BYTEA,
+    pPhoneNumber VARCHAR(25),
+    pEmailAddress VARCHAR(250)
 ) 
 RETURNS VOID AS $$
-BEGIN   
+BEGIN
 
-    -- S1: Add teacher info
+	-- S0: Update user info
+	UPDATE $DB_NAME$.Users
+	SET FirstName = COALESCE(pFirstName, Users.FirstName), -- Don't overwrite existing values with NULL
+		LastName = COALESCE(pLastName, Users.LastName),
+		DefaultSignatureScanFile = COALESCE(pDefaultSignatureScanFile, Users.DefaultSignatureScanFile),
+		PhoneNumber = COALESCE(pPhoneNumber, Users.PhoneNumber),
+		EmailAddress = COALESCE(pEmailAddress, Users.EmailAddress)
+	WHERE UserId = pTeacherUserId
+	;
+	
+    -- S1: Update teacher info
     INSERT INTO $DB_NAME$.User_Teacher(TeacherUserId, SchoolId)
     VALUES(pTeacherUserId, pSchoolId)
     ON CONFLICT(TeacherUserId) DO UPDATE SET
     	SchoolId = EXCLUDED.SchoolId
     ;
     
-    -- S2: Add class info
+    -- S2: Update class info
     IF(pClassInfo IS NOT NULL) THEN
 
     	-- S2a: Delete classes
