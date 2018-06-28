@@ -25,6 +25,7 @@ BEGIN
 		GROUP BY utc.TeacherUserId
 	) utc ON t.TeacherUserId = utc.TeacherUserId
 	WHERE (t.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	ORDER BY s.SchoolDisplayName, t.Firstname, t.Lastname
 	;	
 END;
 $$ LANGUAGE 'plpgsql';
