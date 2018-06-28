@@ -31,7 +31,19 @@ BEGIN
     -- S2: Update class info
     IF(pClassInfo IS NOT NULL) THEN
 
-    	-- S2a: Delete classes
+    	--S2a: Delete contract references
+    	UPDATE $DB_NAME$.Contract
+    	SET TeacherUserId = 0,
+    		ClassId = 0
+		WHERE TeacherUserId = pTeacherUserId
+		AND ClassId IN (
+			SELECT CAST (
+				JSONB_ARRAY_ELEMENTS_TEXT(pClassInfo->'deletedclasses') AS INTEGER
+			)
+		)
+		;
+		
+    	-- S2b: Delete classes
 		DELETE FROM $DB_NAME$.User_Teacher_Class
 		WHERE TeacherUserId = pTeacherUserId
 		AND ClassId IN (
@@ -41,7 +53,7 @@ BEGIN
 		)
 		;    
     
-    	-- S2b: Update classes
+    	-- S2c: Update classes
 		INSERT INTO $DB_NAME$.User_Teacher_Class (TeacherUserId, ClassId)
 		SELECT pTeacherUserId, src.classid
 		FROM JSONB_TO_RECORDSET(pClassInfo->'currentclasses')
