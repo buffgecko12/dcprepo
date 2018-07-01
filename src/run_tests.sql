@@ -15,11 +15,11 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, JSONB('{"deletedclass
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'), NULL, NULL, NULL, NULL, NULL);
 
 -- Add student info
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,100);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(102,100);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,100, NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(102,100, NULL, NULL, NULL, NULL, NULL);
 
 -- Modify student info
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,0);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,0, NULL, NULL, NULL, NULL, NULL);
 
 -- Add contract
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(

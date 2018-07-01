@@ -1,9 +1,24 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertStudent (
     pStudentUserId INTEGER, 
-    pClassId INTEGER
+    pClassId INTEGER,
+    pFirstName VARCHAR(100), 
+    pLastName VARCHAR(100), 
+    pDefaultSignatureScanFile BYTEA,
+    pPhoneNumber VARCHAR(25),
+    pEmailAddress VARCHAR(250)
 ) 
 RETURNS VOID AS $$
 BEGIN   
+
+	-- S0: Update user info
+	UPDATE $DB_NAME$.Users
+	SET FirstName = COALESCE(pFirstName, Users.FirstName), -- Don't overwrite existing values with NULL
+		LastName = COALESCE(pLastName, Users.LastName),
+		DefaultSignatureScanFile = COALESCE(pDefaultSignatureScanFile, Users.DefaultSignatureScanFile),
+		PhoneNumber = COALESCE(pPhoneNumber, Users.PhoneNumber),
+		EmailAddress = COALESCE(pEmailAddress, Users.EmailAddress)
+	WHERE UserId = pStudentUserId
+	;
 
     -- Add student info
     INSERT INTO $DB_NAME$.User_Student(StudentUserId, ClassId)
