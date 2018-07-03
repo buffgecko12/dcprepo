@@ -13,7 +13,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pContractScanFile BYTEA,
     pGoalInfo JSONB,
     pRewardInfo JSONB,
-    pPartyInfo JSONB
+    pPartyUserInfo JSONB
 ) 
 RETURNS INTEGER AS $$
 DECLARE
@@ -55,7 +55,7 @@ BEGIN
     PERFORM $DB_NAME$Views.SP_DCPModifyContractRewards(MyContractId, pRewardInfo);
     
 	-- Update parties info	
-    PERFORM $DB_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyInfo);
+    PERFORM $DB_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyUserInfo);
 
     -- Return contractId
     RETURN MyContractId;
