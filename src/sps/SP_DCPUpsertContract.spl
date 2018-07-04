@@ -12,12 +12,12 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
     pStudentRequirements VARCHAR(500),
     pContractScanFile BYTEA,
     pGoalInfo JSONB,
-    pRewardInfo JSONB,
     pPartyUserInfo JSONB
 ) 
 RETURNS INTEGER AS $$
 DECLARE
 	MyContractId INTEGER;
+	mygoal RECORD;
 BEGIN
 	
 	-- Determine contractid
@@ -48,11 +48,28 @@ BEGIN
 	    ContractScanFile = EXCLUDED.ContractScanFile
     ;
 
-    -- Update goals info
-    PERFORM $DB_NAME$Views.SP_DCPModifyContractGoals(MyContractId, pGoalInfo);
+    -- Delete old goals (if applicable)
+    IF(pGoalInfo->'deletedgoals') IS NOT NULL THEN
+		-- Delete goals
+    END IF;
     
-    -- Update rewards info
-    PERFORM $DB_NAME$Views.SP_DCPModifyContractRewards(MyContractId, pRewardInfo);
+	-- Upsert goals
+    IF (pGoalInfo->'currentgoals' IS NOT NULL) THEN 
+		FOR mygoal IN 
+			SELECT src.GoalId, src.DifficultyLevel, src.GoalDescription, src.AcceptedFlag, src.AchievedFlag, src.RewardInfo
+			FROM JSONB_TO_RECORDSET(pGoalInfo->'currentgoals')
+			  AS src(
+			   GoalId INTEGER, 
+			   DifficultyLevel CHAR(1),
+			   GoalDescription VARCHAR(500), 
+			   AcceptedFlag BOOLEAN,
+			   AchievedFlag BOOLEAN,
+			   RewardInfo JSONB
+		   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
+		LOOP
+		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.AchievedFlag, mygoal.RewardInfo);
+		END LOOP;
+	END IF;
     
 	-- Update parties info	
     PERFORM $DB_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyUserInfo);

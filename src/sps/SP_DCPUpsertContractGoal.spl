@@ -1,0 +1,67 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContractGoal(
+    pContractId INTEGER,
+    pGoalId INTEGER,
+    pDifficultyLevel CHAR(1),
+    pGoalDescription VARCHAR(500),
+    pAchievedFlag BOOLEAN,
+    pAcceptedFlag BOOLEAN,
+    pRewardInfo JSONB
+)
+RETURNS INTEGER AS $$
+DECLARE
+	MyGoalId INTEGER;
+	myreward RECORD;
+BEGIN
+
+	-- Determine goalId
+	IF(pGoalId IS NULL) THEN
+		SELECT COALESCE(MAX(GoalId),0) + 1 INTO MyGoalId
+		FROM $DB_NAME$.Contract_Goal
+		WHERE ContractId = pContractId
+		;
+	ELSE
+		MyGoalId = pGoalId;
+	END IF;
+
+	-- Upsert goal
+    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag)
+	VALUES (pContractId, MyGoalId, pDifficultyLevel, pGoalDescription, pAcceptedFlag, pAchievedFlag)
+    ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
+		DifficultyLevel = EXCLUDED.DifficultyLevel,
+        GoalDescription = EXCLUDED.GoalDescription,
+        AcceptedFlag = EXCLUDED.AcceptedFlag,
+        AchievedFlag = EXCLUDED.AchievedFlag -- "excluded" stores rows that could not be inserted
+    ;
+
+    -- Delete any rewards    
+    IF(pRewardInfo->'deletedrewards') IS NOT NULL THEN
+        DELETE FROM $DB_NAME$.Contract_Goal_Reward
+        WHERE ContractId = pContractId
+        AND GoalId = pGoalId
+        AND RewardId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pRewardInfo->'deletedrewards') AS INTEGER
+            )
+        )
+        ;
+    END IF;
+
+	-- Update rewards info
+    IF(pRewardInfo->'currentrewards') IS NOT NULL THEN 
+		FOR myreward IN 
+			SELECT src.RewardId, src.RewardDescription, src.RewardValue
+			FROM JSONB_TO_RECORDSET(pRewardInfo->'currentrewards')
+			  AS src(
+			   rewardId INTEGER, 
+			   RewardDescription VARCHAR(500),
+			   RewardValue INTEGER
+		   )
+		LOOP
+		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(pContractId, MyGoalId, myreward.RewardId, myreward.RewardDescription, myreward.RewardValue);
+		END LOOP;
+	END IF;
+		
+    -- Return GoalId
+    RETURN MyGoalId;
+END
+$$ LANGUAGE 'plpgsql';

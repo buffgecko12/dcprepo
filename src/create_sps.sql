@@ -28,15 +28,15 @@
 
 -- Contract
 \i install/sps/SP_DCPUpsertContract.spl
-\i install/sps/SP_DCPModifyContractGoals.spl
-\i install/sps/SP_DCPModifyContractRewards.spl
+\i install/sps/SP_DCPUpsertContractGoal.spl
+\i install/sps/SP_DCPUpsertContractGoalReward.spl
 \i install/sps/SP_DCPModifyContractParties.spl
 \i install/sps/SP_DCPApproveContract.spl
 \i install/sps/SP_DCPChangeContractStatus.spl
 \i install/sps/SP_DCPReviseContract.spl
 \i install/sps/SP_DCPGetContract.spl
 \i install/sps/SP_DCPGetContractGoal.spl
-\i install/sps/SP_DCPGetContractReward.spl
+\i install/sps/SP_DCPGetContractGoalReward.spl
 \i install/sps/SP_DCPGetContractParty.spl
 \i install/sps/SP_DCPAcceptContractGoal.spl
 

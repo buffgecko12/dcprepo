@@ -1,0 +1,35 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContractGoalReward(
+    pContractId INTEGER,
+    pGoalId INTEGER,
+    pRewardId INTEGER,
+    pRewardDescription VARCHAR(500),
+    pRewardValue INTEGER
+)
+RETURNS INTEGER AS $$
+DECLARE
+	MyRewardId INTEGER;
+BEGIN
+
+	-- Determine goalId
+	IF(pRewardId IS NULL) THEN
+		SELECT COALESCE(MAX(RewardId),0) + 1 INTO MyRewardId
+		FROM $DB_NAME$.Contract_Goal_Reward
+		WHERE ContractId = pContractId
+		AND GoalId = pGoalId
+		;
+	ELSE
+		MyRewardId = pRewardId;
+	END IF;
+
+	-- Upsert goal
+    INSERT INTO $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId, RewardDescription, RewardValue)
+	VALUES (pContractId, pGoalId, MyRewardId, pRewardDescription, pRewardValue)
+    ON CONFLICT (ContractId, GoalId, RewardId) DO UPDATE SET 
+        RewardDescription = EXCLUDED.RewardDescription,
+        RewardValue = EXCLUDED.RewardValue -- "excluded" stores rows that could not be inserted
+    ;
+	
+    -- Return GoalId
+    RETURN MyRewardId;
+END
+$$ LANGUAGE 'plpgsql';
