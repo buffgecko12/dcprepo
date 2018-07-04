@@ -123,25 +123,25 @@ CREATE TABLE $DB_NAME$.Contract_Goal (
 );
 
 -- Contract rewards
-CREATE TABLE $DB_NAME$.Contract_Reward (
+CREATE TABLE $DB_NAME$.Contract_Goal_Reward (
 	ContractId INTEGER NOT NULL,
+	GoalId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
-	DifficultyLevel CHAR(1) NOT NULL DEFAULT 'M',
 	RewardDescription VARCHAR(500) NOT NULL,
-	PRIMARY KEY (ContractId, RewardId),
-	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
+	RewardValue INTEGER NOT NULL DEFAULT 0,
+	PRIMARY KEY (ContractId, GoalId, RewardId),
+	FOREIGN KEY (ContractId, GoalId) REFERENCES $DB_NAME$.Contract_Goal (ContractId, GoalId)
 );
 
 -- Reward selected for each contract goal for each student
 CREATE TABLE $DB_NAME$.Contract_Party_Goal_Reward (
-	ContractId INTEGER NOT NULL,
 	PartyUserId INTEGER NOT NULL,
+	ContractId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	RewardDeliveredFlag BOOLEAN,
 	PRIMARY KEY (ContractId, PartyUserId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, GoalId) REFERENCES $DB_NAME$.Contract_Goal (ContractId, GoalId),
-	FOREIGN KEY (ContractId, RewardId) REFERENCES $DB_NAME$.Contract_Reward (ContractId, RewardId),
+	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party (ContractId, PartyUserId)
 );
 

@@ -34,7 +34,7 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.Contract AS SELECT * FROM $DB_NAME$.Contra
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party AS SELECT * FROM $DB_NAME$.Contract_Party;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party_Approval AS SELECT * FROM $DB_NAME$.Contract_Party_Approval;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Goal AS SELECT * FROM $DB_NAME$.Contract_Goal;
-CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Reward AS SELECT * FROM $DB_NAME$.Contract_Reward;
+CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Goal_Reward AS SELECT * FROM $DB_NAME$.Contract_Goal_Reward;
 CREATE OR REPLACE VIEW $DB_NAME$Views.Contract_Party_Goal_Reward AS SELECT * FROM $DB_NAME$.Contract_Party_Goal_Reward;
 
 CREATE OR REPLACE VIEW $DB_NAME$Views.NextId AS SELECT * FROM $DB_NAME$.NextId;
