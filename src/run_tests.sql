@@ -38,7 +38,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 -- Change status to 'active'
 SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
--- Add / modify contract goals / rewards
+-- Add / modify /delete contract goals / rewards
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(1,NULL,'E','Goal 1',NULL,NULL,
 JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": null,"rewarddescription":"Description 1","rewardvalue":"100"},{"rewardid": null,"rewarddescription":"Reward 2","rewardvalue":"50"}]}'));
 
@@ -47,6 +47,12 @@ JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1,"rewarddescriptio
 
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,NULL,'Reward 1',100);
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,1,'Modified Reward 1',100);
+
+-- Delete goal reward and goal
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(1,2,1);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(1,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(1,2);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(1,NULL);
 
 SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractParties(
 	100,
