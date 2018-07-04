@@ -1,9 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B8759DA4-84A4-04F6-D9CA-43FF802396E0" name="Contract_Reward">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B8759DA4-84A4-04F6-D9CA-43FF802396E0" name="Contract_Goal_Reward">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
 <generatorID>E8802E35-ED65-026F-4410-6F7BEC0F8F62</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>contract_reward</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -21,7 +22,21 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="0B739EA1-9B31-72C3-36A6-0A2032413D7D" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+<colAssociation fkAssociation="8B596BDB-AE51-9060-D129-40B45CAC89D5" referredColumn="6CBD34C4-3AB8-C59A-248B-D34C43021CE5"/>
+</associations>
+</Column>
+<Column name="GoalId" id="E3216CD6-F7CE-F028-69C4-65F357B99B55">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-04 16:17:49 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8B596BDB-AE51-9060-D129-40B45CAC89D5" referredColumn="C85E6E67-CC62-1AA3-27A9-3AFC34BE5EB0"/>
 </associations>
 </Column>
 <Column name="RewardId" id="886F0883-8E96-EC5D-FD64-1909E1C82A4E">
@@ -36,19 +51,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="DifficultyLevel" id="9599DFB7-8338-11F1-78B1-2C7EBF915C91">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Reward difficulty level (corresponds to goal difficulty level)&lt;br/&gt;&lt;br/&gt;E = easy&lt;br/&gt;M = medium&lt;br/&gt;D = difficult</comment>
-<generatorID>8AFC272A-C63B-83CB-2E8E-019D4A268EFB</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="RewardDescription" id="60E2E786-4693-2208-8599-883842000BCA">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -57,6 +59,17 @@
 <use>0</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RewardValue" id="3B44FE44-C30F-65B4-F53E-A199312CD57D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-04 16:21:20 UTC</createdTime>
+<commentInRDBMS>Value of reward (i.e. $ / COP)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -73,16 +86,18 @@
 <indexColumnUsage>
 <colUsage columnID="886F0883-8E96-EC5D-FD64-1909E1C82A4E"/>
 <colUsage columnID="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
+<colUsage columnID="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="CAE8CF9A-B68F-9717-0A50-E947F562E94D" name="FKv3">
+<ind_PK_UK id="769DDD31-1E12-9FD9-3B54-28339AF1D472" name="FKv5">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<generatorID>F8B653F8-795A-DAF9-A028-671188D261E2</generatorID>
+<createdTime>2018-07-04 16:17:49 UTC</createdTime>
+<generatorID>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
+<colUsage columnID="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
 <colUsage columnID="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
 </indexColumnUsage>
 </ind_PK_UK>

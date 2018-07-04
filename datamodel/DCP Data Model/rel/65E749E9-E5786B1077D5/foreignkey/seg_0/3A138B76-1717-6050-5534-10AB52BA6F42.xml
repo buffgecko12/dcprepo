@@ -1,8 +1,8 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E717B395-E989-9073-9389-520EB872639C" containerWithKeyObject="4998743B-C9F3-DB03-994F-00C2C80241C6" localFKIndex="EF728E2E-0975-B7DC-F120-D851CAFD551A" name="FKv5">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="3A138B76-1717-6050-5534-10AB52BA6F42" containerWithKeyObject="24A4F050-DB78-ADC2-29F6-DF23DACEC41E" localFKIndex="26350D31-D757-5243-5059-1386F90C1C3A" name="FKv12">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<generatorID>C8570598-9381-2AF3-5557-7BC4811538CB</generatorID>
+<createdTime>2018-07-04 16:44:06 UTC</createdTime>
+<generatorID>A6B9BCB9-AEDE-FA59-8001-D3E7EB07CAC7</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableLongName>Contract_Reward</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>
@@ -10,7 +10,7 @@
 <keyObject>F600B1B6-815B-4CD9-7441-BC23451C1E88</keyObject>
 <referredKeyID>F600B1B6-815B-4CD9-7441-BC23451C1E88</referredKeyID>
 <mandatory>true</mandatory>
-<refColNames>RewardId,ContractId</refColNames>
+<refColNames>RewardId,ContractId,GoalId</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
