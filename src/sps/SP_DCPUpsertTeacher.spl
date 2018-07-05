@@ -13,11 +13,11 @@ BEGIN
 
 	-- S0: Update user info
 	UPDATE $DB_NAME$.Users
-	SET FirstName = COALESCE(pFirstName, Users.FirstName), -- Don't overwrite existing values with NULL
-		LastName = COALESCE(pLastName, Users.LastName),
-		DefaultSignatureScanFile = COALESCE(pDefaultSignatureScanFile, Users.DefaultSignatureScanFile),
-		PhoneNumber = COALESCE(pPhoneNumber, Users.PhoneNumber),
-		EmailAddress = COALESCE(pEmailAddress, Users.EmailAddress)
+	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
+		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
+		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
+		PhoneNumber = COALESCE(NULLIF(pPhoneNumber,''), Users.PhoneNumber),
+		EmailAddress = COALESCE(NULLIF(pEmailAddress,''), Users.EmailAddress)
 	WHERE UserId = pTeacherUserId
 	;
 	
