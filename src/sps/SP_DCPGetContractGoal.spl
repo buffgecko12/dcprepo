@@ -3,15 +3,16 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractGoal(
     pGoalId INTEGER,
     pDifficultyLevel CHAR(1)
 )
-RETURNS SETOF $DB_NAME$Views.Contract_Goal AS $$
+RETURNS TABLE (
+	ContractId INTEGER, GoalId INTEGER, DifficultyLevel CHAR(1), GoalDescription VARCHAR(500), AcceptedFlag BOOLEAN, AchievedFlag BOOLEAN, rewardinfo JSONB
+) AS $$
 BEGIN
     RETURN QUERY
-    SELECT 
-    	ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag
-    FROM $DB_NAME$Views.Contract_Goal
-    WHERE (ContractId = pContractId OR pContractId IS NULL)
-    AND (GoalId = pGoalId OR pGoalId IS NULL)
-    AND (DifficultyLevel = pDifficultyLevel OR pDifficultyLevel IS NULL)
+    SELECT cg.ContractId, cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.AchievedFlag, CAST(NULL AS JSONB) AS rewardinfo
+    FROM $DB_NAME$Views.Contract_Goal cg
+    WHERE (cg.ContractId = pContractId OR pContractId IS NULL)
+    AND (cg.GoalId = pGoalId OR pGoalId IS NULL)
+    AND (cg.DifficultyLevel = pDifficultyLevel OR pDifficultyLevel IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';
