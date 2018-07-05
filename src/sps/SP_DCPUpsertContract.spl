@@ -33,7 +33,7 @@ BEGIN
 	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
 	  RevisionDeadlineTS, RevisionDescription, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
     VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
-      pRevisionDescription, pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, pContractScanFile)
+      pRevisionDescription, pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
     ON CONFLICT (ContractId) DO UPDATE SET
         ClassId = EXCLUDED.ClassId,
         ContractType = EXCLUDED.ContractType,
