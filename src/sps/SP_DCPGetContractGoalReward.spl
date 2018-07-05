@@ -3,15 +3,18 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractGoalReward(
 	pGoalId INTEGER,
     pRewardId INTEGER
 )
-RETURNS SETOF $DB_NAME$Views.Contract_Goal_Reward AS $$
+RETURNS TABLE (
+	ContractId INTEGER, GoalId INTEGER, RewardId INTEGER, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(100), RewardValue INTEGER
+) AS $$
 BEGIN
     RETURN QUERY
-    SELECT 
-    	ContractId, GoalId, RewardId, RewardDescription, RewardValue
-    FROM $DB_NAME$Views.Contract_Goal_Reward
-    WHERE (ContractId = pContractId OR pContractId IS NULL)
-    AND (GoalId = pGoalId OR pGoalId IS NULL)
-    AND (RewardId = pRewardId OR pRewardId IS NULL)
+    SELECT cgr.ContractId, cgr.GoalId, cgr.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue
+    FROM $DB_NAME$Views.Contract_Goal_Reward cgr
+    INNER JOIN $DB_NAME$Views.Lookup_Reward r
+    ON cgr.RewardId = r.RewardId
+    WHERE (cgr.ContractId = pContractId OR pContractId IS NULL)
+    AND (cgr.GoalId = pGoalId OR pGoalId IS NULL)
+    AND (cgr.RewardId = pRewardId OR pRewardId IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';

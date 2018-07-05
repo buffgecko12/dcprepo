@@ -7,6 +7,8 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.User_Teacher_Class AS SELECT * FROM $DB_NA
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.User_Student WHERE StudentUserId <> 0;
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Reputation_Event AS SELECT * FROM $DB_NAME$.User_Reputation_Event;
 
+CREATE OR REPLACE VIEW $DB_NAME$Views.Lookup_Reward AS SELECT * FROM $DB_NAME$.Lookup_Reward;
+
 -- User info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 
 SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login 

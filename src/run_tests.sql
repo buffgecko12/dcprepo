@@ -21,17 +21,27 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(102,100, NULL, NULL, NULL, NULL
 -- Modify student info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,0, NULL, NULL, NULL, NULL, NULL);
 
+-- Add reward info
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Pizza', 'Pizza y gaseosa.', 5000, 0);
+
+-- Get reward info
+SELECT * FROM $DB_NAME$Views.SP_DCPGetReward(1,NULL,NULL);
+
+-- Deactivate reward
+SELECT * FROM $DB_NAME$Views.SP_DCPDeactivateReward(1);
+
 -- Add contract
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	100,100,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
-	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null, "rewardinfo":{"currentrewards": [{"rewardid": null, "rewarddescription": "Some description", "rewardvalue":"100"},{"rewardid": null,"rewarddescription": "Some description 2","rewardvalue":"2400"}]}},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null,"rewardinfo":{"currentrewards": [{"rewardid": null, "rewarddescription": "Some description", "rewardvalue":"1001"},{"rewardid": null,"rewarddescription": "Some new description 2","rewardvalue":"11"}]}}]}'),
+	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null, "rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null,"rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}}]}'),
 	JSONB('{"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 101,"contractrole": "PL"},{"partyuserid": 102,"contractrole": "BL"},{"partyuserid": 103,"contractrole": "PT"}]}')
 );
 
 -- Modify contact
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	100,1,'G',3,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
-	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description","rewardinfo":{"deletedrewards": [1],"currentrewards": [{"rewardid": 2, "rewarddescription": "Some new description","rewardvalue":"10"}]}}]}'),
+	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description","rewardinfo":{"deletedrewards": [1],"currentrewards": [{"rewardid": 2}]}}]}'),
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
@@ -40,13 +50,12 @@ SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
 -- Add / modify /delete contract goals / rewards
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(1,NULL,'E','Goal 1',NULL,NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": null,"rewarddescription":"Description 1","rewardvalue":"100"},{"rewardid": null,"rewarddescription":"Reward 2","rewardvalue":"50"}]}'));
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
 
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(1,1,'M','Goal 1',NULL,NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1,"rewarddescription":"Description 1 (modified)","rewardvalue":"100"},{"rewardid": null,"rewarddescription":"Reward 3","rewardvalue":"50"}]}'));
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
 
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,NULL,'Reward 1',100);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,1,'Modified Reward 1',100);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,1);
 
 -- Delete goal reward and goal
 SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(1,2,1);

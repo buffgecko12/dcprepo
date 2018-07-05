@@ -1,9 +1,7 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContractGoalReward(
     pContractId INTEGER,
     pGoalId INTEGER,
-    pRewardId INTEGER,
-    pRewardDescription VARCHAR(500),
-    pRewardValue INTEGER
+    pRewardId INTEGER
 )
 RETURNS INTEGER AS $$
 DECLARE
@@ -22,11 +20,9 @@ BEGIN
 	END IF;
 
 	-- Upsert goal
-    INSERT INTO $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId, RewardDescription, RewardValue)
-	VALUES (pContractId, pGoalId, MyRewardId, pRewardDescription, pRewardValue)
-    ON CONFLICT (ContractId, GoalId, RewardId) DO UPDATE SET 
-        RewardDescription = EXCLUDED.RewardDescription,
-        RewardValue = EXCLUDED.RewardValue -- "excluded" stores rows that could not be inserted
+    INSERT INTO $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId)
+	VALUES (pContractId, pGoalId, MyRewardId)
+    ON CONFLICT (ContractId, GoalId, RewardId) DO NOTHING
     ;
 	
     -- Return GoalId

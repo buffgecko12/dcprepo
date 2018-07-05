@@ -26,6 +26,11 @@
 \i install/sps/SP_DCPDeleteClass.spl
 \i install/sps/SP_DCPGetClass.spl
 
+-- Reward
+\i install/sps/SP_DCPUpsertReward.spl
+\i install/sps/SP_DCPDeactivateReward.spl
+\i install/sps/SP_DCPGetReward.spl
+
 -- Contract
 \i install/sps/SP_DCPUpsertContract.spl
 \i install/sps/SP_DCPGetContract.spl

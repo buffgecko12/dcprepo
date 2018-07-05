@@ -49,15 +49,13 @@ BEGIN
 	-- Update rewards info
     IF(pRewardInfo->'currentrewards') IS NOT NULL THEN 
 		FOR myreward IN 
-			SELECT src.RewardId, src.RewardDescription, src.RewardValue
+			SELECT src.RewardId
 			FROM JSONB_TO_RECORDSET(pRewardInfo->'currentrewards')
 			  AS src(
-			   rewardId INTEGER, 
-			   RewardDescription VARCHAR(500),
-			   RewardValue INTEGER
+			   rewardId INTEGER
 		   )
 		LOOP
-		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(pContractId, MyGoalId, myreward.RewardId, myreward.RewardDescription, myreward.RewardValue);
+		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(pContractId, MyGoalId, myreward.RewardId);
 		END LOOP;
 	END IF;
 		

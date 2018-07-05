@@ -15,3 +15,4 @@ INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('contract', 1);
 INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('user', 1);
 INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('school', 1);
 INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('class', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('reward', 1);

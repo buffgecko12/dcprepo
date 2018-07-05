@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeactivateReward (
+    pRewardId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	-- Deactivate reward
+	UPDATE $DB_NAME$.Lookup_Reward
+	SET DeactivatedTS= CURRENT_TIMESTAMP
+	WHERE RewardId = pRewardId;
+	
+END;
+$$ LANGUAGE 'plpgsql';

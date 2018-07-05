@@ -127,8 +127,6 @@ CREATE TABLE $DB_NAME$.Contract_Goal_Reward (
 	ContractId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
-	RewardDescription VARCHAR(500) NOT NULL,
-	RewardValue INTEGER NOT NULL DEFAULT 0,
 	PRIMARY KEY (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, GoalId) REFERENCES $DB_NAME$.Contract_Goal (ContractId, GoalId)
 );
@@ -156,6 +154,17 @@ CREATE TABLE $DB_NAME$.User_Reputation_Event (
 	PRIMARY KEY (EventId),
 	FOREIGN KEY (UserId) REFERENCES $DB_NAME$.Users (UserId),
 	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
+);
+
+CREATE TABLE $DB_NAME$.Lookup_Reward (
+	RewardId INTEGER NOT NULL,
+	RewardDisplayName VARCHAR(100) NOT NULL,
+	RewardDescription VARCHAR(500) NOT NULL,
+	RewardValue INTEGER NOT NULL DEFAULT 0,
+    DeactivatedTS TIMESTAMP WITH TIME ZONE,
+	CreatedByUserId INTEGER NOT NULL,
+	PRIMARY KEY(RewardId),
+	FOREIGN KEY(CreatedByUserId) REFERENCES $DB_NAME$.Users(UserId)
 );
 
 -- Next ID lookup

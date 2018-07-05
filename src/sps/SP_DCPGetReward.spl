@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetReward(
+    pRewardId INTEGER,
+    pCreatedByUserId INTEGER,
+    pActiveOnlyFlag BOOLEAN
+)
+RETURNS TABLE (
+	RewardId INTEGER, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER
+) AS $$
+BEGIN
+    RETURN QUERY
+	SELECT r.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue
+	FROM $DB_NAME$Views.Lookup_Reward r
+	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
+	AND (r.CreatedByUserId = pCreatedByUserId OR pCreatedByUserId IS NULL)
+	AND (
+		(pActiveOnlyFlag AND DeactivatedTS IS NOT NULL) OR 
+		pActiveOnlyFlag IS NULL
+	)
+	ORDER BY r.RewardDisplayName
+	;	
+END;
+$$ LANGUAGE 'plpgsql';
