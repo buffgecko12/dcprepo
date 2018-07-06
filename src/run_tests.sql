@@ -22,14 +22,15 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(102,100, NULL, NULL, NULL, NULL
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,0, NULL, NULL, NULL, NULL, NULL);
 
 -- Add reward info
-SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 0);
-SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Pizza', 'Pizza y gaseosa.', 5000, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, True, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Pizza', 'Pizza y gaseosa.', 5000, True, 0);
 
 -- Get reward info
-SELECT * FROM $DB_NAME$Views.SP_DCPGetReward(1,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetReward(1,NULL,NULL,NULL);
 
 -- Deactivate reward
 SELECT * FROM $DB_NAME$Views.SP_DCPDeactivateReward(1);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeactivateReward(2);
 
 -- Add contract
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(

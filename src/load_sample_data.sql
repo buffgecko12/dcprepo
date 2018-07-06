@@ -47,5 +47,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'OP', current_tim
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(4,'TP', current_timestamp, 15, 1);
 
 -- Add sample reward
-SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 0);
-SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Pizza', 'Pizza y gaseosa.', 5000, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, True, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Pizza', 'Pizza y gaseosa.', 5000, True, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Hamburguesa', 'Hamburguesa y gaseoas.', 5000, True, 0);
+SELECT $DB_NAME$Views.SP_DCPUpsertReward(NULL, 'Guatika', 'Tiquete a Guatika.', 25000, True, 0);
+

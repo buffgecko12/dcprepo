@@ -45,6 +45,7 @@
 <Column name="RewardValue" id="C8A4DA32-3784-F55C-7E09-06FCA80461AE">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:44:24 UTC</createdTime>
+<commentInRDBMS>Item cost per student</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -56,6 +57,7 @@
 <Column name="DeactivatedTS" id="BB1B203E-CE7B-DF25-94CE-83F809CD258D">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 20:21:48 UTC</createdTime>
+<commentInRDBMS>Whether the reward is active or not.</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -64,7 +66,19 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UserId" id="7A80D8AA-1567-E461-D43C-4FFC8C07949D">
+<Column name="GlobalFlag" id="B68E9B23-611B-28DE-395F-E6A5101FDB3F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-06 02:42:23 UTC</createdTime>
+<commentInRDBMS>Whether the reward should be made available to all users</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CreatedByUserId" id="7A80D8AA-1567-E461-D43C-4FFC8C07949D">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:46:45 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -80,7 +94,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="6125C0A5-95F1-E39E-6F44-9A3F05DC4524" name="PK">
+<ind_PK_UK id="6125C0A5-95F1-E39E-6F44-9A3F05DC4524" name="PKv3">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:46:11 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

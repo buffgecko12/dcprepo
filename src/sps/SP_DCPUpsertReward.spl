@@ -3,6 +3,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertReward (
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
 	pRewardValue INTEGER,
+	pGlobalFlag BOOLEAN,
 	pCreatedByUserId INTEGER
 ) 
 RETURNS INTEGER AS $$
@@ -18,8 +19,8 @@ BEGIN
     END IF;
     
     -- Upsert reward
-    INSERT INTO $DB_NAME$.Lookup_Reward(RewardId, RewardDisplayName, RewardDescription, RewardValue, CreatedByUserId)
-    VALUES(MyRewardId, pRewardDisplayName, pRewardDescription, pRewardValue, pCreatedByUserId)
+    INSERT INTO $DB_NAME$.Lookup_Reward(RewardId, RewardDisplayName, RewardDescription, RewardValue, GlobalFlag, CreatedByUserId)
+    VALUES(MyRewardId, pRewardDisplayName, pRewardDescription, pRewardValue, pGlobalFlag, pCreatedByUserId)
     ON CONFLICT(RewardId) DO UPDATE SET
 	    RewardDisplayName = EXCLUDED.RewardDisplayName,
 	    RewardDescription = EXCLUDED.RewardDescription,
