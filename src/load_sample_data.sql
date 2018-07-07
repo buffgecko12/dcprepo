@@ -41,6 +41,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"currentparties": [{"partyuserid": 2,"contractrole": "MR"},{"partyuserid": 3,"contractrole": "PL"},{"partyuserid": 4,"contractrole": "BL"},{"partyuserid": 5,"contractrole": "PT"}]}')
 );
 
+SELECT $DB_NAME$Views.SP_DCPChangeContractStatus(1,'P');
+
 -- Add reputation events
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'BP', current_timestamp, 10, 1);
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'OP', current_timestamp, 30, 1);
