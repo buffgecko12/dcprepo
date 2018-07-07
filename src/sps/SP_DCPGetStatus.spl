@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetStatus(
+    pStatus CHAR(1)
+)
+RETURNS SETOF $DB_NAME$Views.Lookup_Status AS $$
+BEGIN
+    RETURN QUERY
+	SELECT *
+	FROM $DB_NAME$Views.Lookup_Status
+	WHERE (Status = pStatus OR pStatus IS NULL)
+	;	
+END;
+$$ LANGUAGE 'plpgsql';

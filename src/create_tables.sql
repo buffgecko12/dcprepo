@@ -156,6 +156,7 @@ CREATE TABLE $DB_NAME$.User_Reputation_Event (
 	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
 );
 
+-- Reward info
 CREATE TABLE $DB_NAME$.Lookup_Reward (
 	RewardId INTEGER NOT NULL,
 	RewardDisplayName VARCHAR(100) NOT NULL,
@@ -166,6 +167,13 @@ CREATE TABLE $DB_NAME$.Lookup_Reward (
 	CreatedByUserId INTEGER NOT NULL,
 	PRIMARY KEY(RewardId),
 	FOREIGN KEY(CreatedByUserId) REFERENCES $DB_NAME$.Users(UserId)
+);
+
+-- Contract status
+CREATE TABLE $DB_NAME$.Lookup_Status (
+	Status CHAR(1) NOT NULL,
+	StatusDisplayName VARCHAR(50) NOT NULL,
+	PRIMARY KEY(Status)
 );
 
 -- Next ID lookup

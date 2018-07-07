@@ -8,6 +8,7 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.User_Student AS SELECT * FROM $DB_NAME$.Us
 CREATE OR REPLACE VIEW $DB_NAME$Views.User_Reputation_Event AS SELECT * FROM $DB_NAME$.User_Reputation_Event;
 
 CREATE OR REPLACE VIEW $DB_NAME$Views.Lookup_Reward AS SELECT * FROM $DB_NAME$.Lookup_Reward;
+CREATE OR REPLACE VIEW $DB_NAME$Views.Lookup_Status AS SELECT * FROM $DB_NAME$.Lookup_Status;
 
 -- User info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 

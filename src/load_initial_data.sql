@@ -11,8 +11,16 @@ SELECT $DB_NAME$Views.SP_DCPUpsertTeacher(0, 0, JSONB('{"currentclasses": [{"cla
 SELECT $DB_NAME$Views.SP_DCPUpsertStudent(0, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- Load NextId initial values
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('contract', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('user', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('school', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('class', 1);
-INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES ('reward', 1);
+INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES 
+('contract', 1), 
+('user', 1), 
+('school', 1), 
+('class', 1), 
+('reward', 1);
+
+-- Load contract status
+INSERT INTO $DB_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES 
+('P','Pendiente'),
+('D','Borrador'),
+('C','Completo'),
+('A','Activo');
