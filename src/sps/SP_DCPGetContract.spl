@@ -1,14 +1,50 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContract(
-    pContractId INTEGER
+    pContractId INTEGER,
+    pPartyUserId INTEGER,
+    pTeacherUserId INTEGER
 )
-RETURNS SETOF $DB_NAME$Views.Contract AS $$
+RETURNS TABLE (
+	ContractId INTEGER, ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
+	ContractValidPeriod TSTZRANGE, GuardianApprovalFlag BOOLEAN, RevisionDeadlineTS TIMESTAMP WITH TIME ZONE, RevisionDescription VARCHAR(500), RevisionApprovalTS TIMESTAMP WITH TIME ZONE, 
+	StudentLeaderRequirements VARCHAR(500), TeacherRequirements VARCHAR(500), StudentRequirements VARCHAR(500), ContractScanFile BYTEA, 
+	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), GoalInfo JSONB, PartyUserInfo JSONB
+)AS $$
 BEGIN
     RETURN QUERY
     SELECT 
-    	ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription,
-		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS, ContractStatus
-    FROM $DB_NAME$Views.Contract
-    WHERE (ContractId = pContractId OR pContractId IS NULL)
+    	c.ContractId, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,
+		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus,
+		cg.GoalInfo, cp.PartyUserInfo
+    FROM $DB_NAME$Views.Contract c
+    LEFT JOIN $DB_NAME$Views.Class cl ON c.ClassId = cl.ClassId
+    LEFT JOIN $DB_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
+    LEFT JOIN (
+		SELECT cp.ContractId, JSONB_AGG((SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, u.Firstname, u.Lastname) AS x)) AS PartyUserInfo
+		FROM $DB_NAME$Views.Contract_Party cp
+		INNER JOIN $DB_NAME$Views.Users u ON cp.PartyUserId = u.UserId
+		GROUP BY cp.ContractId
+    ) cp ON c.ContractId = cp.ContractId -- Get party info
+    LEFT JOIN (
+		SELECT cg.ContractId, JSONB_AGG((SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.AchievedFlag, cgr.rewardinfo) AS x)) AS goalinfo
+		FROM Contract_Goal cg
+		LEFT JOIN (
+			SELECT cgr.ContractId, cgr.GoalId, JSONB_AGG((SELECT x FROM (SELECT RewardDisplayName, RewardDescription, RewardValue) AS x)) AS RewardInfo
+			FROM $DB_NAME$Views.Contract_Goal_Reward cgr
+			INNER JOIN $DB_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId
+			GROUP BY cgr.ContractId, cgr.GoalId
+		) cgr ON cg.ContractId = cgr.ContractId AND cg.GoalId = cgr.GoalId
+		GROUP BY cg.ContractId
+    ) cg ON c.ContractId = cg.ContractId -- Get goal/reward info
+    WHERE (c.ContractId = pContractId OR pContractId IS NULL)
+	AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+    AND (
+    	c.ContractId IN (
+    		SELECT cp.ContractId 
+    		FROM $DB_NAME$Views.Contract_Party cp
+    		WHERE cp.PartyUserId = pPartyUserId
+		) OR pPartyUserId IS NULL
+	) -- Return contracts for a specific user
+	ORDER BY c.ContractId
 	;
 END;
 $$ LANGUAGE 'plpgsql';
