@@ -15,6 +15,7 @@ BEGIN
     WHERE (cgr.ContractId = pContractId OR pContractId IS NULL)
     AND (cgr.GoalId = pGoalId OR pGoalId IS NULL)
     AND (cgr.RewardId = pRewardId OR pRewardId IS NULL)
+    ORDER BY cgr.ContractId, cgr.GoalId, r.RewardDisplayName
 	;
 END;
 $$ LANGUAGE 'plpgsql';
