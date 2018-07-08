@@ -1,0 +1,44 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetTeacherBudget(
+    pTeacherUserId INTEGER
+) 
+RETURNS TABLE (
+	TeacherUserId INTEGER, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER
+) AS $$
+BEGIN
+	RETURN QUERY
+	SELECT 
+		t.TeacherUserId,
+		t.MaxBudget,
+		bg.BudgetSpent,
+		t.MaxBudget - bg.BudgetSpent AS AvailableBudget
+	FROM $DB_NAME$Views.User_Teacher t
+	LEFT JOIN (
+		SELECT src.TeacherUserId, CAST(SUM(BudgetRewardValue) AS INTEGER) BudgetSpent
+		FROM (
+			SELECT 
+				c.ContractId, 
+				c.TeacherUserId,
+				cp.partyuserid,
+				MAX(
+					CASE 
+						WHEN c.ContractStatus IN ('D','P') THEN r.RewardValue -- Draft / Pending: get reward value for all goals
+						WHEN c.ContractStatus = 'A' AND cg.AcceptedFlag THEN r.RewardValue -- Active: get reward value for accepted goals
+						WHEN c.ContractStatus = 'C' AND cg.AcceptedFlag AND cg.AchievedFlag THEN COALESCE(cpgr.ActualRewardValue, r.RewardValue) -- Completed: reward values for accepted and achieved goals (use actual value if already delivered)
+					END
+				) AS BudgetRewardValue
+			FROM $DB_NAME$Views.Contract c
+			INNER JOIN $DB_NAME$Views.Contract_Goal cg ON c.ContractId = cg.ContractId -- Get goal info
+			INNER JOIN $DB_NAME$Views.Contract_Goal_Reward cgr ON cg.ContractId = cgr.ContractId AND cg.GoalId = cgr.GoalId -- Get reward info
+			INNER JOIN $DB_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get contract parties
+			LEFT JOIN $DB_NAME$Views.Contract_Party_Goal_Reward cpgr ON -- Get actual rewards selected by contract parties
+				cp.ContractId = cpgr.ContractId AND cp.PartyUserId = cpgr.PartyUserId AND 
+				cgr.GoalId = cpgr.GoalId AND cgr.RewardId = cpgr.RewardId
+			LEFT JOIN $DB_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId -- Lookup values for reward options (not delivered yet)
+			WHERE (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+			GROUP BY c.ContractId, c.TeacherUserId, cp.PartyUserId
+		) src
+		GROUP BY src.TeacherUserId
+	) bg ON t.TeacherUserId = bg.TeacherUserId
+	;
+END;
+$$ LANGUAGE 'plpgsql';

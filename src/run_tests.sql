@@ -95,6 +95,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacher(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherBudget(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetUserReputationEvent(1,NULL,NULL);
 
