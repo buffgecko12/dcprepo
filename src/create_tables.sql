@@ -139,6 +139,7 @@ CREATE TABLE $DB_NAME$.Contract_Party_Goal_Reward (
 	GoalId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	RewardDeliveredFlag BOOLEAN,
+	ActualRewardValue INTEGER,
 	PRIMARY KEY (ContractId, PartyUserId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party (ContractId, PartyUserId)

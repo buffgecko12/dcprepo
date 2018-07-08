@@ -67,6 +67,7 @@
 <indexColumnUsage>
 <colUsage columnID="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
 <colUsage columnID="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
+<colUsage columnID="886F0883-8E96-EC5D-FD64-1909E1C82A4E"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="769DDD31-1E12-9FD9-3B54-28339AF1D472" name="FKv5">
