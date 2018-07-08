@@ -58,7 +58,7 @@
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" otype="Table" vid="A8223B5A-C9C8-6FEE-3F79-1F3CDC9E309F">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<bounds x="991" y="373" width="174" height="108"/>
+<bounds x="991" y="363" width="174" height="122"/>
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="9D972635-8829-8672-A312-E09FA4E8282A" otype="Table" vid="284F5F7A-7FBD-2180-E37E-E06CB23D49BE">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
@@ -150,8 +150,8 @@
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
 <lineWidth>1</lineWidth>
 <points>
-<point x="991" y="421"/>
-<point x="947" y="421"/>
+<point x="991" y="416"/>
+<point x="947" y="416"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="8B596BDB-AE51-9060-D129-40B45CAC89D5" otype="FKIndexAssociation" vid_source="43402D74-7BB2-076E-301B-613FE2084898" vid_target="8907DDD6-D1FC-90AC-1F43-36CA71842055">
@@ -182,8 +182,8 @@
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
 <lineWidth>1</lineWidth>
 <points>
-<point x="695" y="311"/>
-<point x="991" y="400"/>
+<point x="695" y="310"/>
+<point x="991" y="398"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="D8F883EA-7E7B-021A-E699-F7DE06F2F16B" otype="FKIndexAssociation" vid_source="7524AA5B-5D59-EC65-B55E-374CEF820007" vid_target="A0C1C85A-A084-7CB8-D435-2748D0178634">
@@ -231,8 +231,8 @@
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
 <lineWidth>1</lineWidth>
 <points>
-<point x="1209" y="417"/>
-<point x="1165" y="417"/>
+<point x="1209" y="412"/>
+<point x="1165" y="412"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="F500B4B9-CD09-1A9D-5FB7-CC126E7B3F8E" otype="FKIndexAssociation" vid_source="70A92C29-E83F-DB29-A8B2-374E05281E80" vid_target="27F7F172-4961-012B-51AA-358F4147ECBA">

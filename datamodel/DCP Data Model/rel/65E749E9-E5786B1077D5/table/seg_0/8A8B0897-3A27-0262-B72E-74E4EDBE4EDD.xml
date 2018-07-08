@@ -40,6 +40,18 @@
 <colAssociation fkAssociation="D6BBDD34-3768-D888-DD91-46F089922FFE" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
 </associations>
 </Column>
+<Column name="MaxBudget" id="095EF60D-59DE-D5BA-75EF-63720350BBBD">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-08 14:05:28 UTC</createdTime>
+<comment>Max budget available to teacher</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="1EA54C1D-16F9-8619-336C-958217012A58" name="PKv9">

@@ -44,6 +44,7 @@ CREATE TABLE $DB_NAME$.Users (
 CREATE TABLE $DB_NAME$.User_Teacher (
 	TeacherUserId INTEGER NOT NULL,
 	SchoolId INTEGER,
+	MaxBudget INTEGER,
 	PRIMARY KEY (TeacherUserId),
 	FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId),
 	FOREIGN KEY(SchoolId) REFERENCES $DB_NAME$.School

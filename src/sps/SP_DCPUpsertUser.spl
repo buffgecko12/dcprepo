@@ -46,7 +46,7 @@ BEGIN
 	    IF(pUserType = 'ST') THEN
 	    	PERFORM $DB_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0, NULL, NULL, NULL, NULL, NULL); -- Create new student (unassigned class)
 		ELSEIF (pUserType = 'TR') THEN 
-	    	PERFORM $DB_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL, NULL, NULL, NULL, NULL); -- Create new teacher (no school / classes)
+	    	PERFORM $DB_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL); -- Create new teacher (no school / classes)
 		END IF;
 	END IF;
 		

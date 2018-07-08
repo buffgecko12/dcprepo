@@ -27,7 +27,7 @@ INNER JOIN $DB_NAME$Views.User_Student us ON u.UserId = us.StudentUserId
 
 -- Teacher info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Teachers AS 
-SELECT ut.TeacherUserId, ut.SchoolId, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
+SELECT ut.TeacherUserId, ut.SchoolId, ut.MaxBudget, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
 FROM $DB_NAME$Views.Users u
 INNER JOIN $DB_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 ;

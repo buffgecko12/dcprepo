@@ -11,8 +11,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Co
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL);
 
 -- Add teacher info
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'), NULL, NULL, NULL, NULL, NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'), NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'), NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'), NULL, NULL, NULL, NULL, NULL);
 
 -- Add student info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,100, NULL, NULL, NULL, NULL, NULL);
