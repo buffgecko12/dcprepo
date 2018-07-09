@@ -33,7 +33,12 @@ BEGIN
         AchievedFlag = EXCLUDED.AchievedFlag -- "excluded" stores rows that could not be inserted
     ;
 
-    -- Delete any rewards    
+    -- Delete any rewards (Shortcut: delete any existing rows and then re-populate with form data)
+	DELETE FROM $DB_NAME$.Contract_Goal_Reward
+    WHERE ContractId = pContractId
+    AND GoalId = pGoalId
+    ;
+/*    
     IF(pRewardInfo->'deletedrewards') IS NOT NULL THEN
         DELETE FROM $DB_NAME$.Contract_Goal_Reward
         WHERE ContractId = pContractId
@@ -45,7 +50,7 @@ BEGIN
         )
         ;
     END IF;
-
+*/
 	-- Update rewards info
     IF(pRewardInfo->'currentrewards') IS NOT NULL THEN 
 		FOR myreward IN 
