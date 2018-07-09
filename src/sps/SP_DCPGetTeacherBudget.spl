@@ -10,7 +10,7 @@ BEGIN
 		t.TeacherUserId,
 		t.MaxBudget,
 		bg.BudgetSpent,
-		t.MaxBudget - bg.BudgetSpent AS AvailableBudget
+		t.MaxBudget - COALESCE(bg.BudgetSpent,0) AS AvailableBudget
 	FROM $DB_NAME$Views.User_Teacher t
 	LEFT JOIN (
 		SELECT src.TeacherUserId, CAST(SUM(BudgetRewardValue) AS INTEGER) BudgetSpent
@@ -34,11 +34,12 @@ BEGIN
 				cp.ContractId = cpgr.ContractId AND cp.PartyUserId = cpgr.PartyUserId AND 
 				cgr.GoalId = cpgr.GoalId AND cgr.RewardId = cpgr.RewardId
 			LEFT JOIN $DB_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId -- Lookup values for reward options (not delivered yet)
-			WHERE (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+			WHERE (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL) -- Included just in case for optimization
 			GROUP BY c.ContractId, c.TeacherUserId, cp.PartyUserId
 		) src
 		GROUP BY src.TeacherUserId
 	) bg ON t.TeacherUserId = bg.TeacherUserId
+	WHERE (t.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';
