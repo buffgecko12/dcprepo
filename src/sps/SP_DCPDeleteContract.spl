@@ -1,0 +1,34 @@
+CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteContract (
+    pContractId INTEGER
+) 
+RETURNS VOID AS $$
+DECLARE mygoal RECORD;
+BEGIN	
+	-- Delete contract goals
+	FOR mygoal IN
+		SELECT c.ContractId, cg.GoalId
+		FROM $DB_NAME$Views.Contract c
+		INNER JOIN $DB_NAME$.Contract_Goal cg ON c.ContractId = cg.ContractId
+		WHERE c.ContractStatus = 'D' -- Only look at 'Draft' contracts
+		AND (c.ContractId = pContractId OR pContractId IS NULL)
+	LOOP
+	    PERFORM $DB_NAME$Views.SP_DCPDeleteContractGoal(mygoal.ContractId, mygoal.GoalId);
+	END LOOP;
+
+	-- Delete contract parties
+	DELETE FROM $DB_NAME$.Contract_Party cp
+	WHERE cp.ContractId IN (
+		SELECT c.ContractId
+		FROM $DB_NAME$Views.Contract c
+		WHERE c.ContractStatus = 'D' -- Only look at 'Draft' contracts
+		AND (c.ContractId = pContractId OR pContractId IS NULL)
+	)
+	;
+	
+	-- Delete contract
+	DELETE FROM $DB_NAME$.Contract
+	WHERE ContractStatus = 'D' -- Only look at 'Draft' contracts
+	AND (ContractId = pContractId OR pContractId IS NULL)
+	;
+END;
+$$ LANGUAGE 'plpgsql';

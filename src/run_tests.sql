@@ -112,5 +112,8 @@ SELECT * FROM $DB_NAME$Views.SP_DCPDeleteUser(101);
 SELECT * FROM $DB_NAME$Views.SP_DCPDeleteUser(102);
 SELECT * FROM $DB_NAME$Views.SP_DCPDeleteUser(103);
 
+SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'D');
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(100);
+
 -- Meta
 SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('class');

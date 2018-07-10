@@ -34,6 +34,7 @@
 
 -- Contract
 \i install/sps/SP_DCPUpsertContract.spl
+\i install/sps/SP_DCPDeleteContract.spl
 \i install/sps/SP_DCPGetContract.spl
 \i install/sps/SP_DCPGetContractInfo.spl
 
