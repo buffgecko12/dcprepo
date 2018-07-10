@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContract(
     pContractId INTEGER,
     pPartyUserId INTEGER,
-    pTeacherUserId INTEGER
+    pTeacherUserId INTEGER,
+    pExcludeDraftsFlag BOOLEAN
 )
 RETURNS TABLE (
 	ContractId INTEGER, ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
@@ -44,6 +45,7 @@ BEGIN
     		WHERE cp.PartyUserId = pPartyUserId
 		) OR pPartyUserId IS NULL
 	) -- Return contracts for a specific user
+	AND (c.ContractStatus <> 'D' OR pExcludeDraftsFlag IS NULL OR NOT pExcludeDraftsFlag) -- Exclude draft contracts unless specified otherwise
 	ORDER BY c.ContractId
 	;
 END;

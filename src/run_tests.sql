@@ -70,7 +70,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractParties(
 );
 
 -- Get contract info
-SELECT * FROM $DB_NAME$Views.SP_DCPGetContract(100,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetContract(100,NULL,NULL,NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractInfo(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetContractGoalReward(100,2,NULL);
