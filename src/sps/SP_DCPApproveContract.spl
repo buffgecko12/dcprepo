@@ -2,8 +2,8 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPApproveContract(
     pContractId INTEGER,
     pPartyUserId INTEGER,
     pApprovalType CHAR(1),
+    pPreferredGoalId INTEGER,
     pSignatureScanFile BYTEA,
-    pApprovalTS TIMESTAMP WITH TIME ZONE,
     pLogonUserId INTEGER
 ) 
 RETURNS VOID AS $$
@@ -23,21 +23,22 @@ BEGIN
 	;
 	
 	-- Update signature	
-	INSERT INTO $DB_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, SignatureScanFile, ApprovalTS, LogonUserId)
-	SELECT pContractId, pPartyUserId, pApprovalType, pSignatureScanFile, pApprovalTS, pLogonUserId
+	INSERT INTO $DB_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, ApprovalTS, LogonUserId)
+	SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
 	FROM $DB_NAME$Views.Contract_Party -- Make sure party user exists
 	WHERE ContractId = pContractId
 	AND PartyUserId = pPartyUserId
 	ON CONFLICT (ContractId, PartyUserId, ApprovalType) DO UPDATE SET 
+		PreferredGoalId = COALESCE(EXCLUDED.PreferredGoalId, Contract_Party_Approval.PreferredGoalId),
 		SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
-		ApprovalTS = COALESCE(EXCLUDED.ApprovalTS, Contract_Party_Approval.ApprovalTS),
+		ApprovalTS = CURRENT_TIMESTAMP,
 		LogonUserId = pLogonUserId
 	;
 	
 	-- Mark revision as approved if it has been approved by all required parties (skip if already approved)
 	IF (NOT bRevisionApprovedFlag) THEN
 		UPDATE $DB_NAME$.Contract
-		SET RevisionApprovalTS = pApprovalTS
+		SET RevisionApprovalTS = CURRENT_TIMESTAMP
 		WHERE ContractId = pContractId
 		AND EXISTS (
 			SELECT 1
@@ -60,7 +61,7 @@ BEGIN
 	-- Mark contract as approved if it has been approved by all required parties (skip if already approved)
 	IF (NOT bContractApprovedFlag) THEN
 		UPDATE $DB_NAME$.Contract
-		SET ContractApprovalTS = pApprovalTS
+		SET ContractApprovalTS = CURRENT_TIMESTAMP
 		WHERE ContractId = pContractId
 		AND EXISTS (
 			SELECT 1
@@ -71,7 +72,7 @@ BEGIN
 						CASE 
 							WHEN cpa.ApprovalTS IS NOT NULL THEN -- Party has already approved
 								CASE 
-									WHEN NOT c.GuardianApprovalFlag THEN 1 -- Guardian approval flag IS NOT required
+									WHEN NOT c.GuardianApprovalFlag OR c.GuardianApprovalFlag IS NULL THEN 1 -- Guardian approval flag IS NOT required (or not defined)
 									WHEN cpg.ApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
 									ELSE 0 -- NOT APPROVED
 								END
@@ -88,8 +89,42 @@ BEGIN
 		) 
 		;
 		
-		-- Set status to active
-		PERFORM $DB_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+		-- Set contract to active and specify preferred goal (once been approved by all parties)
+		IF(SELECT 1 FROM $DB_NAME$.Contract WHERE ContractId = pContractId AND ContractApprovalTS IS NOT NULL) THEN
+		
+			-- Determine and accept preferred goal
+			UPDATE $DB_NAME$.Contract_Goal cg
+			SET AcceptedFlag = TRUE
+			FROM (
+				SELECT src.ContractId, src.PreferredGoalId
+				FROM (
+					SELECT
+						src.ContractId,
+						src.PreferredGoalId, 
+						ROW_NUMBER() OVER(
+							PARTITION BY src.ContractId 
+							ORDER BY GoalVoteCount DESC, CASE DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END -- Select easiest goal in case of tie
+						) AS GoalRank
+					FROM (
+						SELECT c.ContractId, cpa.PreferredGoalId, cg.DifficultyLevel, COUNT(*) AS GoalVoteCount
+						FROM $DB_NAME$.Contract c
+						INNER JOIN $DB_NAME$Views.Contract_Goal cg ON c.ContractId = cg.ContractId -- Get goal info
+						INNER JOIN $DB_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get parties
+						INNER JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.PreferredGoalId = cg.GoalId-- Get party preferences
+						WHERE c.ContractId = pContractId
+						AND c.ContractStatus = 'P' -- Only check for pending contracts
+						GROUP BY c.ContractId, cpa.PreferredGoalId, cg.DifficultyLevel
+					)
+					src
+				) src
+				WHERE src.GoalRank = 1
+			) src
+			WHERE cg.ContractId = src.ContractId
+			AND cg.GoalId = src.PreferredGoalId
+			;		
+			-- Set status to active
+			PERFORM $DB_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+		END IF;
 	END IF;
 END
 $$ LANGUAGE 'plpgsql';

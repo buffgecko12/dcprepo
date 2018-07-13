@@ -79,7 +79,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 -- Accept contract goal
 SELECT * FROM $DB_NAME$Views.SP_DCPAcceptContractGoal(100,2);
 -- Approve initial contract
-SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', NULL, current_timestamp, 101);
+SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101);
 
 -- Revise contract
 SELECT * FROM $DB_NAME$Views.SP_DCPReviseContract(100,'test revision');

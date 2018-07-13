@@ -103,6 +103,7 @@ CREATE TABLE $DB_NAME$.Contract_Party_Approval (
 	ContractId INTEGER NOT NULL,
 	PartyUserId INTEGER NOT NULL,
 	ApprovalType CHAR(1) NOT NULL,
+	PreferredGoalId INTEGER,
 	SignatureScanFile BYTEA,
 	ApprovalTS TIMESTAMP WITH TIME ZONE,
 	LogonUserId INTEGER NOT NULL,

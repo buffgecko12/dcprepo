@@ -23,6 +23,7 @@
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
 <colAssociation fkAssociation="86CD6468-1DE0-0DC0-A70C-6DAAB78E5AEA" referredColumn="B2E4E90B-75ED-022F-3A11-AF4BBCF15943"/>
+<colAssociation fkAssociation="F970C49A-DF10-A2F1-0D8F-E550D4A5CD8A" referredColumn="6CBD34C4-3AB8-C59A-248B-D34C43021CE5"/>
 </associations>
 </Column>
 <Column name="PartyUserId" id="46DFD300-5171-A35B-D6BA-00218B85D1C5">
@@ -53,6 +54,21 @@
 <dataTypeSize>1</dataTypeSize>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PreferredGoalId" id="67CDC520-7801-C94E-5461-8520BC5DB6A2">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-12 21:18:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F970C49A-DF10-A2F1-0D8F-E550D4A5CD8A" referredColumn="C85E6E67-CC62-1AA3-27A9-3AFC34BE5EB0"/>
+</associations>
 </Column>
 <Column name="SignatureScanFile" id="BF53BDE1-19ED-CB71-1251-ECA2B0FD828D">
 <createdBy>ravioli</createdBy>
@@ -143,6 +159,18 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="46DFD300-5171-A35B-D6BA-00218B85D1C5"/>
+<colUsage columnID="C8FA9751-C362-DB4A-4907-A5468C610F8F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="870645D0-11EA-59F2-1FAA-2BBA71751DFF" name="FKv21">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-12 21:18:16 UTC</createdTime>
+<generatorID>E3AA8BD5-59DF-3AE5-402E-94852C5A7D52</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="67CDC520-7801-C94E-5461-8520BC5DB6A2"/>
 <colUsage columnID="C8FA9751-C362-DB4A-4907-A5468C610F8F"/>
 </indexColumnUsage>
 </ind_PK_UK>

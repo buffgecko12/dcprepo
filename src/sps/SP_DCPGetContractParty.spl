@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractParty(
 
 RETURNS TABLE (
 	ContractId INTEGER, PartyUserId INTEGER, ContractRole CHAR(2), FirstName VARCHAR(100), LastName VARCHAR(100),
-	PartyApprovalSignature BYTEA, PartyApprovalTS TIMESTAMP WITH TIME ZONE, PartyLogonUserId INTEGER
+	PreferredGoalId INTEGER, PartyApprovalSignature BYTEA, PartyApprovalTS TIMESTAMP WITH TIME ZONE, PartyLogonUserId INTEGER
 ) AS $$
 
 BEGIN
@@ -14,7 +14,7 @@ BEGIN
     SELECT 
 		cp.ContractId, cp.PartyUserId, cp.ContractRole,
 		u.firstname, u.lastname,
-		cpa.SignatureScanFile PartyApprovalSignature, cpa.approvalts PartyApprovalTS, cpa.logonuserid PartyLogonUserId
+		cpa.PreferredGoalId, cpa.SignatureScanFile PartyApprovalSignature, cpa.approvalts PartyApprovalTS, cpa.logonuserid PartyLogonUserId
     FROM $DB_NAME$Views.Contract_Party cp
     LEFT JOIN $DB_NAME$Views.Users u ON cp.PartyUserId = u.UserId -- Get user info
 	LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.contractid = cpa.contractid AND cp.partyuserid = cpa.partyuserid AND cpa.approvaltype = 'C' -- Get contract approval info
