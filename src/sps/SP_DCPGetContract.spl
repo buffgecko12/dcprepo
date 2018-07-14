@@ -20,8 +20,15 @@ BEGIN
     LEFT JOIN $DB_NAME$Views.Class cl ON c.ClassId = cl.ClassId
     LEFT JOIN $DB_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
     LEFT JOIN (
-		SELECT cp.ContractId, JSONB_AGG((SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, u.Firstname, u.Lastname) AS x)) AS PartyUserInfo
+		SELECT 
+			cp.ContractId, 
+			JSONB_AGG(
+				(SELECT x FROM (
+					SELECT cp.PartyUserId, cp.ContractRole, cpa.ApprovalTS, u.Firstname, u.Lastname) AS x
+				)
+			) AS PartyUserInfo
 		FROM $DB_NAME$Views.Contract_Party cp
+		LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
 		INNER JOIN $DB_NAME$Views.Users u ON cp.PartyUserId = u.UserId
 		GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId -- Get party info
