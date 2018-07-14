@@ -103,7 +103,7 @@ BEGIN
 						src.PreferredGoalId, 
 						ROW_NUMBER() OVER(
 							PARTITION BY src.ContractId 
-							ORDER BY GoalVoteCount DESC, CASE DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END -- Select easiest goal in case of tie
+							ORDER BY GoalVoteCount DESC, CASE DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC -- Select easiest goal in case of tie
 						) AS GoalRank
 					FROM (
 						SELECT c.ContractId, cpa.PreferredGoalId, cg.DifficultyLevel, COUNT(*) AS GoalVoteCount
