@@ -27,11 +27,11 @@ BEGIN
     
     -- Upsert user
     INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login)
-    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login)
+    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
-	    DefaultSignatureScanFile = EXCLUDED.DefaultSignatureScanFile,
+	    DefaultSignatureScanFile = COALESCE(EXCLUDED.DefaultSignatureScanFile,Users.DefaultSignatureScanFile),
         UserName = EXCLUDED.UserName,
         UserType = EXCLUDED.UserType,
 	    PhoneNumber = EXCLUDED.PhoneNumber,

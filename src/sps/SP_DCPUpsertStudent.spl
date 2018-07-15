@@ -14,7 +14,7 @@ BEGIN
 	UPDATE $DB_NAME$.Users
 	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
 		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
-		DefaultSignatureScanFile = COALESCE(pDefaultSignatureScanFile, Users.DefaultSignatureScanFile),
+		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
 		PhoneNumber = COALESCE(NULLIF(pPhoneNumber,''), Users.PhoneNumber),
 		EmailAddress = COALESCE(NULLIF(pEmailAddress,''), Users.EmailAddress)
 	WHERE UserId = pStudentUserId
