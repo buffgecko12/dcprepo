@@ -41,7 +41,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 
 -- Modify contact
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
-	100,1,'G',3,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
+	100,102,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
 	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description","rewardinfo":{"deletedrewards": [1],"currentrewards": [{"rewardid": 2}]}}]}'),
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
@@ -50,19 +50,19 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
 -- Add / modify /delete contract goals / rewards
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(1,NULL,'E','Goal 1',NULL,NULL,
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(100,NULL,'E','Goal 1',NULL,NULL,
 JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
 
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(1,1,'M','Goal 1',NULL,NULL,
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoal(100,1,'M','Goal 1',NULL,NULL,
 JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
 
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(1,2,1);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(100,2,1);
 
 -- Delete goal reward and goal
-SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(1,2,1);
-SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(1,NULL,NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(1,2);
-SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(1,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(100,2,1);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(100,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(100,2);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContractGoal(100,NULL);
 
 SELECT * FROM $DB_NAME$Views.SP_DCPModifyContractParties(
 	100,
@@ -85,11 +85,11 @@ SELECT * FROM $DB_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101);
 SELECT * FROM $DB_NAME$Views.SP_DCPReviseContract(100,'test revision');
 
 -- Add reputation events
-SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 1);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 100);
 
 -- Get school/class info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetSchool(100);
-SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL);
 
 -- Get user info
 SELECT * FROM $DB_NAME$Views.SP_DCPGetStudent(101, NULL);
@@ -98,7 +98,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetTeacherBudget(100);
 SELECT * FROM $DB_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
-SELECT * FROM $DB_NAME$Views.SP_DCPGetUserReputationEvent(1,NULL,NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 
 -- Other
 SELECT * FROM $DB_NAME$Views.SP_DCPDeactivateUser(101);
