@@ -34,6 +34,10 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(4, 1, 500000,
 	NULL, NULL, NULL, NULL, NULL
 );
 
+SELECT $DB_NAME$Views.SP_DCPUpsertStudent(5,2,NULL,NULL,NULL,NULL,NULL);
+SELECT $DB_NAME$Views.SP_DCPUpsertStudent(6,2,NULL,NULL,NULL,NULL,NULL);
+SELECT $DB_NAME$Views.SP_DCPUpsertStudent(7,2,NULL,NULL,NULL,NULL,NULL);
+
 -- Add contract
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	NULL,1,'G',3,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
