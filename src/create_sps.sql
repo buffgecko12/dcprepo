@@ -12,6 +12,7 @@
 \i install/sps/SP_DCPGetTeacher.spl
 \i install/sps/SP_DCPGetTeacherClass.spl
 \i install/sps/SP_DCPGetTeacherBudget.spl
+\i install/sps/SP_DCPUpsertTeacherBudget.spl
 
 -- Student
 \i install/sps/SP_DCPUpsertStudent.spl

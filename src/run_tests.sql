@@ -13,6 +13,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Be
 -- Add teacher info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'), NULL, NULL, NULL, NULL, NULL);
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'), NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $DB_NAME$Views.SP_DCPUpsertTeacherBudget(100,600000);
 
 -- Add student info
 SELECT * FROM $DB_NAME$Views.SP_DCPUpsertStudent(101,100, NULL, NULL, NULL, NULL, NULL);
