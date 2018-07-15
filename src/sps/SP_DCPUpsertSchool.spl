@@ -8,17 +8,19 @@ CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertSchool (
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
-	NewSchoolId INTEGER; -- Return new school id (if created)
+	MySchoolId INTEGER; -- Return new school id (if created)
 BEGIN   
 
 	-- Get next id value (for new school only)
 	IF(pSchoolId IS NULL) THEN
-	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('school') INTO NewSchoolId;		
+	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('school') INTO MySchoolId;
+    ELSE
+    	MySchoolId = pSchoolId;
     END IF;
     
     -- Upsert school
     INSERT INTO $DB_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department)
-    VALUES(COALESCE(pSchoolId, NewSchoolId), pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment)
+    VALUES(MySchoolId, pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment)
     ON CONFLICT(SchoolId) DO UPDATE SET
 	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,
 	    SchoolAbbreviation = EXCLUDED.SchoolAbbreviation,
@@ -28,6 +30,6 @@ BEGIN
     ;   
     
 	-- Return new id (if new school)
-    RETURN NewSchoolId;   
+    RETURN MySchoolId;   
 END;
 $$ LANGUAGE 'plpgsql';
