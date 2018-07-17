@@ -12,7 +12,7 @@ SELECT $DB_NAME$Views.SP_DCPUpsertStudent(0, 0, NULL, NULL, NULL, NULL, NULL);
 
 -- Load NextId initial values
 INSERT INTO $DB_NAME$.NextId (IdType, NextValue) VALUES 
-('contract', 1), 
+('contract', 1),
 ('user', 1), 
 ('school', 1), 
 ('class', 1), 
