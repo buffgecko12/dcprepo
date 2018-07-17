@@ -39,9 +39,16 @@
 \i install/sps/SP_DCPGetContract.spl
 \i install/sps/SP_DCPGetContractInfo.spl
 
+\i install/sps/SP_DCPApproveContract.spl
+\i install/sps/SP_DCPChangeContractStatus.spl
+\i install/sps/SP_DCPReviseContract.spl
+\i install/sps/SP_DCPApproveContract.spl
+\i install/sps/SP_DCPDuplicateContract.spl
+
 \i install/sps/SP_DCPUpsertContractGoal.spl
 \i install/sps/SP_DCPDeleteContractGoal.spl
 \i install/sps/SP_DCPGetContractGoal.spl
+\i install/sps/SP_DCPAcceptContractGoal.spl
 
 \i install/sps/SP_DCPUpsertContractGoalReward.spl
 \i install/sps/SP_DCPDeleteContractGoalReward.spl
@@ -50,10 +57,6 @@
 \i install/sps/SP_DCPGetContractParty.spl
 \i install/sps/SP_DCPModifyContractParties.spl
 
-\i install/sps/SP_DCPApproveContract.spl
-\i install/sps/SP_DCPChangeContractStatus.spl
-\i install/sps/SP_DCPReviseContract.spl
-\i install/sps/SP_DCPAcceptContractGoal.spl
 
 -- Other
 \i install/sps/SP_DCPGetNextId.spl

@@ -47,6 +47,9 @@ SELECT * FROM $DB_NAME$Views.SP_DCPUpsertContract(
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
+-- Duplicate contract
+SELECT * FROM $DB_NAME$Views.SP_DCPDuplicateContract(100, 102, 100, NULL);
+
 -- Change status to 'active'
 SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
@@ -115,6 +118,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPDeleteUser(103);
 
 SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'D');
 SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(100);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(1);
 
 -- Meta
 SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('class');
