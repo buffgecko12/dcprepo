@@ -37,7 +37,10 @@ BEGIN
 			cg.ContractId, 
 			JSONB_BUILD_OBJECT(
 				'currentgoals',
-				JSONB_AGG((SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.AchievedFlag, cgr.rewardinfo) AS x))
+				JSONB_AGG(
+					(SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.AchievedFlag, cgr.rewardinfo) AS x)
+					ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
+				)
 			) AS goalinfo
 		FROM Contract_Goal cg
 		LEFT JOIN (
@@ -46,7 +49,10 @@ BEGIN
 				cgr.GoalId, 
 				JSONB_BUILD_OBJECT(
 					'currentrewards',
-					JSONB_AGG((SELECT x FROM (SELECT cgr.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue) AS x))
+					JSONB_AGG(
+						(SELECT x FROM (SELECT cgr.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue) AS x)
+						ORDER BY cgr.ContractId, cgr.GoalId, r.RewardDisplayName
+					)
 				) AS RewardInfo
 			FROM $DB_NAME$Views.Contract_Goal_Reward cgr
 			INNER JOIN $DB_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId
