@@ -22,9 +22,11 @@ BEGIN
     LEFT JOIN (
 		SELECT 
 			cp.ContractId, 
-			JSONB_AGG(
-				(SELECT x FROM (
-					SELECT cp.PartyUserId, cp.ContractRole, cpa.ApprovalTS, u.Firstname, u.Lastname) AS x
+			JSONB_BUILD_OBJECT(
+				'currentparties',
+				JSONB_AGG(
+					(SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, cpa.ApprovalTS, u.Firstname, u.Lastname) AS x)
+					ORDER BY cp.ContractRole, u.Firstname, u.LastName
 				)
 			) AS PartyUserInfo
 		FROM $DB_NAME$Views.Contract_Party cp
