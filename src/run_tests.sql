@@ -118,7 +118,7 @@ SELECT * FROM $DB_NAME$Views.SP_DCPDeleteUser(103);
 
 SELECT * FROM $DB_NAME$Views.SP_DCPChangeContractStatus(100,'D');
 SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(100);
-SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(1);
+SELECT * FROM $DB_NAME$Views.SP_DCPDeleteContract(1); -- Delete duplicate contract
 
 -- Meta
-SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('class');
+SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('dummyvalue');
