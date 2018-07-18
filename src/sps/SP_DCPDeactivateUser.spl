@@ -6,7 +6,8 @@ BEGIN
 
 	-- Set DeactivatedTS value
 	UPDATE $DB_NAME$.Users 
-	SET DeactivatedTS = current_timestamp
+	SET DeactivatedTS = current_timestamp,
+		Is_Active = FALSE
 	WHERE UserId = pUserId
 	;
 		

@@ -12,7 +12,7 @@ CREATE OR REPLACE VIEW $DB_NAME$Views.Lookup_Status AS SELECT * FROM $DB_NAME$.L
 
 -- User info
 CREATE OR REPLACE VIEW $DB_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login 
+SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login, Is_Active -- Required for django authentication
 FROM $DB_NAME$.Users 
 WHERE DeactivatedTS IS NULL -- Ignore deactivated users
 AND UserId <> 0 -- Ignore reserve fields

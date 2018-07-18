@@ -36,6 +36,7 @@ CREATE TABLE $DB_NAME$.Users (
     UserRole CHAR(1),
     Last_Login TIMESTAMP WITH TIME ZONE,
     DeactivatedTS TIMESTAMP WITH TIME ZONE,
+	Is_Active BOOLEAN, -- Required for django authentication
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId)
 );
