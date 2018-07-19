@@ -44,7 +44,7 @@ BEGIN
 					ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
 				)
 			) AS goalinfo
-		FROM Contract_Goal cg
+		FROM $DB_NAME$Views.Contract_Goal cg
 		LEFT JOIN (
 			SELECT 
 				cgr.ContractId, 
