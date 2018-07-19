@@ -13,16 +13,27 @@ TGT_DIR = params["tgt_dir"]
 
 SERVER_NAME = params["server_name"]
 CHAR_SET = params["char_set"]
+
 DB_ADMIN_USER = params["db_admin_user"]
+DB_ADMIN_PASSWORD = params["db_admin_password"]
 DB_ADMIN_DATABASE = params["db_admin_database"]
 
-DB_NAME = str(params["db_name"])
-DB_USER = params["db_user"]
-DB_PASS = str(params["db_pass"])
+DB_APP_USER = params["db_app_user"]
+DB_APP_PASSWORD = str(params["db_app_password"])
+DB_APP_DATABASE = str(params["db_app_database"])
+DB_APP_SCHEMA = str(params["db_app_schema"])
+
 DB_CHECK_VALUE = params["db_check_value"]
 
 DJANGO_BASEDIR = str(params.get('django_basedir'))
 DJANGO_LIB = DJANGO_BASEDIR + "\lib"
+
+
+# Heroku Only: Use DB Admin user as the App user
+DB_APP_USER = DB_ADMIN_USER
+DB_APP_PASSWORD = DB_ADMIN_PASSWORD
+DB_APP_DATABASE = DB_ADMIN_DATABASE
+
 
 print("")
 
@@ -42,9 +53,10 @@ if(os.listdir(SRC_DIR)):
     
     # Create placeholder/build value dictionary
     replace_dict = {
-        "$DB_NAME$" : DB_NAME,
-        "$DB_USER$" : DB_USER,
-        "$DB_PASS$" : DB_PASS,
+#         "$DB_NAME$" : DB_APP_DATABASE,
+        "$DB_NAME$" : DB_APP_SCHEMA, # Replace this with "SCHEMA_NAME" parameter
+        "$DB_APP_USER$" : DB_APP_USER,
+        "$DB_APP_PASSWORD$" : DB_APP_PASSWORD,
         "$DB_CHECK_VALUE$" : DB_CHECK_VALUE
     }
 
@@ -102,17 +114,17 @@ else:
 # Create list of DB install files
 install_files = [
 #   (file_name, comment, db_user, db_password, db_logon_database),
-    ("cleanup.sql", "Cleaning up old DB objects", DB_ADMIN_USER, None, DB_ADMIN_DATABASE),
-    ("create_users.sql", "Creating new users", DB_ADMIN_USER, None, DB_ADMIN_DATABASE),
-    ("create_databases.sql", "Creating new DBs and schemas", DB_USER, DB_PASS, DB_ADMIN_DATABASE),
-    ("create_tables.sql", "Creating tables", DB_USER, DB_PASS, DB_NAME),
-    ("create_views.sql", "Creating views", DB_USER, DB_PASS, DB_NAME),
-    ("create_sps.sql", "Creating SPs", DB_USER, DB_PASS, DB_NAME),
-#    ("create_triggers.sql", "Creating Triggers", DB_USER, DB_PASS, DB_NAME),
-#    ("create_indexes.sql", "Creating Indexes", DB_USER, DB_PASS, DB_NAME),
-    ("load_initial_data.sql", "Loading initial data", DB_USER, DB_PASS, DB_NAME),
-#     ("load_sample_data.sql", "Creating some sample data", DB_USER, DB_PASS, DB_NAME),
-    ("run_tests.sql", "Running tests", DB_USER, DB_PASS, DB_NAME),
+    ("cleanup.sql", "Cleaning up old DB objects", DB_ADMIN_USER, DB_ADMIN_PASSWORD, DB_ADMIN_DATABASE),
+#     ("create_users.sql", "Creating new users", DB_ADMIN_USER, DB_ADMIN_PASSWORD, DB_ADMIN_DATABASE),
+    ("create_databases.sql", "Creating new DBs and schemas", DB_APP_USER, DB_APP_PASSWORD, DB_ADMIN_DATABASE),
+    ("create_tables.sql", "Creating tables", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+    ("create_views.sql", "Creating views", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+    ("create_sps.sql", "Creating SPs", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+#    ("create_triggers.sql", "Creating Triggers", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+#    ("create_indexes.sql", "Creating Indexes", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+    ("load_initial_data.sql", "Loading initial data", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+#     ("load_sample_data.sql", "Creating some sample data", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+    ("run_tests.sql", "Running tests", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
 ]
 
 # Loop through and execute install files
@@ -145,9 +157,9 @@ if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
 print("Verifying install ...", end="")
 
 # Open cursor and query sample table
-conn = OpenDBConnection(database=DB_NAME, user=DB_USER, password=DB_PASS)
+conn = OpenDBConnection(database=DB_APP_DATABASE, user=DB_APP_USER, password=DB_APP_PASSWORD, server=SERVER_NAME, sslmode='require')
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM " + DB_NAME + "views.t1")
+cursor.execute("SELECT * FROM " + DB_APP_SCHEMA + "Views.t1") # To-Do: Fix this
  
 mydata = cursor.fetchone() # returns next row in resultset
 cursor.close()

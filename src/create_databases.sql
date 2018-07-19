@@ -1,10 +1,11 @@
 -- TO-DO: Check for correct default encoding (UTF8 vs. WIN1252)
 -- Objects should be created by application user
 
+/*
 -- Create new DB and connect to it
 CREATE DATABASE $DB_NAME$ ENCODING 'UTF8';
 \connect $DB_NAME$;
-
+*/
 -- Create schemas (namespaces) to separate base tables, views, functions, etc.
 CREATE SCHEMA $DB_NAME$; -- Store base tables
 CREATE SCHEMA $DB_NAME$views; -- Store views, functions, etc. (keep value lower case for PG)
