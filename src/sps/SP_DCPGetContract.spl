@@ -25,7 +25,7 @@ BEGIN
 			JSONB_BUILD_OBJECT(
 				'currentparties',
 				JSONB_AGG(
-					(SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, cpa.ApprovalTS, u.Firstname, u.Lastname, u.EmailAddress) AS x)
+					(SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, cpa.ApprovalTS, cpa.PreferredGoalId, u.Firstname, u.Lastname, u.EmailAddress) AS x)
 					ORDER BY cp.ContractRole, u.Firstname, u.LastName
 				)
 			) AS PartyUserInfo
