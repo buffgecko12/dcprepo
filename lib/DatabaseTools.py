@@ -2,8 +2,8 @@ import psycopg2
 import subprocess
 import os
 
-def OpenDBConnection(user, password, database, server = "localhost"):
-    conn = psycopg2.connect(host=server, dbname=database, user=user, password=password)
+def OpenDBConnection(user, password, database, server = "localhost", sslmode = None):
+    conn = psycopg2.connect(host=server, dbname=database, user=user, password=password, sslmode=sslmode)
     return conn
 
 def RunSQLFile(server, user, password, database, encoding, source_file, output_file, display_msg, wait_flag):
