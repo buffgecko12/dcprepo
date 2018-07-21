@@ -155,14 +155,20 @@ if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
 # Verify install completed successfully
 print("Verifying install ...", end="")
 
+# Pass correct setting (depends on "ENV" variable)
+if(os.environ.get('ENV') != 'development'):
+    sslmode = "require"
+else:
+    sslmode = None
+ 
 # Open cursor and query sample table
-conn = OpenDBConnection(database=DB_APP_DATABASE, user=DB_APP_USER, password=DB_APP_PASSWORD, server=SERVER_NAME, sslmode='require')
+conn = OpenDBConnection(database=DB_APP_DATABASE, user=DB_APP_USER, password=DB_APP_PASSWORD, server=SERVER_NAME, sslmode=sslmode)
 cursor = conn.cursor()
 cursor.execute("SELECT * FROM " + DB_APP_SCHEMA + "Views.t1") # To-Do: Fix this
- 
+   
 mydata = cursor.fetchone() # returns next row in resultset
 cursor.close()
-
+  
 # Verify sample value was INSERTed
 if(mydata[0].strip() == DB_CHECK_VALUE.strip()):
     print("SUCCESS. " + mydata[0])
