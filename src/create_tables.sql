@@ -106,7 +106,7 @@ CREATE TABLE $APP_NAME$.Contract_Party_Approval (
 	ApprovalType CHAR(1) NOT NULL,
 	PreferredGoalId INTEGER,
 	SignatureScanFile BYTEA,
-	ApprovalTS TIMESTAMP WITH TIME ZONE,
+	PartyApprovalTS TIMESTAMP WITH TIME ZONE,
 	LogonUserId INTEGER NOT NULL,
 	PRIMARY KEY (ContractId, PartyUserId, ApprovalType),
 	FOREIGN KEY (LogonUserId) REFERENCES $APP_NAME$.Users (UserId),

@@ -23,7 +23,7 @@ BEGIN
 	;
 	
 	-- Update signature	
-	INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, ApprovalTS, LogonUserId)
+	INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId)
 	SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
 	FROM $APP_NAME$Views.Contract_Party -- Make sure party user exists
 	WHERE ContractId = pContractId
@@ -31,7 +31,7 @@ BEGIN
 	ON CONFLICT (ContractId, PartyUserId, ApprovalType) DO UPDATE SET 
 		PreferredGoalId = COALESCE(EXCLUDED.PreferredGoalId, Contract_Party_Approval.PreferredGoalId),
 		SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
-		ApprovalTS = CURRENT_TIMESTAMP,
+		PartyApprovalTS = CURRENT_TIMESTAMP,
 		LogonUserId = pLogonUserId
 	;
 	
@@ -44,8 +44,8 @@ BEGIN
 			SELECT 1
 			FROM (
 				SELECT 
-					SUM(CASE WHEN cp.ContractRole IN ('PL','BL') AND cpa.ApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumLeadersApproved,
-					SUM(CASE WHEN cp.ContractRole IN ('MR') AND cpa.ApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumMentorsApproved,
+					SUM(CASE WHEN cp.ContractRole IN ('PL','BL') AND cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumLeadersApproved,
+					SUM(CASE WHEN cp.ContractRole IN ('MR') AND cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumMentorsApproved,
 					SUM(CASE WHEN cp.ContractRole IN ('MR') THEN 1 ELSE 0 END) NumMentors
 				FROM $APP_NAME$Views.Contract c
 				INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId AND cp.ContractRole IN ('MR','PL','BL') -- Get mentor and primary/secondary group leaders
@@ -70,10 +70,10 @@ BEGIN
 					COUNT(*) AS NumParties,
 					SUM(
 						CASE 
-							WHEN cpa.ApprovalTS IS NOT NULL THEN -- Party has already approved
+							WHEN cpa.PartyApprovalTS IS NOT NULL THEN -- Party has already approved
 								CASE 
 									WHEN NOT c.GuardianApprovalFlag OR c.GuardianApprovalFlag IS NULL THEN 1 -- Guardian approval flag IS NOT required (or not defined)
-									WHEN cpg.ApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
+									WHEN cpg.PartyApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
 									ELSE 0 -- NOT APPROVED
 								END
 							ELSE 0 -- Party has not approved yet
