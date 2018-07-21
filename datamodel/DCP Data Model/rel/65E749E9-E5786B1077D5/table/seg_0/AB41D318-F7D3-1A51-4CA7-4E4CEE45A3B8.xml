@@ -83,7 +83,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ApprovalTS" id="0FAC2F73-D2B0-EEC5-E6D0-7C94C47015B4">
+<Column name="PartyApprovalTS" id="0FAC2F73-D2B0-EEC5-E6D0-7C94C47015B4">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:37:19 UTC</createdTime>
 <comment>Approval timestamp</comment>
