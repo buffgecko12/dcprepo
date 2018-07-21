@@ -122,7 +122,7 @@ CREATE TABLE $DB_NAME$.Contract_Goal (
     AcceptedFlag BOOLEAN,
     AchievedFlag BOOLEAN,
     PRIMARY KEY (ContractId, GoalId),
-    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
+    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract(ContractId)
 );
 
 -- Contract rewards

@@ -28,12 +28,10 @@ DB_CHECK_VALUE = params["db_check_value"]
 DJANGO_BASEDIR = str(params.get('django_basedir'))
 DJANGO_LIB = DJANGO_BASEDIR + "\lib"
 
-
 # Heroku Only: Use DB Admin user as the App user
 DB_APP_USER = DB_ADMIN_USER
 DB_APP_PASSWORD = DB_ADMIN_PASSWORD
 DB_APP_DATABASE = DB_ADMIN_DATABASE
-
 
 print("")
 
@@ -57,6 +55,7 @@ if(os.listdir(SRC_DIR)):
         "$DB_NAME$" : DB_APP_SCHEMA, # Replace this with "SCHEMA_NAME" parameter
         "$DB_APP_USER$" : DB_APP_USER,
         "$DB_APP_PASSWORD$" : DB_APP_PASSWORD,
+        "$DB_APP_DATABASE$" : DB_APP_DATABASE,
         "$DB_CHECK_VALUE$" : DB_CHECK_VALUE
     }
 
@@ -115,7 +114,7 @@ else:
 install_files = [
 #   (file_name, comment, db_user, db_password, db_logon_database),
     ("cleanup.sql", "Cleaning up old DB objects", DB_ADMIN_USER, DB_ADMIN_PASSWORD, DB_ADMIN_DATABASE),
-#     ("create_users.sql", "Creating new users", DB_ADMIN_USER, DB_ADMIN_PASSWORD, DB_ADMIN_DATABASE),
+    ("create_users.sql", "Creating new users", DB_ADMIN_USER, DB_ADMIN_PASSWORD, DB_ADMIN_DATABASE),
     ("create_databases.sql", "Creating new DBs and schemas", DB_APP_USER, DB_APP_PASSWORD, DB_ADMIN_DATABASE),
     ("create_tables.sql", "Creating tables", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
     ("create_views.sql", "Creating views", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
