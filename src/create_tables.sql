@@ -2,7 +2,7 @@
 -- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
 
 -- Schools
-CREATE TABLE $DB_NAME$.School (
+CREATE TABLE $APP_NAME$.School (
 	SchoolId INTEGER NOT NULL,
 	SchoolDisplayName VARCHAR(100) NOT NULL,
 	SchoolAbbreviation VARCHAR(25),
@@ -13,16 +13,16 @@ CREATE TABLE $DB_NAME$.School (
 );
 
 -- Classes
-CREATE TABLE $DB_NAME$.Class (
+CREATE TABLE $APP_NAME$.Class (
 	ClassId INTEGER NOT NULL,
 	SchoolId INTEGER NOT NULL,
 	ClassDisplayName VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ClassId),
-	FOREIGN KEY (SchoolId) REFERENCES $DB_NAME$.School (SchoolId)
+	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
 );
 
 -- User profiles
-CREATE TABLE $DB_NAME$.Users (
+CREATE TABLE $APP_NAME$.Users (
     UserId INTEGER NOT NULL,
     UserName VARCHAR(50) NOT NULL UNIQUE,
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
@@ -42,35 +42,35 @@ CREATE TABLE $DB_NAME$.Users (
 );
 
 -- Additional teacher user info
-CREATE TABLE $DB_NAME$.User_Teacher (
+CREATE TABLE $APP_NAME$.User_Teacher (
 	TeacherUserId INTEGER NOT NULL,
 	SchoolId INTEGER,
 	MaxBudget INTEGER,
 	PRIMARY KEY (TeacherUserId),
-	FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.Users (UserId),
-	FOREIGN KEY(SchoolId) REFERENCES $DB_NAME$.School
+	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId),
+	FOREIGN KEY(SchoolId) REFERENCES $APP_NAME$.School
 );
 
 -- Classes associated with a teacher
-CREATE TABLE $DB_NAME$.User_Teacher_Class (
+CREATE TABLE $APP_NAME$.User_Teacher_Class (
 	TeacherUserId INTEGER NOT NULL,
 	ClassId INTEGER NOT NULL,
 	PRIMARY KEY (TeacherUserId, ClassId),
-	FOREIGN KEY (TeacherUserId) REFERENCES $DB_NAME$.User_Teacher (TeacherUserId),
-	FOREIGN KEY (ClassId) REFERENCES $DB_NAME$.Class (ClassId)
+	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.User_Teacher (TeacherUserId),
+	FOREIGN KEY (ClassId) REFERENCES $APP_NAME$.Class (ClassId)
 );
 
 -- Additional student user info
-CREATE TABLE $DB_NAME$.User_Student (
+CREATE TABLE $APP_NAME$.User_Student (
 	StudentUserId INTEGER NOT NULL,
 	ClassId INTEGER NOT NULL,
 	PRIMARY KEY (StudentUserId),
-	FOREIGN KEY (StudentUserId) REFERENCES $DB_NAME$.Users (UserId),
-	FOREIGN KEY (ClassId) REFERENCES $DB_NAME$.Class (ClassId)
+	FOREIGN KEY (StudentUserId) REFERENCES $APP_NAME$.Users (UserId),
+	FOREIGN KEY (ClassId) REFERENCES $APP_NAME$.Class (ClassId)
 );
 
 -- Main contract
-CREATE TABLE $DB_NAME$.Contract (
+CREATE TABLE $APP_NAME$.Contract (
     ContractId INTEGER NOT NULL,
     ClassId INTEGER NOT NULL,
     ContractType CHAR(1) NOT NULL DEFAULT 'G',
@@ -87,20 +87,20 @@ CREATE TABLE $DB_NAME$.Contract (
     ContractApprovalTS TIMESTAMP WITH TIME ZONE,
     ContractStatus CHAR(1),
     PRIMARY KEY (ContractId),
-    FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $DB_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
+    FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $APP_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
 );
 
 -- Contract parties (students, teachers)
-CREATE TABLE $DB_NAME$.Contract_Party (
+CREATE TABLE $APP_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
     PartyUserId INTEGER NOT NULL,
     ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
     PRIMARY KEY (ContractId, PartyUserId),
-    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId),
-    FOREIGN KEY (PartyUserId) REFERENCES $DB_NAME$.Users (UserId)    
+    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId),
+    FOREIGN KEY (PartyUserId) REFERENCES $APP_NAME$.Users (UserId)    
 );
 
-CREATE TABLE $DB_NAME$.Contract_Party_Approval (
+CREATE TABLE $APP_NAME$.Contract_Party_Approval (
 	ContractId INTEGER NOT NULL,
 	PartyUserId INTEGER NOT NULL,
 	ApprovalType CHAR(1) NOT NULL,
@@ -109,12 +109,12 @@ CREATE TABLE $DB_NAME$.Contract_Party_Approval (
 	ApprovalTS TIMESTAMP WITH TIME ZONE,
 	LogonUserId INTEGER NOT NULL,
 	PRIMARY KEY (ContractId, PartyUserId, ApprovalType),
-	FOREIGN KEY (LogonUserId) REFERENCES $DB_NAME$.Users (UserId),
-	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party(ContractId, PartyUserId)
+	FOREIGN KEY (LogonUserId) REFERENCES $APP_NAME$.Users (UserId),
+	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party(ContractId, PartyUserId)
 );
 
 -- Contract goals
-CREATE TABLE $DB_NAME$.Contract_Goal (
+CREATE TABLE $APP_NAME$.Contract_Goal (
     ContractId INTEGER NOT NULL,
     GoalId INTEGER NOT NULL,
     DifficultyLevel CHAR(1) NOT NULL DEFAULT 'M',
@@ -122,20 +122,20 @@ CREATE TABLE $DB_NAME$.Contract_Goal (
     AcceptedFlag BOOLEAN,
     AchievedFlag BOOLEAN,
     PRIMARY KEY (ContractId, GoalId),
-    FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract(ContractId)
+    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
 );
 
 -- Contract rewards
-CREATE TABLE $DB_NAME$.Contract_Goal_Reward (
+CREATE TABLE $APP_NAME$.Contract_Goal_Reward (
 	ContractId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	PRIMARY KEY (ContractId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, GoalId) REFERENCES $DB_NAME$.Contract_Goal (ContractId, GoalId)
+	FOREIGN KEY (ContractId, GoalId) REFERENCES $APP_NAME$.Contract_Goal (ContractId, GoalId)
 );
 
 -- Reward selected for each contract goal for each student
-CREATE TABLE $DB_NAME$.Contract_Party_Goal_Reward (
+CREATE TABLE $APP_NAME$.Contract_Party_Goal_Reward (
 	PartyUserId INTEGER NOT NULL,
 	ContractId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
@@ -143,12 +143,12 @@ CREATE TABLE $DB_NAME$.Contract_Party_Goal_Reward (
 	RewardDeliveredFlag BOOLEAN,
 	ActualRewardValue INTEGER,
 	PRIMARY KEY (ContractId, PartyUserId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $DB_NAME$.Contract_Party (ContractId, PartyUserId)
+	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
+	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
 );
 
 -- Events that affect user reputation
-CREATE TABLE $DB_NAME$.User_Reputation_Event (
+CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	EventId BIGSERIAL NOT NULL,
 	UserId INTEGER NOT NULL,
 	EventType CHAR(2) NOT NULL,
@@ -156,12 +156,12 @@ CREATE TABLE $DB_NAME$.User_Reputation_Event (
 	PointValue INTEGER NOT NULL,
 	ContractId INTEGER,
 	PRIMARY KEY (EventId),
-	FOREIGN KEY (UserId) REFERENCES $DB_NAME$.Users (UserId),
-	FOREIGN KEY (ContractId) REFERENCES $DB_NAME$.Contract (ContractId)
+	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId),
+	FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId)
 );
 
 -- Reward info
-CREATE TABLE $DB_NAME$.Lookup_Reward (
+CREATE TABLE $APP_NAME$.Lookup_Reward (
 	RewardId INTEGER NOT NULL,
 	RewardDisplayName VARCHAR(100) NOT NULL,
 	RewardDescription VARCHAR(500) NOT NULL,
@@ -170,23 +170,23 @@ CREATE TABLE $DB_NAME$.Lookup_Reward (
     GlobalFlag BOOLEAN DEFAULT TRUE,
 	CreatedByUserId INTEGER NOT NULL,
 	PRIMARY KEY(RewardId),
-	FOREIGN KEY(CreatedByUserId) REFERENCES $DB_NAME$.Users(UserId)
+	FOREIGN KEY(CreatedByUserId) REFERENCES $APP_NAME$.Users(UserId)
 );
 
 -- Contract status
-CREATE TABLE $DB_NAME$.Lookup_Status (
+CREATE TABLE $APP_NAME$.Lookup_Status (
 	Status CHAR(1) NOT NULL,
 	StatusDisplayName VARCHAR(50) NOT NULL,
 	PRIMARY KEY(Status)
 );
 
 -- Next ID lookup
-CREATE TABLE $DB_NAME$.NextId (
+CREATE TABLE $APP_NAME$.NextId (
     IDType VARCHAR(50) NOT NULL,
     NextValue INTEGER NOT NULL,
     PRIMARY KEY (IDType)
 );
 
 -- Sample table
-CREATE TABLE $DB_NAME$.t1 (c1 VARCHAR(100));
-INSERT INTO $DB_NAME$.t1 (c1) VALUES('$DB_CHECK_VALUE$');
+CREATE TABLE $APP_NAME$.t1 (c1 VARCHAR(100));
+INSERT INTO $APP_NAME$.t1 (c1) VALUES('$DB_CHECK_VALUE$');

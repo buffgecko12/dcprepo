@@ -51,11 +51,11 @@ if(os.listdir(SRC_DIR)):
     
     # Create placeholder/build value dictionary
     replace_dict = {
-#         "$DB_NAME$" : DB_APP_DATABASE,
-        "$DB_NAME$" : DB_APP_SCHEMA, # Replace this with "SCHEMA_NAME" parameter
-        "$DB_APP_USER$" : DB_APP_USER,
-        "$DB_APP_PASSWORD$" : DB_APP_PASSWORD,
-        "$DB_APP_DATABASE$" : DB_APP_DATABASE,
+#         "$APP_NAME$" : DB_APP_DATABASE,
+        "$APP_NAME$" : DB_APP_SCHEMA, # Replace this with "SCHEMA_NAME" parameter
+        "$APP_USER$" : DB_APP_USER,
+        "$APP_PASSWORD$" : DB_APP_PASSWORD,
+        "$APP_DATABASE$" : DB_APP_DATABASE,
         "$DB_CHECK_VALUE$" : DB_CHECK_VALUE
     }
 

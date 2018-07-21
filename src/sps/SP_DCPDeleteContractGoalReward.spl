@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteContractGoalReward (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContractGoalReward (
     pContractId INTEGER,
     pGoalId INTEGER,
     pRewardId INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
-	DELETE FROM $DB_NAME$.Contract_Goal_Reward
+	DELETE FROM $APP_NAME$.Contract_Goal_Reward
 	WHERE (ContractId = pContractId OR pContractId IS NULL)
 	AND (GoalId = pGoalId OR pGoalId IS NULL)
 	AND (RewardId = pRewardId OR pRewardId IS NULL)

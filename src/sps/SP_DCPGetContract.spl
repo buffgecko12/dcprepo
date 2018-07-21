@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContract(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContract(
     pContractId INTEGER,
     pPartyUserId INTEGER,
     pTeacherUserId INTEGER,
@@ -16,9 +16,9 @@ BEGIN
     	c.ContractId, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,
 		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus,
 		cg.GoalInfo, cp.PartyUserInfo
-    FROM $DB_NAME$Views.Contract c
-    LEFT JOIN $DB_NAME$Views.Class cl ON c.ClassId = cl.ClassId
-    LEFT JOIN $DB_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
+    FROM $APP_NAME$Views.Contract c
+    LEFT JOIN $APP_NAME$Views.Class cl ON c.ClassId = cl.ClassId
+    LEFT JOIN $APP_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
     LEFT JOIN (
 		SELECT 
 			cp.ContractId, 
@@ -29,9 +29,9 @@ BEGIN
 					ORDER BY cp.ContractRole, u.Firstname, u.LastName
 				)
 			) AS PartyUserInfo
-		FROM $DB_NAME$Views.Contract_Party cp
-		LEFT JOIN $DB_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
-		INNER JOIN $DB_NAME$Views.Users u ON cp.PartyUserId = u.UserId
+		FROM $APP_NAME$Views.Contract_Party cp
+		LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
+		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
 		GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId -- Get party info
     LEFT JOIN (
@@ -44,7 +44,7 @@ BEGIN
 					ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
 				)
 			) AS goalinfo
-		FROM $DB_NAME$Views.Contract_Goal cg
+		FROM $APP_NAME$Views.Contract_Goal cg
 		LEFT JOIN (
 			SELECT 
 				cgr.ContractId, 
@@ -56,8 +56,8 @@ BEGIN
 						ORDER BY cgr.ContractId, cgr.GoalId, r.RewardDisplayName
 					)
 				) AS RewardInfo
-			FROM $DB_NAME$Views.Contract_Goal_Reward cgr
-			INNER JOIN $DB_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId
+			FROM $APP_NAME$Views.Contract_Goal_Reward cgr
+			INNER JOIN $APP_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId
 			GROUP BY cgr.ContractId, cgr.GoalId
 		) cgr ON cg.ContractId = cgr.ContractId AND cg.GoalId = cgr.GoalId
 		GROUP BY cg.ContractId
@@ -67,7 +67,7 @@ BEGIN
     AND (
     	c.ContractId IN (
     		SELECT cp.ContractId 
-    		FROM $DB_NAME$Views.Contract_Party cp
+    		FROM $APP_NAME$Views.Contract_Party cp
     		WHERE cp.PartyUserId = pPartyUserId
 		) OR pPartyUserId IS NULL
 	) -- Return contracts for a specific user

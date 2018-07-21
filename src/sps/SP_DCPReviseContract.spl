@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPReviseContract(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPReviseContract(
     pContractId INTEGER,
     pRevisionDescription VARCHAR(500)
 ) 
 RETURNS VOID AS $$
 BEGIN
 	-- Update revision notes
-	UPDATE $DB_NAME$.Contract
+	UPDATE $APP_NAME$.Contract
 	SET RevisionDescription = pRevisionDescription
 	WHERE ContractId = pContractId
 	AND RevisionDeadlineTS > CURRENT_TIMESTAMP -- Only update if revision deadline has not already passed

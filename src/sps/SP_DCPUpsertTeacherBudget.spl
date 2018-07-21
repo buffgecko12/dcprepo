@@ -1,10 +1,10 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertTeacherBudget(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacherBudget(
     pTeacherUserId INTEGER,
     pMaxBudget INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN
-	UPDATE $DB_NAME$.User_Teacher
+	UPDATE $APP_NAME$.User_Teacher
 	SET MaxBudget = COALESCE(pMaxBudget, MaxBudget)
 	WHERE (TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 	;

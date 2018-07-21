@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetClass(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetClass(
     pClassId INTEGER,
     pSchoolId INTEGER,
     pTeacherUserId INTEGER,
@@ -10,9 +10,9 @@ RETURNS TABLE (
 BEGIN
     RETURN QUERY -- Return these query results
     SELECT DISTINCT cl.ClassId, cl.SchoolId, sc.SchoolDisplayName, cl.ClassDisplayName
-    FROM $DB_NAME$Views.Class cl
-    INNER JOIN $DB_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
-	LEFT JOIN $DB_NAME$Views.User_Teacher_Class utc ON cl.ClassId = utc.ClassId -- Lookup teacher info
+    FROM $APP_NAME$Views.Class cl
+    INNER JOIN $APP_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
+	LEFT JOIN $APP_NAME$Views.User_Teacher_Class utc ON cl.ClassId = utc.ClassId -- Lookup teacher info
     WHERE (cl.ClassId = pClassId OR pClassId IS NULL)
     AND (cl.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (cl.ClassDisplayName = pClassDisplayName OR pClassDisplayName IS NULL)

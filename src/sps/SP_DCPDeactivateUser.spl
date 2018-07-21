@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeactivateUser (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeactivateUser (
     pUserId INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
 
 	-- Set DeactivatedTS value
-	UPDATE $DB_NAME$.Users
+	UPDATE $APP_NAME$.Users
 	SET DeactivatedTS = current_timestamp,
 		Is_Active = FALSE
 	WHERE UserId = pUserId

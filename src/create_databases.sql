@@ -3,9 +3,9 @@
 
 /*
 -- Create new DB and connect to it
-CREATE DATABASE $DB_APP_DATABASE$ ENCODING 'UTF8';
-\connect $DB_APP_DATABASE$;
+CREATE DATABASE $APP_DATABASE$ ENCODING 'UTF8';
+\connect $APP_DATABASE$;
 */
 -- Create schemas (namespaces) to separate base tables, views, functions, etc.
-CREATE SCHEMA $DB_NAME$; -- Store base tables
-CREATE SCHEMA $DB_NAME$Views; -- Store views, functions, etc.
+CREATE SCHEMA $APP_NAME$; -- Store base tables
+CREATE SCHEMA $APP_NAME$Views; -- Store views, functions, etc.

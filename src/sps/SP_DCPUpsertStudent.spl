@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertStudent (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertStudent (
     pStudentUserId INTEGER, 
     pClassId INTEGER,
     pFirstName VARCHAR(100), 
@@ -11,7 +11,7 @@ RETURNS VOID AS $$
 BEGIN   
 
 	-- S0: Update user info
-	UPDATE $DB_NAME$.Users
+	UPDATE $APP_NAME$.Users
 	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
 		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
 		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
@@ -21,7 +21,7 @@ BEGIN
 	;
 
     -- Add student info
-    INSERT INTO $DB_NAME$.User_Student(StudentUserId, ClassId)
+    INSERT INTO $APP_NAME$.User_Student(StudentUserId, ClassId)
     VALUES(pStudentUserId, pClassId)
     ON CONFLICT(StudentUserId) DO UPDATE SET
 	    ClassId = EXCLUDED.ClassId

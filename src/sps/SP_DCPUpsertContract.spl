@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContract(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
     pClassId INTEGER,
     pContractType CHAR(1),
@@ -23,14 +23,14 @@ BEGIN
 	-- Determine contractid
 	IF(pContractId IS NULL) THEN
 		-- Create contract (get new id)
-	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('contract') INTO MyContractId;
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('contract') INTO MyContractId;
     ELSE
     	-- Update contract (use provided id)
     	MyContractId = pContractId;
     END IF;
 
 	-- Upsert general info
-	INSERT INTO $DB_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
+	INSERT INTO $APP_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
 	  RevisionDeadlineTS, RevisionDescription, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
     VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
       pRevisionDescription, pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
@@ -67,12 +67,12 @@ BEGIN
 			   RewardInfo JSONB
 		   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
 		LOOP
-		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.AchievedFlag, mygoal.RewardInfo);
+		    PERFORM $APP_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.AchievedFlag, mygoal.RewardInfo);
 		END LOOP;
 	END IF;
     
 	-- Update parties info	
-    PERFORM $DB_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyUserInfo);
+    PERFORM $APP_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyUserInfo);
 
     -- Return contractId
     RETURN MyContractId;

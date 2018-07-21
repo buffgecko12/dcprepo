@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertReward (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 	pRewardId INTEGER,
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
@@ -13,13 +13,13 @@ BEGIN
 
 	-- Get next id value (for new reward only)
 	IF(pRewardId IS NULL) THEN
-	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('reward') INTO MyRewardId;
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('reward') INTO MyRewardId;
     ELSE
     	MyRewardId = pRewardId;
     END IF;
     
     -- Upsert reward
-    INSERT INTO $DB_NAME$.Lookup_Reward(RewardId, RewardDisplayName, RewardDescription, RewardValue, GlobalFlag, CreatedByUserId)
+    INSERT INTO $APP_NAME$.Lookup_Reward(RewardId, RewardDisplayName, RewardDescription, RewardValue, GlobalFlag, CreatedByUserId)
     VALUES(MyRewardId, pRewardDisplayName, pRewardDescription, pRewardValue, pGlobalFlag, pCreatedByUserId)
     ON CONFLICT(RewardId) DO UPDATE SET
 	    RewardDisplayName = EXCLUDED.RewardDisplayName,

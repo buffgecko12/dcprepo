@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteContractGoal (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContractGoal (
     pContractId INTEGER,
     pGoalId INTEGER
 ) 
@@ -9,15 +9,15 @@ BEGIN
 	-- Cascaded delete
 	FOR myreward IN
 		SELECT ContractId, GoalId, RewardId
-		FROM $DB_NAME$.Contract_Goal_Reward
+		FROM $APP_NAME$.Contract_Goal_Reward
 		WHERE (ContractId = pContractId OR pContractId IS NULL)
 		AND (GoalId = pGoalId OR pGoalId IS NULL)
 	LOOP
-	    PERFORM $DB_NAME$Views.SP_DCPDeleteContractGoalReward(myreward.ContractId, myreward.GoalId, myreward.RewardId);
+	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoalReward(myreward.ContractId, myreward.GoalId, myreward.RewardId);
 	END LOOP;
 
 	-- Delete contract goal
-	DELETE FROM $DB_NAME$.Contract_Goal
+	DELETE FROM $APP_NAME$.Contract_Goal
 	WHERE (ContractId = pContractId OR pContractId IS NULL)
 	AND (GoalId = pGoalId OR pGoalId IS NULL)
 	;

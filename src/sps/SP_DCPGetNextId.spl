@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetNextId (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetNextId (
 	pIdType VARCHAR(50)
 ) 
 RETURNS INTEGER AS $$
@@ -8,13 +8,13 @@ BEGIN
 
 	-- Get next id
     SELECT NextValue INTO NewId
-    FROM $DB_NAME$.NextId
+    FROM $APP_NAME$.NextId
     WHERE IdType = pIdType
     FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
 	;
 	
     -- Increment id value
-    UPDATE $DB_NAME$.NextId
+    UPDATE $APP_NAME$.NextId
     SET NextValue = NextValue + 1
     WHERE IdType = pIdType
     ;		

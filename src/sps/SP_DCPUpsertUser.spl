@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUser (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUser (
     pUserId INTEGER, 
     pUserName VARCHAR(50), 
     pUserType CHAR(2), 
@@ -19,14 +19,14 @@ BEGIN
 	-- Get userid
 	IF(pUserId IS NULL) THEN
 		-- Create user (get next userid)
-	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('user') INTO MyUserId;
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('user') INTO MyUserId;
     ELSE
     	-- Update user (use provided userid)
     	MyUserId = pUserId;
     END IF;
     
     -- Upsert user
-    INSERT INTO $DB_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login, Is_Active)
+    INSERT INTO $APP_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login, Is_Active)
     VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login, TRUE)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
@@ -44,9 +44,9 @@ BEGIN
     -- Add additional info (new user)
     IF(pUserId IS NULL) THEN
 	    IF(pUserType = 'ST') THEN
-	    	PERFORM $DB_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0, NULL, NULL, NULL, NULL, NULL); -- Create new student (unassigned class)
+	    	PERFORM $APP_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0, NULL, NULL, NULL, NULL, NULL); -- Create new student (unassigned class)
 		ELSEIF (pUserType = 'TR') THEN 
-	    	PERFORM $DB_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL); -- Create new teacher (no school / classes)
+	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL); -- Create new teacher (no school / classes)
 		END IF;
 	END IF;
 		

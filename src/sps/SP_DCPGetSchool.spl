@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetSchool(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchool(
     pSchoolId INTEGER
 )
-RETURNS SETOF $DB_NAME$Views.School AS $$
+RETURNS SETOF $APP_NAME$Views.School AS $$
 BEGIN
     RETURN QUERY -- Return these query results
     SELECT SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department
-    FROM $DB_NAME$Views.School
+    FROM $APP_NAME$Views.School
     WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
     ORDER BY SchoolDisplayName
     ;

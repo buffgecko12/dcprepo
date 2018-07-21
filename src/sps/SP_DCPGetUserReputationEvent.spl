@@ -1,13 +1,13 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetUserReputationEvent(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserReputationEvent(
     pUserId INTEGER,
 	pContractId INTEGER,
 	pEventId BIGINT
 )
-RETURNS SETOF $DB_NAME$Views.User_Reputation_Event AS $$
+RETURNS SETOF $APP_NAME$Views.User_Reputation_Event AS $$
 BEGIN
     RETURN QUERY
     SELECT EventId, UserId, EventType, EventTS, PointValue, ContractId
-    FROM $DB_NAME$Views.User_Reputation_Event
+    FROM $APP_NAME$Views.User_Reputation_Event
     WHERE (UserId = pUserId OR pUserId IS NULL)
     AND (EventId = pEventId OR pEventId IS NULL)
     AND (ContractId = pContractId OR pContractId IS NULL)

@@ -1,22 +1,22 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeleteUser (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteUser (
     pUserId INTEGER
 )
 RETURNS VOID AS $$
 BEGIN	
 	-- Cascaded DELETEs (must delete from child tables first)
 	-- Retain objects associated with user (set user = deactivated user)
-	UPDATE $DB_NAME$.Contract_Party_Approval SET LogonUserId = 0 WHERE LogonUserId = pUserId;
-	DELETE FROM $DB_NAME$.Contract_Party_Approval WHERE PartyUserId = pUserId;
-	DELETE FROM $DB_NAME$.Contract_Party_Goal_Reward WHERE PartyUserId = pUserId;
-	DELETE FROM $DB_NAME$.Contract_Party WHERE PartyUserId = pUserId;
-	UPDATE $DB_NAME$.Contract SET TeacherUserId = 0, ClassId = 0 WHERE TeacherUserId = pUserId; 
+	UPDATE $APP_NAME$.Contract_Party_Approval SET LogonUserId = 0 WHERE LogonUserId = pUserId;
+	DELETE FROM $APP_NAME$.Contract_Party_Approval WHERE PartyUserId = pUserId;
+	DELETE FROM $APP_NAME$.Contract_Party_Goal_Reward WHERE PartyUserId = pUserId;
+	DELETE FROM $APP_NAME$.Contract_Party WHERE PartyUserId = pUserId;
+	UPDATE $APP_NAME$.Contract SET TeacherUserId = 0, ClassId = 0 WHERE TeacherUserId = pUserId; 
 
 	-- Delete user info
-	DELETE FROM $DB_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
-	DELETE FROM $DB_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
-	DELETE FROM $DB_NAME$.User_Student WHERE StudentUserId = pUserId;
-	DELETE FROM $DB_NAME$.User_Reputation_Event WHERE UserId = pUserId;
-	DELETE FROM $DB_NAME$.Users WHERE UserId = pUserId;
+	DELETE FROM $APP_NAME$.User_Teacher_Class WHERE TeacherUserId = pUserId;
+	DELETE FROM $APP_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
+	DELETE FROM $APP_NAME$.User_Student WHERE StudentUserId = pUserId;
+	DELETE FROM $APP_NAME$.User_Reputation_Event WHERE UserId = pUserId;
+	DELETE FROM $APP_NAME$.Users WHERE UserId = pUserId;
 
 END;
 $$ LANGUAGE 'plpgsql';

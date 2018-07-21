@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertTeacher (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacher (
     pTeacherUserId INTEGER, 
     pSchoolId INTEGER,
     pMaxBudget INTEGER,
@@ -13,7 +13,7 @@ RETURNS VOID AS $$
 BEGIN
 
 	-- S0: Update user info
-	UPDATE $DB_NAME$.Users
+	UPDATE $APP_NAME$.Users
 	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
 		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
 		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
@@ -23,7 +23,7 @@ BEGIN
 	;
 	
     -- S1: Update teacher info
-    INSERT INTO $DB_NAME$.User_Teacher(TeacherUserId, SchoolId, MaxBudget)
+    INSERT INTO $APP_NAME$.User_Teacher(TeacherUserId, SchoolId, MaxBudget)
     VALUES(pTeacherUserId, pSchoolId, pMaxBudget)
     ON CONFLICT(TeacherUserId) DO UPDATE SET
     	SchoolId = EXCLUDED.SchoolId,
@@ -34,7 +34,7 @@ BEGIN
     IF(pClassInfo IS NOT NULL) THEN
 
     	--S2a: Delete contract references
-    	UPDATE $DB_NAME$.Contract
+    	UPDATE $APP_NAME$.Contract
     	SET TeacherUserId = 0,
     		ClassId = 0
 		WHERE TeacherUserId = pTeacherUserId
@@ -46,7 +46,7 @@ BEGIN
 		;
 		
     	-- S2b: Delete classes
-		DELETE FROM $DB_NAME$.User_Teacher_Class
+		DELETE FROM $APP_NAME$.User_Teacher_Class
 		WHERE TeacherUserId = pTeacherUserId
 		AND ClassId IN (
 			SELECT CAST (
@@ -56,7 +56,7 @@ BEGIN
 		;    
     
     	-- S2c: Update classes
-		INSERT INTO $DB_NAME$.User_Teacher_Class (TeacherUserId, ClassId)
+		INSERT INTO $APP_NAME$.User_Teacher_Class (TeacherUserId, ClassId)
 		SELECT pTeacherUserId, src.classid
 		FROM JSONB_TO_RECORDSET(pClassInfo->'currentclasses')
 		AS src (classid INTEGER)

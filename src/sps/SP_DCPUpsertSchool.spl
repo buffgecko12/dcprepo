@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertSchool (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchool (
 	pSchoolId INTEGER,
 	pSchoolDisplayName VARCHAR(100),
 	pSchoolAbbreviation VARCHAR(20),
@@ -13,13 +13,13 @@ BEGIN
 
 	-- Get next id value (for new school only)
 	IF(pSchoolId IS NULL) THEN
-	    SELECT * FROM $DB_NAME$Views.SP_DCPGetNextId('school') INTO MySchoolId;
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('school') INTO MySchoolId;
     ELSE
     	MySchoolId = pSchoolId;
     END IF;
     
     -- Upsert school
-    INSERT INTO $DB_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department)
+    INSERT INTO $APP_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department)
     VALUES(MySchoolId, pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment)
     ON CONFLICT(SchoolId) DO UPDATE SET
 	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,

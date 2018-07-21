@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertUserReputationEvent (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUserReputationEvent (
 	pUserId INTEGER,
 	pEventType CHAR(2),
 	pEventTS TIMESTAMP WITH TIME ZONE,
@@ -12,7 +12,7 @@ BEGIN
 
     -- Upsert event
     WITH ins AS (
-	    INSERT INTO $DB_NAME$.User_Reputation_Event(UserId, EventType, EventTS, PointValue, ContractId)
+	    INSERT INTO $APP_NAME$.User_Reputation_Event(UserId, EventType, EventTS, PointValue, ContractId)
 	    VALUES(pUserId, pEventType, COALESCE(pEventTS, CURRENT_TIMESTAMP), pPointValue, pContractId)
 	    ON CONFLICT(EventId) DO NOTHING -- No use case for UPDATE (if added, change UPDATE below to only run after an INSERTed row)
 	    RETURNING EventId
@@ -20,7 +20,7 @@ BEGIN
     SELECT EventId FROM ins INTO NewEventId
     ;   
 
-    UPDATE $DB_NAME$.Users
+    UPDATE $APP_NAME$.Users
     SET ReputationValue = ReputationValue + pPointValue
     WHERE UserId = pUserId
     ;

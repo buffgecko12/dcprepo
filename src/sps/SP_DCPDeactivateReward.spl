@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDeactivateReward (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeactivateReward (
     pRewardId INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
 
 	-- Deactivate reward
-	UPDATE $DB_NAME$.Lookup_Reward
+	UPDATE $APP_NAME$.Lookup_Reward
 	SET DeactivatedTS= CURRENT_TIMESTAMP
 	WHERE RewardId = pRewardId;
 	

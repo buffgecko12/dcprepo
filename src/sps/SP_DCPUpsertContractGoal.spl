@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContractGoal(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractGoal(
     pContractId INTEGER,
     pGoalId INTEGER,
     pDifficultyLevel CHAR(1),
@@ -16,7 +16,7 @@ BEGIN
 	-- Determine goalId
 	IF(pGoalId IS NULL) THEN
 		SELECT COALESCE(MAX(GoalId),0) + 1 INTO MyGoalId
-		FROM $DB_NAME$.Contract_Goal
+		FROM $APP_NAME$.Contract_Goal
 		WHERE ContractId = pContractId
 		;
 	ELSE
@@ -24,7 +24,7 @@ BEGIN
 	END IF;
 
 	-- Upsert goal
-    INSERT INTO $DB_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag)
+    INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, AchievedFlag)
 	VALUES (pContractId, MyGoalId, pDifficultyLevel, pGoalDescription, pAcceptedFlag, pAchievedFlag)
     ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
 		DifficultyLevel = EXCLUDED.DifficultyLevel,
@@ -34,13 +34,13 @@ BEGIN
     ;
 
     -- Delete any rewards (Shortcut: delete any existing rows and then re-populate with form data)
-	DELETE FROM $DB_NAME$.Contract_Goal_Reward
+	DELETE FROM $APP_NAME$.Contract_Goal_Reward
     WHERE ContractId = pContractId
     AND GoalId = pGoalId
     ;
 /*    
     IF(pRewardInfo->'deletedrewards') IS NOT NULL THEN
-        DELETE FROM $DB_NAME$.Contract_Goal_Reward
+        DELETE FROM $APP_NAME$.Contract_Goal_Reward
         WHERE ContractId = pContractId
         AND GoalId = pGoalId
         AND RewardId IN (
@@ -60,7 +60,7 @@ BEGIN
 			   rewardId INTEGER
 		   )
 		LOOP
-		    PERFORM $DB_NAME$Views.SP_DCPUpsertContractGoalReward(pContractId, MyGoalId, myreward.RewardId);
+		    PERFORM $APP_NAME$Views.SP_DCPUpsertContractGoalReward(pContractId, MyGoalId, myreward.RewardId);
 		END LOOP;
 	END IF;
 		

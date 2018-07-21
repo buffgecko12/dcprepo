@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPModifyContractParties(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPModifyContractParties(
     pContractId INTEGER,
     pPartyUserInfo JSONB
 )
@@ -7,7 +7,7 @@ BEGIN
 	
     -- Delete old parties (if applicable)
     IF(pPartyUserInfo->'deletedparties') IS NOT NULL THEN
-        DELETE FROM $DB_NAME$.Contract_Party
+        DELETE FROM $APP_NAME$.Contract_Party
         WHERE ContractId = pContractId
         AND PartyUserId IN (
             SELECT CAST(
@@ -19,11 +19,11 @@ BEGIN
     
     -- Update current parties (if applicable)
     IF(pPartyUserInfo->'currentparties') IS NOT NULL THEN 
-	    INSERT INTO $DB_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
+	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
 		SELECT pContractId AS ContractId, src.PartyUserId, src.ContractRole
 		FROM JSONB_TO_RECORDSET(pPartyUserInfo->'currentparties') 
 		   AS src (PartyUserId INTEGER, ContractRole CHAR(2))
-		INNER JOIN $DB_NAME$Views.Users u ON src.PartyUserId = u.UserId -- Only include users that are already registered
+		INNER JOIN $APP_NAME$Views.Users u ON src.PartyUserId = u.UserId -- Only include users that are already registered
 		ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
 			ContractRole = EXCLUDED.ContractRole
 		;

@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPGetContractGoalReward(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractGoalReward(
     pContractId INTEGER,
 	pGoalId INTEGER,
     pRewardId INTEGER
@@ -9,8 +9,8 @@ RETURNS TABLE (
 BEGIN
     RETURN QUERY
     SELECT cgr.ContractId, cgr.GoalId, cgr.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue
-    FROM $DB_NAME$Views.Contract_Goal_Reward cgr
-    INNER JOIN $DB_NAME$Views.Lookup_Reward r
+    FROM $APP_NAME$Views.Contract_Goal_Reward cgr
+    INNER JOIN $APP_NAME$Views.Lookup_Reward r
     ON cgr.RewardId = r.RewardId
     WHERE (cgr.ContractId = pContractId OR pContractId IS NULL)
     AND (cgr.GoalId = pGoalId OR pGoalId IS NULL)

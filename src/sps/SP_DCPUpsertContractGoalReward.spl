@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPUpsertContractGoalReward(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractGoalReward(
     pContractId INTEGER,
     pGoalId INTEGER,
     pRewardId INTEGER
@@ -7,9 +7,9 @@ RETURNS VOID AS $$
 BEGIN
 
 	-- Upsert goal
-    INSERT INTO $DB_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId)
+    INSERT INTO $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId)
     SELECT pContractId, pGoalId, pRewardId
-    FROM $DB_NAME$Views.Lookup_Reward
+    FROM $APP_NAME$Views.Lookup_Reward
     WHERE RewardId = pRewardId
     ON CONFLICT (ContractId, GoalId, RewardId) DO NOTHING
     ;

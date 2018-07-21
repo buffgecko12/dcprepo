@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $DB_NAME$Views.SP_DCPDuplicateContract(
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDuplicateContract(
     pContractId INTEGER,
     pClassId INTEGER,
     pTeacherUserId INTEGER,
@@ -25,24 +25,24 @@ BEGIN
 	-- Get contract info
 	SELECT ContractType, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, GoalInfo
 	INTO SourceContractType, SourceContractValidPeriod, SourceGuardianApprovalFlag, SourceRevisionDeadlineTS, SourceStudentLeaderRequirements, SourceTeacherRequirements, SourceStudentRequirements, SourceGoalInfo
-	FROM $DB_NAME$Views.SP_DCPGetContract(pContractId, NULL, NULL, NULL)
+	FROM $APP_NAME$Views.SP_DCPGetContract(pContractId, NULL, NULL, NULL)
 	;
 
 	-- Upsert contract info
 	SELECT * INTO MyContractId 
-	FROM $DB_NAME$Views.SP_DCPUpsertContract(
+	FROM $APP_NAME$Views.SP_DCPUpsertContract(
 		NULL, pClassId, SourceContractType, pTeacherUserId, SourceContractValidPeriod, SourceGuardianApprovalFlag, SourceRevisionDeadlineTS, NULL, SourceStudentLeaderRequirements, SourceTeacherRequirements, SourceStudentRequirements, NULL, SourceGoalInfo, pPartyUserInfo
 	);
 	
 	-- Reset goal info
-	UPDATE $DB_NAME$.Contract_Goal
+	UPDATE $APP_NAME$.Contract_Goal
 	SET AcceptedFlag = NULL,
 		AchievedFlag = NULL
 	WHERE ContractId = MyContractId
 	;
 	
 	-- Change status to 'draft'
-	PERFORM $DB_NAME$Views.SP_DCPChangeContractStatus(MyContractId, 'D');
+	PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(MyContractId, 'D');
 	
     -- Return contractId
     RETURN MyContractId;
