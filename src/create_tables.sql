@@ -175,10 +175,11 @@ CREATE TABLE $APP_NAME$.Lookup_Reward (
 -- Reputation event info
 CREATE TABLE $APP_NAME$.Lookup_Reputation_Event (
 	ReputationEventId INTEGER NOT NULL,
-	ReputationEventClass VARCHAR(25) NOT NULL,
-	ReputationEventDisplayName VARCHAR(50) NOT NULL,
-	ReputationEventDescription VARCHAR(500),
-	ReputationPointValue INTEGER NOT NULL,
+	EventClass CHAR(2) NOT NULL,
+	EventUserType CHAR(2),
+	EventDisplayName VARCHAR(100) NOT NULL,
+	EventDescription VARCHAR(500),
+	EventPointValue INTEGER NOT NULL,
 	PRIMARY KEY(ReputationEventId)
 );
 

@@ -3,15 +3,18 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserReputationEvent(
 	pContractId INTEGER,
 	pEventId BIGINT
 )
-RETURNS SETOF $APP_NAME$Views.User_Reputation_Event AS $$
+RETURNS TABLE (
+	EventId BIGINT, UserId INTEGER, SourceEventId INTEGER, ContractId INTEGER, ActualPointValue INTEGER, EventTS TIMESTAMP WITH TIME ZONE, EventDisplayName VARCHAR(100)
+) AS $$
 BEGIN
     RETURN QUERY
-    SELECT EventId, UserId, SourceEventId, ContractId, ActualPointValue, EventTS
-    FROM $APP_NAME$Views.User_Reputation_Event
-    WHERE (UserId = pUserId OR pUserId IS NULL)
-    AND (EventId = pEventId OR pEventId IS NULL)
-    AND (ContractId = pContractId OR pContractId IS NULL)
-    ORDER BY UserId, EventTS
+    SELECT ure.EventId, ure.UserId, ure.SourceEventId, ure.ContractId, ure.ActualPointValue, ure.EventTS, lre.EventDisplayName
+    FROM $APP_NAME$Views.User_Reputation_Event ure
+    INNER JOIN $APP_NAME$Views.Lookup_Reputation_Event lre ON ure.SourceEventId = lre.ReputationEventId
+    WHERE (ure.UserId = pUserId OR pUserId IS NULL)
+    AND (ure.EventId = pEventId OR pEventId IS NULL)
+    AND (ure.ContractId = pContractId OR pContractId IS NULL)
+    ORDER BY ure.UserId, ure.EventTS
     ;
 END;
 $$ LANGUAGE 'plpgsql';

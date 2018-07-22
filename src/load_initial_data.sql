@@ -23,4 +23,22 @@ INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES
 ('P','Pendiente'),
 ('D','Borrador'),
 ('C','Completo'),
-('A','Activo');
+('A','Activo')
+;
+
+-- Load reputation events
+INSERT INTO $APP_NAME$.Lookup_Reputation_Event
+(ReputationEventId, EventClass, EventUserType, EventDisplayName, EventDescription, EventPointValue) VALUES 
+(1, 'PT', 'AL', 'Crear una cuenta de usuario', '', 5),
+(2, 'PT', 'ST', 'Aceptar una meta de contrato', '', 5),
+(3, 'PF', 'ST', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', '', 15),
+(4, 'PF', 'ST', 'Completar exitosamente una meta media de contrato', '', 30),
+(5, 'PF', 'ST', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', '', 50),
+(6, 'PF', 'ST', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', '', 50),
+(7, 'PF', 'ST', 'Feedback positivo (por el docente)', '', 20),
+(8, 'PF', 'ST', 'Feedback positivo (por los integrantes)', '', 10),
+(9, 'PF', 'ST', 'Experiencia positiva de grupo (por el docente)', '', 10),
+(10, 'PF', 'ST', 'Experiencia positiva de grupo (por los integrantes)', '', 5),
+(11, 'PF', 'TR', 'Feedback positivo (por los integrantes)', '', 25),
+(12, 'PF', 'AL', 'Experiencia negativa de grupo', '', -2)
+;
