@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserReputationEvent(
 RETURNS SETOF $APP_NAME$Views.User_Reputation_Event AS $$
 BEGIN
     RETURN QUERY
-    SELECT EventId, UserId, EventType, EventTS, PointValue, ContractId
+    SELECT EventId, UserId, SourceEventId, ContractId, ActualPointValue, EventTS
     FROM $APP_NAME$Views.User_Reputation_Event
     WHERE (UserId = pUserId OR pUserId IS NULL)
     AND (EventId = pEventId OR pEventId IS NULL)

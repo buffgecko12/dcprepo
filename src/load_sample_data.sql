@@ -48,9 +48,9 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContract(
 SELECT $APP_NAME$Views.SP_DCPChangeContractStatus(1,'P');
 
 -- Add reputation events
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'BP', current_timestamp, 10, 1);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(3,'OP', current_timestamp, 30, 1);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(4,'TP', current_timestamp, 15, 1);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(3,1, 1, 10, CURRENT_TIMESTAMP);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(3,2, 1, 30, CURRENT_TIMESTAMP);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(4,1, 1, 15, CURRENT_TIMESTAMP);
 
 -- Add sample reward
 SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, True, 0);

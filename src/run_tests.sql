@@ -89,7 +89,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101)
 SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'test revision');
 
 -- Add reputation events
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 'BP', NULL, 10, 100);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 1, 100, 10,NULL);
 
 -- Get school/class info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetSchool(100);

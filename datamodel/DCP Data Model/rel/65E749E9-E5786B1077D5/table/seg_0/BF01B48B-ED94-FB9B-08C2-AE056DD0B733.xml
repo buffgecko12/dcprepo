@@ -1,0 +1,82 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BF01B48B-ED94-FB9B-08C2-AE056DD0B733" name="Lookup_Reputation_Event">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:15:54 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_16</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ReputationEventId" id="12B5C4A0-E217-14FF-818C-C0583D34493A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<commentInRDBMS>Unique ID for reputation event</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ReputationEventClass" id="6BD279DB-272E-9E77-2A92-AB9186060C47">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<commentInRDBMS>Event class (i.e. performance, participation)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ReputationEventDisplayName" id="84CB01CB-C197-6C07-9268-020EAAFBC8A5">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<commentInRDBMS>Event name</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ReputationEventDescription" id="C549579F-F748-F7BF-9066-0FD92513DEEF">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<commentInRDBMS>Description</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ReputationPointValue" id="E2464753-7E9D-F305-14CD-5FE85717D710">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<commentInRDBMS>Default point value</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="48611588-A806-691D-8786-97FA8FF12292" name="PKv12">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="12B5C4A0-E217-14FF-818C-C0583D34493A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

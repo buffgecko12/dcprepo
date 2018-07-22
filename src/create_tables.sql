@@ -151,13 +151,12 @@ CREATE TABLE $APP_NAME$.Contract_Party_Goal_Reward (
 CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	EventId BIGSERIAL NOT NULL,
 	UserId INTEGER NOT NULL,
-	EventType CHAR(2) NOT NULL,
-	EventTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PointValue INTEGER NOT NULL,
+	SourceEventId INTEGER NOT NULL,
 	ContractId INTEGER,
+	ActualPointValue INTEGER NOT NULL,
+	EventTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (EventId),
-	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId),
-	FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId)
+	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
 -- Reward info
@@ -171,6 +170,16 @@ CREATE TABLE $APP_NAME$.Lookup_Reward (
 	CreatedByUserId INTEGER NOT NULL,
 	PRIMARY KEY(RewardId),
 	FOREIGN KEY(CreatedByUserId) REFERENCES $APP_NAME$.Users(UserId)
+);
+
+-- Reputation event info
+CREATE TABLE $APP_NAME$.Lookup_Reputation_Event (
+	ReputationEventId INTEGER NOT NULL,
+	ReputationEventClass VARCHAR(25) NOT NULL,
+	ReputationEventDisplayName VARCHAR(50) NOT NULL,
+	ReputationEventDescription VARCHAR(500),
+	ReputationPointValue INTEGER NOT NULL,
+	PRIMARY KEY(ReputationEventId)
 );
 
 -- Contract status
