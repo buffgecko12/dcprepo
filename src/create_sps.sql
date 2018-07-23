@@ -5,6 +5,8 @@
 \i install/sps/SP_DCPGetUser.spl
 \i install/sps/SP_DCPUpsertUserReputationEvent.spl
 \i install/sps/SP_DCPGetUserReputationEvent.spl
+\i install/sps/SP_DCPUpsertUserBadge.spl
+\i install/sps/SP_DCPGetUserBadge.spl
 \i install/sps/SP_DCPDeactivateUser.spl
 
 -- Teacher

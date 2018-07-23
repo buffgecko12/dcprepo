@@ -91,6 +91,9 @@ SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'test revision');
 -- Add reputation events
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 1, 100, 10,NULL);
 
+-- Add user badges
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserBadge(100,1,NULL);
+
 -- Get school/class info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetSchool(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL);
@@ -103,6 +106,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetTeacherBudget(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);
 
 -- Other
 SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateUser(101);

@@ -43,6 +43,19 @@
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="BadgeShortName" id="04141486-AF9F-50BE-FC1B-E615D335977F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-23 11:52:01 UTC</createdTime>
+<commentInRDBMS>Short name used to reference badge (i.e. for icons)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="BadgeTitle" id="B2F7F490-0317-8FF4-B2B4-E0E4B9B9AB7E">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:45:03 UTC</createdTime>

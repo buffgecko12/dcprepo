@@ -6,10 +6,12 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.User_Teacher AS SELECT * FROM $APP_NAME$.
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Teacher_Class AS SELECT * FROM $APP_NAME$.User_Teacher_Class;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Student AS SELECT * FROM $APP_NAME$.User_Student WHERE StudentUserId <> 0;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Reputation_Event AS SELECT * FROM $APP_NAME$.User_Reputation_Event;
+CREATE OR REPLACE VIEW $APP_NAME$Views.User_Badge AS SELECT * FROM $APP_NAME$.User_Badge;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reward AS SELECT * FROM $APP_NAME$.Lookup_Reward;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$.Lookup_Status;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reputation_Event AS SELECT * FROM $APP_NAME$.Lookup_Reputation_Event;
+CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.Lookup_Badge;
 
 -- User info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 

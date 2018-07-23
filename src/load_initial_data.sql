@@ -42,3 +42,15 @@ INSERT INTO $APP_NAME$.Lookup_Reputation_Event
 (11, 'PF', 'TR', 'Feedback positivo (por los integrantes)', '', 25),
 (12, 'PF', 'AL', 'Experiencia negativa de grupo', '', -2)
 ;
+
+-- Load badges
+INSERT INTO $APP_NAME$.Lookup_Badge(BadgeId, BadgeClass, BadgeLevel, BadgeShortName, BadgeTitle, BadgeDescription) VALUES
+(1,'PT','B','rookie','Novato',''),
+(2,'PT','B','user','Usuario',''),
+(3,'PT','S','superuser','Usuario super',''),
+(4,'PT','G','eliteuser','Usuario ' || U&'\00E9' || 'lite',''),
+(5,'PT','B','participant','Participante',''),
+(6,'PF','B','achiever','Cumplidor',''),
+(7,'PF','B','performer','Buen desempe'|| U&'\00F1' ||' o',''),
+(8,'PF','B','topperformer','Mejor desempe' || U&'\00F1' || 'o','')
+;

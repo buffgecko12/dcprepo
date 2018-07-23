@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserBadge(
+    pUserId INTEGER,
+    pBadgeId INTEGER
+)
+RETURNS TABLE (
+	UserId INTEGER, BadgeId INTEGER, BadgeAchievedTS TIMESTAMP WITH TIME ZONE, BadgeLevel CHAR(1), BadgeShortName VARCHAR(50), BadgeTitle VARCHAR(100)
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT ub.UserId, ub.BadgeId, ub.BadgeAchievedTS, lb.BadgeLevel, lb.BadgeShortName, lb.BadgeTitle
+    FROM $APP_NAME$Views.User_Badge ub
+    INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON ub.BadgeId = lb.BadgeId
+    WHERE (ub.UserId = pUserId OR pUserId IS NULL)
+    AND (ub.BadgeId = pBadgeId OR pBadgeId IS NULL)
+    ORDER BY ub.UserId, lb.BadgeTitle
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

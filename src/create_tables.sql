@@ -159,6 +159,14 @@ CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
+-- Events that affect user reputation
+CREATE TABLE $APP_NAME$.User_Badge (
+	UserId INTEGER NOT NULL,
+	BadgeId INTEGER NOT NULL,
+	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (UserId, BadgeId)
+);
+
 -- Reward info
 CREATE TABLE $APP_NAME$.Lookup_Reward (
 	RewardId INTEGER NOT NULL,
@@ -181,6 +189,17 @@ CREATE TABLE $APP_NAME$.Lookup_Reputation_Event (
 	EventDescription VARCHAR(500),
 	EventPointValue INTEGER NOT NULL,
 	PRIMARY KEY(ReputationEventId)
+);
+
+-- Reputation event info
+CREATE TABLE $APP_NAME$.Lookup_Badge (
+	BadgeId INTEGER NOT NULL,
+	BadgeClass CHAR(2) NOT NULL,
+	BadgeLevel CHAR(1) NOT NULL,
+	BadgeShortName VARCHAR(50), -- Used for icon
+	BadgeTitle VARCHAR(50) NOT NULL,
+	BadgeDescription VARCHAR(500),
+	PRIMARY KEY(BadgeId)
 );
 
 -- Contract status

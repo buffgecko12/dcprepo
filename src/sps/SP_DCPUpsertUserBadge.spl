@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUserBadge (
+	pUserId INTEGER,
+	pBadgeId INTEGER,
+	pBadgeAchievedTS TIMESTAMP WITH TIME ZONE
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+    INSERT INTO $APP_NAME$.User_Badge(UserId, BadgeId, BadgeAchievedTS)
+    VALUES(pUserId, pBadgeId, COALESCE(pBadgeAchievedTS, CURRENT_TIMESTAMP))
+    ON CONFLICT(UserId, BadgeId) DO NOTHING -- No use case for UPDATE
+    ;   
+
+END;
+$$ LANGUAGE 'plpgsql';
