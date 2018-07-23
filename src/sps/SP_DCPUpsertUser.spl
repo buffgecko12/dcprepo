@@ -31,14 +31,14 @@ BEGIN
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = EXCLUDED.FirstName,
 	    LastName = EXCLUDED.LastName,
-	    DefaultSignatureScanFile = COALESCE(EXCLUDED.DefaultSignatureScanFile,Users.DefaultSignatureScanFile),
-        UserName = EXCLUDED.UserName,
-        UserType = EXCLUDED.UserType,
+	    DefaultSignatureScanFile = COALESCE(NULLIF(EXCLUDED.DefaultSignatureScanFile,''),Users.DefaultSignatureScanFile),
+        UserName = COALESCE(NULLIF(EXCLUDED.UserName,''),Users.UserName),
+        UserType = COALESCE(NULLIF(EXCLUDED.UserType,''),Users.UserType),
 	    PhoneNumber = EXCLUDED.PhoneNumber,
 	    EmailAddress = EXCLUDED.EmailAddress,
-	    Password = COALESCE(EXCLUDED.Password, Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
-	    UserRole = EXCLUDED.UserRole,
-	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login) -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
+	    Password = COALESCE(NULLIF(EXCLUDED.Password,''), Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
+	    UserRole = COALESCE(NULLIF(EXCLUDED.UserRole,''),Users.UserRole),
+	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login)
     ;   
     
     -- Add additional info (new user)
