@@ -51,6 +51,6 @@ INSERT INTO $APP_NAME$.Lookup_Badge(BadgeId, BadgeClass, BadgeLevel, BadgeShortN
 (4,'PT','G','eliteuser','Usuario ' || U&'\00E9' || 'lite',''),
 (5,'PT','B','participant','Participante',''),
 (6,'PF','B','achiever','Cumplidor',''),
-(7,'PF','B','performer','Buen desempe'|| U&'\00F1' ||' o',''),
+(7,'PF','B','performer','Buen desempe'|| U&'\00F1' ||'o',''),
 (8,'PF','B','topperformer','Mejor desempe' || U&'\00F1' || 'o','')
 ;
