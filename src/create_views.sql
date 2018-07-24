@@ -10,7 +10,7 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.User_Badge AS SELECT * FROM $APP_NAME$.Us
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reward AS SELECT * FROM $APP_NAME$.Lookup_Reward;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$.Lookup_Status;
-CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reputation_Event AS SELECT * FROM $APP_NAME$.Lookup_Reputation_Event;
+CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Event AS SELECT * FROM $APP_NAME$.Lookup_Event;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.Lookup_Badge;
 
 -- User info

@@ -1,17 +1,18 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="BF01B48B-ED94-FB9B-08C2-AE056DD0B733" name="Lookup_Reputation_Event">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="907EE652-A328-A281-973B-AF5F62DA7AF4" name="Lookup_Event">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:15:54 UTC</createdTime>
+<createdTime>2018-07-24 12:06:56 UTC</createdTime>
+<comment>List of event types that trigger actions (i.e. user badges or reputation events)</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<ordsAlias>table_16</ordsAlias>
+<ordsAlias>table_19</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="ReputationEventId" id="12B5C4A0-E217-14FF-818C-C0583D34493A">
+<Column name="EventId" id="20414EFD-6481-A0EF-4D86-4EBC5116B411">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
-<commentInRDBMS>Unique ID for reputation event</commentInRDBMS>
+<createdTime>2018-07-24 12:09:41 UTC</createdTime>
+<comment>Unique identifier for event trigger</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -19,22 +20,21 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventClass" id="6BD279DB-272E-9E77-2A92-AB9186060C47">
+<Column name="EventClass" id="67675516-6CF2-DA3A-C132-627567605771">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
-<comment>PT - participation&lt;br/&gt;PF - performance</comment>
-<commentInRDBMS>Event class (i.e. performance, participation)</commentInRDBMS>
+<createdTime>2018-07-24 12:09:41 UTC</createdTime>
+<comment>Class of event:&lt;br/&gt;&lt;br/&gt;PT - participation&lt;br/&gt;PF - performance</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
+<logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>2</dataTypeSize>
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventUserType" id="23B9C9F3-6BCA-5D41-F2BA-A350FE833727">
+<Column name="EventUserType" id="C6A0DADD-CD51-B270-FFF4-A010041C028C">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 22:37:18 UTC</createdTime>
+<createdTime>2018-07-24 12:51:16 UTC</createdTime>
 <commentInRDBMS>Usertype that this event applies to:&lt;br/&gt;&lt;br/&gt;ST - Student&lt;br/&gt;TR - Teacher&lt;br/&gt;AL - All</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -45,11 +45,12 @@
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventDisplayName" id="84CB01CB-C197-6C07-9268-020EAAFBC8A5">
+<Column name="EventDisplayName" id="0945E5C4-AB0F-9588-7A2F-91F89F71C85B">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
-<commentInRDBMS>Event name</commentInRDBMS>
+<createdTime>2018-07-24 12:59:37 UTC</createdTime>
+<commentInRDBMS>Display name</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -57,10 +58,9 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventDescription" id="C549579F-F748-F7BF-9066-0FD92513DEEF">
+<Column name="EventDescription" id="4F3498C9-845A-C824-2CFB-8A9EADAAAA86">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
-<commentInRDBMS>Description</commentInRDBMS>
+<createdTime>2018-07-24 12:11:09 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -69,11 +69,12 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventPointValue" id="E2464753-7E9D-F305-14CD-5FE85717D710">
+<Column name="DefaultReputationPointValue" id="0595A210-A770-9358-97EB-3901FFB9382F">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
-<commentInRDBMS>Default point value</commentInRDBMS>
+<createdTime>2018-07-24 13:11:24 UTC</createdTime>
+<commentInRDBMS>Default reputation point value</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -82,15 +83,15 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="48611588-A806-691D-8786-97FA8FF12292" name="PKv12">
+<ind_PK_UK id="83472C76-0EBE-678E-D707-D9B4B8F2307C" name="PK">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:23:52 UTC</createdTime>
+<createdTime>2018-07-24 12:10:37 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <pk>true</pk>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="12B5C4A0-E217-14FF-818C-C0583D34493A"/>
+<colUsage columnID="20414EFD-6481-A0EF-4D86-4EBC5116B411"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

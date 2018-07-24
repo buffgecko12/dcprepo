@@ -19,18 +19,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="BadgeClass" id="9CC58DAF-273D-16EA-1E06-78DAC4550C5B">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:45:03 UTC</createdTime>
-<comment>Class:&lt;br/&gt;&lt;br/&gt;PT - participation&lt;br/&gt;PF - performance&lt;br/&gt;</comment>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="BadgeLevel" id="1249BA79-F215-3C41-38E1-D8B45E0E58E5">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:45:03 UTC</createdTime>
@@ -41,6 +29,18 @@
 <logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>1</dataTypeSize>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BadgeThresholdValue" id="4BDAA324-CD19-21FA-5740-20BA6368EEA4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-24 12:17:04 UTC</createdTime>
+<commentInRDBMS>Value used to determine which badge level applies (i.e. bronze / silver / gold)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="BadgeShortName" id="04141486-AF9F-50BE-FC1B-E615D335977F">
@@ -56,10 +56,11 @@
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="BadgeTitle" id="B2F7F490-0317-8FF4-B2B4-E0E4B9B9AB7E">
+<Column name="BadgeDisplayName" id="B2F7F490-0317-8FF4-B2B4-E0E4B9B9AB7E">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:45:03 UTC</createdTime>
 <comment>Title (i.e. Top performer)</comment>
+<commentInRDBMS>Display name for badge</commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -68,17 +69,20 @@
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="BadgeDescription" id="E02AEBCE-9461-5AF3-885C-A8E7F2CBC478">
+<Column name="SourceEventId" id="898820DA-A91C-BC11-6040-908A0AF46A1A">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:45:03 UTC</createdTime>
-<comment>Description of badge and how to achieve it</comment>
+<createdTime>2018-07-24 12:19:42 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="23DE07F8-931B-4C4E-1592-94BBB9ECD566" referredColumn="20414EFD-6481-A0EF-4D86-4EBC5116B411"/>
+</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -91,6 +95,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="547E911A-FE71-BDB4-39EE-48634704FF6C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="27B02803-92F5-6246-836B-F41E41890D78" name="FKv19">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-24 12:19:42 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="898820DA-A91C-BC11-6040-908A0AF46A1A"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

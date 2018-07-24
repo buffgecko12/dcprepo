@@ -1,0 +1,48 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpdateUserInfo (
+	pUserId INTEGER,
+	pEventId INTEGER,
+	pContractId INTEGER
+)
+RETURNS VOID AS $$
+DECLARE
+	NewReputationPointValueAgg INTEGER;
+BEGIN   
+
+	-- Update reputation info
+	WITH ins AS (
+		INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
+		SELECT pUserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
+		FROM $APP_NAME$.Users u 
+		CROSS JOIN $APP_NAME$.Lookup_Event le
+		WHERE u.UserId = pUserId
+		AND le.EventId = pEventId
+		AND le.DefaultReputationPointValue IS NOT NULL -- Get reputation events with points only
+		RETURNING PointValue
+	)
+	SELECT SUM(PointValue) FROM ins INTO NewReputationPointValueAgg
+	;
+
+	-- Update reputation value
+	UPDATE $APP_NAME$.Users
+	SET ReputationValue = GREATEST(ReputationValue + NewReputationPointValueAgg,0) -- Negative user reputation value not allowed
+	WHERE UserId = pUserId
+	;
+	
+	-- Add new badges
+	INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
+	SELECT pUserId AS UserId, lb.BadgeId, CURRENT_TIMESTAMP AS BadgeAchievedTS
+	FROM $APP_NAME$.Users u
+	CROSS JOIN $APP_NAME$.Lookup_Event le
+	INNER JOIN $APP_NAME$.Lookup_Badge lb ON le.EventId = lb.SourceEventId
+	WHERE le.EventId = pEventId -- Lookup specific event info
+	AND u.UserId = pUserId -- Get info for user
+	AND lb.BadgeThresholdValue IS NULL -- Get non-threshold badges
+	OR ( -- Reputation threshold badges
+		lb.SourceEventId = 1001
+		AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+	)
+	ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
+	;
+
+END;
+$$ LANGUAGE 'plpgsql';

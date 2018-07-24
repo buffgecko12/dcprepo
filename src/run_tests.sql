@@ -88,12 +88,6 @@ SELECT * FROM $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101)
 -- Revise contract
 SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'test revision');
 
--- Add reputation events
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserReputationEvent(101, 1, 100, 10,NULL);
-
--- Add user badges
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserBadge(100,1,NULL);
-
 -- Get school/class info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetSchool(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL);

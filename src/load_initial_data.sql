@@ -26,9 +26,10 @@ INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES
 ('A','Activo')
 ;
 
--- Load reputation events
-INSERT INTO $APP_NAME$.Lookup_Reputation_Event
-(ReputationEventId, EventClass, EventUserType, EventDisplayName, EventDescription, EventPointValue) VALUES 
+-- Load events
+INSERT INTO $APP_NAME$.Lookup_Event 
+(EventId, EventClass, EventUserType, EventDisplayName, EventDescription, DefaultReputationPointValue) VALUES
+-- Reputation events
 (1, 'PT', 'AL', 'Crear una cuenta de usuario', '', 5),
 (2, 'PT', 'ST', 'Aceptar una meta de contrato', '', 5),
 (3, 'PF', 'ST', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', '', 15),
@@ -40,17 +41,27 @@ INSERT INTO $APP_NAME$.Lookup_Reputation_Event
 (9, 'PF', 'ST', 'Experiencia positiva de grupo (por el docente)', '', 10),
 (10, 'PF', 'ST', 'Experiencia positiva de grupo (por los integrantes)', '', 5),
 (11, 'PF', 'TR', 'Feedback positivo (por los integrantes)', '', 25),
-(12, 'PF', 'AL', 'Experiencia negativa de grupo', '', -2)
+(12, 'PF', 'AL', 'Experiencia negativa de grupo', '', -2),
+
+-- Non-reputation events
+(1001, 'PT', 'ST', 'Ganar puntos de reputaci' || U&'\00F3' || 'n', '', 0)
 ;
 
 -- Load badges
-INSERT INTO $APP_NAME$.Lookup_Badge(BadgeId, BadgeClass, BadgeLevel, BadgeShortName, BadgeTitle, BadgeDescription) VALUES
-(1,'PT','B','rookie','Novato',''),
-(2,'PT','B','user','Usuario',''),
-(3,'PT','S','superuser','Usuario super',''),
-(4,'PT','G','eliteuser','Usuario ' || U&'\00E9' || 'lite',''),
-(5,'PT','B','participant','Participante',''),
-(6,'PF','B','achiever','Cumplidor',''),
-(7,'PF','B','performer','Buen desempe'|| U&'\00F1' ||'o',''),
-(8,'PF','B','topperformer','Mejor desempe' || U&'\00F1' || 'o','')
+INSERT INTO $APP_NAME$.Lookup_Badge
+(BadgeId, BadgeLevel, BadgeThresholdValue, BadgeShortName, BadgeDisplayName, SourceEventId) VALUES
+-- General badges
+(1, 'B', NULL, 'rookie', 'Novato', 1), -- New account
+(5, 'B', NULL, 'participant', 'Participante', 2), -- Accept contract goal
+(6, 'B', NULL, 'achiever', 'Cumplidor', 3), -- Complete easy goal
+(7, 'S', NULL, 'mediumachiever', 'Triunfador ', 4), -- Complete medium goal
+(8, 'G', NULL, 'highachiever', 'Triunfador Alto', 5), -- Complete difficult goal
+(9, 'B', NULL, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 8), -- Positive feedback
+(10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 6), -- Voted top performer
+
+-- Reputation badges
+(2, 'B', 100, 'user','Usuario junior', 1001), 
+(3, 'S', 200, 'superuser','Usuario super', 1001),
+(4, 'G', 1000, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 1001)
+
 ;

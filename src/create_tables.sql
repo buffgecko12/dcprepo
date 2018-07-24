@@ -153,7 +153,7 @@ CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	UserId INTEGER NOT NULL,
 	SourceEventId INTEGER NOT NULL,
 	ContractId INTEGER,
-	ActualPointValue INTEGER NOT NULL,
+	PointValue INTEGER NOT NULL,
 	EventTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (EventId),
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
@@ -180,26 +180,26 @@ CREATE TABLE $APP_NAME$.Lookup_Reward (
 	FOREIGN KEY(CreatedByUserId) REFERENCES $APP_NAME$.Users(UserId)
 );
 
--- Reputation event info
-CREATE TABLE $APP_NAME$.Lookup_Reputation_Event (
-	ReputationEventId INTEGER NOT NULL,
-	EventClass CHAR(2) NOT NULL,
+CREATE TABLE $APP_NAME$.Lookup_Event (
+	EventId INTEGER,
+	EventClass CHAR(2),
 	EventUserType CHAR(2),
 	EventDisplayName VARCHAR(100) NOT NULL,
 	EventDescription VARCHAR(500),
-	EventPointValue INTEGER NOT NULL,
-	PRIMARY KEY(ReputationEventId)
+	DefaultReputationPointValue INTEGER,
+	PRIMARY KEY(EventId)
 );
 
 -- Reputation event info
 CREATE TABLE $APP_NAME$.Lookup_Badge (
 	BadgeId INTEGER NOT NULL,
-	BadgeClass CHAR(2) NOT NULL,
 	BadgeLevel CHAR(1) NOT NULL,
+	BadgeThresholdValue INTEGER,
 	BadgeShortName VARCHAR(50), -- Used for icon
-	BadgeTitle VARCHAR(50) NOT NULL,
-	BadgeDescription VARCHAR(500),
-	PRIMARY KEY(BadgeId)
+	BadgeDisplayName VARCHAR(50) NOT NULL,
+	SourceEventId INTEGER,
+	PRIMARY KEY(BadgeId),
+	FOREIGN KEY(SourceEventId) REFERENCES $APP_NAME$.Lookup_Event(EventId)
 );
 
 -- Contract status

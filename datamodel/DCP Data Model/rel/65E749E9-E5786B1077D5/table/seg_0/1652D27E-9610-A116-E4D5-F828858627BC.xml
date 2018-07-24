@@ -9,7 +9,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="EventId" id="D90285BF-9B2D-B86E-7D14-05302579B7BD">
+<Column name="ReputationEventId" id="D90285BF-9B2D-B86E-7D14-05302579B7BD">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:59:31 UTC</createdTime>
 <comment>Unique identifier for user event</comment>
@@ -41,6 +41,7 @@
 <createdTime>2018-07-22 13:29:56 UTC</createdTime>
 <comment>Source event Id.</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
@@ -48,7 +49,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="9CE5A64B-5E92-8E98-BF8B-DDCA16075455" referredColumn="12B5C4A0-E217-14FF-818C-C0583D34493A"/>
+<colAssociation fkAssociation="05D110AC-144B-E0F6-7F08-42524F17777E" referredColumn="20414EFD-6481-A0EF-4D86-4EBC5116B411"/>
 </associations>
 </Column>
 <Column name="ContractId" id="80823E54-AD58-96ED-2DE1-B3D4904CFA1B">
@@ -65,7 +66,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ActualPointValue" id="CBC18224-8F5B-D3E4-0F16-EF5ECB44E6FE">
+<Column name="PointValue" id="CBC18224-8F5B-D3E4-0F16-EF5ECB44E6FE">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
 <comment>Reputation point value</comment>
@@ -136,9 +137,9 @@
 <colUsage columnID="0DCB0FDD-6F4E-C47B-383D-DF17EFF40CCE"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="817C35AD-73CE-B950-C66B-FDE6CE0513C8" name="FKv22">
+<ind_PK_UK id="BB851A42-FCFA-9A4C-B9BE-117DBCBEF6E5" name="FKv22">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-22 13:29:56 UTC</createdTime>
+<createdTime>2018-07-24 13:12:03 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
