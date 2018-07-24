@@ -25,17 +25,17 @@ BEGIN
     	MyUserId = pUserId;
     END IF;
     
-    -- Upsert user
+    -- Upsert user (don't allow NULL overwrite for protected fields)
     INSERT INTO $APP_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login, Is_Active)
     VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login, TRUE)
     ON CONFLICT(UserId) DO UPDATE SET
-	    FirstName = EXCLUDED.FirstName,
-	    LastName = EXCLUDED.LastName,
-	    DefaultSignatureScanFile = COALESCE(NULLIF(EXCLUDED.DefaultSignatureScanFile,''),Users.DefaultSignatureScanFile),
+	    FirstName = COALESCE(NULLIF(EXCLUDED.FirstName,''),Users.FirstName), -- NOT NULL field
+	    LastName = COALESCE(NULLIF(EXCLUDED.LastName,''),Users.LastName),
+	    DefaultSignatureScanFile = NULLIF(EXCLUDED.DefaultSignatureScanFile,''),
         UserName = COALESCE(NULLIF(EXCLUDED.UserName,''),Users.UserName),
         UserType = COALESCE(NULLIF(EXCLUDED.UserType,''),Users.UserType),
-	    PhoneNumber = EXCLUDED.PhoneNumber,
-	    EmailAddress = EXCLUDED.EmailAddress,
+	    PhoneNumber = NULLIF(EXCLUDED.PhoneNumber,''),
+	    EmailAddress = NULLIF(EXCLUDED.EmailAddress,''),
 	    Password = COALESCE(NULLIF(EXCLUDED.Password,''), Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
 	    UserRole = COALESCE(NULLIF(EXCLUDED.UserRole,''),Users.UserRole),
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login)

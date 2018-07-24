@@ -11,15 +11,11 @@ RETURNS VOID AS $$
 BEGIN   
 
 	-- S0: Update user info
-	UPDATE $APP_NAME$.Users
-	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
-		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
-		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
-		PhoneNumber = COALESCE(NULLIF(pPhoneNumber,''), Users.PhoneNumber),
-		EmailAddress = COALESCE(NULLIF(pEmailAddress,''), Users.EmailAddress)
-	WHERE UserId = pStudentUserId
+	PERFORM $APP_NAME$Views.SP_DCPUpsertUser(
+		pStudentUserId, '', '', '', '', pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, NULL, NULL, NULL
+	)
 	;
-
+	
     -- Add student info
     INSERT INTO $APP_NAME$.User_Student(StudentUserId, ClassId)
     VALUES(pStudentUserId, pClassId)

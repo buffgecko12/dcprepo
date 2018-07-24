@@ -13,13 +13,9 @@ RETURNS VOID AS $$
 BEGIN
 
 	-- S0: Update user info
-	UPDATE $APP_NAME$.Users
-	SET FirstName = COALESCE(NULLIF(pFirstName,''), Users.FirstName), -- Don't overwrite existing values with NULL
-		LastName = COALESCE(NULLIF(pLastName,''), Users.LastName),
-		DefaultSignatureScanFile = COALESCE(NULLIF(pDefaultSignatureScanFile,''), Users.DefaultSignatureScanFile),
-		PhoneNumber = COALESCE(NULLIF(pPhoneNumber,''), Users.PhoneNumber),
-		EmailAddress = COALESCE(NULLIF(pEmailAddress,''), Users.EmailAddress)
-	WHERE UserId = pTeacherUserId
+	PERFORM $APP_NAME$Views.SP_DCPUpsertUser(
+		pTeacherUserId, '', '', '', '', pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, NULL, NULL, NULL
+	)
 	;
 	
     -- S1: Update teacher info
