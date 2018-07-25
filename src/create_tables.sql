@@ -149,8 +149,8 @@ CREATE TABLE $APP_NAME$.Contract_Party_Goal_Reward (
 
 -- Events that affect user reputation
 CREATE TABLE $APP_NAME$.User_Reputation_Event (
-	EventId BIGSERIAL NOT NULL,
 	UserId INTEGER NOT NULL,
+	EventId BIGSERIAL NOT NULL,
 	SourceEventId INTEGER NOT NULL,
 	ContractId INTEGER,
 	PointValue INTEGER NOT NULL,

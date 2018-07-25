@@ -60,7 +60,7 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 6), -- Voted top performer
 
 -- Reputation badges
-(2, 'B', 100, 'user','Usuario junior', 1001), 
+(2, 'B', 100, 'junioruser','Usuario junior', 1001), 
 (3, 'S', 200, 'superuser','Usuario super', 1001),
 (4, 'G', 1000, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 1001)
 
