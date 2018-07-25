@@ -17,8 +17,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(3, 1, 600000,
 			{"classid":2}
 		]	
 	}'
-	),
-	NULL, NULL, NULL, NULL, NULL
+	)
 );
 
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(4, 1, 500000,
@@ -30,13 +29,12 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(4, 1, 500000,
 			{"classid":3}
 		]	
 	}'
-	),
-	NULL, NULL, NULL, NULL, NULL
+	)
 );
 
-SELECT $APP_NAME$Views.SP_DCPUpsertStudent(5,2,NULL,NULL,NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertStudent(6,2,NULL,NULL,NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertStudent(7,2,NULL,NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertStudent(5,2);
+SELECT $APP_NAME$Views.SP_DCPUpsertStudent(6,2);
+SELECT $APP_NAME$Views.SP_DCPUpsertStudent(7,2);
 
 -- Add contract
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContract(

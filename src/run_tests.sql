@@ -11,16 +11,16 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','C
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL);
 
 -- Add teacher info
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'), NULL, NULL, NULL, NULL, NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'), NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'));
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'));
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacherBudget(100,600000);
 
 -- Add student info
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(101,100, NULL, NULL, NULL, NULL, NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(102,100, NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(101,100);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(102,100);
 
 -- Modify student info
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(101,0, NULL, NULL, NULL, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(101,0);
 
 -- Add reward info
 SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, True, 0);

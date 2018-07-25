@@ -2,22 +2,11 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacher (
     pTeacherUserId INTEGER, 
     pSchoolId INTEGER,
     pMaxBudget INTEGER,
-    pClassInfo JSONB,
-    pFirstName VARCHAR(100), 
-    pLastName VARCHAR(100), 
-    pDefaultSignatureScanFile BYTEA,
-    pPhoneNumber VARCHAR(25),
-    pEmailAddress VARCHAR(250)
+    pClassInfo JSONB
 ) 
 RETURNS VOID AS $$
 BEGIN
 
-	-- S0: Update user info
-	PERFORM $APP_NAME$Views.SP_DCPUpsertUser(
-		pTeacherUserId, '', '', '', '', pDefaultSignatureScanFile, pPhoneNumber, pEmailAddress, NULL, NULL, NULL
-	)
-	;
-	
     -- S1: Update teacher info
     INSERT INTO $APP_NAME$.User_Teacher(TeacherUserId, SchoolId, MaxBudget)
     VALUES(pTeacherUserId, pSchoolId, pMaxBudget)

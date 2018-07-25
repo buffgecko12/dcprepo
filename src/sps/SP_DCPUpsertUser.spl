@@ -44,9 +44,9 @@ BEGIN
     -- Add additional info (new user)
     IF(pUserId IS NULL) THEN
 	    IF(pUserType = 'ST') THEN
-	    	PERFORM $APP_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0, NULL, NULL, NULL, NULL, NULL); -- Create new student (unassigned class)
+	    	PERFORM $APP_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0); -- Create new student (unassigned class)
 		ELSEIF (pUserType = 'TR') THEN 
-	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL); -- Create new teacher (no school / classes)
+	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL); -- Create new teacher (no school / classes)
 		END IF;
 	END IF;
 		
