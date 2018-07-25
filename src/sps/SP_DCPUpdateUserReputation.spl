@@ -12,14 +12,14 @@ BEGIN
 	WITH ins AS (
 		INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
 		SELECT pUserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
-		FROM $APP_NAME$.Users u 
-		CROSS JOIN $APP_NAME$.Lookup_Event le
+		FROM $APP_NAME$Views.Users u 
+		CROSS JOIN $APP_NAME$Views.Lookup_Event le
 		WHERE u.UserId = pUserId
 		AND le.EventId = pEventId
 		AND le.DefaultReputationPointValue IS NOT NULL -- Get reputation events with points only
 		RETURNING PointValue
 	)
-	SELECT SUM(PointValue) FROM ins INTO NewReputationPointValueAgg
+	SELECT COALESCE(SUM(PointValue),0) FROM ins INTO NewReputationPointValueAgg
 	;
 
 	-- Update reputation value
@@ -31,15 +31,17 @@ BEGIN
 	-- Add new badges
 	INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
 	SELECT pUserId AS UserId, lb.BadgeId, CURRENT_TIMESTAMP AS BadgeAchievedTS
-	FROM $APP_NAME$.Users u
-	CROSS JOIN $APP_NAME$.Lookup_Event le
-	INNER JOIN $APP_NAME$.Lookup_Badge lb ON le.EventId = lb.SourceEventId
+	FROM $APP_NAME$Views.Users u
+	CROSS JOIN $APP_NAME$Views.Lookup_Event le
+	INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId
 	WHERE le.EventId = pEventId -- Lookup specific event info
 	AND u.UserId = pUserId -- Get info for user
-	AND lb.BadgeThresholdValue IS NULL -- Get non-threshold badges
-	OR ( -- Reputation threshold badges
-		lb.SourceEventId = 1001
-		AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+	AND (
+		lb.BadgeThresholdValue IS NULL OR -- Get non-threshold badges
+		( -- Reputation threshold badges
+			lb.SourceEventId = 1001
+			AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+		)
 	)
 	ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
 	;
