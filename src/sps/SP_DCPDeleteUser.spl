@@ -5,6 +5,7 @@ RETURNS VOID AS $$
 BEGIN	
 	-- Cascaded DELETEs (must delete from child tables first)
 	-- Retain objects associated with user (set user = deactivated user)
+	UPDATE $APP_NAME$.Lookup_Reward SET CreatedByUserId = 0 WHERE CreatedByUserId = pUserId;
 	UPDATE $APP_NAME$.Contract_Party_Approval SET LogonUserId = 0 WHERE LogonUserId = pUserId;
 	DELETE FROM $APP_NAME$.Contract_Party_Approval WHERE PartyUserId = pUserId;
 	DELETE FROM $APP_NAME$.Contract_Party_Goal_Reward WHERE PartyUserId = pUserId;
