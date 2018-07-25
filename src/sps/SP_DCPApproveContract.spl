@@ -6,12 +6,15 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPApproveContract(
     pSignatureScanFile BYTEA,
     pLogonUserId INTEGER
 ) 
-RETURNS VOID AS $$
+RETURNS BOOLEAN AS $$
 DECLARE
 	bContractApprovedFlag BOOLEAN;
 	bRevisionApprovedFlag BOOLEAN;
+	bContractNewlyApprovedFlag BOOLEAN;	
 BEGIN
 
+	bContractNewlyApprovedFlag = FALSE;
+	
 	-- Get approval info for contract
 	SELECT 
 		CASE WHEN ContractApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END,
@@ -22,7 +25,7 @@ BEGIN
 	FOR UPDATE -- Lock table row so it's not read until after function completes
 	;
 	
-	-- Update signature	
+	-- Update approval	
 	INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId)
 	SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
 	FROM $APP_NAME$Views.Contract_Party -- Make sure party user exists
@@ -58,8 +61,10 @@ BEGIN
 		;
 	END IF;
 
-	-- Mark contract as approved if it has been approved by all required parties (skip if already approved)
+	-- Extra processing for "pending" contracts (i.e. not fully approved)
 	IF (NOT bContractApprovedFlag) THEN
+	
+		-- Mark contract as approved if it has been approved by all required parties
 		UPDATE $APP_NAME$.Contract
 		SET ContractApprovalTS = CURRENT_TIMESTAMP
 		WHERE ContractId = pContractId
@@ -89,7 +94,7 @@ BEGIN
 		) 
 		;
 		
-		-- Set contract to active and specify preferred goal (once been approved by all parties)
+		-- If contract has now been approved by all parties, specify the preferred goal and set the contract to Active
 		IF(SELECT 1 FROM $APP_NAME$.Contract WHERE ContractId = pContractId AND ContractApprovalTS IS NOT NULL) THEN
 		
 			-- Determine and accept preferred goal
@@ -122,9 +127,14 @@ BEGIN
 			WHERE cg.ContractId = src.ContractId
 			AND cg.GoalId = src.PreferredGoalId
 			;		
+			
 			-- Set status to active
 			PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+			
+			bContractNewlyApprovedFlag = TRUE; -- This should only return one time, when contract has been approved
 		END IF;
 	END IF;
+	
+	RETURN bContractNewlyApprovedFlag;
 END
 $$ LANGUAGE 'plpgsql';
