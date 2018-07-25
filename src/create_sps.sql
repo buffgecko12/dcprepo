@@ -49,7 +49,6 @@
 \i install/sps/SP_DCPUpsertContractGoal.spl
 \i install/sps/SP_DCPDeleteContractGoal.spl
 \i install/sps/SP_DCPGetContractGoal.spl
-\i install/sps/SP_DCPAcceptContractGoal.spl
 
 \i install/sps/SP_DCPUpsertContractGoalReward.spl
 \i install/sps/SP_DCPDeleteContractGoalReward.spl

@@ -80,8 +80,6 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetContractGoal(100,2,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractGoalReward(100,2,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 
--- Accept contract goal
-SELECT * FROM $APP_NAME$Views.SP_DCPAcceptContractGoal(100,2);
 -- Approve initial contract
 SELECT * FROM $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101);
 
