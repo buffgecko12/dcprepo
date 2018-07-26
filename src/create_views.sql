@@ -5,8 +5,10 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Class AS SELECT * FROM $APP_NAME$.Class W
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Teacher AS SELECT * FROM $APP_NAME$.User_Teacher WHERE TeacherUserId <> 0;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Teacher_Class AS SELECT * FROM $APP_NAME$.User_Teacher_Class;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Student AS SELECT * FROM $APP_NAME$.User_Student WHERE StudentUserId <> 0;
+
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Reputation_Event AS SELECT * FROM $APP_NAME$.User_Reputation_Event;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Badge AS SELECT * FROM $APP_NAME$.User_Badge;
+CREATE OR REPLACE VIEW $APP_NAME$Views.User_Notification AS SELECT * FROM $APP_NAME$.User_Notification;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reward AS SELECT * FROM $APP_NAME$.Lookup_Reward;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$.Lookup_Status;

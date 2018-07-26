@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUserNotification(
+    pUserId INTEGER,
+    pSourceEventId INTEGER -- Alert Id to lookup
+) 
+RETURNS VOID AS $$
+BEGIN
+	INSERT INTO $APP_NAME$.User_Notification (UserId, NotificationText, SourceEventId)
+	SELECT pUserId, le.EventMessage, pSourceEventId
+	FROM $APP_NAME$Views.Lookup_Event le
+	WHERE EventId = pSourceEventId
+	;
+END;
+$$ LANGUAGE 'plpgsql';

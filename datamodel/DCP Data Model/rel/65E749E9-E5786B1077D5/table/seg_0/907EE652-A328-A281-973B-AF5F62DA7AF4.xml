@@ -20,6 +20,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="EventType" id="5E6169C7-E7E7-B368-EB0B-3E1B70D8B34B">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-26 11:48:09 UTC</createdTime>
+<commentInRDBMS>Type:&lt;br/&gt;&lt;br/&gt;&apos;AT&apos; - Alert&lt;br/&gt;&apos;RP&apos; - Reputation&lt;br/&gt;&apos;BD&apos; - Badge</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="EventClass" id="67675516-6CF2-DA3A-C132-627567605771">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-24 12:09:41 UTC</createdTime>
@@ -58,7 +70,7 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="EventDescription" id="4F3498C9-845A-C824-2CFB-8A9EADAAAA86">
+<Column name="EventMessage" id="4F3498C9-845A-C824-2CFB-8A9EADAAAA86">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-24 12:11:09 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -83,7 +95,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="83472C76-0EBE-678E-D707-D9B4B8F2307C" name="PK">
+<ind_PK_UK id="83472C76-0EBE-678E-D707-D9B4B8F2307C" name="PKv15">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-24 12:10:37 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

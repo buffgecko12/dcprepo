@@ -17,6 +17,7 @@ BEGIN
 	DELETE FROM $APP_NAME$.User_Teacher WHERE TeacherUserId = pUserId;
 	DELETE FROM $APP_NAME$.User_Student WHERE StudentUserId = pUserId;
 	DELETE FROM $APP_NAME$.User_Reputation_Event WHERE UserId = pUserId;
+	DELETE FROM $APP_NAME$.User_Notification WHERE UserId = pUserId;
 	DELETE FROM $APP_NAME$.User_Badge WHERE UserId = pUserId;
 	DELETE FROM $APP_NAME$.Users WHERE UserId = pUserId;
 

@@ -159,6 +159,17 @@ CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
+CREATE TABLE $APP_NAME$.User_Notification (
+	UserId INTEGER NOT NULL,
+	NotificationId BIGSERIAL NOT NULL,
+	NotificationTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	NotificationSeen BOOLEAN,
+	NotificationText VARCHAR(500),
+	SourceEventId INTEGER,
+	PRIMARY KEY (NotificationId),
+	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
+);
+
 -- Events that affect user reputation
 CREATE TABLE $APP_NAME$.User_Badge (
 	UserId INTEGER NOT NULL,
@@ -182,10 +193,11 @@ CREATE TABLE $APP_NAME$.Lookup_Reward (
 
 CREATE TABLE $APP_NAME$.Lookup_Event (
 	EventId INTEGER,
-	EventClass CHAR(2),
+	EventType CHAR(2) NOT NULL,
+	EventClass CHAR(2) NOT NULL,
 	EventUserType CHAR(2),
 	EventDisplayName VARCHAR(100) NOT NULL,
-	EventDescription VARCHAR(500),
+	EventMessage VARCHAR(500),
 	DefaultReputationPointValue INTEGER,
 	PRIMARY KEY(EventId)
 );
