@@ -48,6 +48,9 @@ BEGIN
 		ELSEIF (pUserType = 'TR') THEN 
 	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL); -- Create new teacher (no school / classes)
 		END IF;
+		
+		-- Generate user event (new user)
+		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(MyUserId, 2001, NULL);
 	END IF;
 		
 	-- Return userid

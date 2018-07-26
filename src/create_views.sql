@@ -17,7 +17,7 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.
 
 -- User info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, UserRole, Last_Login, Is_Active -- Required for django authentication
+SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, ReputationValueLastSeenTS, UserRole, Last_Login, Is_Active -- Required for django authentication
 FROM $APP_NAME$.Users 
 WHERE DeactivatedTS IS NULL -- Ignore deactivated users
 AND UserId <> 0 -- Ignore reserve fields

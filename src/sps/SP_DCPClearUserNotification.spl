@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPClearUserNotification(
+    pUserId INTEGER,
+    pSourceEventId INTEGER,
+    pNotificationId INTEGER
+)
+RETURNS VOID AS $$
+BEGIN
+
+	UPDATE $APP_NAME$.User_Notification
+	SET NotificationSeen = TRUE
+	WHERE (UserId = pUserId OR pUserId IS NULL)
+	AND (SourceEventId = pSourceEventId OR pSourceEventId IS NULL)
+	AND (NotificationId = pNotificationId OR pNotificationId IS NULL)
+	;
+	
+END;
+$$ LANGUAGE 'plpgsql';

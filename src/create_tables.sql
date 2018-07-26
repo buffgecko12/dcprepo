@@ -33,6 +33,7 @@ CREATE TABLE $APP_NAME$.Users (
     EmailAddress VARCHAR(250),
     Password VARCHAR(128),
     ReputationValue INTEGER DEFAULT 0,
+    ReputationValueLastSeenTS TIMESTAMP WITH TIME ZONE,
     UserRole CHAR(1),
     Last_Login TIMESTAMP WITH TIME ZONE,
     DeactivatedTS TIMESTAMP WITH TIME ZONE,

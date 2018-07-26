@@ -138,6 +138,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ReputationValueLastSeenTS" id="C77CCB8E-E86F-FC04-5B8E-6FFD2253F55F">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-26 21:05:51 UTC</createdTime>
+<comment>TS reputationvalue was last reviewed.&lt;br/&gt;&lt;br/&gt;Used to calculate newly gained reputation points</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="UserRole" id="042CFFC7-50E7-1715-2341-E42ABBFB4F75">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-04-15 14:04:59 UTC</createdTime>

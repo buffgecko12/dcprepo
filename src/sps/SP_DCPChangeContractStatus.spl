@@ -9,5 +9,12 @@ BEGIN
 	SET ContractStatus = pContractStatus
 	WHERE ContractId = pContractId
 	;
+	
+	IF(pContractStatus = 'P') THEN
+	
+		-- Generate user notifications
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1003, pContractId); -- Pending contract to review
+	END IF;
+		
 END
 $$ LANGUAGE 'plpgsql';

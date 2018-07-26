@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpdateUserInfo (
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPProcessUserEvent (
 	pUserId INTEGER,
 	pEventId INTEGER,
 	pContractId INTEGER
@@ -6,6 +6,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpdateUserInfo (
 RETURNS VOID AS $$
 DECLARE
 	NewReputationPointValueAgg INTEGER;
+	NumBadgesAdded INTEGER;
 BEGIN   
 
 	-- Update reputation info
@@ -33,28 +34,37 @@ BEGIN
 
 		-- Create new notification for positive-change reputation only
 		IF(NewReputationPointValueAgg > 0) THEN
+		
 			-- Create reputation notification
-			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, )
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, 1001, pContractId); -- New reputation points
 		END IF;
 		
 	END IF;
 	
 	-- Add new badges
-	INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
-	SELECT pUserId AS UserId, lb.BadgeId, CURRENT_TIMESTAMP AS BadgeAchievedTS
-	FROM $APP_NAME$Views.Users u
-	CROSS JOIN $APP_NAME$Views.Lookup_Event le
-	INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId
-	WHERE u.UserId = pUserId -- Get info for user
-	AND (
-		le.EventId = pEventId OR -- Event-specific badges
-		(
-			lb.SourceEventId = 1 -- Reputation threshold badges
-			AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+	WITH ins AS (
+		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
+		SELECT pUserId AS UserId, lb.BadgeId, CURRENT_TIMESTAMP AS BadgeAchievedTS
+		FROM $APP_NAME$Views.Users u
+		CROSS JOIN $APP_NAME$Views.Lookup_Event le
+		INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId
+		WHERE u.UserId = pUserId -- Get info for user
+		AND (
+			le.EventId = pEventId OR -- Event-specific badges
+			(
+				lb.SourceEventId = 1 -- Reputation threshold badges
+				AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+			)
 		)
-	)
-	ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
+		ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
+		RETURNING 1
+	) 
+	SELECT COALESCE(COUNT(*),0) FROM ins INTO NumBadgesAdded
 	;
 
+	-- If badges were added, generate notification
+	IF(NumBadgesAdded > 0) THEN
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, 1004, pContractId); -- New badges
+	END IF;
 END;
 $$ LANGUAGE 'plpgsql';

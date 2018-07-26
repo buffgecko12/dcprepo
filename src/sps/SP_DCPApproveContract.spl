@@ -11,8 +11,10 @@ DECLARE
 	bContractApprovedFlag BOOLEAN;
 	bRevisionApprovedFlag BOOLEAN;
 	bContractNewlyApprovedFlag BOOLEAN;	
+	bPartyApprovalFlag BOOLEAN;
 BEGIN
 
+	bPartyApprovalFlag = FALSE;
 	bContractNewlyApprovedFlag = FALSE;
 	
 	-- Get approval info for contract
@@ -26,17 +28,26 @@ BEGIN
 	;
 	
 	-- Update approval	
-	INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId)
-	SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
-	FROM $APP_NAME$Views.Contract_Party -- Make sure party user exists
-	WHERE ContractId = pContractId
-	AND PartyUserId = pPartyUserId
-	ON CONFLICT (ContractId, PartyUserId, ApprovalType) DO UPDATE SET 
-		PreferredGoalId = COALESCE(EXCLUDED.PreferredGoalId, Contract_Party_Approval.PreferredGoalId),
-		SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
-		PartyApprovalTS = CURRENT_TIMESTAMP,
-		LogonUserId = pLogonUserId
+	WITH ins AS (
+		INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId)
+		SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
+		FROM $APP_NAME$Views.Contract_Party -- Make sure party user exists
+		WHERE ContractId = pContractId
+		AND PartyUserId = pPartyUserId
+		ON CONFLICT (ContractId, PartyUserId, ApprovalType) DO UPDATE SET 
+			PreferredGoalId = COALESCE(EXCLUDED.PreferredGoalId, Contract_Party_Approval.PreferredGoalId),
+			SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
+			PartyApprovalTS = CURRENT_TIMESTAMP,
+			LogonUserId = pLogonUserId
+		RETURNING 1
+	)
+	SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END INTO bPartyApprovalFlag FROM ins 
 	;
+
+	-- Generate user event (party approval)
+	IF(bPartyApprovalFlag) THEN
+		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(pPartyUserId, 2002, pContractId); -- Accept contract goal
+	END IF;
 	
 	-- Mark revision as approved if it has been approved by all required parties (skip if already approved)
 	IF (NOT bRevisionApprovedFlag) THEN
@@ -130,6 +141,9 @@ BEGIN
 			
 			-- Set status to active
 			PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+			
+			-- Generate user notifications
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1002, pContractId); -- Contract active
 			
 			bContractNewlyApprovedFlag = TRUE; -- This should only return one time, when contract has been approved
 		END IF;

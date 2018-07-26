@@ -11,12 +11,12 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','C
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL);
 
 -- Add user notification
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);
 
 -- Add teacher info
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'));
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'));
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacherBudget(100,600000);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacherBudget(100,500000);
 
 -- Add student info
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertStudent(101,100);
@@ -102,12 +102,15 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetTeacherBudget(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL,NULL,NULL);
 
 -- Other
 SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateUser(101);
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserReputation(100,'getdelta');
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserReputation(100,'clear');
 
 -- Delete objects
+SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteClass(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteSchool(100);
 

@@ -4,10 +4,12 @@
 \i install/sps/SP_DCPDeleteUser.spl
 \i install/sps/SP_DCPGetUser.spl
 \i install/sps/SP_DCPGetUserReputationEvent.spl
-\i install/sps/SP_DCPUpdateUserInfo.spl
+\i install/sps/SP_DCPManageUserReputation.spl
+\i install/sps/SP_DCPProcessUserEvent.spl
 \i install/sps/SP_DCPGetUserBadge.spl
 \i install/sps/SP_DCPGetUserNotification.spl
 \i install/sps/SP_DCPUpsertUserNotification.spl
+\i install/sps/SP_DCPClearUserNotification.spl
 \i install/sps/SP_DCPDeactivateUser.spl
 
 -- Teacher
