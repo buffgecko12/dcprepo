@@ -16,7 +16,7 @@ BEGIN
 		CROSS JOIN $APP_NAME$Views.Lookup_Event le
 		WHERE u.UserId = pUserId
 		AND le.EventId = pEventId
-		AND le.DefaultReputationPointValue IS NOT NULL -- Get reputation events with points only
+		AND le.EventType = 'RP' -- Get reputation events only
 		RETURNING PointValue
 	)
 	SELECT COALESCE(SUM(PointValue),0) FROM ins INTO NewReputationPointValueAgg
@@ -34,12 +34,11 @@ BEGIN
 	FROM $APP_NAME$Views.Users u
 	CROSS JOIN $APP_NAME$Views.Lookup_Event le
 	INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId
-	WHERE le.EventId = pEventId -- Lookup specific event info
-	AND u.UserId = pUserId -- Get info for user
+	WHERE u.UserId = pUserId -- Get info for user
 	AND (
-		lb.BadgeThresholdValue IS NULL OR -- Get non-threshold badges
-		( -- Reputation threshold badges
-			lb.SourceEventId = 1001
+		le.EventId = pEventId OR -- Event-specific badges
+		(
+			lb.SourceEventId = 1 -- Reputation threshold badges
 			AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
 		)
 	)
