@@ -22,11 +22,22 @@ BEGIN
 	SELECT COALESCE(SUM(PointValue),0) FROM ins INTO NewReputationPointValueAgg
 	;
 
-	-- Update reputation value
-	UPDATE $APP_NAME$.Users
-	SET ReputationValue = GREATEST(ReputationValue + NewReputationPointValueAgg,0) -- Negative user reputation value not allowed
-	WHERE UserId = pUserId
-	;
+	-- If reputation values change, update value and create notification
+	IF(NewReputationPointValueAgg <> 0) THEN
+	
+		-- Update reputation value
+		UPDATE $APP_NAME$.Users
+		SET ReputationValue = GREATEST(ReputationValue + NewReputationPointValueAgg,0) -- Negative user reputation value not allowed
+		WHERE UserId = pUserId
+		;
+
+		-- Create new notification for positive-change reputation only
+		IF(NewReputationPointValueAgg > 0) THEN
+			-- Create reputation notification
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, )
+		END IF;
+		
+	END IF;
 	
 	-- Add new badges
 	INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)

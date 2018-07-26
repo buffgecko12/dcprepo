@@ -23,7 +23,7 @@
 <Column name="EventType" id="5E6169C7-E7E7-B368-EB0B-3E1B70D8B34B">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:48:09 UTC</createdTime>
-<commentInRDBMS>Type:&lt;br/&gt;&lt;br/&gt;&apos;AT&apos; - Alert&lt;br/&gt;&apos;RP&apos; - Reputation&lt;br/&gt;&apos;BD&apos; - Badge</commentInRDBMS>
+<comment>Type:&lt;br/&gt;&lt;br/&gt;&apos;NT&apos; - Notification&lt;br/&gt;&apos;RP&apos; - Reputation&lt;br/&gt;&apos;BD&apos; - Badge</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
