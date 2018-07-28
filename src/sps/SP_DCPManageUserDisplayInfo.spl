@@ -1,0 +1,54 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPManageUserDisplayInfo(
+    pUserId INTEGER,
+	pActionType VARCHAR(25)
+)
+RETURNS INTEGER AS $$
+DECLARE 
+	MyReturnValue INTEGER;
+BEGIN
+
+	-- Calculate point change since last view
+	IF(pActionType = 'getreputationdelta') THEN 
+	
+		SELECT COALESCE(SUM(ure.PointValue),0) INTO MyReturnValue
+		FROM $APP_NAME$Views.Users u
+		INNER JOIN $APP_NAME$Views.User_Reputation_Event ure ON u.UserId = ure.UserId
+		WHERE u.UserId = pUserId
+		AND (ure.EventTS > u.ReputationValueLastSeenTS OR u.ReputationValueLastSeenTS IS NULL) -- Only get events that occurred after user last viewed reputation info
+		;
+
+	-- Reset last view TS and clear relevant notifications
+	ELSEIF(pActionType = 'checkopennotifications') THEN
+
+		-- Check if there are any unseen notifications
+		SELECT 1 INTO MyReturnValue
+		WHERE EXISTS (
+			SELECT 1
+			FROM $APP_NAME$Views.User_Notification un
+			WHERE (un.UserId = pUserId OR pUserId IS NULL)
+			AND NotificationSeen IS NULL
+		)
+		;
+
+	-- Reset last reputation view TS
+	ELSEIF(pActionType = 'clearusernotifications') THEN
+
+		-- Clear all user notifications
+		PERFORM $APP_NAME$Views.SP_DCPClearUserNotification(pUserId, NULL, NULL);		
+		
+	-- Reset last view TS and clear relevant notifications
+	ELSEIF(pActionType = 'clearnewrepnotification') THEN
+
+		-- Set last viewed TS
+		UPDATE $APP_NAME$.Users
+		SET ReputationValueLastSeenTS = CURRENT_TIMESTAMP
+		WHERE UserId = pUserId
+		;
+
+		-- Clear any "new reputation point" notifications
+		PERFORM $APP_NAME$Views.SP_DCPClearUserNotification(pUserId, 1001, NULL);		
+	END IF;
+
+	RETURN MyReturnValue;
+END;
+$$ LANGUAGE 'plpgsql';

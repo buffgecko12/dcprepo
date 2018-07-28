@@ -4,7 +4,7 @@
 \i install/sps/SP_DCPDeleteUser.spl
 \i install/sps/SP_DCPGetUser.spl
 \i install/sps/SP_DCPGetUserReputationEvent.spl
-\i install/sps/SP_DCPManageUserReputation.spl
+\i install/sps/SP_DCPManageUserDisplayInfo.spl
 \i install/sps/SP_DCPProcessUserEvent.spl
 \i install/sps/SP_DCPGetUserBadge.spl
 \i install/sps/SP_DCPGetUserNotification.spl

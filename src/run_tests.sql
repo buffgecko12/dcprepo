@@ -102,12 +102,13 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetTeacherBudget(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL,NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL,NULL,NULL,NULL);
 
 -- Other
 SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateUser(101);
-SELECT * FROM $APP_NAME$Views.SP_DCPManageUserReputation(100,'getdelta');
-SELECT * FROM $APP_NAME$Views.SP_DCPManageUserReputation(100,'clear');
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'getreputationdelta');
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification');
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications');
 
 -- Delete objects
 SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL);

@@ -32,11 +32,11 @@ INSERT INTO $APP_NAME$.Lookup_Event
 -- Misc events
 (1, 'BD', 'PT', 'ST', 'Ganar puntos de reputaci' || U&'\00F3' || 'n', '', 0),
 
--- Alerts
-(1001, 'NT', 'PF', 'AL', '', 'Ha ganado nuevos puntos de reputaci' || U&'\00F3' || 'n', 0),
+-- Notifications
+(1001, 'NT', 'RP', 'AL', '', 'Ha ganado nuevos puntos de reputaci' || U&'\00F3' || 'n', 0),
 (1002, 'NT', 'CT', 'AL', '', 'Su contrato ha sido aprobado', 0),
 (1003, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
-(1004, 'NT', 'PF', 'AL', '', 'Ha ganado una nueva medalla', 0),
+(1004, 'NT', 'BD', 'AL', '', 'Ha ganado una nueva medalla', 0),
 
 -- Reputation events
 (2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5),
