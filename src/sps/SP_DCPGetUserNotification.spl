@@ -21,7 +21,7 @@ BEGIN
     	pActiveOnlyFlag IS NULL OR
     	pActiveOnlyFlag IS FALSE
 	)
-    ORDER BY un.UserId, un.NotificationSeen, un.NotificationTS
+    ORDER BY un.UserId, un.NotificationSeen DESC, un.NotificationTS
     LIMIT pMaxRows
     ;
 END;
