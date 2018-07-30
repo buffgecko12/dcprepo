@@ -55,19 +55,19 @@ INSERT INTO $APP_NAME$.Lookup_Event
 
 -- Load badges
 INSERT INTO $APP_NAME$.Lookup_Badge
-(BadgeId, BadgeLevel, BadgeThresholdValue, BadgeShortName, BadgeDisplayName, SourceEventId) VALUES
+(BadgeId, BadgeLevel, BadgeThresholdValue, BadgeShortName, BadgeDisplayName, BadgeDescription, SourceEventId) VALUES
 -- General badges
-(1, 'B', NULL, 'rookie', 'Novato', 2001), -- New account
-(5, 'B', NULL, 'participant', 'Participante', 2002), -- Accept contract goal
-(6, 'B', NULL, 'achiever', 'Cumplidor', 2003), -- Complete easy goal
-(7, 'S', NULL, 'mediumachiever', 'Triunfador ', 2004), -- Complete medium goal
-(8, 'G', NULL, 'highachiever', 'Triunfador Alto', 2005), -- Complete difficult goal
-(9, 'B', NULL, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 2008), -- Positive feedback
-(10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 2006), -- Voted top performer
+(1, 'B', NULL, 'rookie', 'Novato', 'Crear una cuenta de usuario', 2001), -- New account
+(5, 'B', NULL, 'participant', 'Participante', 'Aceptar una meta de contrato', 2002), -- Accept contract goal
+(6, 'B', NULL, 'achiever', 'Cumplidor', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', 2003), -- Complete easy goal
+(7, 'S', NULL, 'mediumachiever', 'Triunfador ', 'Completar exitosamente una meta media de contrato', 2004), -- Complete medium goal
+(8, 'G', NULL, 'highachiever', 'Triunfador Alto', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', 2005), -- Complete difficult goal
+(9, 'B', NULL, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Feedback positivo (por los integrantes)', 2008), -- Positive feedback
+(10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', 2006), -- Voted top performer
 
 -- Reputation badges
-(2, 'B', 100, 'junioruser','Usuario junior', 1), 
-(3, 'S', 200, 'superuser','Usuario super', 1),
-(4, 'G', 1000, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 1)
+(2, 'B', 50, 'junioruser','Usuario junior', 'Ganar mas de 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
+(3, 'S', 200, 'superuser','Usuario super', 'Ganar mas de 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
+(4, 'G', 500, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 'Ganar mas de 500 puntos de reputaci' || U&'\00F3' || 'n', 1)
 
 ;

@@ -6,11 +6,11 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserNotification(
 	pMaxRows INTEGER
 )
 RETURNS TABLE (
-	UserId INTEGER, NotificationId BIGINT, NotificationSeen BOOLEAN, NotificationTS TIMESTAMP WITH TIME ZONE, NotificationText VARCHAR(500), SourceEventId INTEGER, EventClass CHAR(2)
+	UserId INTEGER, NotificationId BIGINT, NotificationSeen BOOLEAN, NotificationTS TIMESTAMP WITH TIME ZONE, NotificationText VARCHAR(500), ContractId INTEGER, SourceEventId INTEGER, EventClass CHAR(2)
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT un.UserId, un.NotificationId, un.NotificationSeen, un.NotificationTS, un.NotificationText, un.SourceEventId, le.EventClass
+    SELECT un.UserId, un.NotificationId, un.NotificationSeen, un.NotificationTS, un.NotificationText, un.ContractId, un.SourceEventId, le.EventClass
     FROM $APP_NAME$Views.User_Notification un
     INNER JOIN $APP_NAME$Views.Lookup_Event le ON un.SourceEventId = le.EventId
     WHERE (un.UserId = pUserId OR pUserId IS NULL)

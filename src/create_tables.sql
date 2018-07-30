@@ -166,6 +166,7 @@ CREATE TABLE $APP_NAME$.User_Notification (
 	NotificationTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	NotificationSeen BOOLEAN,
 	NotificationText VARCHAR(500),
+	ContractId INTEGER,
 	SourceEventId INTEGER,
 	PRIMARY KEY (NotificationId),
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
@@ -210,6 +211,7 @@ CREATE TABLE $APP_NAME$.Lookup_Badge (
 	BadgeThresholdValue INTEGER,
 	BadgeShortName VARCHAR(50), -- Used for icon
 	BadgeDisplayName VARCHAR(50) NOT NULL,
+	BadgeDescription VARCHAR(500),
 	SourceEventId INTEGER,
 	PRIMARY KEY(BadgeId),
 	FOREIGN KEY(SourceEventId) REFERENCES $APP_NAME$.Lookup_Event(EventId)
