@@ -92,7 +92,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="A284D9EF-EA55-A46A-74A8-E22175CE9F52" name="PK">
+<ind_PK_UK id="A284D9EF-EA55-A46A-74A8-E22175CE9F52" name="PKv1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-04 16:43:54 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

@@ -4,7 +4,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertClass (0, 0, 'DEACTIVATED');
 
 --SELECT $APP_NAME$Views.SP_DCPUpsertUser (-1, 'Anonymous', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL);
 
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 'DEACTIVATED', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 'DEACTIVATED', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeactivateUser(0);
 
 SELECT $APP_NAME$Views.SP_DCPUpsertTeacher(0, 0, NULL, JSONB('{"currentclasses": [{"classid":0}]}'));
@@ -69,5 +69,51 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar mas de 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
 (3, 'S', 200, 'superuser','Usuario super', 'Ganar mas de 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
 (4, 'G', 500, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 'Ganar mas de 500 puntos de reputaci' || U&'\00F3' || 'n', 1)
+;
+
+-- Badge profile pictures
+INSERT INTO $APP_NAME$.Lookup_Badge_Profile_Picture
+(BadgeLevel, FilePath, FileName, FileExtension, Description) VALUES
+-- Bronze level
+('B', 'avengers/','1','png','Avenger 1'),
+('B', 'avengers/','2','png','Avenger 2'),
+('B', 'avengers/','3','png','Avenger 3'),
+('B', 'avengers/','4','png','Avenger 4'),
+('B', 'avengers/','5','png','Avenger 5'),
+('B', 'avengers/','6','png','Avenger 6'),
+('B', 'avengers/','7','png','Avenger 7'),
+('B', 'avengers/','8','png','Avenger 8'),
+('B', 'avengers/','9','png','Avenger 9'),
+('B', 'avengers/','10','png','Avenger 10'),
+('B', 'avengers/','11','png','Avenger 11'),
+
+-- Silver level
+('S', 'countries/','argentina1','png','Argetina flag (round)'),
+('S', 'countries/','argentina2','png','Argetina flag (texture)'),
+('S', 'countries/','brazil1','png','Brazil flag'),
+('S', 'countries/','brazil2','png','Brazil flag (round)'),
+('S', 'countries/','canada1','png','Canada flag (texture)'),
+('S', 'countries/','canada2','png','Canada flag (round)'),
+('S', 'countries/','colombia1','png','Colombia flag (wave)'),
+('S', 'countries/','colombia2','png','Colombia flag'),
+('S', 'countries/','england1','png','England flag (button)'),
+('S', 'countries/','england2','png','England flag'),
+('S', 'countries/','france1','png','Eiffel Tower'),
+('S', 'countries/','france2','png','France flag (texture)'),
+('S', 'countries/','us1','png','US flag'),
+('S', 'countries/','us2','png','US flag (wave)'),
+
+-- Gold level
+('G', 'sports/','basketball1','png','Basketball (dark)'),
+('G', 'sports/','basketball2','png','Basketball'),
+('G', 'sports/','cycling2','png','Bicycle wheel'),
+('G', 'sports/','cycling2','png','Bicycle helmet'),
+('G', 'sports/','soccerball1','png','Soccer ball (reflection)'),
+('G', 'sports/','soccerball2','png','Soccer ball (gold)'),
+('G', 'sports/','soccerfield1','png','Soccer field (elevated)'),
+('G', 'sports/','soccerfield2','png','Soccer field'),
+('G', 'sports/','soccershoe1','png','Cleats'),
+('G', 'sports/','soccerstadium1','png','Soccer stadium'),
+('G', 'sports/','trophy1','png','Soccer trophy')
 
 ;

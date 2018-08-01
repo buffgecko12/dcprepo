@@ -14,7 +14,7 @@ BEGIN
     WHERE (ure.UserId = pUserId OR pUserId IS NULL)
     AND (ure.EventId = pEventId OR pEventId IS NULL)
     AND (ure.ContractId = pContractId OR pContractId IS NULL)
-    ORDER BY ure.UserId, ure.EventTS
+    ORDER BY ure.UserId, ure.EventTS DESC
     ;
 END;
 $$ LANGUAGE 'plpgsql';

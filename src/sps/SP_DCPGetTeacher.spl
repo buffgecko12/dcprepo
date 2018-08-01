@@ -2,12 +2,12 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetTeacher(
     pTeacherUserId INTEGER
 )
 RETURNS TABLE (
-	TeacherUserId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassInfo JSONB, FirstName VARCHAR(100), LastName VARCHAR(100), 
-	DefaultSignatureScanFile BYTEA, PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER
+	TeacherUserId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassInfo JSONB, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, 
+	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ProfilePictureId INTEGER, ReputationValue INTEGER
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT t.TeacherUserId, t.SchoolId, s.SchoolDisplayName, utc.ClassInfo, t.Firstname, t.Lastname, t.DefaultSignatureScanFile, t.PhoneNumber, t.EmailAddress, t.ReputationValue
+	SELECT t.TeacherUserId, t.SchoolId, s.SchoolDisplayName, utc.ClassInfo, t.Firstname, t.Lastname, t.DefaultSignatureScanFile, t.PhoneNumber, t.EmailAddress, t.ProfilePictureId, t.ReputationValue
 	FROM $APP_NAME$Views.Teachers t
 	LEFT JOIN $APP_NAME$Views.School s ON t.SchoolId = s.SchoolId -- Get school info
 	LEFT JOIN (

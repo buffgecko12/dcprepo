@@ -15,24 +15,30 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Event AS SELECT * FROM $APP_NAME$.Lookup_Event;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.Lookup_Badge;
 
+CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge_Profile_Picture AS 
+SELECT ProfilePictureId, BadgeLevel, FilePath AS ProfilePictureFilePath, CAST(FileName || '.' || FileExtension AS VARCHAR(300)) AS ProfilePictureFileName
+FROM $APP_NAME$.Lookup_Badge_Profile_Picture;
+
 -- User info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, ReputationValue, ReputationValueLastSeenTS, UserRole, Last_Login, Is_Active -- Required for django authentication
-FROM $APP_NAME$.Users 
-WHERE DeactivatedTS IS NULL -- Ignore deactivated users
+SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, 
+		ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, 
+		Last_Login, Is_Active -- Required for django authentication
+FROM $APP_NAME$.Users u
+WHERE Is_Active IS TRUE -- Ignore deactivated users
 AND UserId <> 0 -- Ignore reserve fields
 ;
 
 -- Student info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Students AS 
-SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
+SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
 FROM $APP_NAME$Views.Users u
 INNER JOIN $APP_NAME$Views.User_Student us ON u.UserId = us.StudentUserId
 ;
 
 -- Teacher info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teachers AS 
-SELECT ut.TeacherUserId, ut.SchoolId, ut.MaxBudget, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue
+SELECT ut.TeacherUserId, ut.SchoolId, ut.MaxBudget, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
 FROM $APP_NAME$Views.Users u
 INNER JOIN $APP_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 ;

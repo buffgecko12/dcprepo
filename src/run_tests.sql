@@ -5,10 +5,10 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes
 
 -- Add users
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe1@smith.com',NULL,'U',NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (101, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,'U',NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,'U',NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe1@smith.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (101, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL,NULL);
 
 -- Add user notification
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);
@@ -106,12 +106,14 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL,NULL,NULL,NULL)
 
 -- Other
 SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateUser(101);
-SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'getreputationdelta');
-SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification');
-SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications');
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'getuserdisplayinfo',NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification',NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
 
 -- Delete objects
-SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, 'BD');
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteClass(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteSchool(100);
 

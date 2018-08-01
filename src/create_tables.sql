@@ -1,6 +1,74 @@
 -- Tables must be created in correct order to allow for referential integrity constraints
 -- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
 
+CREATE TABLE $APP_NAME$.Lookup_Event (
+	EventId INTEGER,
+	EventType CHAR(2) NOT NULL,
+	EventClass CHAR(2) NOT NULL,
+	EventUserType CHAR(2),
+	EventDisplayName VARCHAR(100) NOT NULL,
+	EventMessage VARCHAR(500),
+	DefaultReputationPointValue INTEGER,
+	PRIMARY KEY(EventId)
+);
+
+-- Reputation event info
+CREATE TABLE $APP_NAME$.Lookup_Badge (
+	BadgeId INTEGER NOT NULL,
+	BadgeLevel CHAR(1) NOT NULL,
+	BadgeThresholdValue INTEGER,
+	BadgeShortName VARCHAR(50), -- Used for icon
+	BadgeDisplayName VARCHAR(50) NOT NULL,
+	BadgeDescription VARCHAR(500),
+	SourceEventId INTEGER,
+	PRIMARY KEY(BadgeId),
+	FOREIGN KEY(SourceEventId) REFERENCES $APP_NAME$.Lookup_Event(EventId)
+);
+
+-- Reputation event info
+CREATE TABLE $APP_NAME$.Lookup_Badge_Profile_Picture (
+	ProfilePictureId SERIAL NOT NULL,
+	BadgeLevel CHAR(1) NOT NULL,
+    FilePath VARCHAR(250),
+    FileName VARCHAR(250),
+    FileExtension VARCHAR(50),
+    Description VARCHAR(500),
+	PRIMARY KEY(ProfilePictureId)
+);
+
+-- Events that affect user reputation
+CREATE TABLE $APP_NAME$.User_Badge (
+	UserId INTEGER NOT NULL,
+	BadgeId INTEGER NOT NULL,
+	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	BadgeProfilePictureId INTEGER,
+	PRIMARY KEY (UserId, BadgeId),
+	UNIQUE (UserId, BadgeProfilePictureId),
+	FOREIGN KEY (BadgeProfilePictureId) REFERENCES $APP_NAME$.Lookup_Badge_Profile_Picture(ProfilePictureId)
+);
+
+-- User profiles
+CREATE TABLE $APP_NAME$.Users (
+    UserId INTEGER NOT NULL,
+    UserName VARCHAR(50) NOT NULL UNIQUE,
+    UserType CHAR(2) NOT NULL DEFAULT 'ST',
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100) NOT NULL,
+    DefaultSignatureScanFile BYTEA,
+    PhoneNumber VARCHAR(25),
+    EmailAddress VARCHAR(250),
+    Password VARCHAR(128),
+    ReputationValue INTEGER DEFAULT 0,
+    ReputationValueLastSeenTS TIMESTAMP WITH TIME ZONE,
+    UserRole CHAR(1),
+    ProfilePictureId INTEGER,
+    Last_Login TIMESTAMP WITH TIME ZONE,
+	Is_Active BOOLEAN, -- Required for django authentication
+    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
+    PRIMARY KEY(UserId),
+    FOREIGN KEY (UserId, ProfilePictureId) REFERENCES $APP_NAME$.User_Badge(UserId, BadgeProfilePictureId)
+);
+
 -- Schools
 CREATE TABLE $APP_NAME$.School (
 	SchoolId INTEGER NOT NULL,
@@ -19,27 +87,6 @@ CREATE TABLE $APP_NAME$.Class (
 	ClassDisplayName VARCHAR(100) NOT NULL,
 	PRIMARY KEY (ClassId),
 	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
-);
-
--- User profiles
-CREATE TABLE $APP_NAME$.Users (
-    UserId INTEGER NOT NULL,
-    UserName VARCHAR(50) NOT NULL UNIQUE,
-    UserType CHAR(2) NOT NULL DEFAULT 'ST',
-    FirstName VARCHAR(100) NOT NULL,
-    LastName VARCHAR(100) NOT NULL,
-    DefaultSignatureScanFile BYTEA,
-    PhoneNumber VARCHAR(25),
-    EmailAddress VARCHAR(250),
-    Password VARCHAR(128),
-    ReputationValue INTEGER DEFAULT 0,
-    ReputationValueLastSeenTS TIMESTAMP WITH TIME ZONE,
-    UserRole CHAR(1),
-    Last_Login TIMESTAMP WITH TIME ZONE,
-    DeactivatedTS TIMESTAMP WITH TIME ZONE,
-	Is_Active BOOLEAN, -- Required for django authentication
-    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
-    PRIMARY KEY(UserId)
 );
 
 -- Additional teacher user info
@@ -172,14 +219,6 @@ CREATE TABLE $APP_NAME$.User_Notification (
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
--- Events that affect user reputation
-CREATE TABLE $APP_NAME$.User_Badge (
-	UserId INTEGER NOT NULL,
-	BadgeId INTEGER NOT NULL,
-	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (UserId, BadgeId)
-);
-
 -- Reward info
 CREATE TABLE $APP_NAME$.Lookup_Reward (
 	RewardId INTEGER NOT NULL,
@@ -191,30 +230,6 @@ CREATE TABLE $APP_NAME$.Lookup_Reward (
 	CreatedByUserId INTEGER NOT NULL,
 	PRIMARY KEY(RewardId),
 	FOREIGN KEY(CreatedByUserId) REFERENCES $APP_NAME$.Users(UserId)
-);
-
-CREATE TABLE $APP_NAME$.Lookup_Event (
-	EventId INTEGER,
-	EventType CHAR(2) NOT NULL,
-	EventClass CHAR(2) NOT NULL,
-	EventUserType CHAR(2),
-	EventDisplayName VARCHAR(100) NOT NULL,
-	EventMessage VARCHAR(500),
-	DefaultReputationPointValue INTEGER,
-	PRIMARY KEY(EventId)
-);
-
--- Reputation event info
-CREATE TABLE $APP_NAME$.Lookup_Badge (
-	BadgeId INTEGER NOT NULL,
-	BadgeLevel CHAR(1) NOT NULL,
-	BadgeThresholdValue INTEGER,
-	BadgeShortName VARCHAR(50), -- Used for icon
-	BadgeDisplayName VARCHAR(50) NOT NULL,
-	BadgeDescription VARCHAR(500),
-	SourceEventId INTEGER,
-	PRIMARY KEY(BadgeId),
-	FOREIGN KEY(SourceEventId) REFERENCES $APP_NAME$.Lookup_Event(EventId)
 );
 
 -- Contract status

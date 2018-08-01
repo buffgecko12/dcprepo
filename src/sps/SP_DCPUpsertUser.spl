@@ -9,6 +9,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUser (
     pEmailAddress VARCHAR(250),
     pPassword VARCHAR(128),
     pUserRole CHAR(1),
+    pProfilePictureId INTEGER,
     pLast_Login TIMESTAMPTZ
 ) 
 RETURNS INTEGER AS $$
@@ -26,8 +27,8 @@ BEGIN
     END IF;
     
     -- Upsert user (don't allow NULL overwrite for protected fields)
-    INSERT INTO $APP_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, Last_Login, Is_Active)
-    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pLast_Login, TRUE)
+    INSERT INTO $APP_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, ProfilePictureId, Last_Login, Is_Active)
+    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pProfilePictureId, pLast_Login, TRUE)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = COALESCE(NULLIF(EXCLUDED.FirstName,''),Users.FirstName), -- NOT NULL field
 	    LastName = COALESCE(NULLIF(EXCLUDED.LastName,''),Users.LastName),
@@ -38,6 +39,7 @@ BEGIN
 	    EmailAddress = NULLIF(EXCLUDED.EmailAddress,''),
 	    Password = COALESCE(NULLIF(EXCLUDED.Password,''), Users.Password), -- If no value provided, keep existing one (i.e. don't allow overwriting with NULL)
 	    UserRole = COALESCE(NULLIF(EXCLUDED.UserRole,''),Users.UserRole),
+	    ProfilePictureId = NULLIF(EXCLUDED.ProfilePictureId,0), -- Take 0 value from form and set to NULL
 	    Last_Login = COALESCE(EXCLUDED.Last_Login, Users.Last_Login)
     ;   
     

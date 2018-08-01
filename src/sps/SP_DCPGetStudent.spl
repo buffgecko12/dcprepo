@@ -3,13 +3,13 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetStudent(
     pClassId INTEGER
 )
 RETURNS TABLE (
-	StudentUserId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), 
-	DefaultSignatureScanFile BYTEA, PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ReputationValue INTEGER, ClassInfo JSONB
+	StudentUserId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassId INTEGER, FirstName VARCHAR(100), LastName VARCHAR(100), DefaultSignatureScanFile BYTEA, 
+	PhoneNumber VARCHAR(25), EmailAddress VARCHAR(250), ProfilePictureId INTEGER, ReputationValue INTEGER, ClassInfo JSONB
 ) AS $$
 BEGIN
     RETURN QUERY
 	SELECT st.StudentUserId, sc.SchoolId, sc.SchoolDisplayName, st.ClassId, st.Firstname, st.Lastname, 
-		   st.DefaultSignatureScanFile, st.PhoneNumber, st.EmailAddress, st.ReputationValue, 
+		   st.DefaultSignatureScanFile, st.PhoneNumber, st.EmailAddress, st.ProfilePictureId, st.ReputationValue,
 		   CASE WHEN c.ClassId IS NOT NULL THEN jsonb_build_object('classid',c.ClassId,'classdisplayname',c.ClassDisplayName) ELSE NULL END AS ClassInfo
 	FROM $APP_NAME$Views.Students st
 	LEFT JOIN $APP_NAME$Views.Class c ON c.ClassId = st.ClassId

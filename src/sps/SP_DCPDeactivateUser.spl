@@ -6,8 +6,7 @@ BEGIN
 
 	-- Set DeactivatedTS value
 	UPDATE $APP_NAME$.Users
-	SET DeactivatedTS = current_timestamp,
-		Is_Active = FALSE
+	SET Is_Active = FALSE
 	WHERE UserId = pUserId
 	;
 		

@@ -1120,6 +1120,22 @@
 		<mapping rdbms="DB2/UDB 8.1">UNKNOWN</mapping>
 		<mapping rdbms="DB2/UDB 7.1">UNKNOWN</mapping>
 	</logicaltype>
+	<logicaltype name="SERIAL" objectid="67601FC1-9BE5-66BB-0A66-1FE6C8E4068D">
+		<mapping rdbms="Oracle Database 12cR2">SERIAL</mapping>
+		<mapping rdbms="Oracle Database 12c">SERIAL</mapping>
+		<mapping rdbms="Oracle Database 11g">UNKNOWN</mapping>
+		<mapping rdbms="Oracle Database 10g">UNKNOWN</mapping>
+		<mapping rdbms="Oracle9i">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2012">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2008">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2005">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2000">UNKNOWN</mapping>
+		<mapping rdbms="DB2/390 8">UNKNOWN</mapping>
+		<mapping rdbms="DB2/390 7">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 9">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 8.1">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 7.1">UNKNOWN</mapping>
+	</logicaltype>
 	<native_to_logical_mappings>
 		<mappings_for_RDBMS_type rdbms_type="Oracle Database 12cR2" />
 		<mappings_for_RDBMS_type rdbms_type="Oracle Database 12c">
@@ -1410,6 +1426,7 @@
 			<ud_db_type native_type="BIGSERIAL" />
 			<ud_db_type native_type="BOOLEAN" />
 			<ud_db_type native_type="BYTEA" />
+			<ud_db_type native_type="SERIAL" />
 			<ud_db_type native_type="TIME" />
 			<ud_db_type native_type="TSRANGE" />
 			<ud_db_type native_type="TSTZRANGE" />
@@ -1419,6 +1436,7 @@
 			<ud_db_type native_type="BIGSERIAL" />
 			<ud_db_type native_type="BOOLEAN" />
 			<ud_db_type native_type="BYTEA" />
+			<ud_db_type native_type="SERIAL" />
 			<ud_db_type native_type="TIME" />
 			<ud_db_type native_type="TSRANGE" />
 			<ud_db_type native_type="TSTZRANGE" />

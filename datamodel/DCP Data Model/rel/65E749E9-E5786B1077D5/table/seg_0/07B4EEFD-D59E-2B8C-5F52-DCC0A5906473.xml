@@ -163,6 +163,19 @@
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ProfilePictureId" id="DA778F68-C234-CB02-A349-A6EEA4B93E66">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-07-30 21:28:02 UTC</createdTime>
+<commentInRDBMS>Selected profile picture</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="Last_Login" id="27CFB008-CB29-FB9B-3275-74CD14025FEC">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -173,18 +186,6 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="DeactivatedTS" id="B070AFAF-62E2-F00B-74C9-4E38CF523308">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 03:25:02 UTC</createdTime>
-<comment>Timestamp user was deactivated</comment>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

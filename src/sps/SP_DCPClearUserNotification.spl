@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPClearUserNotification(
     pUserId INTEGER,
     pSourceEventId INTEGER,
-    pNotificationId INTEGER
+    pNotificationId INTEGER,
+    pNotificationType CHAR(2)
 )
 RETURNS VOID AS $$
 BEGIN
@@ -11,6 +12,13 @@ BEGIN
 	WHERE (UserId = pUserId OR pUserId IS NULL)
 	AND (SourceEventId = pSourceEventId OR pSourceEventId IS NULL)
 	AND (NotificationId = pNotificationId OR pNotificationId IS NULL)
+	AND (
+		SourceEventId IN ( -- Get events that belong to Notification type (i.e. Badge/Reputation/Contract)
+			SELECT EventId FROM $APP_NAME$Views.Lookup_Event WHERE EventClass = pNotificationType
+		) 
+		OR pNotificationType IS NULL
+	)
+	AND NotificationSeen IS NULL
 	;
 	
 END;

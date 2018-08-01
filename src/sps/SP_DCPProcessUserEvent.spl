@@ -43,19 +43,35 @@ BEGIN
 	
 	-- Add new badges
 	WITH ins AS (
-		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
-		SELECT pUserId AS UserId, lb.BadgeId, CURRENT_TIMESTAMP AS BadgeAchievedTS
-		FROM $APP_NAME$Views.Users u
-		CROSS JOIN $APP_NAME$Views.Lookup_Event le
-		INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId
-		WHERE u.UserId = pUserId -- Get info for user
-		AND (
-			le.EventId = pEventId OR -- Event-specific badges
-			(
-				lb.SourceEventId = 1 -- Reputation threshold badges
-				AND COALESCE(u.ReputationValue,0) > BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS, BadgeProfilePictureId)
+		SELECT pUserId AS UserId, src.BadgeId, CURRENT_TIMESTAMP, src.ProfilePictureId
+		FROM (
+			SELECT 
+				lb.BadgeId, 
+				bpp.ProfilePictureId, 
+				ROW_NUMBER() OVER(PARTITION BY lb.BadgeId ORDER BY RANDOM()) AS MyRowNum -- Randomly order rows (profile pictures) per badge
+			FROM $APP_NAME$Views.Users u -- Get user info
+			CROSS JOIN $APP_NAME$Views.Lookup_Event le -- Get event info
+			INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId -- Look up badges associated with events
+			LEFT JOIN ( -- Get all available badge profile pictures
+				SELECT lbp.ProfilePictureId, lbp.BadgeLevel
+				FROM $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp
+				WHERE ProfilePictureId NOT IN (
+					SELECT BadgeProfilePictureId 
+					FROM $APP_NAME$Views.User_Badge 
+					WHERE UserId = pUserId
+				) -- Only look at profile pictures for corresponding badge level
+			) bpp ON lb.BadgeLevel = bpp.BadgeLevel
+			WHERE u.UserId = pUserId -- Get info for user
+			AND (
+				le.EventId = pEventId OR -- Event-specific badges
+				(
+					le.EventId = 1 -- Reputation threshold badges
+					AND COALESCE(u.ReputationValue,0) > lb.BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+				)
 			)
-		)
+		) src
+		WHERE src.MyRowNum = 1 -- Get one row (profile picture) per badge
 		ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
 		RETURNING 1
 	) 
