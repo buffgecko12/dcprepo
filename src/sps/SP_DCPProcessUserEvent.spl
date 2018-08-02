@@ -44,26 +44,17 @@ BEGIN
 	-- Add new badges
 	WITH ins AS (
 		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS, BadgeProfilePictureId)
-		SELECT pUserId AS UserId, src.BadgeId, CURRENT_TIMESTAMP, src.ProfilePictureId
+		SELECT pUserId AS UserId, badges.BadgeId, CURRENT_TIMESTAMP, bpp.ProfilePictureId
 		FROM (
 			SELECT 
 				lb.BadgeId, 
-				bpp.ProfilePictureId, 
-				ROW_NUMBER() OVER(PARTITION BY lb.BadgeId ORDER BY RANDOM()) AS MyRowNum -- Randomly order rows (profile pictures) per badge
+				lb.BadgeLevel,
+				ROW_NUMBER() OVER() AS MyBadgeRowNum -- Assign each earned badge a RowId
 			FROM $APP_NAME$Views.Users u -- Get user info
 			CROSS JOIN $APP_NAME$Views.Lookup_Event le -- Get event info
 			INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId -- Look up badges associated with events
-			LEFT JOIN ( -- Get all available badge profile pictures
-				SELECT lbp.ProfilePictureId, lbp.BadgeLevel
-				FROM $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp
-				WHERE ProfilePictureId NOT IN (
-					SELECT BadgeProfilePictureId 
-					FROM $APP_NAME$Views.User_Badge 
-					WHERE UserId = pUserId
-				) -- Only look at profile pictures for corresponding badge level
-			) bpp ON lb.BadgeLevel = bpp.BadgeLevel
 			WHERE u.UserId = pUserId -- Get info for user
-			AND NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = u.UserId) -- Exclude badges user already has
+			AND NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = u.UserId) -- Exclude badges user has already earned
 			AND 
 			( -- Non event-specific badges (no check for sourceeventid)
 				( -- Reputation threshold
@@ -98,8 +89,19 @@ BEGIN
 					)
 				)
 			)
-		) src
-		WHERE src.MyRowNum = 1 -- Get one row (profile picture) per badge
+		) badges
+		LEFT JOIN ( -- Get all available badge profile pictures
+			SELECT 
+				lbp.ProfilePictureId, 
+				lbp.BadgeLevel, 
+				ROW_NUMBER() OVER(PARTITION BY lbp.BadgeLevel ORDER BY RANDOM()) MyProfilePictureRowNum -- Generate random ID values for each profilepicture (within badge level)
+			FROM $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp
+			WHERE ProfilePictureId NOT IN ( -- Exclude picures user already has
+				SELECT BadgeProfilePictureId 
+				FROM $APP_NAME$Views.User_Badge 
+				WHERE UserId = pUserId
+			)
+		) bpp ON badges.BadgeLevel = bpp.BadgeLevel AND badges.MyBadgeRowNum = bpp.MyProfilePictureRowNum -- Assign a random profile picture to each earned badge
 		ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
 		RETURNING 1
 	) 
