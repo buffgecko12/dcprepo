@@ -63,11 +63,38 @@ BEGIN
 				) -- Only look at profile pictures for corresponding badge level
 			) bpp ON lb.BadgeLevel = bpp.BadgeLevel
 			WHERE u.UserId = pUserId -- Get info for user
-			AND (
-				le.EventId = pEventId OR -- Event-specific badges
-				(
-					le.EventId = 1 -- Reputation threshold badges
-					AND COALESCE(u.ReputationValue,0) > lb.BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+			AND 
+			( -- Non event-specific badges (no check for sourceeventid)
+				( -- Reputation threshold
+					le.EventId = 1 AND 
+					COALESCE(u.ReputationValue,0) >= lb.BadgeThresholdValue -- Check if user's reputation is greater than threshold values
+				) OR
+				( -- Event-specific badges
+					le.EventId = pEventId AND 
+					( -- Non-threshold badges
+						lb.BadgeThresholdValue IS NULL OR 
+						( -- Threshold badges
+							( -- Contract goal
+								le.EventId = 2002 AND (
+									-- Get number of contracts user has accepted
+									SELECT COUNT(*) 
+									FROM $APP_NAME$Views.Contract_Party_Approval cpa
+									WHERE cpa.PartyUserId = pUserId 
+									AND cpa.ApprovalType = 'C' 
+									AND cpa.PartyApprovalTS IS NOT NULL
+								) >= lb.BadgeThresholdValue -- Check if number of accepted contract goals for user has exceeded threshold value
+							) OR
+							(
+								le.EventId = 2014 AND (
+									-- Check number of contracts sent out by user
+									SELECT COUNT(*)
+									FROM $APP_NAME$Views.Contract
+									WHERE TeacherUserId = pUserId
+									AND ContractStatus IN('A','C','P')
+								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
+							)
+						)
+					)
 				)
 			)
 		) src

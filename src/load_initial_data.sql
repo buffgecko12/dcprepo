@@ -29,8 +29,9 @@ INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES
 -- Load events
 INSERT INTO $APP_NAME$.Lookup_Event 
 (EventId, EventType, EventClass, EventUserType, EventDisplayName, EventMessage, DefaultReputationPointValue) VALUES
--- Misc events
+-- General events
 (1, 'BD', 'PT', 'ST', 'Ganar puntos de reputaci' || U&'\00F3' || 'n', '', 0),
+(2, 'BD', 'PT', 'ST', 'Completar exitosamente una meta de contrato', '', 0),
 
 -- Notifications
 (1001, 'NT', 'RP', 'AL', '', 'Ha ganado nuevos puntos de reputaci' || U&'\00F3' || 'n', 0),
@@ -50,25 +51,43 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (2009, 'RP', 'PF', 'ST', 'Experiencia positiva de grupo (por el docente)', '', 10),
 (2010, 'RP', 'PF', 'ST', 'Experiencia positiva de grupo (por los integrantes)', '', 5),
 (2011, 'RP', 'PF', 'TR', 'Feedback positivo (por los integrantes)', '', 25),
-(2012, 'RP', 'PF', 'AL', 'Experiencia negativa de grupo', '', -2)
+(2012, 'RP', 'PF', 'AL', 'Experiencia negativa de grupo', '', -2),
+(2013, 'RP', 'PF', 'AL', 'Enviar feedback', '', 2),
+(2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15),
+(2015, 'RP', 'PF', 'TR', 'Finalizar un contrato', '', 10)
 ;
 
 -- Load badges
 INSERT INTO $APP_NAME$.Lookup_Badge
 (BadgeId, BadgeLevel, BadgeThresholdValue, BadgeShortName, BadgeDisplayName, BadgeDescription, SourceEventId) VALUES
--- General badges
+-- General
 (1, 'B', NULL, 'rookie', 'Novato', 'Crear una cuenta de usuario', 2001), -- New account
-(5, 'B', NULL, 'participant', 'Participante', 'Aceptar una meta de contrato', 2002), -- Accept contract goal
 (6, 'B', NULL, 'achiever', 'Cumplidor', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', 2003), -- Complete easy goal
 (7, 'S', NULL, 'mediumachiever', 'Triunfador ', 'Completar exitosamente una meta media de contrato', 2004), -- Complete medium goal
 (8, 'G', NULL, 'highachiever', 'Triunfador Alto', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', 2005), -- Complete difficult goal
 (9, 'B', NULL, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Feedback positivo (por los integrantes)', 2008), -- Positive feedback
 (10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', 2006), -- Voted top performer
+(19, 'B', NULL, 'feedback', 'Comunidad', 'Enviar feedback', 2013),
 
--- Reputation badges
-(2, 'B', 50, 'junioruser','Usuario junior', 'Ganar mas de 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
-(3, 'S', 200, 'superuser','Usuario super', 'Ganar mas de 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
-(4, 'G', 500, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 'Ganar mas de 500 puntos de reputaci' || U&'\00F3' || 'n', 1)
+
+-- Reputation
+(2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
+(3, 'S', 200, 'superuser','Usuario super', 'Ganar 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
+(4, 'G', 500, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 'Ganar 500 puntos de reputaci' || U&'\00F3' || 'n', 1),
+
+-- Send contract
+(11, 'B', 1, 'participant','Participante', 'Enviar un contrato', 2014), 
+(12, 'S', 10, 'involved','Involucrado', 'Enviar 15 contratos', 2014), 
+(13, 'G', 50, 'motivated','Motivado', 'Enviar 50 contratos', 2014), 
+
+-- Accept contract goal
+(14, 'B', 1, 'participant', 'Participante', 'Aceptar un contrato', 2002),
+(15, 'S', 3, 'involved', 'Involucrado', 'Aceptar 3 contratos', 2002),
+(16, 'G', 10, 'motivated', 'Motivado', 'Aceptar 10 contratos', 2002),
+
+-- Complete contract goal
+(17, 'S', 3, '', '', 'Completar exitosamente 3 metas de contrato', 2),
+(18, 'G', 10, '', '', 'Completar exitosamente 10 metas de contrato', 2)
 ;
 
 -- Badge profile pictures
@@ -115,5 +134,4 @@ INSERT INTO $APP_NAME$.Lookup_Badge_Profile_Picture
 ('G', 'sports/','soccershoe1','png','Cleats'),
 ('G', 'sports/','soccerstadium1','png','Soccer stadium'),
 ('G', 'sports/','trophy1','png','Soccer trophy')
-
 ;
