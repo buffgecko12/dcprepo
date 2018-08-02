@@ -63,6 +63,7 @@ BEGIN
 				) -- Only look at profile pictures for corresponding badge level
 			) bpp ON lb.BadgeLevel = bpp.BadgeLevel
 			WHERE u.UserId = pUserId -- Get info for user
+			AND NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = u.UserId) -- Exclude badges user already has
 			AND 
 			( -- Non event-specific badges (no check for sourceeventid)
 				( -- Reputation threshold
