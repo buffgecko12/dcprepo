@@ -25,7 +25,8 @@ FROM $APP_NAME$.Lookup_Badge_Profile_Picture;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 
 SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, 
 		ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, 
-		Last_Login, Is_Active -- Required for django authentication
+		Last_Login, Is_Active, -- Required for django authentication
+		DataUsePolicyAcceptedTS
 FROM $APP_NAME$.Users u
 WHERE Is_Active IS TRUE -- Ignore deactivated users
 AND UserId <> 0 -- Ignore reserve fields

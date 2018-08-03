@@ -77,6 +77,7 @@ CREATE TABLE $APP_NAME$.Users (
     ProfilePictureId INTEGER,
     Last_Login TIMESTAMP WITH TIME ZONE,
 	Is_Active BOOLEAN, -- Required for django authentication
+	DataUsePolicyAcceptedTS TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId),
     FOREIGN KEY (UserId, ProfilePictureId) REFERENCES $APP_NAME$.User_Badge(UserId, BadgeProfilePictureId)

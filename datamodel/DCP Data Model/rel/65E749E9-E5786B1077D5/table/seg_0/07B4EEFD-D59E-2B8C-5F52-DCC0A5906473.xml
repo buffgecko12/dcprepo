@@ -201,6 +201,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="DataUsePolicyAcceptedTS" id="2B9FDA7C-74FE-AC53-BFEB-736B576039F4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 17:38:46 UTC</createdTime>
+<commentInRDBMS>Timestamp user accepted data use policy</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="D6A62047-06D3-9C8B-9AD2-E0A14D79445F" name="PKv11">
