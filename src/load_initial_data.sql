@@ -69,7 +69,6 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', 2006), -- Voted top performer
 (19, 'B', NULL, 'feedback', 'Comunidad', 'Enviar feedback', 2013),
 
-
 -- Reputation
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
 (3, 'S', 200, 'superuser','Usuario super', 'Ganar 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
@@ -93,6 +92,7 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 -- Badge profile pictures
 INSERT INTO $APP_NAME$.Lookup_Badge_Profile_Picture
 (BadgeLevel, FilePath, FileName, FileExtension, Description) VALUES
+
 -- Bronze level
 ('B', 'avengers/','1','png','Avenger 1'),
 ('B', 'avengers/','2','png','Avenger 2'),

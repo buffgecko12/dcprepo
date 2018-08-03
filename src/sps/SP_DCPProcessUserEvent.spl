@@ -56,19 +56,18 @@ BEGIN
 			WHERE u.UserId = pUserId -- Get info for user
 			AND NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = u.UserId) -- Exclude badges user has already earned
 			AND 
-			( -- Non event-specific badges (no check for sourceeventid)
+			( -- Non event-specific badges
 				( -- Reputation threshold
 					le.EventId = 1 AND 
 					COALESCE(u.ReputationValue,0) >= lb.BadgeThresholdValue -- Check if user's reputation is greater than threshold values
 				) OR
-				( -- Event-specific badges
+				( -- Event-specific badges (directly caused by source event)
 					le.EventId = pEventId AND 
 					( -- Non-threshold badges
 						lb.BadgeThresholdValue IS NULL OR 
 						( -- Threshold badges
-							( -- Contract goal
+							( -- Goals accepted
 								le.EventId = 2002 AND (
-									-- Get number of contracts user has accepted
 									SELECT COUNT(*) 
 									FROM $APP_NAME$Views.Contract_Party_Approval cpa
 									WHERE cpa.PartyUserId = pUserId 
@@ -76,13 +75,21 @@ BEGIN
 									AND cpa.PartyApprovalTS IS NOT NULL
 								) >= lb.BadgeThresholdValue -- Check if number of accepted contract goals for user has exceeded threshold value
 							) OR
-							(
+							( -- Contracts sent (teacher)
 								le.EventId = 2014 AND (
-									-- Check number of contracts sent out by user
 									SELECT COUNT(*)
 									FROM $APP_NAME$Views.Contract
 									WHERE TeacherUserId = pUserId
 									AND ContractStatus IN('A','C','P')
+								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
+							) OR
+							( -- Goals completed
+								le.EventId = 2 AND (
+									SELECT COUNT(*)
+									FROM $APP_NAME$Views.Contract_Party cp -- Get contracts associated with user
+									INNER JOIN $APP_NAME$Views.Contract_Goal cg ON cp.ContractId = cg.ContractId -- Get contract goals
+									WHERE cp.PartyUserId = pUserId
+									AND cg.AchievedFlag IS TRUE -- Check for achieved goals
 								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
 							)
 						)
