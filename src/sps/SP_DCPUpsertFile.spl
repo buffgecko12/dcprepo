@@ -1,0 +1,41 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFile(
+    pFileId INTEGER,
+    pFileName VARCHAR(500),
+    pFileExtension VARCHAR(50),
+    pFileSize INTEGER,
+    pFileType VARCHAR(100),
+	pFileDescription VARCHAR(500),
+    pFileData BYTEA,
+    pAccessClass CHAR(2)
+)
+RETURNS INTEGER AS $$
+DECLARE
+	MyFileId INTEGER;
+BEGIN
+
+	-- Get next id value (for new file only)
+	IF(pFileId IS NULL) THEN
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('file') INTO MyFileId;
+    ELSE
+    	MyFileId = pFileId;
+    END IF;
+	
+    -- Upsert file
+	INSERT INTO $APP_NAME$.Binary_File (FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileData, AccessClass)
+	SELECT MyFileId, pFileName, pFileExtension, pFileSize, pFileType, pFileDescription, pFileData, pAccessClass
+    ON CONFLICT (FileId) DO UPDATE SET
+        FileName = EXCLUDED.FileName,
+        FileExtension = EXCLUDED.FileExtension,
+        FileSize = EXCLUDED.FileSize,
+        FileType = EXCLUDED.FileType,
+        FileDescription = EXCLUDED.FileDescription,
+        FileData = EXCLUDED.FileData,
+        AccessClass = EXCLUDED.AccessClass
+    ;
+    
+	-- Return file id
+    RETURN MyFileId;   
+    
+END;
+$$
+LANGUAGE 'plpgsql';

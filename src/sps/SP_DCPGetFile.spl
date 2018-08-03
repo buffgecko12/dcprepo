@@ -1,0 +1,13 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
+    pFileId INTEGER
+) 
+RETURNS SETOF $APP_NAME$Views.Binary_File AS $$
+BEGIN
+    RETURN QUERY
+    SELECT FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileData, AccessClass
+    FROM $APP_NAME$Views.Binary_File
+    WHERE (FileId = pFileId OR pFileId IS NULL)
+    ;
+END;
+$$
+LANGUAGE 'plpgsql';

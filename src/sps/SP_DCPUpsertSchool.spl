@@ -4,7 +4,9 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchool (
 	pSchoolAbbreviation VARCHAR(20),
 	pAddress VARCHAR(100),
 	pCity VARCHAR(100),
-	pDepartment VARCHAR(100)
+	pDepartment VARCHAR(100),
+	pDataUsePolicyFileId INTEGER,
+	pGuardianApprovalPolicy JSONB
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -19,14 +21,16 @@ BEGIN
     END IF;
     
     -- Upsert school
-    INSERT INTO $APP_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department)
-    VALUES(MySchoolId, pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment)
+    INSERT INTO $APP_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department, DataUsePolicyFileId, GuardianApprovalPolicy)
+    VALUES(MySchoolId, pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment, pDataUsePolicyFileId, pGuardianApprovalPolicy)
     ON CONFLICT(SchoolId) DO UPDATE SET
 	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,
 	    SchoolAbbreviation = EXCLUDED.SchoolAbbreviation,
 	    Address = EXCLUDED.Address,
 	    City = EXCLUDED.City,
-        Department = EXCLUDED.Department
+        Department = EXCLUDED.Department,
+        DataUsePolicyFileId = EXCLUDED.DataUsePolicyFileId,
+        GuardianApprovalPolicy = EXCLUDED.GuardianApprovalPolicy
     ;   
     
 	-- Return new id (if new school)

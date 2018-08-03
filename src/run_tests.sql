@@ -1,5 +1,8 @@
+-- Update files
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description',NULL,'PB');
+
 -- Create schools/classes
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertSchool(100, 'Test School 1', 'TS1', 'My Address','Duitama','Boyaca'); -- Schools
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertSchool(100, 'Test School 1', 'TS1', 'My Address','Duitama','Boyaca', 100, NULL); -- Schools
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(100, 100, '10-03'); -- Classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes
@@ -111,11 +114,14 @@ SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotifi
 SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
 
+SELECT * FROM SP_DCPGetFile(100);
+
 -- Delete objects
 SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, 'BD');
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteClass(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteSchool(100);
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteFile(100);
 
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteUser(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteUser(101);

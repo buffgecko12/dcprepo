@@ -1,6 +1,19 @@
 -- Tables must be created in correct order to allow for referential integrity constraints
 -- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
 
+CREATE TABLE $APP_NAME$.Binary_File (
+    FileId INTEGER NOT NULL,
+    FileName VARCHAR(500),
+    FileExtension VARCHAR(50),
+    FileSize INTEGER,
+    FileType VARCHAR(100),
+    FileDescription VARCHAR(500),
+    FileData BYTEA,
+    AccessClass CHAR(2),
+    PRIMARY KEY (FileId)
+)
+;
+
 CREATE TABLE $APP_NAME$.Lookup_Event (
 	EventId INTEGER,
 	EventType CHAR(2) NOT NULL,
@@ -77,7 +90,10 @@ CREATE TABLE $APP_NAME$.School (
 	Address VARCHAR(100),
 	City VARCHAR(100),
 	Department VARCHAR(100),
-	PRIMARY KEY (SchoolId)
+	DataUsePolicyFileId INTEGER,
+	GuardianApprovalPolicy JSONB,
+	PRIMARY KEY (SchoolId),
+	FOREIGN KEY (DataUsePolicyFileId) REFERENCES $APP_NAME$.Binary_File(FileId)
 );
 
 -- Classes

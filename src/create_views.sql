@@ -15,6 +15,8 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Event AS SELECT * FROM $APP_NAME$.Lookup_Event;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.Lookup_Badge;
 
+CREATE OR REPLACE VIEW $APP_NAME$Views.Binary_File AS SELECT * FROM $APP_NAME$.Binary_File;
+
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge_Profile_Picture AS 
 SELECT ProfilePictureId, BadgeLevel, FilePath AS ProfilePictureFilePath, CAST(FileName || '.' || FileExtension AS VARCHAR(300)) AS ProfilePictureFileName
 FROM $APP_NAME$.Lookup_Badge_Profile_Picture;

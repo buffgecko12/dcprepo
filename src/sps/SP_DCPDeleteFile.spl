@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteFile (
+    pFileId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	-- Update file references
+	UPDATE $APP_NAME$.School
+	SET DataUsePolicyFileId = NULL
+	WHERE DataUsePolicyFileId = pFileId
+	;
+	
+	-- Delete file
+	DELETE FROM $APP_NAME$.Binary_File WHERE FileId = pFileId;
+END;
+$$ LANGUAGE 'plpgsql';

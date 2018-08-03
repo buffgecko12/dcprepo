@@ -1,0 +1,117 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="15B5697F-79B4-1C93-A739-C362D71E1641" name="Binary_File">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:04:51 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_21</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="FileId" id="90966D88-7346-E173-9A6D-EB4189CA3832">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileName" id="B1450094-05B8-3C2E-23E9-0437BD47CA84">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileExtension" id="B8760BDB-9FC2-4FE3-8C7C-EFF5AFB38925">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileSize" id="28FA042B-D00F-EC5F-15D0-B3B3A7413BE4">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileType" id="5B3CE64B-9090-6593-4E2D-E2005A642A19">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileDescription" id="EA477D57-CCF7-3A2B-140E-9695F68B8A4A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:16:21 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileData" id="5D7AD467-4DB4-8CBB-CD12-74417CDD8FFC">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:07:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT029</logicalDatatype>
+<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AccessClass" id="D1068E91-0012-901D-3041-189964F49D19">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 17:12:27 UTC</createdTime>
+<commentInRDBMS>Type of file (used for access permissions)&lt;br/&gt;&lt;br/&gt;US - user&lt;br/&gt;CT - contract&lt;br/&gt;PB - public</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5CAA407B-797A-2D26-FBD7-5F805445F1F6" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:10:01 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="90966D88-7346-E173-9A6D-EB4189CA3832"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -85,6 +85,32 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="DataUsePolicyFileId" id="9379BC37-25B5-6E2C-FC36-65B137B6D164">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:28:24 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C50A5A53-4365-7ABB-6B38-74AB854047C5" referredColumn="90966D88-7346-E173-9A6D-EB4189CA3832"/>
+</associations>
+</Column>
+<Column name="GuardianApprovalPolicy" id="6CB051F9-D5B7-CBE9-5DFB-4561AD875448">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 11:31:20 UTC</createdTime>
+<commentInRDBMS>Policy for parent approval of contracts:&lt;br/&gt;&lt;br/&gt;signature&lt;br/&gt;cedula (number, date/location of issue)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>38CC51EC-61EC-F1C3-CC4E-8960CB5203BF</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="750AE189-DEC7-9499-8C11-77659462F62A" name="PKv6">
@@ -97,6 +123,16 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="30629B2E-789D-2327-3B5E-309B9410EF2B" name="FKv30">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:28:24 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9379BC37-25B5-6E2C-FC36-65B137B6D164"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

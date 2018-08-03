@@ -61,6 +61,8 @@
 \i install/sps/SP_DCPGetContractParty.spl
 \i install/sps/SP_DCPModifyContractParties.spl
 
-
 -- Other
+\i install/sps/SP_DCPGetFile.spl
+\i install/sps/SP_DCPUpsertFile.spl
+\i install/sps/SP_DCPDeleteFile.spl
 \i install/sps/SP_DCPGetNextId.spl

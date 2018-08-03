@@ -1,5 +1,5 @@
 -- Create DEACTIVATED lookup entries (must be done in correct orders)
-SELECT $APP_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', 'DEACTIVATED', NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', 'DEACTIVATED', NULL, NULL, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertClass (0, 0, 'DEACTIVATED');
 
 --SELECT $APP_NAME$Views.SP_DCPUpsertUser (-1, 'Anonymous', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL);
@@ -16,7 +16,8 @@ INSERT INTO $APP_NAME$.NextId (IdType, NextValue) VALUES
 ('user', 1), 
 ('school', 1), 
 ('class', 1), 
-('reward', 1);
+('reward', 1),
+('file', 1);
 
 -- Load contract status
 INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES 

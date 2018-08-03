@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="C50A5A53-4365-7ABB-6B38-74AB854047C5" containerWithKeyObject="4F38C79F-7C6F-CE0F-37BD-48A275865C3F" localFKIndex="30629B2E-789D-2327-3B5E-309B9410EF2B" name="FKv30">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 14:28:24 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableLongName>Binary_File</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>15B5697F-79B4-1C93-A739-C362D71E1641</referredTableID>
+<keyObject>5CAA407B-797A-2D26-FBD7-5F805445F1F6</keyObject>
+<referredKeyID>5CAA407B-797A-2D26-FBD7-5F805445F1F6</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>FileId</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>
