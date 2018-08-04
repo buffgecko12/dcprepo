@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUser (
     pUserId INTEGER, 
+    pSchoolId INTEGER, 
     pUserName VARCHAR(50), 
     pUserType CHAR(2), 
     pFirstName VARCHAR(100), 
@@ -27,12 +28,13 @@ BEGIN
     END IF;
     
     -- Upsert user (don't allow NULL overwrite for protected fields)
-    INSERT INTO $APP_NAME$.Users(UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, ProfilePictureId, Last_Login, Is_Active)
-    VALUES(MyUserId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pProfilePictureId, pLast_Login, TRUE)
+    INSERT INTO $APP_NAME$.Users(UserId, SchoolId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, UserRole, ProfilePictureId, Last_Login, Is_Active)
+    VALUES(MyUserId, pSchoolId, pUserName, pUserType, pFirstName, pLastName, NULLIF(pDefaultSignatureScanFile,''), pPhoneNumber, pEmailAddress, pPassword, pUserRole, pProfilePictureId, pLast_Login, TRUE)
     ON CONFLICT(UserId) DO UPDATE SET
 	    FirstName = COALESCE(NULLIF(EXCLUDED.FirstName,''),Users.FirstName), -- NOT NULL field
 	    LastName = COALESCE(NULLIF(EXCLUDED.LastName,''),Users.LastName),
 	    DefaultSignatureScanFile = NULLIF(EXCLUDED.DefaultSignatureScanFile,''),
+        SchoolId = COALESCE(EXCLUDED.SchoolId,Users.SchoolId),
         UserName = COALESCE(NULLIF(EXCLUDED.UserName,''),Users.UserName),
         UserType = COALESCE(NULLIF(EXCLUDED.UserType,''),Users.UserType),
 	    PhoneNumber = NULLIF(EXCLUDED.PhoneNumber,''),
@@ -48,7 +50,7 @@ BEGIN
 	    IF(pUserType = 'ST') THEN
 	    	PERFORM $APP_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0); -- Create new student (unassigned class)
 		ELSEIF (pUserType = 'TR') THEN 
-	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, 0, NULL, NULL); -- Create new teacher (no school / classes)
+	    	PERFORM $APP_NAME$Views.SP_DCPUpsertTeacher(MyUserId, NULL, NULL); -- Create new teacher (no school / classes)
 		END IF;
 		
 		-- Generate user event (new user)

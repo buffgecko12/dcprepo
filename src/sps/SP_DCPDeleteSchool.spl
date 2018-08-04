@@ -14,7 +14,7 @@ BEGIN
 	END LOOP;
 
 	-- Set schoolId as unassigned/deactivated
-	UPDATE $APP_NAME$.User_Teacher
+	UPDATE $APP_NAME$.Users
 	SET SchoolId = 0
 	WHERE SchoolId = pSchoolId;
 	

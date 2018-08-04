@@ -23,7 +23,7 @@ FROM $APP_NAME$.Lookup_Badge_Profile_Picture;
 
 -- User info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 
-SELECT UserId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, 
+SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, 
 		ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, 
 		Last_Login, Is_Active, -- Required for django authentication
 		DataUsePolicyAcceptedTS
@@ -34,14 +34,14 @@ AND UserId <> 0 -- Ignore reserve fields
 
 -- Student info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Students AS 
-SELECT us.StudentUserId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
+SELECT us.StudentUserId, u.SchoolId, us.Classid, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
 FROM $APP_NAME$Views.Users u
 INNER JOIN $APP_NAME$Views.User_Student us ON u.UserId = us.StudentUserId
 ;
 
 -- Teacher info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teachers AS 
-SELECT ut.TeacherUserId, ut.SchoolId, ut.MaxBudget, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
+SELECT ut.TeacherUserId, u.SchoolId, ut.MaxBudget, u.Firstname, u.Lastname, u.DefaultSignatureScanFile, u.PhoneNumber, u.EmailAddress, u.ReputationValue, u.ProfilePictureId
 FROM $APP_NAME$Views.Users u
 INNER JOIN $APP_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 ;

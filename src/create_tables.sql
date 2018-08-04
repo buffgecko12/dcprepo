@@ -14,6 +14,29 @@ CREATE TABLE $APP_NAME$.Binary_File (
 )
 ;
 
+-- Schools
+CREATE TABLE $APP_NAME$.School (
+	SchoolId INTEGER NOT NULL,
+	SchoolDisplayName VARCHAR(100) NOT NULL,
+	SchoolAbbreviation VARCHAR(25),
+	Address VARCHAR(100),
+	City VARCHAR(100),
+	Department VARCHAR(100),
+	DataUsePolicyFileId INTEGER,
+	GuardianApprovalPolicy JSONB,
+	PRIMARY KEY (SchoolId),
+	FOREIGN KEY (DataUsePolicyFileId) REFERENCES $APP_NAME$.Binary_File(FileId)
+);
+
+-- Classes
+CREATE TABLE $APP_NAME$.Class (
+	ClassId INTEGER NOT NULL,
+	SchoolId INTEGER NOT NULL,
+	ClassDisplayName VARCHAR(100) NOT NULL,
+	PRIMARY KEY (ClassId),
+	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
+);
+
 CREATE TABLE $APP_NAME$.Lookup_Event (
 	EventId INTEGER,
 	EventType CHAR(2) NOT NULL,
@@ -63,6 +86,7 @@ CREATE TABLE $APP_NAME$.User_Badge (
 -- User profiles
 CREATE TABLE $APP_NAME$.Users (
     UserId INTEGER NOT NULL,
+    SchoolId INTEGER,
     UserName VARCHAR(50) NOT NULL UNIQUE,
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
@@ -80,40 +104,16 @@ CREATE TABLE $APP_NAME$.Users (
 	DataUsePolicyAcceptedTS TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId),
+    FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School(SchoolId),
     FOREIGN KEY (UserId, ProfilePictureId) REFERENCES $APP_NAME$.User_Badge(UserId, BadgeProfilePictureId)
-);
-
--- Schools
-CREATE TABLE $APP_NAME$.School (
-	SchoolId INTEGER NOT NULL,
-	SchoolDisplayName VARCHAR(100) NOT NULL,
-	SchoolAbbreviation VARCHAR(25),
-	Address VARCHAR(100),
-	City VARCHAR(100),
-	Department VARCHAR(100),
-	DataUsePolicyFileId INTEGER,
-	GuardianApprovalPolicy JSONB,
-	PRIMARY KEY (SchoolId),
-	FOREIGN KEY (DataUsePolicyFileId) REFERENCES $APP_NAME$.Binary_File(FileId)
-);
-
--- Classes
-CREATE TABLE $APP_NAME$.Class (
-	ClassId INTEGER NOT NULL,
-	SchoolId INTEGER NOT NULL,
-	ClassDisplayName VARCHAR(100) NOT NULL,
-	PRIMARY KEY (ClassId),
-	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
 );
 
 -- Additional teacher user info
 CREATE TABLE $APP_NAME$.User_Teacher (
 	TeacherUserId INTEGER NOT NULL,
-	SchoolId INTEGER,
 	MaxBudget INTEGER,
 	PRIMARY KEY (TeacherUserId),
-	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId),
-	FOREIGN KEY(SchoolId) REFERENCES $APP_NAME$.School
+	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
 -- Classes associated with a teacher

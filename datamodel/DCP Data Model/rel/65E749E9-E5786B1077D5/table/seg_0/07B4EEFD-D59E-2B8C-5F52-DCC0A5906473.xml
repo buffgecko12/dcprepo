@@ -21,6 +21,21 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="SchoolId" id="BFD1FC07-4F1D-8905-F7D6-14C79A3D2F82">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 20:40:54 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="666A66B7-2277-9521-FB59-A62EC7ED3808" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</associations>
+</Column>
 <Column name="UserName" id="0592760A-AF5D-87B5-1A98-2E1E5DE44E50">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -225,6 +240,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7D6C6F42-65D3-D5A8-41A7-C0FD9585CB2C" name="FKv31">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 20:40:54 UTC</createdTime>
+<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BFD1FC07-4F1D-8905-F7D6-14C79A3D2F82"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

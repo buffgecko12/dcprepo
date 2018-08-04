@@ -8,17 +8,17 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes
 
 -- Add users
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe1@smith.com',NULL,'U',NULL,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (101, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,'U',NULL,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,'U',NULL,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (100, 100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe1@smith.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (101, 100, 'MyStudent1','ST','Nic','Cage',NULL,'MyPhone','nic@cage.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (102, 100, 'MyStudent2','ST','Sean','Connery',NULL,'MyPhone','the@besht.com',NULL,'U',NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (103, 100, 'MyStudent3','ST','Elsa','Benitez',NULL,'MyPhone1','the@shipoopee.com',NULL,'U',NULL,NULL);
 
 -- Add user notification
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);
 
 -- Add teacher info
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'));
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'));
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 200000, JSONB('{"deletedclasses": [],"currentclasses": [{"classid":100},{"classid":101}]}'));
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(100, 200000, JSONB('{"deletedclasses": [101],"currentclasses": [{"classid":102}]}'));
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacherBudget(100,500000);
 
 -- Add student info

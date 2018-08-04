@@ -8,12 +8,12 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT st.StudentUserId, sc.SchoolId, sc.SchoolDisplayName, st.ClassId, st.Firstname, st.Lastname, 
+	SELECT st.StudentUserId, st.SchoolId, sc.SchoolDisplayName, st.ClassId, st.Firstname, st.Lastname, 
 		   st.DefaultSignatureScanFile, st.PhoneNumber, st.EmailAddress, st.ProfilePictureId, st.ReputationValue,
 		   CASE WHEN c.ClassId IS NOT NULL THEN jsonb_build_object('classid',c.ClassId,'classdisplayname',c.ClassDisplayName) ELSE NULL END AS ClassInfo
 	FROM $APP_NAME$Views.Students st
 	LEFT JOIN $APP_NAME$Views.Class c ON c.ClassId = st.ClassId
-	LEFT JOIN $APP_NAME$Views.School sc ON sc.SchoolId = c.SchoolId -- Get school info
+	LEFT JOIN $APP_NAME$Views.School sc ON sc.SchoolId = st.SchoolId -- Get school info
 	WHERE (st.StudentUserId = pStudentUserId OR pStudentUserId IS NULL)
 	AND (st.ClassId = pClassId OR pClassId IS NULL)
 	ORDER BY st.Firstname, st.Lastname, sc.SchoolDisplayName, c.ClassDisplayName

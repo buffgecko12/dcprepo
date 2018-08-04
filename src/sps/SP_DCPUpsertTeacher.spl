@@ -1,6 +1,5 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacher (
     pTeacherUserId INTEGER, 
-    pSchoolId INTEGER,
     pMaxBudget INTEGER,
     pClassInfo JSONB
 ) 
@@ -8,10 +7,9 @@ RETURNS VOID AS $$
 BEGIN
 
     -- S1: Update teacher info
-    INSERT INTO $APP_NAME$.User_Teacher(TeacherUserId, SchoolId, MaxBudget)
-    VALUES(pTeacherUserId, pSchoolId, pMaxBudget)
+    INSERT INTO $APP_NAME$.User_Teacher(TeacherUserId, MaxBudget)
+    VALUES(pTeacherUserId, pMaxBudget)
     ON CONFLICT(TeacherUserId) DO UPDATE SET
-    	SchoolId = EXCLUDED.SchoolId,
     	MaxBudget = COALESCE(EXCLUDED.MaxBudget, User_Teacher.MaxBudget) -- Don't overwrite existing values with NULL
     ;
     
