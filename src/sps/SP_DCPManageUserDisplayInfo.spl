@@ -29,7 +29,7 @@ BEGIN
 			AND (ure.EventTS > u.ReputationValueLastSeenTS OR u.ReputationValueLastSeenTS IS NULL) -- Only get events that occurred after user last viewed reputation info
 			GROUP BY u.UserId
 		) rep ON u.UserId = rep.UserId
-		LEFT JOIN $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp ON u.ProfilePictureId = lbp.ProfilePictureId -- Get profile picture info
+		LEFT JOIN $APP_NAME$Views.Lookup_Profile_Picture lbp ON u.ProfilePictureId = lbp.ProfilePictureId -- Get profile picture info
 		WHERE u.UserId = pUserId
 		;
 	

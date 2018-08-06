@@ -9,6 +9,7 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.User_Student AS SELECT * FROM $APP_NAME$.
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Reputation_Event AS SELECT * FROM $APP_NAME$.User_Reputation_Event;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Badge AS SELECT * FROM $APP_NAME$.User_Badge;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Notification AS SELECT * FROM $APP_NAME$.User_Notification;
+CREATE OR REPLACE VIEW $APP_NAME$Views.User_Profile_Picture AS SELECT * FROM $APP_NAME$.User_Profile_Picture;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Reward AS SELECT * FROM $APP_NAME$.Lookup_Reward;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Status AS SELECT * FROM $APP_NAME$.Lookup_Status;
@@ -17,9 +18,9 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Binary_File AS SELECT * FROM $APP_NAME$.Binary_File;
 
-CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge_Profile_Picture AS 
+CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Profile_Picture AS 
 SELECT ProfilePictureId, BadgeLevel, FilePath AS ProfilePictureFilePath, CAST(FileName || '.' || FileExtension AS VARCHAR(300)) AS ProfilePictureFileName
-FROM $APP_NAME$.Lookup_Badge_Profile_Picture;
+FROM $APP_NAME$.Lookup_Profile_Picture;
 
 -- User info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 

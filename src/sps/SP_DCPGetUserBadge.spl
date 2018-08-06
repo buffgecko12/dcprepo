@@ -7,10 +7,11 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT ub.UserId, ub.BadgeId, ub.BadgeAchievedTS, lbp.ProfilePictureId, lbp.ProfilePictureFilePath, lbp.ProfilePictureFileName, lb.BadgeLevel, lb.BadgeShortName, lb.BadgeDisplayName, lb.BadgeDescription
+    SELECT ub.UserId, ub.BadgeId, ub.BadgeAchievedTS, upp.ProfilePictureId, lpp.ProfilePictureFilePath, lpp.ProfilePictureFileName, lb.BadgeLevel, lb.BadgeShortName, lb.BadgeDisplayName, lb.BadgeDescription
     FROM $APP_NAME$Views.User_Badge ub
-    INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON ub.BadgeId = lb.BadgeId
-    LEFT JOIN $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp ON ub.BadgeProfilePictureId = lbp.ProfilePictureId
+    INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON ub.BadgeId = lb.BadgeId -- Get badge info
+    LEFT JOIN $APP_NAME$Views.User_Profile_Picture upp ON ub.UserId = upp.UserId AND ub.BadgeId = upp.SourceBadgeId -- Lookup any profile pictures associated with badge
+    LEFT JOIN $APP_NAME$Views.Lookup_Profile_Picture lpp ON upp.ProfilePictureId = lpp.ProfilePictureId -- Lookup profile picture info
     WHERE (ub.UserId = pUserId OR pUserId IS NULL)
     AND (ub.BadgeId = pBadgeId OR pBadgeId IS NULL)
     ORDER BY ub.UserId, CASE lb.BadgeLevel WHEN 'B' THEN 3 WHEN 'S' THEN 2 WHEN 'G' THEN 1 END, ub.BadgeAchievedTS

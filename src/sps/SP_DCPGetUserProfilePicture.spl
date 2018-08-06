@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserProfilePicture(
+    pUserId INTEGER
+)
+RETURNS TABLE (
+	UserId INTEGER, ProfilePictureId INTEGER, ProfilePictureFilePath VARCHAR(250), ProfilePictureFileName VARCHAR(250)
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT upp.UserId, upp.ProfilePictureId, lpp.ProfilePictureFilePath, lpp.ProfilePictureFileName -- Return UserId otherwise Django will complain!
+    FROM $APP_NAME$Views.User_Profile_Picture upp -- Get profile pictures associated with user
+    LEFT JOIN $APP_NAME$Views.Lookup_Profile_Picture lpp ON upp.ProfilePictureId = lpp.ProfilePictureId -- Get profile picture info
+    WHERE (upp.UserId = pUserId OR pUserId IS NULL)
+    ORDER BY upp.ProfilePictureAddedTS, upp.SourceBadgeId DESC -- Show from oldest to most recent
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

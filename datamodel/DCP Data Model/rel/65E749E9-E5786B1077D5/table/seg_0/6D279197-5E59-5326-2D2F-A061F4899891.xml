@@ -1,0 +1,114 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="6D279197-5E59-5326-2D2F-A061F4899891" name="User_Profile_Picture">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:11:23 UTC</createdTime>
+<comment>Profile pictures associated with user account.</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_25</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="UserId" id="56508153-B843-B4B9-2281-03D73025A95D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:12:07 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="667209C7-1EB4-94E7-79D4-1B89C89E8AC5" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
+<colAssociation fkAssociation="872D4E5E-6946-1A15-7FC4-803CC2327DE6" referredColumn="AC670BCB-76E0-A7F6-CAE9-CD9FD8BBC09B"/>
+</associations>
+</Column>
+<Column name="ProfilePictureId" id="EBDFC842-CF52-F21C-CEE0-D6F01C72F590">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:12:44 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>67601FC1-9BE5-66BB-0A66-1FE6C8E4068D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D4C39498-78F2-B980-DB0D-F4F6B96DEBAB" referredColumn="5ED777D8-C601-B234-E74C-708292F1A806"/>
+</associations>
+</Column>
+<Column name="BadgeId" id="235A226E-932D-7078-C176-1B1117DABB39">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:50:03 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="872D4E5E-6946-1A15-7FC4-803CC2327DE6" referredColumn="83A8550C-2889-0314-D671-889FC25207B9"/>
+</associations>
+</Column>
+<Column name="ProfilePictureAddedTS" id="24749D9C-B84E-E4FA-F40C-8ABD51539D4E">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 20:28:45 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B89D7EAE-E64E-E011-2716-4D4697DAF7E0" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:49:57 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="56508153-B843-B4B9-2281-03D73025A95D"/>
+<colUsage columnID="EBDFC842-CF52-F21C-CEE0-D6F01C72F590"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="6CC2E1F2-C10B-DD18-B7CA-6B4B3D89FCBF" name="FKv16">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:12:07 UTC</createdTime>
+<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="56508153-B843-B4B9-2281-03D73025A95D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9B6400FB-32B0-39AA-29F4-C9DA4441B408" name="FKv33">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:12:44 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EBDFC842-CF52-F21C-CEE0-D6F01C72F590"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F9F25C0D-BFF9-7C33-5B0E-4F754C90D512" name="FKv29">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-06 18:50:03 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="56508153-B843-B4B9-2281-03D73025A95D"/>
+<colUsage columnID="235A226E-932D-7078-C176-1B1117DABB39"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

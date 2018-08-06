@@ -41,12 +41,12 @@ BEGIN
 		
 	END IF;
 	
-	-- Add new badges
-	WITH ins AS (
-		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS, BadgeProfilePictureId)
-		SELECT pUserId AS UserId, badges.BadgeId, CURRENT_TIMESTAMP, bpp.ProfilePictureId
+	-- Add new badges & profile pictures
+	WITH get_badges AS (
+		SELECT badges.UserId, badges.BadgeId, badges.BadgeLevel, MyBadgeRowNum, bpp.ProfilePictureId
 		FROM (
 			SELECT 
+				u.UserId,
 				lb.BadgeId, 
 				lb.BadgeLevel,
 				ROW_NUMBER() OVER() AS MyBadgeRowNum -- Assign each earned badge a RowId
@@ -99,20 +99,29 @@ BEGIN
 		) badges
 		LEFT JOIN ( -- Get all available badge profile pictures
 			SELECT 
-				lbp.ProfilePictureId, 
-				lbp.BadgeLevel, 
-				ROW_NUMBER() OVER(PARTITION BY lbp.BadgeLevel ORDER BY RANDOM()) MyProfilePictureRowNum -- Generate random ID values for each profilepicture (within badge level)
-			FROM $APP_NAME$Views.Lookup_Badge_Profile_Picture lbp
+				lpp.ProfilePictureId, 
+				lpp.BadgeLevel, 
+				ROW_NUMBER() OVER(PARTITION BY lpp.BadgeLevel ORDER BY RANDOM()) MyProfilePictureRowNum -- Generate random ID values for each profilepicture (within badge level)
+			FROM $APP_NAME$Views.Lookup_Profile_Picture lpp
 			WHERE ProfilePictureId NOT IN ( -- Exclude picures user already has
-				SELECT BadgeProfilePictureId 
-				FROM $APP_NAME$Views.User_Badge 
+				SELECT ProfilePictureId 
+				FROM $APP_NAME$Views.User_Profile_Picture
 				WHERE UserId = pUserId
 			)
 		) bpp ON badges.BadgeLevel = bpp.BadgeLevel AND badges.MyBadgeRowNum = bpp.MyProfilePictureRowNum -- Assign a random profile picture to each earned badge
+	),
+	insert_badges AS (
+		INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
+		SELECT UserId, BadgeId, CURRENT_TIMESTAMP
+		FROM get_badges
 		ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
-		RETURNING 1
-	) 
-	SELECT COALESCE(COUNT(*),0) FROM ins INTO NumBadgesAdded
+	),
+	insert_profile_pics AS (
+		INSERT INTO $APP_NAME$.User_Profile_Picture (UserId, ProfilePictureId, SourceBadgeId, ProfilePictureAddedTS)
+		SELECT UserId, ProfilePictureId, BadgeId, CURRENT_TIMESTAMP
+		FROM get_badges
+	)
+	SELECT COALESCE(COUNT(*),0) FROM get_badges INTO NumBadgesAdded
 	;
 
 	-- If badges were added, generate notification

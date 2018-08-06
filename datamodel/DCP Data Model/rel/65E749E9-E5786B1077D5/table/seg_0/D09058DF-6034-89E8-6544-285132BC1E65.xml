@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D09058DF-6034-89E8-6544-285132BC1E65" name="Lookup_Badge_Profile_Picture">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D09058DF-6034-89E8-6544-285132BC1E65" name="Lookup_Profile_Picture">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-31 00:30:35 UTC</createdTime>
 <comment>Store profile picture info for badges.</comment>

@@ -106,6 +106,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetUserNotification(100,NULL,NULL,NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetUserProfilePicture(100);
 
 -- Other
 SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateUser(101);

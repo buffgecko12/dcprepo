@@ -91,11 +91,15 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 ;
 
 -- Badge profile pictures
-INSERT INTO $APP_NAME$.Lookup_Badge_Profile_Picture
+INSERT INTO $APP_NAME$.Lookup_Profile_Picture
 (BadgeLevel, FilePath, FileName, FileExtension, Description) VALUES
 
+-- Default pictures
+('D', 'avengers/','1','png','Avenger 1'),
+('D', 'avengers/','11','png','Avenger 11'),
+('D', 'avengers/','12','png','Avenger 12'),
+
 -- Bronze level
-('B', 'avengers/','1','png','Avenger 1'),
 ('B', 'avengers/','2','png','Avenger 2'),
 ('B', 'avengers/','3','png','Avenger 3'),
 ('B', 'avengers/','4','png','Avenger 4'),
@@ -105,7 +109,6 @@ INSERT INTO $APP_NAME$.Lookup_Badge_Profile_Picture
 ('B', 'avengers/','8','png','Avenger 8'),
 ('B', 'avengers/','9','png','Avenger 9'),
 ('B', 'avengers/','10','png','Avenger 10'),
-('B', 'avengers/','11','png','Avenger 11'),
 
 -- Silver level
 ('S', 'countries/','argentina1','png','Argetina flag (round)'),

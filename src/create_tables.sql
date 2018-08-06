@@ -61,7 +61,7 @@ CREATE TABLE $APP_NAME$.Lookup_Badge (
 );
 
 -- Reputation event info
-CREATE TABLE $APP_NAME$.Lookup_Badge_Profile_Picture (
+CREATE TABLE $APP_NAME$.Lookup_Profile_Picture (
 	ProfilePictureId SERIAL NOT NULL,
 	BadgeLevel CHAR(1) NOT NULL,
     FilePath VARCHAR(250),
@@ -76,10 +76,7 @@ CREATE TABLE $APP_NAME$.User_Badge (
 	UserId INTEGER NOT NULL,
 	BadgeId INTEGER NOT NULL,
 	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	BadgeProfilePictureId INTEGER,
-	PRIMARY KEY (UserId, BadgeId),
-	UNIQUE (UserId, BadgeProfilePictureId),
-	FOREIGN KEY (BadgeProfilePictureId) REFERENCES $APP_NAME$.Lookup_Badge_Profile_Picture(ProfilePictureId)
+	PRIMARY KEY (UserId, BadgeId)
 );
 
 -- User profiles
@@ -103,8 +100,17 @@ CREATE TABLE $APP_NAME$.Users (
 	DataUsePolicyAcceptedTS TIMESTAMP WITH TIME ZONE,
     -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
     PRIMARY KEY(UserId),
-    FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School(SchoolId),
-    FOREIGN KEY (UserId, ProfilePictureId) REFERENCES $APP_NAME$.User_Badge(UserId, BadgeProfilePictureId)
+    FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School(SchoolId)
+);
+
+CREATE TABLE $APP_NAME$.User_Profile_Picture (
+	UserId INTEGER NOT NULL,
+	ProfilePictureId INTEGER NOT NULL,
+	SourceBadgeId INTEGER,
+	ProfilePictureAddedTS TIMESTAMP WITH TIME ZONE,
+	PRIMARY KEY(UserId, ProfilePictureId),
+	FOREIGN KEY(UserId) REFERENCES $APP_NAME$.Users(UserId),
+	FOREIGN KEY(ProfilePictureId) REFERENCES $APP_NAME$.Lookup_Profile_Picture(ProfilePictureId)
 );
 
 -- Additional teacher user info

@@ -47,6 +47,14 @@ BEGIN
     
     -- Add additional info (new user)
     IF(pUserId IS NULL) THEN
+    
+    	-- Add default pictures
+    	INSERT INTO $APP_NAME$.User_Profile_Picture(UserId, ProfilePictureId, ProfilePictureAddedTS)
+    	SELECT MyUserId, ProfilePictureId, CURRENT_TIMESTAMP
+    	FROM $APP_NAME$Views.Lookup_Profile_Picture
+		WHERE BadgeLevel = 'D'
+		;
+    	
 	    IF(pUserType = 'ST') THEN
 	    	PERFORM $APP_NAME$Views.SP_DCPUpsertStudent(MyUserId, 0); -- Create new student (unassigned class)
 		ELSEIF (pUserType = 'TR') THEN 

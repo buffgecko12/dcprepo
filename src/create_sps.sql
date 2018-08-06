@@ -11,6 +11,7 @@
 \i install/sps/SP_DCPUpsertUserNotification.spl
 \i install/sps/SP_DCPClearUserNotification.spl
 \i install/sps/SP_DCPDeactivateUser.spl
+\i install/sps/SP_DCPGetUserProfilePicture.spl
 
 -- Teacher
 \i install/sps/SP_DCPUpsertTeacher.spl
