@@ -3,6 +3,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPChangeContractStatus(
     pContractStatus CHAR(1)
 ) 
 RETURNS VOID AS $$
+DECLARE
+	MyTeacherUserId INTEGER;
 BEGIN
 	-- Set contract status
 	UPDATE $APP_NAME$.Contract
@@ -14,7 +16,14 @@ BEGIN
 	
 		-- Generate user notifications
 		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1003, pContractId); -- Pending contract to review
-	END IF;
 		
+		SELECT TeacherUserId INTO MyTeacherUserId
+		FROM $APP_NAME$Views.Contract
+		WHERE ContractId = pContractId
+		;
+		
+		-- Generate new "Send contract" event
+		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(MyTeacherUserId, 2014, pContractId);
+	END IF;
 END
 $$ LANGUAGE 'plpgsql';
