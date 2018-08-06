@@ -11,8 +11,7 @@ CREATE TABLE $APP_NAME$.Binary_File (
     FileData BYTEA,
     AccessClass CHAR(2),
     PRIMARY KEY (FileId)
-)
-;
+);
 
 -- Schools
 CREATE TABLE $APP_NAME$.School (
@@ -171,6 +170,7 @@ CREATE TABLE $APP_NAME$.Contract_Party_Approval (
 	ApprovalType CHAR(1) NOT NULL,
 	PreferredGoalId INTEGER,
 	SignatureScanFile BYTEA,
+	GuardianApprovalInfo JSONB,
 	PartyApprovalTS TIMESTAMP WITH TIME ZONE,
 	LogonUserId INTEGER NOT NULL,
 	PRIMARY KEY (ContractId, PartyUserId, ApprovalType),

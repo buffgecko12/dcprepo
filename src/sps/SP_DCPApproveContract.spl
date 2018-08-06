@@ -4,7 +4,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPApproveContract(
     pApprovalType CHAR(1),
     pPreferredGoalId INTEGER,
     pSignatureScanFile BYTEA,
-    pLogonUserId INTEGER
+    pLogonUserId INTEGER,
+    pGuardianApprovalInfo JSONB
 ) 
 RETURNS BOOLEAN AS $$
 DECLARE
@@ -29,8 +30,8 @@ BEGIN
 	
 	-- Update approval	
 	WITH ins AS (
-		INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId)
-		SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, pSignatureScanFile, CURRENT_TIMESTAMP, pLogonUserId
+		INSERT INTO $APP_NAME$.Contract_Party_Approval(ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, PartyApprovalTS, LogonUserId, GuardianApprovalInfo)
+		SELECT pContractId, pPartyUserId, pApprovalType, pPreferredGoalId, NULLIF(pSignatureScanFile,''), CURRENT_TIMESTAMP, pLogonUserId, pGuardianApprovalInfo
 		FROM $APP_NAME$Views.Contract_Party -- Make sure party user exists
 		WHERE ContractId = pContractId
 		AND PartyUserId = pPartyUserId
@@ -38,7 +39,8 @@ BEGIN
 			PreferredGoalId = COALESCE(EXCLUDED.PreferredGoalId, Contract_Party_Approval.PreferredGoalId),
 			SignatureScanFile = COALESCE(EXCLUDED.SignatureScanFile, Contract_Party_Approval.SignatureScanFile),
 			PartyApprovalTS = CURRENT_TIMESTAMP,
-			LogonUserId = pLogonUserId
+			LogonUserId = pLogonUserId,
+			GuardianApprovalInfo = pGuardianApprovalInfo
 		RETURNING 1
 	)
 	SELECT CASE WHEN COUNT(*) > 0 THEN TRUE ELSE FALSE END INTO bPartyApprovalFlag FROM ins 

@@ -83,6 +83,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="GuardianApprovalInfo" id="1BF07991-EC98-A106-F950-B6057A3CDE16">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-04 17:05:49 UTC</createdTime>
+<commentInRDBMS>Guardian approval info (variable data)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="PartyApprovalTS" id="0FAC2F73-D2B0-EEC5-E6D0-7C94C47015B4">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:37:19 UTC</createdTime>
