@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="24A4F050-DB78-ADC2-29F6-DF23DACEC41E" name="Contract_Party_Goal_Reward">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-04 16:43:34 UTC</createdTime>
-<comment>Tracks reward fulfilment for each contract party</comment>
+<comment>Tracks goal achievement / reward fulfilment for each contract party</comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <ordsAlias>table_15</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
@@ -20,7 +20,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="E1EF1A93-298D-11A7-09BC-2E0CF164BB10" referredColumn="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
+<colAssociation fkAssociation="285E9A67-E5A4-3229-6BD0-D518C6092529" referredColumn="383C4A86-6E2B-557A-85FC-6C114B20F4AD"/>
 <colAssociation fkAssociation="C6250E0F-2C2B-57A0-7C0D-77FB9D115668" referredColumn="B2E4E90B-75ED-022F-3A11-AF4BBCF15943"/>
 </associations>
 </Column>
@@ -49,13 +49,14 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="E1EF1A93-298D-11A7-09BC-2E0CF164BB10" referredColumn="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
+<colAssociation fkAssociation="285E9A67-E5A4-3229-6BD0-D518C6092529" referredColumn="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
 </associations>
 </Column>
-<Column name="RewardId" id="2B9F6B4F-8CB2-96E8-F0C5-DB529050CD5F">
+<Column name="RewardId" id="963EA5C8-0510-7E99-D8DB-522ACCCBB403">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-08 14:27:13 UTC</createdTime>
+<createdTime>2018-08-07 17:58:53 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
@@ -63,7 +64,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="E1EF1A93-298D-11A7-09BC-2E0CF164BB10" referredColumn="886F0883-8E96-EC5D-FD64-1909E1C82A4E"/>
+<colAssociation fkAssociation="285E9A67-E5A4-3229-6BD0-D518C6092529" referredColumn="886F0883-8E96-EC5D-FD64-1909E1C82A4E"/>
 </associations>
 </Column>
 <Column name="RewardDeliveredFlag" id="A2F391CF-9E15-E191-FC8F-3442640360DC">
@@ -103,7 +104,6 @@
 <colUsage columnID="C07841A3-CA00-ECED-27F3-66A87C944ACC"/>
 <colUsage columnID="1ED072CB-C13B-AD3B-D393-2732E1F2E5E5"/>
 <colUsage columnID="453BA9A4-EF33-54AC-DEBA-5EBB46EF5873"/>
-<colUsage columnID="2B9F6B4F-8CB2-96E8-F0C5-DB529050CD5F"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="39A8603E-6CDC-F7A4-CA52-BEBEA2496FDF" name="FKv4">
@@ -118,9 +118,9 @@
 <colUsage columnID="1ED072CB-C13B-AD3B-D393-2732E1F2E5E5"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="858DB618-FA08-D3A4-30E4-933DC0550C2D" name="FKv12">
+<ind_PK_UK id="34A721F1-75D2-1D2C-EDEB-28FEFE0DE179" name="FKv32">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-07-08 14:26:56 UTC</createdTime>
+<createdTime>2018-08-07 17:58:53 UTC</createdTime>
 <generatorID>A6B9BCB9-AEDE-FA59-8001-D3E7EB07CAC7</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
@@ -128,7 +128,7 @@
 <indexColumnUsage>
 <colUsage columnID="1ED072CB-C13B-AD3B-D393-2732E1F2E5E5"/>
 <colUsage columnID="453BA9A4-EF33-54AC-DEBA-5EBB46EF5873"/>
-<colUsage columnID="2B9F6B4F-8CB2-96E8-F0C5-DB529050CD5F"/>
+<colUsage columnID="963EA5C8-0510-7E99-D8DB-522ACCCBB403"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

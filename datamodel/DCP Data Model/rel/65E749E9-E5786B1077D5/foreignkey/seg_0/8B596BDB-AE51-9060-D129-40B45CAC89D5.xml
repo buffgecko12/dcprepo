@@ -11,7 +11,7 @@
 <referredKeyID>39F9FF6B-AE98-E428-D4B3-8AD15B107FED</referredKeyID>
 <mandatory>true</mandatory>
 <refColNames>GoalId,ContractId</refColNames>
-<transferable>true</transferable>
+<transferable>false</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>

@@ -56,18 +56,18 @@ BEGIN
 	-- Upsert goals
     IF (pGoalInfo->'currentgoals' IS NOT NULL) THEN 
 		FOR mygoal IN 
-			SELECT src.GoalId, src.DifficultyLevel, src.GoalDescription, src.AcceptedFlag, src.AchievedFlag, src.RewardInfo
+			SELECT src.GoalId, src.DifficultyLevel, src.GoalDescription, src.AcceptedFlag, src.RewardInfo, src.MaxNumRewards
 			FROM JSONB_TO_RECORDSET(pGoalInfo->'currentgoals')
 			  AS src(
 			   GoalId INTEGER, 
 			   DifficultyLevel CHAR(1),
 			   GoalDescription VARCHAR(500), 
 			   AcceptedFlag BOOLEAN,
-			   AchievedFlag BOOLEAN,
-			   RewardInfo JSONB
+			   RewardInfo JSONB,
+			   MaxNumRewards INTEGER
 		   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
 		LOOP
-		    PERFORM $APP_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.AchievedFlag, mygoal.RewardInfo);
+		    PERFORM $APP_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.RewardInfo, mygoal.MaxNumRewards);
 		END LOOP;
 	END IF;
     

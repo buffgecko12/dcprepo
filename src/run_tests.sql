@@ -42,7 +42,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateReward(2);
 -- Add contract
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContract(
 	100,100,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
-	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null, "rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","achievedflag": null,"rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}}]}'),
+	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}}]}'),
 	JSONB('{"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 101,"contractrole": "PL"},{"partyuserid": 102,"contractrole": "BL"},{"partyuserid": 103,"contractrole": "PT"}]}')
 );
 
@@ -60,11 +60,11 @@ SELECT * FROM $APP_NAME$Views.SP_DCPDuplicateContract(100, 102, 100, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
 -- Add / modify /delete contract goals / rewards
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContractGoal(100,NULL,'E','Goal 1',NULL,NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContractGoal(100,NULL,'E','Goal 1',NULL,
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0);
 
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContractGoal(100,1,'M','Goal 1',NULL,NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'));
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContractGoal(100,1,'M','Goal 1',NULL,
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0);
 
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContractGoalReward(100,2,1);
 

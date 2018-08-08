@@ -62,19 +62,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="AchievedFlag" id="7847F0B0-DAAE-19DC-B2BE-86C70D8C1696">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Was the goal achieved?</comment>
-<generatorID>DD706BC5-A7F1-9DD1-60F8-7D88D912D123</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<use>0</use>
-<logicalDatatype>LOGDT006</logicalDatatype>
-<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="AcceptedFlag" id="10A8788B-2128-F0F2-1D73-B388DDAF9D64">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-16 14:23:44 UTC</createdTime>
@@ -84,6 +71,18 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT006</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MaxNumRewards" id="1C2105CC-5C38-3D12-BB65-5C963DA3F1AA">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-07 15:16:54 UTC</createdTime>
+<commentInRDBMS>Maximum number of rewards avaialble for this goal</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

@@ -10,7 +10,7 @@
 <referredKeyID>6125C0A5-95F1-E39E-6F44-9A3F05DC4524</referredKeyID>
 <mandatory>true</mandatory>
 <refColNames>RewardId</refColNames>
-<transferable>true</transferable>
+<transferable>false</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>

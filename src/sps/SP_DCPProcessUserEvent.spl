@@ -86,10 +86,8 @@ BEGIN
 							( -- Goals completed
 								le.EventId = 2 AND (
 									SELECT COUNT(*)
-									FROM $APP_NAME$Views.Contract_Party cp -- Get contracts associated with user
-									INNER JOIN $APP_NAME$Views.Contract_Goal cg ON cp.ContractId = cg.ContractId -- Get contract goals
+									FROM $APP_NAME$Views.Contract_Party_Goal_Reward cp -- Get contracts goals completed by user
 									WHERE cp.PartyUserId = pUserId
-									AND cg.AchievedFlag IS TRUE -- Check for achieved goals
 								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
 							)
 						)

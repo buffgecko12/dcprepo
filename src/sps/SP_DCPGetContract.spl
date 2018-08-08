@@ -40,7 +40,7 @@ BEGIN
 			JSONB_BUILD_OBJECT(
 				'currentgoals',
 				JSONB_AGG(
-					(SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.AchievedFlag, cgr.rewardinfo) AS x)
+					(SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.MaxNumRewards, cgr.rewardinfo) AS x)
 					ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
 				)
 			) AS goalinfo

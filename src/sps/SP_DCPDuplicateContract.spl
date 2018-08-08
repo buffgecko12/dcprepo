@@ -36,8 +36,7 @@ BEGIN
 	
 	-- Reset goal info
 	UPDATE $APP_NAME$.Contract_Goal
-	SET AcceptedFlag = NULL,
-		AchievedFlag = NULL
+	SET AcceptedFlag = NULL
 	WHERE ContractId = MyContractId
 	;
 	

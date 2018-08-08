@@ -191,7 +191,7 @@ CREATE TABLE $APP_NAME$.Contract_Goal (
     DifficultyLevel CHAR(1) NOT NULL DEFAULT 'M',
     GoalDescription VARCHAR(500) NOT NULL,
     AcceptedFlag BOOLEAN,
-    AchievedFlag BOOLEAN,
+    MaxNumRewards INTEGER DEFAULT 0, -- 0 = no limit
     PRIMARY KEY (ContractId, GoalId),
     FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
 );
@@ -210,10 +210,10 @@ CREATE TABLE $APP_NAME$.Contract_Party_Goal_Reward (
 	PartyUserId INTEGER NOT NULL,
 	ContractId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
-	RewardId INTEGER NOT NULL,
+	RewardId INTEGER,
 	RewardDeliveredFlag BOOLEAN,
 	ActualRewardValue INTEGER,
-	PRIMARY KEY (ContractId, PartyUserId, GoalId, RewardId),
+	PRIMARY KEY (ContractId, PartyUserId, GoalId),
 	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
 );

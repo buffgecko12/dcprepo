@@ -13,29 +13,65 @@ BEGIN
 		t.MaxBudget - COALESCE(bg.BudgetSpent,0) AS AvailableBudget
 	FROM $APP_NAME$Views.User_Teacher t
 	LEFT JOIN (
-		SELECT src.TeacherUserId, CAST(SUM(BudgetRewardValue) AS INTEGER) BudgetSpent
+		SELECT src.TeacherUserId, CAST(SUM(ContractTotalRewardValue) AS INTEGER) BudgetSpent
 		FROM (
-			SELECT 
-				c.ContractId, 
-				c.TeacherUserId,
-				cp.partyuserid,
-				MAX(
-					CASE 
-						WHEN c.ContractStatus IN ('D','P') THEN r.RewardValue -- Draft / Pending: get reward value for all goals
-						WHEN c.ContractStatus = 'A' AND cg.AcceptedFlag THEN r.RewardValue -- Active: get reward value for accepted goals
-						WHEN c.ContractStatus = 'C' AND cg.AcceptedFlag AND cg.AchievedFlag THEN COALESCE(cpgr.ActualRewardValue, r.RewardValue) -- Completed: reward values for accepted and achieved goals (use actual value if already delivered)
-					END
-				) AS BudgetRewardValue
-			FROM $APP_NAME$Views.Contract c
-			INNER JOIN $APP_NAME$Views.Contract_Goal cg ON c.ContractId = cg.ContractId -- Get goal info
-			INNER JOIN $APP_NAME$Views.Contract_Goal_Reward cgr ON cg.ContractId = cgr.ContractId AND cg.GoalId = cgr.GoalId -- Get reward info
-			INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get contract parties
-			LEFT JOIN $APP_NAME$Views.Contract_Party_Goal_Reward cpgr ON -- Get actual rewards selected by contract parties
-				cp.ContractId = cpgr.ContractId AND cp.PartyUserId = cpgr.PartyUserId AND 
-				cgr.GoalId = cpgr.GoalId AND cgr.RewardId = cpgr.RewardId
-			LEFT JOIN $APP_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId -- Lookup values for reward options (not delivered yet)
-			WHERE (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL) -- Included just in case for optimization
-			GROUP BY c.ContractId, c.TeacherUserId, cp.PartyUserId
+			-- Look at non-completed contracts (max potential value per contract per teacher)
+			 SELECT src.TeacherUserId, COALESCE(MAX(TotalMaxGoalRewardValue),0) AS ContractTotalRewardValue
+			 FROM (
+				SELECT 
+					c.ContractId,
+					c.TeacherUserId,
+					cp.ContractNumParticipants,
+					cg.GoalId,
+					cgr.RewardId, 
+					(
+						CASE WHEN MaxNumRewards = 0 THEN ContractNumParticipants ELSE LEAST(ContractNumParticipants, MaxNumRewards) END -- # participants eligible (use LEAST() since maxNum can't be greater than actual number of participants)
+						* 
+						MAX (
+							CASE
+								WHEN c.ContractStatus IN ('D','P') THEN lr.RewardValue -- Draft / Pending: get reward value for all goals
+								WHEN c.ContractStatus = 'A' AND cg.AcceptedFlag THEN lr.RewardValue -- Active: get reward value for accepted goals
+								ELSE 0
+							END 
+						) OVER(PARTITION BY c.ContractId, cg.GoalId)  -- Max reward value per goal
+					) AS TotalMaxGoalRewardValue -- Total max goal reward value
+				FROM $APP_NAME$Views.Contract c
+				INNER JOIN $APP_NAME$Views.Contract_Goal cg ON c.ContractId = cg.ContractId -- Get contract goals
+				INNER JOIN $APP_NAME$Views.Contract_Goal_Reward cgr ON cg.ContractId = cgr.ContractId and cg.GoalId = cgr.GoalId -- Get rewards associated with each goal
+				INNER JOIN (
+					SELECT ContractId, COUNT(*) AS ContractNumParticipants FROM $APP_NAME$Views.Contract_Party GROUP BY ContractId
+				) cp ON c.ContractId = cp.ContractId -- Get contract party info
+				LEFT JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId = lr.RewardId
+				WHERE ContractStatus IN('D','P','A') -- Look at non-completed contracts	
+				AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL) -- Included just in case for optimization
+			) src
+			GROUP BY src.ContractId, src.TeacherUserId
+			
+			UNION ALL
+			
+			-- Look at completed contracts (total rewards spent/allocated per achieved goal per teacher)
+			SELECT src.TeacherUserId, COALESCE(SUM(ContractPartyRewardValue),0) AS ContractTotalRewardValue
+			FROM (
+				SELECT src.TeacherUserId, src.ContractId, src.PartyUserId, MAX(src.MaxRewardValue) ContractPartyRewardValue
+				FROM (
+					SELECT 
+						c.TeacherUserId, cpgr.ContractId, cpgr.PartyUserId, cpgr.GoalId, cpgr.RewardId, cpgr.ActualRewardValue, cgr.RewardId,
+						CASE 
+							WHEN cpgr.ActualRewardValue IS NOT NULL THEN cpgr.ActualRewardValue -- Reward delivered: Use actual reward value
+							WHEN cpgr.RewardId IS NOT NULL THEN lrs.RewardValue -- Reward selected, but not delivered: use default reward value
+							ELSE lr.RewardValue -- Reward not selected: Get max reward value of available rewards
+						END AS MaxRewardValue-- Get "max" reward value per goal
+					FROM $APP_NAME$Views.Contract_Party_Goal_Reward cpgr -- Get completed goals
+					INNER JOIN $APP_NAME$Views.Contract c ON cpgr.ContractId = c.ContractId -- Get contract info
+					INNER JOIN $APP_NAME$Views.Contract_Goal_Reward cgr ON cpgr.ContractId = cgr.ContractId AND cpgr.GoalId = cgr.GoalId -- Get reward options for achieved goals
+					LEFT JOIN $APP_NAME$Views.Lookup_Reward lrs ON cpgr.RewardId= lrs.RewardId -- Get selected reward value
+					LEFT JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId= lr.RewardId-- Get reward default values
+					WHERE c.ContractStatus = 'C'
+					AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL) -- Included just in case for optimization
+				) src
+				GROUP BY src.ContractId, src.TeacherUserId, src.PartyUserId
+			) src
+			GROUP BY src.TeacherUserId
 		) src
 		GROUP BY src.TeacherUserId
 	) bg ON t.TeacherUserId = bg.TeacherUserId
