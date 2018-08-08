@@ -99,7 +99,7 @@ INSERT INTO $APP_NAME$.Lookup_Profile_Picture
 ('D', 'avengers/','12','png','Avenger 12'),
 
 -- Bronze level
-('D', 'avengers/','1','png','Avenger 1'),
+('B', 'avengers/','1','png','Avenger 1'),
 ('B', 'avengers/','2','png','Avenger 2'),
 ('B', 'avengers/','3','png','Avenger 3'),
 ('B', 'avengers/','4','png','Avenger 4'),
