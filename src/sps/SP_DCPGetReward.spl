@@ -5,11 +5,11 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
     pGlobalFlag BOOLEAN
 )
 RETURNS TABLE (
-	RewardId INTEGER, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, CreatedByUserId INTEGER
+	RewardId INTEGER, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, CreatedByUserId INTEGER, GlobalFlag BOOLEAN
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT r.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.CreatedByUserId
+	SELECT r.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.CreatedByUserId, r.GlobalFlag
 	FROM $APP_NAME$Views.Lookup_Reward r
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
 	AND (
@@ -20,7 +20,7 @@ BEGIN
 		(pActiveFlag AND DeactivatedTS IS NULL) OR 
 		pActiveFlag IS NULL
 	)
-	ORDER BY r.RewardDisplayName
+	ORDER BY r.GlobalFlag, r.RewardDisplayName
 	;	
 END;
 $$ LANGUAGE 'plpgsql';
