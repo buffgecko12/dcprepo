@@ -6,7 +6,7 @@ RETURNS TABLE (
 )AS $$
 BEGIN
     RETURN QUERY
-    SELECT src.ContractId, src.TeacherUserId, src.NumParticipants, src.MaxRewardValue, src.NumParticipants * src.MaxRewardValue AS ContractValue
+    SELECT src.ContractId, src.TeacherUserId, src.NumParticipants, src.MaxRewardValue, cv.ContractValue
     FROM (
 		SELECT c.ContractId, c.TeacherUserId, CAST(COUNT(*) AS INTEGER) AS NumParticipants, COALESCE(cr.MaxRewardValue,0) AS MaxRewardValue
 		FROM $APP_NAME$Views.Contract c
@@ -20,6 +20,10 @@ BEGIN
 		WHERE (cp.ContractId = pContractId OR pContractId IS NULL)
 		GROUP BY c.ContractId, c.TeacherUserId, cr.MaxRewardValue
 	) src
+	LEFT JOIN (
+		SELECT cv.ContractId, cv.ContractValue 
+		FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, pContractId, NULL) AS cv
+	) cv ON src.ContractId = cv.ContractId -- Get contract value
 	;
 END;
 $$ LANGUAGE 'plpgsql';
