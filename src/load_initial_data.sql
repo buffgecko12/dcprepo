@@ -34,11 +34,16 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (1, 'BD', 'PT', 'ST', 'Ganar puntos de reputaci' || U&'\00F3' || 'n', '', 0),
 (2, 'BD', 'PT', 'ST', 'Completar exitosamente una meta de contrato', '', 0),
 
--- Notifications
+-- Notifications - General
 (1001, 'NT', 'RP', 'AL', '', 'Ha ganado nuevos puntos de reputaci' || U&'\00F3' || 'n', 0),
-(1002, 'NT', 'CT', 'AL', '', 'Su contrato ha sido aprobado', 0),
-(1003, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
-(1004, 'NT', 'BD', 'AL', '', 'Ha ganado una nueva medalla', 0),
+(1002, 'NT', 'BD', 'AL', '', 'Ha ganado una nueva medalla', 0),
+
+-- Notifications - Contract
+(1101, 'NT', 'CT', 'AL', '', 'Su contrato ha sido aprobado', 0),
+(1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0),
+(1103, 'NT', 'CT', 'AL', '', 'Su contrato ha sido eliminado', 0),
+(1104, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
+
 
 -- Reputation events
 (2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5),

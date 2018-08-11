@@ -15,7 +15,7 @@ BEGIN
 	IF(pContractStatus = 'P') THEN
 	
 		-- Generate user notifications
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1003, pContractId); -- Pending contract to review
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1104, pContractId); -- Pending contract to review
 		
 		SELECT TeacherUserId INTO MyTeacherUserId
 		FROM $APP_NAME$Views.Contract

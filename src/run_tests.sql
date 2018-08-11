@@ -130,8 +130,8 @@ SELECT * FROM $APP_NAME$Views.SP_DCPDeleteUser(102);
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteUser(103);
 
 SELECT * FROM $APP_NAME$Views.SP_DCPChangeContractStatus(100,'D');
-SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(100);
-SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(1); -- Delete duplicate contract
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(100, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(1, NULL); -- Delete duplicate contract
 
 -- Meta
 SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('dummyvalue');

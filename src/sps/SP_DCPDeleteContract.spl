@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContract (
-    pContractId INTEGER
+    pContractId INTEGER,
+    pSendNotificationsFlag BOOLEAN
 ) 
 RETURNS VOID AS $$
 DECLARE mygoal RECORD;
@@ -9,7 +10,7 @@ BEGIN
 		SELECT c.ContractId, cg.GoalId
 		FROM $APP_NAME$Views.Contract c
 		INNER JOIN $APP_NAME$.Contract_Goal cg ON c.ContractId = cg.ContractId
-		WHERE c.ContractStatus = 'D' -- Only look at 'Draft' contracts
+		WHERE c.ContractStatus IN('D','P')
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	LOOP
 	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoal(mygoal.ContractId, mygoal.GoalId);
@@ -20,7 +21,7 @@ BEGIN
 	WHERE cpa.ContractId IN (
 		SELECT c.ContractId
 		FROM $APP_NAME$Views.Contract c
-		WHERE c.ContractStatus = 'D' -- Only look at 'Draft' contracts
+		WHERE c.ContractStatus IN('D','P')
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	)
 	;
@@ -30,15 +31,20 @@ BEGIN
 	WHERE cp.ContractId IN (
 		SELECT c.ContractId
 		FROM $APP_NAME$Views.Contract c
-		WHERE c.ContractStatus = 'D' -- Only look at 'Draft' contracts
+		WHERE c.ContractStatus IN('D','P')
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	)
 	;
 	
 	-- Delete contract
 	DELETE FROM $APP_NAME$.Contract
-	WHERE ContractStatus = 'D' -- Only look at 'Draft' contracts
+	WHERE ContractStatus IN('D','P')
 	AND (ContractId = pContractId OR pContractId IS NULL)
 	;
+	
+	-- Send notifications
+	IF(pSendNotificationsFlag) THEN
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, pContractId);
+	END IF;
 END;
 $$ LANGUAGE 'plpgsql';

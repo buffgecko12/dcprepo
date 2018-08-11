@@ -124,7 +124,7 @@ BEGIN
 
 	-- If badges were added, generate notification
 	IF(NumBadgesAdded > 0) THEN
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, 1004, pContractId); -- New badges
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(pUserId, 1002, pContractId); -- New badges
 	END IF;
 END;
 $$ LANGUAGE 'plpgsql';

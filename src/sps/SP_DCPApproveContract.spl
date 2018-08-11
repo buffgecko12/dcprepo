@@ -145,7 +145,7 @@ BEGIN
 			PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
 			
 			-- Generate user notifications
-			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1002, pContractId); -- Contract active
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1101, pContractId); -- Contract active
 			
 			bContractNewlyApprovedFlag = TRUE; -- This should only return one time, when contract has been approved
 		END IF;
