@@ -8,14 +8,16 @@ RETURNS TABLE (
 	ContractId INTEGER, ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
 	ContractValidPeriod TSTZRANGE, GuardianApprovalFlag BOOLEAN, RevisionDeadlineTS TIMESTAMP WITH TIME ZONE, RevisionDescription VARCHAR(500), RevisionApprovalTS TIMESTAMP WITH TIME ZONE, 
 	StudentLeaderRequirements VARCHAR(500), TeacherRequirements VARCHAR(500), StudentRequirements VARCHAR(500), ContractScanFile BYTEA, 
-	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), GoalInfo JSONB, PartyUserInfo JSONB
+	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER,
+	RevisionEligibilityFlag BOOLEAN
 )AS $$
 BEGIN
     RETURN QUERY
     SELECT 
     	c.ContractId, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,
 		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus,
-		cg.GoalInfo, cp.PartyUserInfo
+		cg.GoalInfo, cp.PartyUserInfo, cp.PartyApprovalCount,
+		CASE WHEN CURRENT_TIMESTAMP > c.RevisionDeadlineTS THEN FALSE ELSE TRUE END AS RevisionEligibilityFlag 
     FROM $APP_NAME$Views.Contract c
     LEFT JOIN $APP_NAME$Views.Class cl ON c.ClassId = cl.ClassId
     LEFT JOIN $APP_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
@@ -28,7 +30,8 @@ BEGIN
 					(SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, TO_CHAR(cpa.PartyApprovalTS, 'DD/MM/YYYY') AS PartyApprovalTS, cpa.PreferredGoalId, u.Firstname, u.Lastname, u.EmailAddress) AS x)
 					ORDER BY cp.ContractRole, u.Firstname, u.LastName
 				)
-			) AS PartyUserInfo
+			) AS PartyUserInfo,
+			CAST(SUM(CASE WHEN cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS INTEGER) AS PartyApprovalCount
 		FROM $APP_NAME$Views.Contract_Party cp
 		LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
 		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
