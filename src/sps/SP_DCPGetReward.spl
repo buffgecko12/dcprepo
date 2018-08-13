@@ -14,7 +14,7 @@ BEGIN
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
 	AND (
 			(r.CreatedByUserId = pCreatedByUserId OR pCreatedByUserId IS NULL) OR -- Return only user-defined and global rewards (if enabled)
-			(pGlobalFlag OR pGlobalFlag IS NULL)
+			(pGlobalFlag = GlobalFlag OR pGlobalFlag IS NULL)
 		)
 	AND (
 		(pActiveFlag AND DeactivatedTS IS NULL) OR 
