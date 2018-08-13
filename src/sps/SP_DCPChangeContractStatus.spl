@@ -5,7 +5,15 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPChangeContractStatus(
 RETURNS VOID AS $$
 DECLARE
 	MyTeacherUserId INTEGER;
+	OriginalContractStatus CHAR(1);
 BEGIN
+
+	-- Get original contract status
+	SELECT ContractStatus INTO OriginalContractStatus
+	FROM $APP_NAME$.Contract
+	WHERE ContractId = pContractId
+	;
+	
 	-- Set contract status
 	UPDATE $APP_NAME$.Contract
 	SET ContractStatus = pContractStatus
@@ -14,16 +22,23 @@ BEGIN
 	
 	IF(pContractStatus = 'P') THEN
 	
-		-- Generate user notifications
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1104, pContractId); -- Pending contract to review
-		
-		SELECT TeacherUserId INTO MyTeacherUserId
-		FROM $APP_NAME$Views.Contract
-		WHERE ContractId = pContractId
-		;
-		
-		-- Generate new "Send contract" event
-		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(MyTeacherUserId, 2014, pContractId);
+		-- Modify contract
+		IF(OriginalContractStatus = 'P') THEN
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1102, pContractId); -- Contract modified
+			
+		-- New contract
+		ELSEIF(OriginalContractStatus = 'D') THEN
+			-- Generate user notifications
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1104, pContractId); -- New contract to review
+			
+			SELECT TeacherUserId INTO MyTeacherUserId
+			FROM $APP_NAME$Views.Contract
+			WHERE ContractId = pContractId
+			;
+			
+			-- Generate new "Send contract" event
+			PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(MyTeacherUserId, 2014, pContractId);
+		END IF;
 	END IF;
 END
 $$ LANGUAGE 'plpgsql';

@@ -25,13 +25,13 @@ BEGIN
 	-- Get contract info
 	SELECT ContractType, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, GoalInfo
 	INTO SourceContractType, SourceContractValidPeriod, SourceGuardianApprovalFlag, SourceRevisionDeadlineTS, SourceStudentLeaderRequirements, SourceTeacherRequirements, SourceStudentRequirements, SourceGoalInfo
-	FROM $APP_NAME$Views.SP_DCPGetContract(pContractId, NULL, NULL, NULL)
+	FROM $APP_NAME$Views.SP_DCPGetContract(pContractId, NULL, NULL, NULL, NULL)
 	;
 
 	-- Upsert contract info
 	SELECT * INTO MyContractId 
 	FROM $APP_NAME$Views.SP_DCPUpsertContract(
-		NULL, pClassId, SourceContractType, pTeacherUserId, SourceContractValidPeriod, SourceGuardianApprovalFlag, SourceRevisionDeadlineTS, NULL, SourceStudentLeaderRequirements, SourceTeacherRequirements, SourceStudentRequirements, NULL, SourceGoalInfo, pPartyUserInfo
+		NULL, pClassId, SourceContractType, pTeacherUserId, SourceContractValidPeriod, SourceGuardianApprovalFlag, SourceRevisionDeadlineTS, SourceStudentLeaderRequirements, SourceTeacherRequirements, SourceStudentRequirements, NULL, SourceGoalInfo, pPartyUserInfo
 	);
 	
 	-- Reset goal info

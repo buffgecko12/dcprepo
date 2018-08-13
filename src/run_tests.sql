@@ -41,20 +41,24 @@ SELECT * FROM $APP_NAME$Views.SP_DCPDeactivateReward(2);
 
 -- Add contract
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContract(
-	100,100,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some student leader requirements',NULL,NULL,NULL,
+	100,100,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,'Some student leader requirements',NULL,NULL,NULL,
 	JSONB('{"currentgoals": [{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}},{"goalid": null, "difficultylevel": "M","goaldescription": "Some description","rewardinfo":{"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}}]}'),
 	JSONB('{"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 101,"contractrole": "PL"},{"partyuserid": 102,"contractrole": "BL"},{"partyuserid": 103,"contractrole": "PT"}]}')
 );
 
 -- Modify contact
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertContract(
-	100,102,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,NULL,'Some REALLY leader requirements','dadada',NULL,NULL,
+	100,102,'G',100,TSTZRANGE(current_timestamp,current_timestamp + INTERVAL '1' MONTH,'[]'),FALSE,current_timestamp + INTERVAL '14' DAY,'Some REALLY leader requirements','dadada',NULL,NULL,
 	JSONB('{"deletedgoals": [1],"currentgoals": [{"goalid": 2, "difficultylevel": "D","goaldescription": "Some new description","rewardinfo":{"deletedrewards": [1],"currentrewards": [{"rewardid": 2}]}}]}'),
 	JSONB('{"deletedparties": [101],"currentparties": [{"partyuserid": 100,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')
 );
 
 -- Duplicate contract
 SELECT * FROM $APP_NAME$Views.SP_DCPDuplicateContract(100, 102, 100, NULL);
+
+-- Copy contract
+SELECT * FROM $APP_NAME$Views.SP_DCPCopyContract(100, 999);
+SELECT * FROM $APP_NAME$Views.SP_DCPChangeContractStatus(999,'D');
 
 -- Change status to 'active'
 SELECT * FROM $APP_NAME$Views.SP_DCPChangeContractStatus(100,'A');
@@ -80,7 +84,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPModifyContractParties(
 );
 
 -- Get contract info
-SELECT * FROM $APP_NAME$Views.SP_DCPGetContract(100,NULL,NULL,NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetContract(100,NULL,NULL,NULL,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractInfo(100);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, NULL, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractGoalReward(100,2,NULL);
@@ -90,7 +94,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101, NULL);
 
 -- Revise contract
-SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'test revision');
+SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'revise','test revision');
 
 -- Get school/class info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetSchool(100);
@@ -131,7 +135,9 @@ SELECT * FROM $APP_NAME$Views.SP_DCPDeleteUser(103);
 
 SELECT * FROM $APP_NAME$Views.SP_DCPChangeContractStatus(100,'D');
 SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(100, NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(1, NULL); -- Delete duplicate contract
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(1, NULL); -- Duplicate Contract
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(2, NULL); -- Revise Contract
+SELECT * FROM $APP_NAME$Views.SP_DCPDeleteContract(999, NULL); -- Copy Contract
 
 -- Meta
 SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('dummyvalue');

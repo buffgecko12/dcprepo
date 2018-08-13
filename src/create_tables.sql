@@ -156,6 +156,7 @@ CREATE TABLE $APP_NAME$.Contract (
     ContractScanFile BYTEA,
     ContractApprovalTS TIMESTAMP WITH TIME ZONE,
     ContractStatus CHAR(1),
+    TempContractId INTEGER,
     PRIMARY KEY (ContractId),
     FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $APP_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
 );

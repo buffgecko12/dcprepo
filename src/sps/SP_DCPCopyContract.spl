@@ -1,0 +1,56 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCopyContract(
+    pSourceContractId INTEGER,
+    pTargetContractId INTEGER
+)
+RETURNS VOID AS $$
+BEGIN
+
+	-- Clean out any existing rows
+	DELETE FROM $APP_NAME$.Contract_Goal_Reward WHERE ContractId = pTargetContractId;
+	DELETE FROM $APP_NAME$.Contract_Goal WHERE ContractId = pTargetContractId;
+	DELETE FROM $APP_NAME$.Contract_Party_Approval WHERE ContractId = pTargetContractId;
+	DELETE FROM $APP_NAME$.Contract_Party WHERE ContractId = pTargetContractId;
+	DELETE FROM $APP_NAME$.Contract WHERE ContractId = pTargetContractId;
+
+    -- Copy main contract info (set ContractStatus = 'D')
+    INSERT INTO $APP_NAME$.Contract (
+    	ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription, 
+		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS, ContractStatus
+	)
+    SELECT 
+    	pTargetContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription, 
+		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS, 'D'
+    FROM $APP_NAME$.Contract
+    WHERE ContractId = pSourceContractId
+    ;
+
+    -- Copy contract parties
+	INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
+	SELECT pTargetContractId, PartyUserId, ContractRole
+	FROM $APP_NAME$.Contract_Party
+	WHERE ContractId = pSourceContractId
+	;
+	
+    -- Copy contract party approval info
+	INSERT INTO $APP_NAME$.Contract_Party_Approval (ContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, GuardianApprovalInfo, PartyApprovalTS, LogonUserId)
+	SELECT pTargetContractId, PartyUserId, ApprovalType, PreferredGoalId, SignatureScanFile, GuardianApprovalInfo, PartyApprovalTS, LogonUserId	
+	FROM $APP_NAME$.Contract_Party_Approval
+	WHERE ContractId = pSourceContractId
+	;
+
+	-- Copy contract goals
+	INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards)
+	SELECT pTargetContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards
+	FROM $APP_NAME$.Contract_Goal
+	WHERE ContractId = pSourceContractId
+	;
+	
+	-- Copy contract rewards
+	INSERT INTO $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId)
+	SELECT pTargetContractId, GoalId, RewardId
+	FROM $APP_NAME$.Contract_Goal_Reward
+	WHERE ContractId = pSourceContractId
+	;
+
+END
+$$ LANGUAGE 'plpgsql';

@@ -24,7 +24,8 @@ INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES
 ('P','Pendiente'),
 ('D','Borrador'),
 ('C','Completo'),
-('A','Activo')
+('A','Activo'),
+('R','Revisi' || U&'\00F3' || 'n')
 ;
 
 -- Load events
@@ -43,6 +44,7 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0),
 (1103, 'NT', 'CT', 'AL', '', 'Su contrato ha sido eliminado', 0),
 (1104, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
+(1105, 'NT', 'CT', 'AL', '', 'Su contrato ha sido revisado', 0),
 
 
 -- Reputation events

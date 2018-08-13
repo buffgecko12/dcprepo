@@ -1,14 +1,85 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPReviseContract(
     pContractId INTEGER,
+    pActionType VARCHAR(50),
     pRevisionDescription VARCHAR(500)
 ) 
-RETURNS VOID AS $$
+RETURNS INTEGER AS $$
+DECLARE 
+	MyTempContractId INTEGER;
+	bRevisionEligibilityFlag BOOLEAN;
 BEGIN
-	-- Update revision notes
-	UPDATE $APP_NAME$.Contract
-	SET RevisionDescription = pRevisionDescription
-	WHERE ContractId = pContractId
-	AND RevisionDeadlineTS > CURRENT_TIMESTAMP -- Only update if revision deadline has not already passed
-	;
+	IF(pActionType = 'revise') THEN
+
+		-- Get new contractid
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('contract') INTO MyTempContractId;
+
+	    -- Copy contract info
+	    PERFORM $APP_NAME$Views.SP_DCPCopyContract(pContractId, MyTempContractId);
+	    
+		-- Store "temp contract id" value
+		UPDATE $APP_NAME$.Contract
+		SET TempContractId = MyTempContractId
+		WHERE ContractId = pContractId
+		;
+
+		-- Change current contract status to 'R' - Revision
+		PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId,'R');
+		
+	ELSEIF (pActionType = 'submit') THEN
+
+		-- Check if contract is eligible for revision
+		SELECT TempContractId,
+			CASE 
+			WHEN CURRENT_DATE > (CAST(RevisionDeadlineTS AS DATE) + INTERVAL '1' DAY) OR RevisionDescription IS NOT NULL THEN FALSE 
+			ELSE TRUE
+			END
+		INTO MyTempContractId, bRevisionEligibilityFlag
+		FROM $APP_NAME$Views.Contract
+		WHERE ContractId = pContractId
+		;
+		
+		-- Replace original contract info with new contract info
+		PERFORM $APP_NAME$Views.SP_DCPCopyContract(MyTempContractId, pContractId);
+		
+		-- Update original contract info
+		UPDATE $APP_NAME$.Contract
+		SET TempContractId = NULL,
+			RevisionApprovalTS = CASE WHEN bRevisionEligibilityFlag THEN CURRENT_TIMESTAMP ELSE NULL END,
+			RevisionDescription = CASE WHEN bRevisionEligibilityFlag THEN pRevisionDescription ELSE NULL END
+		WHERE ContractId = pContractId
+		;
+		
+		-- Delete temp contract info
+		PERFORM $APP_NAME$Views.SP_DCPDeleteContract(MyTempContractId, NULL);
+		
+		-- Reset original contract to Active 
+		PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+		
+		-- Send notification for contract revision
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1105, pContractId); -- Contract revision
+			
+
+	ELSEIF(pActionType = 'cancel') THEN
+
+		-- Get temp contract id
+		SELECT TempContractId INTO MyTempContractId
+		FROM $APP_NAME$Views.Contract
+		WHERE ContractId = pContractId
+		;
+	
+		-- Update original contract info
+		UPDATE $APP_NAME$.Contract
+		SET TempContractId = NULL
+		WHERE ContractId = pContractId
+		;
+		
+		-- Delete temp contract info
+		PERFORM $APP_NAME$Views.SP_DCPDeleteContract(MyTempContractId, NULL);
+	
+		-- Reset original contract to Active 
+		PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+	END IF;
+	
+	RETURN MyTempContractId;
 END
 $$ LANGUAGE 'plpgsql';

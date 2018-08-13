@@ -51,6 +51,7 @@
 \i install/sps/SP_DCPReviseContract.spl
 \i install/sps/SP_DCPApproveContract.spl
 \i install/sps/SP_DCPDuplicateContract.spl
+\i install/sps/SP_DCPCopyContract.spl
 
 \i install/sps/SP_DCPUpsertContractGoal.spl
 \i install/sps/SP_DCPDeleteContractGoal.spl

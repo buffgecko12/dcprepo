@@ -7,6 +7,15 @@ BEGIN
 	
     -- Delete old parties (if applicable)
     IF(pPartyUserInfo->'deletedparties') IS NOT NULL THEN
+        DELETE FROM $APP_NAME$.Contract_Party_Approval
+        WHERE ContractId = pContractId
+        AND PartyUserId IN (
+            SELECT CAST(
+                JSONB_ARRAY_ELEMENTS_TEXT(pPartyUserInfo->'deletedparties') AS INTEGER
+            )
+        )
+        ;
+    
         DELETE FROM $APP_NAME$.Contract_Party
         WHERE ContractId = pContractId
         AND PartyUserId IN (

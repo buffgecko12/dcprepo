@@ -2,22 +2,26 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContract(
     pContractId INTEGER,
     pPartyUserId INTEGER,
     pTeacherUserId INTEGER,
-    pExcludeDraftsFlag BOOLEAN
+    pExcludeDraftsFlag BOOLEAN,
+    pExcludeRevisionsFlag BOOLEAN
 )
 RETURNS TABLE (
 	ContractId INTEGER, ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
 	ContractValidPeriod TSTZRANGE, GuardianApprovalFlag BOOLEAN, RevisionDeadlineTS TIMESTAMP WITH TIME ZONE, RevisionDescription VARCHAR(500), RevisionApprovalTS TIMESTAMP WITH TIME ZONE, 
 	StudentLeaderRequirements VARCHAR(500), TeacherRequirements VARCHAR(500), StudentRequirements VARCHAR(500), ContractScanFile BYTEA, 
-	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER,
+	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), TempContractId INTEGER, GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER,
 	RevisionEligibilityFlag BOOLEAN
 )AS $$
 BEGIN
     RETURN QUERY
     SELECT 
     	c.ContractId, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,
-		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus,
+		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus, c.TempContractId,
 		cg.GoalInfo, cp.PartyUserInfo, cp.PartyApprovalCount,
-		CASE WHEN CURRENT_TIMESTAMP > c.RevisionDeadlineTS THEN FALSE ELSE TRUE END AS RevisionEligibilityFlag 
+		CASE 
+			WHEN CURRENT_DATE > (CAST(c.RevisionDeadlineTS AS DATE) + INTERVAL '1' DAY) OR c.RevisionDescription IS NOT NULL THEN FALSE 
+			ELSE TRUE 
+		END AS RevisionEligibilityFlag  -- Add one-day fudge factor just in case
     FROM $APP_NAME$Views.Contract c
     LEFT JOIN $APP_NAME$Views.Class cl ON c.ClassId = cl.ClassId
     LEFT JOIN $APP_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
@@ -75,6 +79,7 @@ BEGIN
 		) OR pPartyUserId IS NULL
 	) -- Return contracts for a specific user
 	AND (c.ContractStatus <> 'D' OR pExcludeDraftsFlag IS NULL OR NOT pExcludeDraftsFlag) -- Exclude draft contracts unless specified otherwise
+	AND (c.ContractId NOT IN (SELECT c.TempContractId FROM $APP_NAME$Views.Contract c WHERE c.TempContractId IS NOT NULL) OR pExcludeRevisionsFlag IS NULL OR NOT pExcludeRevisionsFlag)  -- Exclude "under revision" contracts
 	ORDER BY c.ContractId
 	;
 END;

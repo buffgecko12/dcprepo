@@ -6,7 +6,6 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pContractValidPeriod TSTZRANGE,
     pGuardianApprovalFlag BOOLEAN,
     pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
-    pRevisionDescription VARCHAR(500),
     pStudentLeaderRequirements VARCHAR(500),
     pTeacherRequirements VARCHAR(500),
     pStudentRequirements VARCHAR(500),
@@ -31,9 +30,9 @@ BEGIN
 
 	-- Upsert general info
 	INSERT INTO $APP_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
-	  RevisionDeadlineTS, RevisionDescription, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
+	  RevisionDeadlineTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
     VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
-      pRevisionDescription, pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
+      pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
     ON CONFLICT (ContractId) DO UPDATE SET
         ClassId = EXCLUDED.ClassId,
         ContractType = EXCLUDED.ContractType,
@@ -41,7 +40,6 @@ BEGIN
 	    ContractValidPeriod = EXCLUDED.ContractValidPeriod,
 	    GuardianApprovalFlag = EXCLUDED.GuardianApprovalFlag,
 	    RevisionDeadlineTS = EXCLUDED.RevisionDeadlineTS,
-		RevisionDescription = EXCLUDED.RevisionDescription,
 	    StudentLeaderRequirements = EXCLUDED.StudentLeaderRequirements,
 	    TeacherRequirements = EXCLUDED.TeacherRequirements,
 	    StudentRequirements = EXCLUDED.StudentRequirements,
