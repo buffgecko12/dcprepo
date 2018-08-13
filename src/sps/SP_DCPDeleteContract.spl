@@ -10,7 +10,7 @@ BEGIN
 		SELECT c.ContractId, cg.GoalId
 		FROM $APP_NAME$Views.Contract c
 		INNER JOIN $APP_NAME$.Contract_Goal cg ON c.ContractId = cg.ContractId
-		WHERE c.ContractStatus IN('D','P')
+		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	LOOP
 	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoal(mygoal.ContractId, mygoal.GoalId);
@@ -21,7 +21,7 @@ BEGIN
 	WHERE cpa.ContractId IN (
 		SELECT c.ContractId
 		FROM $APP_NAME$Views.Contract c
-		WHERE c.ContractStatus IN('D','P')
+		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	)
 	;
@@ -31,14 +31,14 @@ BEGIN
 	WHERE cp.ContractId IN (
 		SELECT c.ContractId
 		FROM $APP_NAME$Views.Contract c
-		WHERE c.ContractStatus IN('D','P')
+		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	)
 	;
 	
 	-- Delete contract
 	DELETE FROM $APP_NAME$.Contract
-	WHERE ContractStatus IN('D','P')
+	WHERE (ContractStatus IN('D','P') OR ContractStatus IS NULL)
 	AND (ContractId = pContractId OR pContractId IS NULL)
 	;
 	
