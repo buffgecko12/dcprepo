@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractGoal(
     pContractId INTEGER,
     pGoalId INTEGER,
-    pDifficultyLevel CHAR(1)
+    pDifficultyLevel CHAR(1),
+    pAcceptedFlag BOOLEAN
 )
 RETURNS TABLE (
 	ContractId INTEGER, GoalId INTEGER, DifficultyLevel CHAR(1), GoalDescription VARCHAR(500), AcceptedFlag BOOLEAN, rewardinfo JSONB, MaxNumRewards INTEGER
@@ -13,6 +14,7 @@ BEGIN
     WHERE (cg.ContractId = pContractId OR pContractId IS NULL)
     AND (cg.GoalId = pGoalId OR pGoalId IS NULL)
     AND (cg.DifficultyLevel = pDifficultyLevel OR pDifficultyLevel IS NULL)
+    AND (cg.AcceptedFlag = pAcceptedFlag OR pAcceptedFlag IS NULL)
 	ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
 	;
 END;
