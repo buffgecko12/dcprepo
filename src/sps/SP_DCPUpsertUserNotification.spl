@@ -15,13 +15,14 @@ BEGIN
 	);
 	
 	-- Generate bulk contract party notifications
-	IF(pSourceEventId IN(1101,1102,1103,1104,1105)) THEN
+	IF(pSourceEventId IN(1101,1102,1103,1104,1105,1106)) THEN
 		INSERT INTO tNotifications (UserId, NotificationText, ContractId, SourceEventId)
 		SELECT DISTINCT u.PartyUserId, le.EventMessage, pContractId, pSourceEventId
 		FROM ( --  Get user list
 			SELECT cp.PartyUserId
 			FROM $APP_NAME$Views.Contract_Party cp -- Get all contract parties
 			WHERE ContractId = pContractId
+			AND (PartyUserId = pUserId OR pUserId IS NULL)
 		
 			UNION ALL
 

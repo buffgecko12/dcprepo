@@ -1,10 +1,33 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCopyContract(
-    pSourceContractId INTEGER,
-    pTargetContractId INTEGER
-)
-RETURNS VOID AS $$
+    IN pSourceContractId INTEGER,
+    IN pTargetContractId INTEGER,
+    OUT MyNewParties INTEGER[],
+    OUT MyDeletedParties INTEGER[]
+) AS $$
 BEGIN
 
+	-- Get list of new parties
+	SELECT ARRAY_AGG(PartyUserId) INTO MyNewParties
+	FROM $APP_NAME$.Contract_Party
+	WHERE ContractId = pSourceContractId
+	AND PartyUserId NOT IN (
+		SELECT PartyUserId 
+		FROM $APP_NAME$.Contract_Party
+		WHERE ContractId = pTargetContractId
+	)
+	;
+
+	-- Get list of deleted parties
+	SELECT ARRAY_AGG(PartyUserId) INTO MyDeletedParties
+	FROM $APP_NAME$.Contract_Party
+	WHERE ContractId = pTargetContractId
+	AND PartyUserId NOT IN (
+		SELECT PartyUserId 
+		FROM $APP_NAME$.Contract_Party
+		WHERE ContractId = pSourceContractId
+	)
+	;
+	
 	-- Clean out any existing rows
 	DELETE FROM $APP_NAME$.Contract_Goal_Reward WHERE ContractId = pTargetContractId;
 	DELETE FROM $APP_NAME$.Contract_Goal WHERE ContractId = pTargetContractId;
@@ -51,6 +74,5 @@ BEGIN
 	FROM $APP_NAME$.Contract_Goal_Reward
 	WHERE ContractId = pSourceContractId
 	;
-
 END
 $$ LANGUAGE 'plpgsql';

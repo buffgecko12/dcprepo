@@ -6,10 +6,14 @@ RETURNS VOID AS $$
 DECLARE
 	MyTeacherUserId INTEGER;
 	OriginalContractStatus CHAR(1);
+	RevisionFlag BOOLEAN;
 BEGIN
 
-	-- Get original contract status
-	SELECT ContractStatus INTO OriginalContractStatus
+	-- Get contract info
+	SELECT 
+		ContractStatus, 
+		CASE WHEN TempContractId IS NOT NULL THEN TRUE ELSE FALSE END AS RevisionFlag 
+	INTO OriginalContractStatus, RevisionFlag
 	FROM $APP_NAME$.Contract
 	WHERE ContractId = pContractId
 	;
@@ -26,8 +30,9 @@ BEGIN
 		IF(OriginalContractStatus = 'P') THEN
 			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1102, pContractId); -- Contract modified
 			
-		-- New contract
-		ELSEIF(OriginalContractStatus = 'D') THEN
+		-- New contract (only for non-revision)
+		ELSEIF(OriginalContractStatus = 'D' AND NOT RevisionFlag) THEN
+		
 			-- Generate user notifications
 			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1104, pContractId); -- New contract to review
 			

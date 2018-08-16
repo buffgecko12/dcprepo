@@ -44,7 +44,9 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0),
 (1103, 'NT', 'CT', 'AL', '', 'Su contrato ha sido eliminado', 0),
 (1104, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
-(1105, 'NT', 'CT', 'AL', '', 'Su contrato ha sido revisado', 0),
+(1105, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0),
+(1106, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado - votaci' || U&'\00F3' || 'n requerida', 0),
+(1107, 'NT', 'CT', 'AL', '', 'Ha sido retirado de un contrato', 0),
 
 
 -- Reputation events

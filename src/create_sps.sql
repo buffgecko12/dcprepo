@@ -63,6 +63,7 @@
 
 \i install/sps/SP_DCPGetContractParty.spl
 \i install/sps/SP_DCPModifyContractParties.spl
+\i install/sps/SP_DCPResetContractPartyVote.spl
 
 -- Other
 \i install/sps/SP_DCPGetFile.spl

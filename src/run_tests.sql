@@ -95,7 +95,7 @@ SELECT * FROM $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101, NULL);
 
 -- Revise contract
-SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'revise','test revision');
+SELECT * FROM $APP_NAME$Views.SP_DCPReviseContract(100,'revise','test revision',NULL);
 
 -- Get school/class info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetSchool(100);
@@ -119,6 +119,8 @@ SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'getuserdisplayinf
 SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
+SELECT * FROM $APP_NAME$Views.SP_DCPResetContractPartyVote(100,100);
+SELECT * FROM $APP_NAME$Views.SP_DCPResetContractPartyVote(100,NULL);
 
 SELECT * FROM SP_DCPGetFile(100);
 
