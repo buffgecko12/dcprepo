@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertClass (
 	pClassId INTEGER,
 	pSchoolId INTEGER,
-	pClassDisplayName VARCHAR(100)
+	pClassDisplayName VARCHAR(100),
+	pGradeLevel INTEGER
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -14,11 +15,12 @@ BEGIN
     END IF;
     
     -- Upsert class
-    INSERT INTO $APP_NAME$.Class(ClassId, SchoolId, ClassDisplayName)
-    VALUES(COALESCE(pClassId, NewClassId), pSchoolId, pClassDisplayName)
+    INSERT INTO $APP_NAME$.Class(ClassId, SchoolId, ClassDisplayName, GradeLevel)
+    VALUES(COALESCE(pClassId, NewClassId), pSchoolId, pClassDisplayName, pGradeLevel)
     ON CONFLICT(ClassId) DO UPDATE SET
 	    SchoolId = EXCLUDED.SchoolId,
-	    ClassDisplayName = EXCLUDED.ClassDisplayName
+	    ClassDisplayName = EXCLUDED.ClassDisplayName,
+	    GradeLevel = EXCLUDED.GradeLevel
     ;   
     
 	-- Return new id (if new class)

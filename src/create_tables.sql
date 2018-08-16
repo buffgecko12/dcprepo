@@ -32,6 +32,7 @@ CREATE TABLE $APP_NAME$.Class (
 	ClassId INTEGER NOT NULL,
 	SchoolId INTEGER NOT NULL,
 	ClassDisplayName VARCHAR(100) NOT NULL,
+	GradeLevel INTEGER,
 	PRIMARY KEY (ClassId),
 	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
 );

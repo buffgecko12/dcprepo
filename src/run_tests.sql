@@ -3,9 +3,9 @@ SELECT * FROM $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1
 
 -- Create schools/classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertSchool(100, 'Test School 1', 'TS1', 'My Address','Duitama','Boyaca', 100, NULL); -- Schools
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(100, 100, '10-03'); -- Classes
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01'); -- Classes
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05'); -- Classes
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(100, 100, '10-03',10); -- Classes
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(101, 100, '10-01',10); -- Classes
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(102, 100, '9-05',9); -- Classes
 
 -- Add users
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser (100, 100, 'MyTeacher','TR','Joe','Smith',NULL,'MyPhone','joe1@smith.com',NULL,'U',NULL,NULL);

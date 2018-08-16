@@ -2,10 +2,10 @@
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertSchool(NULL, 'Guillermo Leon Valencia Colegio (sede integrado)', 'GLV (Integrado)', 'Calle 15A Nro 7 - 48','Duitama','Boyaca', NULL, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertSchool(NULL, 'Instituto Técnico Industrial Rafael Reyes', 'ITIRR', 'Carrera 18 # 23-116','Duitama','Boyaca', NULL, NULL);
 
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-03');
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-01');
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-05');
-SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '9-03');
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-03',10);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-01',10);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '10-05',10);
+SELECT * FROM $APP_NAME$Views.SP_DCPUpsertClass(NULL, 1, '9-03',9);
 
 -- Add teacher info + classes
 SELECT * FROM $APP_NAME$Views.SP_DCPUpsertTeacher(3, 500000,

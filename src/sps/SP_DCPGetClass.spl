@@ -5,11 +5,11 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetClass(
     pClassDisplayName VARCHAR(100)
 )
 RETURNS TABLE (
-	ClassId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassDisplayName VARCHAR(100)
+	ClassId INTEGER, SchoolId INTEGER, SchoolDisplayName VARCHAR(100), ClassDisplayName VARCHAR(100), GradeLevel INTEGER
 ) AS $$
 BEGIN
     RETURN QUERY -- Return these query results
-    SELECT DISTINCT cl.ClassId, cl.SchoolId, sc.SchoolDisplayName, cl.ClassDisplayName
+    SELECT DISTINCT cl.ClassId, cl.SchoolId, sc.SchoolDisplayName, cl.ClassDisplayName, cl.GradeLevel
     FROM $APP_NAME$Views.Class cl
     INNER JOIN $APP_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
 	LEFT JOIN $APP_NAME$Views.User_Teacher_Class utc ON cl.ClassId = utc.ClassId -- Lookup teacher info
@@ -17,7 +17,7 @@ BEGIN
     AND (cl.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (cl.ClassDisplayName = pClassDisplayName OR pClassDisplayName IS NULL)
     AND (utc.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
-    ORDER BY sc.SchoolDisplayName, cl.SchoolId, cl.ClassDisplayName, cl.ClassId
+    ORDER BY sc.SchoolDisplayName, cl.SchoolId, cl.GradeLevel, cl.ClassDisplayName, cl.ClassId
     ;
 END;
 $$ LANGUAGE 'plpgsql';
