@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
+	pContractName VARCHAR(100),
     pClassId INTEGER,
     pContractType CHAR(1),
     pTeacherUserId INTEGER,
@@ -29,11 +30,12 @@ BEGIN
     END IF;
 
 	-- Upsert general info
-	INSERT INTO $APP_NAME$.Contract (ContractId, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
+	INSERT INTO $APP_NAME$.Contract (ContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
 	  RevisionDeadlineTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
-    VALUES(MyContractId, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
+    VALUES(MyContractId, pContractName, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
       pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
     ON CONFLICT (ContractId) DO UPDATE SET
+        ContractName = EXCLUDED.ContractName,
         ClassId = EXCLUDED.ClassId,
         ContractType = EXCLUDED.ContractType,
         TeacherUserId = EXCLUDED.TeacherUserId,

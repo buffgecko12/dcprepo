@@ -143,6 +143,7 @@ CREATE TABLE $APP_NAME$.User_Student (
 -- Main contract
 CREATE TABLE $APP_NAME$.Contract (
     ContractId INTEGER NOT NULL,
+    ContractName VARCHAR(100),
     ClassId INTEGER NOT NULL,
     ContractType CHAR(1) NOT NULL DEFAULT 'G',
     TeacherUserId INTEGER NOT NULL,
