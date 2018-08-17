@@ -41,7 +41,7 @@ INSERT INTO $APP_NAME$.Lookup_Event
 
 -- Notifications - Contract
 (1101, 'NT', 'CT', 'AL', '', 'Su contrato ha sido aprobado', 0),
-(1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0), -- Draft edit
+(1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido actualizado', 0), -- Draft edit
 (1103, 'NT', 'CT', 'AL', '', 'Su contrato ha sido eliminado', 0),
 (1104, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
 (1105, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0), -- Active revision
