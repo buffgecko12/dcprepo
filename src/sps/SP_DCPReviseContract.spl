@@ -14,6 +14,7 @@ DECLARE
 	MyTempContractId INTEGER;
 	MyNewParties INTEGER[];
 	MyDeletedParties INTEGER[];
+	MyOriginalParties INTEGER[];
 BEGIN
 	IF(pActionType = 'revise') THEN
 
@@ -45,35 +46,53 @@ BEGIN
 		WHERE ContractId = pContractId
 		;
 		
-		-- Replace original contract info with new contract info
-		SELECT src.MyNewParties, src.MyDeletedParties FROM $APP_NAME$Views.SP_DCPCopyContract(MyTempContractId, pContractId) src INTO MyNewParties, MyDeletedParties;
+		IF(bRevisionEligibilityFlag) THEN 
 		
-		-- Generate "new contract" notifications for newly added users
-		IF(MyNewParties IS NOT NULL) THEN
-			FOREACH MyPartyUserId IN ARRAY MyNewParties
-			LOOP
-				PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyPartyUserId, 1104, pContractId); -- New contract to review
-			END LOOP;
-		END IF;
-
-		-- Generate "you have been withdrawn" notifications for newly removed users
-		IF(MyDeletedParties IS NOT NULL) THEN
-			FOREACH MyPartyUserId IN ARRAY MyDeletedParties
-			LOOP
-				PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyPartyUserId, 1107, pContractId); -- You have been withdrawn
-			END LOOP;
-		END IF;
+			-- Replace original contract info with new contract info
+			SELECT src.MyNewParties, src.MyDeletedParties, src.MyOriginalParties 
+			FROM $APP_NAME$Views.SP_DCPCopyContract(MyTempContractId, pContractId) src INTO MyNewParties, MyDeletedParties, MyOriginalParties
+			;
 			
-		-- Change status and send notifications
-		IF(pRevisionRevoteFlag) THEN
-			-- Revote required: Reset status to Pending
-			PERFORM $APP_NAME$Views.SP_DCPResetContractPartyVote(pContractId, NULL);
-			PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'P');
-			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1106, pContractId); -- Contract modified (re-vote required)
+			-- Generate "new contract" notifications for newly added users
+			IF(MyNewParties IS NOT NULL) THEN
+				FOREACH MyPartyUserId IN ARRAY MyNewParties
+				LOOP
+					PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyPartyUserId, 1104, pContractId); -- New contract to review
+				END LOOP;
+			END IF;
+	
+			-- Generate "contract withdrawn" notifications for newly removed users
+			IF(MyDeletedParties IS NOT NULL) THEN
+				FOREACH MyPartyUserId IN ARRAY MyDeletedParties
+				LOOP
+					PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyPartyUserId, 1107, pContractId); -- You have been withdrawn
+				END LOOP;
+			END IF;
+	
+			-- Generate "revised contract" notifications for original contract users
+			IF(MyOriginalParties IS NOT NULL) THEN
+				FOREACH MyPartyUserId IN ARRAY MyOriginalParties
+				LOOP
+					PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(
+						MyPartyUserId, 
+						CASE WHEN pRevisionRevoteFlag THEN 1106 ELSE 1105 END, -- (1106 - re-vote required)
+						pContractId
+					);
+				END LOOP;
+			END IF;
+			
+			-- Change status and send notifications
+			IF(pRevisionRevoteFlag) THEN
+				-- Revote required: Reset status to Pending
+				PERFORM $APP_NAME$Views.SP_DCPResetContractPartyVote(pContractId, NULL);
+				PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'P');
+			ELSE
+				-- No revote required: Reset status to Active
+				PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
+			END IF;
 		ELSE
-			-- No revote required: Reset status to Active
+			-- Revert changes and set contract status back to active
 			PERFORM $APP_NAME$Views.SP_DCPChangeContractStatus(pContractId, 'A');
-			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1105, pContractId); -- Contract modified (no re-vote)
 		END IF;
 		
 		-- Update original contract info
@@ -112,8 +131,8 @@ BEGIN
 	MyReturnValues = JSON_BUILD_OBJECT(
 		'tempcontractid', MyTempContractId,
 		'newparties', MyNewParties,
-		'deletedparties', MyDeletedParties
+		'deletedparties', MyDeletedParties,
+		'originalparties', MyOriginalParties
 	);
-	
 END
 $$ LANGUAGE 'plpgsql';

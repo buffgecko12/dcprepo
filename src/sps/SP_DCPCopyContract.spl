@@ -2,7 +2,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCopyContract(
     IN pSourceContractId INTEGER,
     IN pTargetContractId INTEGER,
     OUT MyNewParties INTEGER[],
-    OUT MyDeletedParties INTEGER[]
+    OUT MyDeletedParties INTEGER[],
+    OUT MyOriginalParties INTEGER[]
 ) AS $$
 BEGIN
 
@@ -26,6 +27,14 @@ BEGIN
 		FROM $APP_NAME$.Contract_Party
 		WHERE ContractId = pSourceContractId
 	)
+	;
+
+	-- Get list of original parties (still on new contract)
+	SELECT ARRAY_AGG(cp.PartyUserId) INTO MyOriginalParties
+	FROM $APP_NAME$.Contract_Party cp
+	INNER JOIN $APP_NAME$.Contract_Party cpp ON cp.PartyUserId = cpp.PartyUserId
+	WHERE cp.ContractId = pTargetContractId
+	AND cpp.ContractId = pSourceContractId
 	;
 	
 	-- Clean out any existing rows
