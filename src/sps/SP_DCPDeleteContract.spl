@@ -4,7 +4,13 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContract (
 ) 
 RETURNS VOID AS $$
 DECLARE mygoal RECORD;
-BEGIN	
+BEGIN
+	
+	-- Send notifications (must be done first, since we are deleted contract rows)
+	IF(pSendNotificationsFlag) THEN
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, pContractId);
+	END IF;
+	
 	-- Delete contract goals
 	FOR mygoal IN
 		SELECT c.ContractId, cg.GoalId
@@ -42,9 +48,5 @@ BEGIN
 	AND (ContractId = pContractId OR pContractId IS NULL)
 	;
 	
-	-- Send notifications
-	IF(pSendNotificationsFlag) THEN
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, pContractId);
-	END IF;
 END;
 $$ LANGUAGE 'plpgsql';
