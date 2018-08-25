@@ -85,8 +85,8 @@ SELECT * FROM $APP_NAME$Views.SP_DCPModifyContractParties(
 
 -- Get contract info
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContract(100,NULL,NULL,NULL,NULL);
-SELECT * FROM $APP_NAME$Views.SP_DCPGetContractInfo(100);
-SELECT * FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, NULL, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetContractInfo(100, NULL);
+SELECT * FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, NULL, NULL, NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractGoal(100,2,NULL,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractGoalReward(100,2,NULL);
 SELECT * FROM $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);

@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractInfo(
-    pContractId INTEGER
+    pContractId INTEGER,
+    pAllowRevisionContractFlag BOOLEAN
 )
 RETURNS TABLE (
 	ContractId INTEGER, TeacherUserId INTEGER, NumParticipants INTEGER, MaxRewardValue INTEGER, ContractValue INTEGER
@@ -22,7 +23,7 @@ BEGIN
 	) src
 	LEFT JOIN (
 		SELECT cv.ContractId, cv.ContractValue 
-		FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, pContractId, NULL) AS cv
+		FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, pContractId, NULL, pAllowRevisionContractFlag) AS cv
 	) cv ON src.ContractId = cv.ContractId -- Get contract value
 	;
 END;

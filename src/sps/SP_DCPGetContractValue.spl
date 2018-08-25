@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractValue(
     pTeacherUserId INTEGER,
     pContractId INTEGER,
-    pContractNumParticipants INTEGER
+    pContractNumParticipants INTEGER,
+    pAllowRevisionContractFlag BOOLEAN
 ) 
 RETURNS TABLE (
 	ContractId INTEGER, TeacherUserId INTEGER, ContractValue INTEGER
@@ -24,6 +25,7 @@ BEGIN
 					CASE
 						WHEN c.ContractStatus IN ('D','P') THEN lr.RewardValue -- Draft / Pending: get reward value for all goals
 						WHEN c.ContractStatus = 'A' AND cg.AcceptedFlag THEN lr.RewardValue -- Active: get reward value for accepted goals
+						WHEN c.ContractStatus = 'R' AND pAllowRevisionContractFlag THEN lr.RewardValue -- Revision: allow only if "Revision" flag is enabled
 						ELSE 0
 					END 
 				) OVER(PARTITION BY c.ContractId, cg.GoalId)  -- Max reward value per goal
@@ -39,7 +41,10 @@ BEGIN
 			GROUP BY src.ContractId
 		) cp ON c.ContractId = cp.ContractId -- Get contract party info
 		LEFT JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId = lr.RewardId
-		WHERE ContractStatus IN('D','P','A') -- Look at non-completed contracts	
+		WHERE (
+			ContractStatus IN('D','P','A') OR -- Look at non-completed contracts
+			(ContractStatus = 'R' AND COALESCE(pAllowRevisionContractFlag, FALSE)) -- Look at "Revision" contracts if specified
+		)
 		AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
 	) src
