@@ -46,7 +46,7 @@ BEGIN
     ;   
     
     -- Add additional info (new user)
-    IF(pUserId IS NULL) THEN
+    IF(pUserId IS NULL AND pUserRole <> 'G') THEN -- Ignore non-user accounts
     
     	-- Add default pictures
     	INSERT INTO $APP_NAME$.User_Profile_Picture(UserId, ProfilePictureId, ProfilePictureAddedTS)

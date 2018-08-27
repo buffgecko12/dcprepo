@@ -84,7 +84,7 @@ CREATE TABLE $APP_NAME$.User_Badge (
 CREATE TABLE $APP_NAME$.Users (
     UserId INTEGER NOT NULL,
     SchoolId INTEGER,
-    UserName VARCHAR(50) NOT NULL UNIQUE,
+    UserName VARCHAR(50) NOT NULL,
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
@@ -112,6 +112,17 @@ CREATE TABLE $APP_NAME$.User_Profile_Picture (
 	PRIMARY KEY(UserId, ProfilePictureId),
 	FOREIGN KEY(UserId) REFERENCES $APP_NAME$.Users(UserId),
 	FOREIGN KEY(ProfilePictureId) REFERENCES $APP_NAME$.Lookup_Profile_Picture(ProfilePictureId)
+);
+
+CREATE TABLE $APP_NAME$.User_Group (
+	GroupUserId INTEGER NOT NULL,
+	GroupName VARCHAR(100),
+	ClassId INTEGER,
+	LeaderUserId INTEGER NOT NULL,
+	UserIdList INTEGER[],
+	PRIMARY KEY(GroupUserId),
+	FOREIGN KEY(GroupUserId) REFERENCES $APP_NAME$.Users(UserId),
+	FOREIGN KEY(LeaderUserId) REFERENCES $APP_NAME$.Users(UserId)
 );
 
 -- Additional teacher user info
@@ -168,6 +179,7 @@ CREATE TABLE $APP_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
     PartyUserId INTEGER NOT NULL,
     ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
+--    GroupInfo JSONB,
     PRIMARY KEY (ContractId, PartyUserId),
     FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId),
     FOREIGN KEY (PartyUserId) REFERENCES $APP_NAME$.Users (UserId)    

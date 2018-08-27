@@ -13,6 +13,12 @@
 \i install/sps/SP_DCPDeactivateUser.spl
 \i install/sps/SP_DCPGetUserProfilePicture.spl
 
+-- User groups
+\i install/sps/SP_DCPUpsertUserGroup.spl
+\i install/sps/SP_DCPGetUserGroup.spl
+\i install/sps/SP_DCPDeleteUserGroup.spl
+
+
 -- Teacher
 \i install/sps/SP_DCPUpsertTeacher.spl
 \i install/sps/SP_DCPGetTeacher.spl

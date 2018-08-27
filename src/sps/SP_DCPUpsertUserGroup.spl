@@ -1,0 +1,35 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertUserGroup (
+    pGroupUserId INTEGER, 
+    pGroupName VARCHAR(100), 
+    pClassId INTEGER, 
+    pLeaderUserId INTEGER,
+    pUserIdList INTEGER[]
+) 
+RETURNS INTEGER AS $$
+DECLARE 
+	MyGroupUserId INTEGER;
+BEGIN   
+
+	-- Create new "user" (if needed)
+	IF(pGroupUserId IS NULL) THEN
+		-- Create group (get next userid)
+	    SELECT * FROM $APP_NAME$Views.SP_DCPUpsertUser(NULL, 0, 'StudentGroup', 'SG', '', '', NULL, NULL, '', NULL, 'G', NULL, NULL) INTO MyGroupUserId;
+    ELSE
+    	-- Update group (use provided GroupUserId)
+    	MyGroupUserId = pGroupUserId;
+    END IF;
+    
+    -- Upsert group
+    INSERT INTO $APP_NAME$.User_Group(GroupUserId, GroupName, ClassId, LeaderUserId, UserIdList)
+    VALUES(MyGroupUserId, pGroupName, pClassId, pLeaderUserId, pUserIdList)
+    ON CONFLICT(GroupUserId) DO UPDATE SET
+	    GroupName = COALESCE(NULLIF(EXCLUDED.GroupName,''), User_Group.GroupName), -- NOT NULL
+	    ClassId = EXCLUDED.ClassId,
+	    LeaderUserId = COALESCE(EXCLUDED.LeaderUserId, User_Group.LeaderUserId), -- NOT NULL
+        UserIdList = EXCLUDED.UserIdList
+    ;   
+    
+	-- Return GroupUserId
+    RETURN MyGroupUserId;   
+END;
+$$ LANGUAGE 'plpgsql';

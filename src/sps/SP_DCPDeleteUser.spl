@@ -19,6 +19,12 @@ BEGIN
 	DELETE FROM $APP_NAME$.User_Reputation_Event WHERE UserId = pUserId;
 	DELETE FROM $APP_NAME$.User_Notification WHERE UserId = pUserId;
 	DELETE FROM $APP_NAME$.User_Profile_Picture WHERE UserId = pUserId;
+
+	-- Update user groups
+	UPDATE $APP_NAME$.User_Group SET LeaderUserId = 0 WHERE LeaderUserId = pUserId;
+	UPDATE $APP_NAME$.User_Group SET UserIdList = ARRAY_REMOVE(UserIdList, pUserId);
+
+	-- Delete user
 	DELETE FROM $APP_NAME$.Users WHERE UserId = pUserId;
 
 END;
