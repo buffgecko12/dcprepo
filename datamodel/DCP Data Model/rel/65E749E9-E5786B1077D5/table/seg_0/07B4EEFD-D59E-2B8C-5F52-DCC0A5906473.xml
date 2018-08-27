@@ -52,7 +52,7 @@
 <Column name="UserType" id="5601B154-58B7-C346-16FF-3B365974E461">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User role:&lt;br/&gt;&lt;br/&gt;AD - Admin (program administrator)&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SF - school staff&lt;br/&gt;OT - other</comment>
+<comment>User role:&lt;br/&gt;&lt;br/&gt;AD - Admin (program administrator)&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SG - student group&lt;br/&gt;SF - school staff&lt;br/&gt;OT - other</comment>
 <generatorID>82C0BA22-F218-269F-071B-DCE5F8D7B8D2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
