@@ -11,6 +11,7 @@ RETURNS BOOLEAN AS $$
 DECLARE
 	bContractApprovedFlag BOOLEAN;
 	bRevisionApprovedFlag BOOLEAN;
+	bManualApproveFlag BOOLEAN;
 	bContractNewlyApprovedFlag BOOLEAN;	
 	bPartyApprovalFlag BOOLEAN;
 BEGIN
@@ -20,9 +21,10 @@ BEGIN
 	
 	-- Get approval info for contract
 	SELECT 
-		CASE WHEN ContractApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END,
-		CASE WHEN RevisionApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END
-		INTO bContractApprovedFlag, bRevisionApprovedFlag
+		CASE WHEN ContractApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END, -- Check if contract already approved
+		CASE WHEN RevisionApprovalTS IS NOT NULL THEN TRUE ELSE FALSE END, -- Check if revision already approved
+		CASE WHEN TeacherUserId = pPartyUserId THEN TRUE ELSE FALSE END -- Check if approver is contract owner
+		INTO bContractApprovedFlag, bRevisionApprovedFlag, bManualApproveFlag
 	FROM $APP_NAME$Views.Contract
 	WHERE ContractId = pContractId
 	FOR UPDATE -- Lock table row so it's not read until after function completes
@@ -78,34 +80,38 @@ BEGIN
 	-- Extra processing for "pending" contracts (i.e. not fully approved)
 	IF (NOT bContractApprovedFlag) THEN
 	
-		-- Mark contract as approved if it has been approved by all required parties
+		-- Update contract approval status (approve if all parties have accepted or manual approval specified)
 		UPDATE $APP_NAME$.Contract
 		SET ContractApprovalTS = CURRENT_TIMESTAMP
 		WHERE ContractId = pContractId
-		AND EXISTS (
-			SELECT 1
-			FROM (
-				SELECT
-					COUNT(*) AS NumParties,
-					SUM(
-						CASE 
-							WHEN cpa.PartyApprovalTS IS NOT NULL THEN -- Party has already approved
-								CASE 
-									WHEN NOT c.GuardianApprovalFlag OR c.GuardianApprovalFlag IS NULL THEN 1 -- Guardian approval flag IS NOT required (or not defined)
-									WHEN cpg.PartyApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
-									ELSE 0 -- NOT APPROVED
-								END
-							ELSE 0 -- Party has not approved yet
-						END	
-					) AS NumPartiesApproved
-				FROM $APP_NAME$Views.Contract c
-				INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get all contract parties (participants, mentor)
-				LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info (Contract)
-				LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpg ON cp.ContractId = cpg.ContractId AND cp.PartyUserId = cpg.PartyUserId AND cp.ContractRole <> 'MR' AND cpg.ApprovalType = 'G' -- Get non-mentor participants guardian approval info
-				WHERE c.ContractId = pContractId
-			) src
-			WHERE NumParties = NumPartiesApproved -- Only return if all parties have approved
-		) 
+		AND 
+		( -- Mark contract as approved if it has been approved by all required parties
+			EXISTS (
+				SELECT 1
+				FROM (
+					SELECT
+						COUNT(*) AS NumParties,
+						SUM(
+							CASE 
+								WHEN cpa.PartyApprovalTS IS NOT NULL THEN -- Party has already approved
+									CASE 
+										WHEN NOT c.GuardianApprovalFlag OR c.GuardianApprovalFlag IS NULL THEN 1 -- Guardian approval flag IS NOT required (or not defined)
+										WHEN cpg.PartyApprovalTS IS NOT NULL THEN 1 -- Guardian approval flag IS required and guardian has already approved
+										ELSE 0 -- NOT APPROVED
+									END
+								ELSE 0 -- Party has not approved yet
+							END	
+						) AS NumPartiesApproved
+					FROM $APP_NAME$Views.Contract c
+					INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get all contract parties (participants, mentor)
+					LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info (Contract)
+					LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpg ON cp.ContractId = cpg.ContractId AND cp.PartyUserId = cpg.PartyUserId AND cp.ContractRole <> 'MR' AND cpg.ApprovalType = 'G' -- Get non-mentor participants guardian approval info
+					WHERE c.ContractId = pContractId
+				) src
+				WHERE NumParties = NumPartiesApproved -- Only return if all parties have approved
+			) OR
+			bManualApproveFlag IS TRUE -- Manual approval (i.e. by contract owner)
+		)
 		;
 		
 		-- If contract has now been approved by all parties, specify the preferred goal and set the contract to Active
