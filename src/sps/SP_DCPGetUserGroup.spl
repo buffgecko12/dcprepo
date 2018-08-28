@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserGroup(
     pStudentUserId INTEGER
 )
 RETURNS TABLE (
-	GroupUserId INTEGER, GroupName VARCHAR(100), ClassId INTEGER, LeaderUserId INTEGER, UserIdList INTEGER[], LeaderName VARCHAR(250), UserNameList JSONB
+	GroupUserId INTEGER, GroupName VARCHAR(100), ClassId INTEGER, LeaderUserId INTEGER, UserIdList INTEGER[], LeaderName VARCHAR(250), GroupUserInfo JSONB
 ) AS $$
 BEGIN
     RETURN QUERY
@@ -15,13 +15,16 @@ BEGIN
     	ug.LeaderUserId, 
     	ug.UserIdList, 
     	CAST(us.FirstName || ' ' || us.Lastname AS VARCHAR(250)) AS LeaderName, 
-
     	(
 		SELECT 
 			JSONB_AGG(
 				( -- Create rows
 					SELECT myrow 
-					FROM (SELECT u.userid, CAST(u.firstname || ' ' || u.lastname AS VARCHAR(250)) AS FullName) myrow
+					FROM (
+						SELECT u.userid, 
+							CAST(u.firstname || ' ' || u.lastname AS VARCHAR(250)) AS FullName,
+							u.EmailAddress
+					) myrow
 				)
 				ORDER BY u.firstname, u.lastname
 			) AS ClassInfo
@@ -29,26 +32,13 @@ BEGIN
 				SELECT UNNEST(ug.UserIdList) AS userid
 			) ul
 			INNER JOIN users u ON ul.userid = u.userid
-		) AS UserNameList
-    	
-/*    	
-		(
-			SELECT ARRAY_AGG(FullName)
-			FROM (
-				SELECT CAST(u.firstname || ' ' || u.lastname AS VARCHAR(250)) AS FullName
-				FROM (
-					SELECT UNNEST(ug.UserIdList) AS userid
-				) ul
-				INNER JOIN users u ON ul.userid = u.userid
-				ORDER BY u.firstname, u.firstname
-			) src
-		) AS UserNameList
-*/
+		) AS GroupUserInfo    	
     FROM $APP_NAME$Views.User_Group ug
     LEFT JOIN $APP_NAME$Views.Users us ON ug.LeaderUserId = us.UserId
     WHERE (ug.GroupUserId = pGroupUserId OR pGroupUserId IS NULL)
     AND (ug.ClassId = pClassId OR pClassId IS NULL)
     AND (pStudentUserId = ANY (ug.UserIdList) OR pStudentUserId IS NULL)
+    ORDER BY ug.GroupName
     ;
 END;
 $$ LANGUAGE 'plpgsql';

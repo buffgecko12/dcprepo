@@ -78,7 +78,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="75C50C71-E6F0-4D86-E264-34D567CDAB11" name="PK">
+<ind_PK_UK id="75C50C71-E6F0-4D86-E264-34D567CDAB11" name="PKv12">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-26 12:52:59 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

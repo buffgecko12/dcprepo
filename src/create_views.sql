@@ -51,6 +51,22 @@ INNER JOIN $APP_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 -- Contract info
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract AS SELECT * FROM $APP_NAME$.Contract;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party AS SELECT * FROM $APP_NAME$.Contract_Party;
+
+-- Expand contract party group member info
+CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Group AS 
+SELECT 
+	cp.ContractId, cp.PartyUserId, cp.ContractRole, cp.GroupInfo, -- Contract party info
+	src.GroupUserId, src.GroupName, src.ClassId, src.LeaderUserId, UNNEST(src.UserIdList) AS PartyUserId_Group -- Group user info
+FROM $APP_NAME$Views.Contract_Party cp
+CROSS JOIN JSONB_TO_RECORD(cp.GroupInfo) AS src ( -- Only return records with GroupInfo
+	GroupUserId INTEGER, 
+	GroupName VARCHAR(100), 
+	ClassId INTEGER, 
+	LeaderUserId INTEGER, 
+	UserIdList INTEGER[]
+)
+;
+
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Approval AS SELECT * FROM $APP_NAME$.Contract_Party_Approval;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Goal AS SELECT * FROM $APP_NAME$.Contract_Goal;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Goal_Reward AS SELECT * FROM $APP_NAME$.Contract_Goal_Reward;

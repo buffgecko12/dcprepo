@@ -5,14 +5,14 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractParty(
 )
 
 RETURNS TABLE (
-	ContractId INTEGER, PartyUserId INTEGER, ContractRole CHAR(2), FirstName VARCHAR(100), LastName VARCHAR(100), 
+	ContractId INTEGER, PartyUserId INTEGER, ContractRole CHAR(2), GroupInfo JSONB, FirstName VARCHAR(100), LastName VARCHAR(100), 
 	PreferredGoalId INTEGER, PartyApprovalSignature BYTEA, GuardianApprovalInfo JSONB, PartyApprovalTS TIMESTAMP WITH TIME ZONE, PartyLogonUserId INTEGER
 ) AS $$
 
 BEGIN
 	RETURN QUERY
     SELECT 
-		cp.ContractId, cp.PartyUserId, cp.ContractRole,
+		cp.ContractId, cp.PartyUserId, cp.ContractRole, cp.GroupInfo,
 		u.firstname, u.lastname,
 		cpa.PreferredGoalId, cpa.SignatureScanFile PartyApprovalSignature, cpa.GuardianApprovalInfo, cpa.PartyApprovalTS, cpa.logonuserid PartyLogonUserId
     FROM $APP_NAME$Views.Contract_Party cp

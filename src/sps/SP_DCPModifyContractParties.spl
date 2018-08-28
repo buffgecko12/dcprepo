@@ -28,13 +28,20 @@ BEGIN
     
     -- Update current parties (if applicable)
     IF(pPartyUserInfo->'currentparties') IS NOT NULL THEN 
-	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
-		SELECT pContractId AS ContractId, src.PartyUserId, src.ContractRole
+	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, GroupInfo)
+		SELECT pContractId AS ContractId, src.PartyUserId, src.ContractRole, ug.GroupInfo
 		FROM JSONB_TO_RECORDSET(pPartyUserInfo->'currentparties') 
 		   AS src (PartyUserId INTEGER, ContractRole CHAR(2))
 		INNER JOIN $APP_NAME$Views.Users u ON src.PartyUserId = u.UserId -- Only include users that are already registered
+		LEFT JOIN (
+			SELECT GroupUserId, TO_JSONB(
+				(SELECT x FROM (SELECT GroupUserId, GroupName, ClassId, LeaderUserId, UserIdList) AS x) 
+			) AS GroupInfo
+			FROM $APP_NAME$Views.User_Group
+		) ug ON u.UserId = ug.GroupUserId -- Get group info
 		ON CONFLICT (ContractId, PartyUserId) DO UPDATE SET 
-			ContractRole = EXCLUDED.ContractRole
+			ContractRole = EXCLUDED.ContractRole,
+			GroupInfo = EXCLUDED.GroupInfo
 		;
 	END IF;
 	    	

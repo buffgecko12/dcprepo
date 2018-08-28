@@ -57,8 +57,8 @@ BEGIN
     ;
 
     -- Copy contract parties
-	INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole)
-	SELECT pTargetContractId, PartyUserId, ContractRole
+	INSERT INTO $APP_NAME$.Contract_Party (ContractId, PartyUserId, ContractRole, GroupInfo)
+	SELECT pTargetContractId, PartyUserId, ContractRole, GroupInfo
 	FROM $APP_NAME$.Contract_Party
 	WHERE ContractId = pSourceContractId
 	;

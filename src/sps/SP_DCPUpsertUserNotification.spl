@@ -18,12 +18,23 @@ BEGIN
 	IF(pSourceEventId IN(1101,1102,1103,1104,1105,1106)) THEN
 		INSERT INTO tNotifications (UserId, NotificationText, ContractId, SourceEventId)
 		SELECT DISTINCT u.PartyUserId, le.EventMessage, pContractId, pSourceEventId
-		FROM ( --  Get user list
+		FROM ( 
+			--  Get individual users
 			SELECT cp.PartyUserId
 			FROM $APP_NAME$Views.Contract_Party cp -- Get all contract parties
 			WHERE ContractId = pContractId
 			AND (PartyUserId = pUserId OR pUserId IS NULL)
+			AND GroupInfo IS NULL -- Exclude groups
 		
+			UNION ALL
+
+			--  Get users associated with groups
+			SELECT cpg.PartyUserId_Group
+			FROM $APP_NAME$Views.Contract_Party_Group cpg -- View only returns rows where GroupInfo is not NULL
+			INNER JOIN users u ON u.UserId = cpg.PartyUserId_Group -- Only get users that exist
+			WHERE cpg.ContractId = pContractId
+			AND (cpg.PartyUserId = pUserId OR pUserId IS NULL)
+			
 			UNION ALL
 
 			-- Include teacher for certain notifications

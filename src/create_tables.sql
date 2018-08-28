@@ -179,7 +179,7 @@ CREATE TABLE $APP_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
     PartyUserId INTEGER NOT NULL,
     ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
---    GroupInfo JSONB,
+    GroupInfo JSONB,
     PRIMARY KEY (ContractId, PartyUserId),
     FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId),
     FOREIGN KEY (PartyUserId) REFERENCES $APP_NAME$.Users (UserId)    

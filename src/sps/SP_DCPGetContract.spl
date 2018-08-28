@@ -31,13 +31,43 @@ BEGIN
 			JSONB_BUILD_OBJECT(
 				'currentparties',
 				JSONB_AGG(
-					(SELECT x FROM (SELECT cp.PartyUserId, cp.ContractRole, TO_CHAR(cpa.PartyApprovalTS, 'DD/MM/YYYY') AS PartyApprovalTS, cpa.PreferredGoalId, u.Firstname, u.Lastname, u.EmailAddress) AS x)
-					ORDER BY cp.ContractRole, u.Firstname, u.LastName
+					(
+						SELECT x 
+						FROM (
+							SELECT 
+								cp.PartyUserId, 
+								cp.ContractRole, 
+								cp.GroupInfo,
+								cpg.GroupUserInfo,
+								TO_CHAR(cpa.PartyApprovalTS, 'DD/MM/YYYY') AS PartyApprovalTS, 
+								cpa.PreferredGoalId, 
+								u.Firstname, 
+								u.Lastname, 
+								u.EmailAddress
+						) AS x
+					)
+					ORDER BY cp.ContractRole, cp.GroupInfo->'groupname', u.Firstname, u.LastName
 				)
 			) AS PartyUserInfo,
 			CAST(SUM(CASE WHEN cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS INTEGER) AS PartyApprovalCount
 		FROM $APP_NAME$Views.Contract_Party cp
 		LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
+		LEFT JOIN (
+			SELECT 
+				cpg.contractid, 
+				cpg.partyuserid, 
+				JSONB_AGG(
+					(
+						SELECT x FROM (
+							SELECT cpg.PartyUserId_Group, u.EmailAddress
+						) AS x
+					)
+					ORDER BY cpg.GroupName
+				) AS GroupUserInfo
+			FROM $APP_NAME$Views.Contract_Party_Group cpg 
+			INNER JOIN $APP_NAME$Views.Users u ON cpg.PartyUserId_Group = u.UserId
+			GROUP BY cpg.ContractId, cpg.PartyUserId
+		) cpg ON cp.PartyUserId = cpg.PartyUserId AND cp.ContractId = cpg.ContractId -- Get group user info
 		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
 		GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId -- Get party info
@@ -73,9 +103,17 @@ BEGIN
 	AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
     AND (
     	c.ContractId IN (
+    		-- Get all users assigned to contract
     		SELECT cp.ContractId 
     		FROM $APP_NAME$Views.Contract_Party cp
     		WHERE cp.PartyUserId = pPartyUserId
+    		
+    		UNION ALL
+    		
+    		-- Get users that belong to groups assigned to contract
+    		SELECT cpg.ContractId
+    		FROM $APP_NAME$Views.Contract_Party_Group cpg
+    		WHERE cpg.PartyUserId_Group = pPartyUserId
 		) OR pPartyUserId IS NULL
 	) -- Return contracts for a specific user
 	AND (c.ContractStatus <> 'D' OR pExcludeDraftsFlag IS NULL OR NOT pExcludeDraftsFlag) -- Exclude draft contracts unless specified otherwise
