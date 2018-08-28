@@ -51,6 +51,7 @@ BEGIN
 		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(pPartyUserId, 2002, pContractId); -- Accept contract goal
 	END IF;
 	
+	-- TO-DO: Possibly remove this (only teacher approval required for revision; done elsewhere)
 	-- Mark revision as approved if it has been approved by all required parties (skip if already approved)
 	IF (NOT bRevisionApprovedFlag) THEN
 		UPDATE $APP_NAME$.Contract
