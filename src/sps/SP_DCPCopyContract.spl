@@ -71,8 +71,8 @@ BEGIN
 	;
 
 	-- Copy contract goals
-	INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards)
-	SELECT pTargetContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards
+	INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards, RewardSelectedBy)
+	SELECT pTargetContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards, RewardSelectedBy
 	FROM $APP_NAME$.Contract_Goal
 	WHERE ContractId = pSourceContractId
 	;

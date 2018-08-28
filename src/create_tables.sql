@@ -207,6 +207,7 @@ CREATE TABLE $APP_NAME$.Contract_Goal (
     GoalDescription VARCHAR(500) NOT NULL,
     AcceptedFlag BOOLEAN,
     MaxNumRewards INTEGER, -- 0 = no limit
+    RewardSelectedBy CHAR(2) DEFAULT 'ST',
     PRIMARY KEY (ContractId, GoalId),
     FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
 );

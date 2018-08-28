@@ -86,6 +86,19 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="RewardSelectedBy" id="1F914BE3-0149-6804-A009-553308F5B5CA">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-28 17:35:58 UTC</createdTime>
+<commentInRDBMS>Who is the reward selected by&lt;br/&gt;&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="39F9FF6B-AE98-E428-D4B3-8AD15B107FED" name="PKv1v1v1v1">

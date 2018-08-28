@@ -5,7 +5,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractGoal(
     pGoalDescription VARCHAR(500),
     pAcceptedFlag BOOLEAN,
     pRewardInfo JSONB,
-    pMaxNumRewards INTEGER
+    pMaxNumRewards INTEGER,
+    pRewardSelectedBy CHAR(2)
 )
 RETURNS INTEGER AS $$
 DECLARE
@@ -24,13 +25,14 @@ BEGIN
 	END IF;
 
 	-- Upsert goal
-    INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards)
-	VALUES (pContractId, MyGoalId, pDifficultyLevel, pGoalDescription, pAcceptedFlag, pMaxNumRewards)
+    INSERT INTO $APP_NAME$.Contract_Goal (ContractId, GoalId, DifficultyLevel, GoalDescription, AcceptedFlag, MaxNumRewards, RewardSelectedBy)
+	VALUES (pContractId, MyGoalId, pDifficultyLevel, pGoalDescription, pAcceptedFlag, pMaxNumRewards, pRewardSelectedBy)
     ON CONFLICT (ContractId, GoalId) DO UPDATE SET 
 		DifficultyLevel = EXCLUDED.DifficultyLevel,
         GoalDescription = EXCLUDED.GoalDescription,
         AcceptedFlag = EXCLUDED.AcceptedFlag,
-        MaxNumRewards = EXCLUDED.MaxNumRewards
+        MaxNumRewards = EXCLUDED.MaxNumRewards,
+        RewardSelectedBy = EXCLUDED.RewardSelectedBy
     ;
 
     -- Delete any rewards (Shortcut: delete any existing rows and then re-populate with form data)

@@ -68,10 +68,10 @@ SELECT $APP_NAME$Views.SP_DCPChangeContractStatus(100,'A');
 
 -- Add / modify /delete contract goals / rewards
 SELECT $APP_NAME$Views.SP_DCPUpsertContractGoal(100,NULL,'E','Goal 1',NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0);
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0, 'ST');
 
 SELECT $APP_NAME$Views.SP_DCPUpsertContractGoal(100,1,'M','Goal 1',NULL,
-JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0);
+JSONB('{"deletedrewards": [],"currentrewards": [{"rewardid": 1},{"rewardid": 2}]}'), 0, 'ST');
 
 SELECT $APP_NAME$Views.SP_DCPUpsertContractGoalReward(100,2,1);
 
