@@ -52,30 +52,6 @@ BEGIN
 	IF(bPartyApprovalFlag) THEN
 		PERFORM $APP_NAME$Views.SP_DCPProcessUserEvent(pPartyUserId, 2002, pContractId); -- Accept contract goal
 	END IF;
-	
-	-- TO-DO: Possibly remove this (only teacher approval required for revision; done elsewhere)
-	-- Mark revision as approved if it has been approved by all required parties (skip if already approved)
-	IF (NOT bRevisionApprovedFlag) THEN
-		UPDATE $APP_NAME$.Contract
-		SET RevisionApprovalTS = CURRENT_TIMESTAMP
-		WHERE ContractId = pContractId
-		AND EXISTS (
-			SELECT 1
-			FROM (
-				SELECT 
-					SUM(CASE WHEN cp.ContractRole IN ('PL','BL') AND cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumLeadersApproved,
-					SUM(CASE WHEN cp.ContractRole IN ('MR') AND cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS NumMentorsApproved,
-					SUM(CASE WHEN cp.ContractRole IN ('MR') THEN 1 ELSE 0 END) NumMentors
-				FROM $APP_NAME$Views.Contract c
-				INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId AND cp.ContractRole IN ('MR','PL','BL') -- Get mentor and primary/secondary group leaders
-				LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'R' -- Check for "Revision" approvals
-				WHERE c.ContractId = pContractId
-			) src
-			WHERE src.NumMentors = NumMentorsApproved -- Make sure all mentors approved
-			AND src.NumLeadersApproved > 0 -- Make sure at least one of the student leaders approved
-		)
-		;
-	END IF;
 
 	-- Extra processing for "pending" contracts (i.e. not fully approved)
 	IF (NOT bContractApprovedFlag) THEN
