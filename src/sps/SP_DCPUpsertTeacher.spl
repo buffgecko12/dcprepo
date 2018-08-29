@@ -8,7 +8,7 @@ BEGIN
 
     -- S1: Update teacher info
     INSERT INTO $APP_NAME$.User_Teacher(TeacherUserId, MaxBudget)
-    VALUES(pTeacherUserId, pMaxBudget)
+    VALUES(pTeacherUserId, COALESCE(pMaxBudget,500000)) -- TO-DO: Remove hard-coded value
     ON CONFLICT(TeacherUserId) DO UPDATE SET
     	MaxBudget = COALESCE(EXCLUDED.MaxBudget, User_Teacher.MaxBudget) -- Don't overwrite existing values with NULL
     ;
