@@ -8,6 +8,7 @@ DECLARE
 	NewReputationPointValueAgg INTEGER;
 	MyUserId INTEGER;
 	MyUserIdList INTEGER[];
+	MyRecord RECORD;
 BEGIN   
 	
 	-- Initialize variable
@@ -34,46 +35,42 @@ BEGIN
 	END IF;
 		
 	-- Update reputation info
-	WITH ins AS (
-		INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
-		SELECT u.UserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
-		FROM $APP_NAME$Views.Users u 
-		LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON u.Userid = ure.UserId AND ure.SourceEventId = pEventId AND ure.ContractId = pContractId -- Check if user already has this event for this contract
-		CROSS JOIN $APP_NAME$Views.Lookup_Event le
-		WHERE u.UserId = ANY(MyUserIdList)
-		AND le.EventId = pEventId
-		AND le.EventType = 'RP' -- Get reputation events only
-		AND 
-		(
-			(pEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one
-			pEventId <> 2002
+	FOR MyRecord IN 
+		WITH ins AS (
+			INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
+			SELECT u.UserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
+			FROM $APP_NAME$Views.Users u 
+			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON u.Userid = ure.UserId AND ure.SourceEventId = pEventId AND ure.ContractId = pContractId -- Check if user already has this event for this contract
+			CROSS JOIN $APP_NAME$Views.Lookup_Event le
+			WHERE u.UserId = ANY(MyUserIdList)
+			AND le.EventId = pEventId
+			AND le.EventType = 'RP' -- Get reputation events only
+			AND 
+			(
+				(pEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one
+				pEventId <> 2002
+			)
+			RETURNING UserId, PointValue
+		),
+		upd AS (
+			UPDATE $APP_NAME$.Users dest
+			SET ReputationValue = GREATEST(ReputationValue + AggPointValue, 0) -- Negative user reputation value not allowed
+			FROM (
+				SELECT ins.UserId, SUM(ins.PointValue) AggPointValue
+				FROM ins
+				GROUP BY ins.UserId
+			) src
+			WHERE dest.UserId = ANY(MyUserIdList)
+			RETURNING src.UserId, AggPointValue
 		)
-		RETURNING PointValue
-	)
-	SELECT COALESCE(SUM(PointValue),0) FROM ins INTO NewReputationPointValueAgg
-	;
+		SELECT UserId
+		FROM upd
+		WHERE AggPointValue > 0 -- Only look at positive-reputation value changes
+	LOOP
+		-- Create reputation notifications
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyRecord.UserId, 1001, pContractId); -- New reputation points
+	END LOOP;
 
-	-- If reputation values change, update value and create notification
-	IF(NewReputationPointValueAgg <> 0) THEN
-	
-		-- Update reputation value
-		UPDATE $APP_NAME$.Users
-		SET ReputationValue = GREATEST(ReputationValue + NewReputationPointValueAgg,0) -- Negative user reputation value not allowed
-		WHERE UserId = ANY(MyUserIdList)
-		;
-
-		-- Create new notification for positive-change reputation only
-		IF(NewReputationPointValueAgg > 0) THEN
-
-			FOREACH MyUserId IN ARRAY MyUserIdList
-			LOOP
-				-- Create reputation notification
-				PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyUserId, 1001, pContractId); -- New reputation points
-			END LOOP;
-		END IF;
-		
-	END IF;
-	
 	-- Add new badges & profile pictures
 	WITH get_badges AS (
 		SELECT badges.UserId, badges.BadgeId, badges.BadgeLevel, MyBadgeRowNum, bpp.ProfilePictureId
