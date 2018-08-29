@@ -10,6 +10,9 @@ DECLARE
 	MyUserIdList INTEGER[];
 BEGIN   
 	
+	-- Initialize variable
+	MyUserIdList = ARRAY[pUserId];
+	
 	-- CONTRACT: Determine user list
 	IF(pEventId IN (2002)) THEN
 	
@@ -23,7 +26,7 @@ BEGIN
 		SELECT 
 			CASE 
 				WHEN groupusers.UserIdList IS NOT NULL THEN groupusers.UserIdList -- User group
-				ELSE ARRAY[pUserId] -- Individual user
+				ELSE MyUserIdList -- Individual user
 			END 
 		FROM groupusers
 		INTO MyUserIdList
