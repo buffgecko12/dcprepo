@@ -8,16 +8,22 @@ DECLARE
 	NewReputationPointValueAgg INTEGER;
 	NumBadgesAdded INTEGER;
 BEGIN   
-
+		
 	-- Update reputation info
 	WITH ins AS (
 		INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
 		SELECT pUserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
 		FROM $APP_NAME$Views.Users u 
+		LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON u.userid = ure.UserId AND ure.SourceEventId = pEventId AND ure.ContractId = pContractId -- Check if user already has this event for this contract
 		CROSS JOIN $APP_NAME$Views.Lookup_Event le
 		WHERE u.UserId = pUserId
 		AND le.EventId = pEventId
 		AND le.EventType = 'RP' -- Get reputation events only
+		AND 
+		(
+			(pEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one
+			pEventId <> 2002
+		)
 		RETURNING PointValue
 	)
 	SELECT COALESCE(SUM(PointValue),0) FROM ins INTO NewReputationPointValueAgg
