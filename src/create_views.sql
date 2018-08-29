@@ -52,7 +52,7 @@ INNER JOIN $APP_NAME$Views.User_Teacher ut ON u.UserId = ut.TeacherUserId
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract AS SELECT * FROM $APP_NAME$.Contract;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party AS SELECT * FROM $APP_NAME$.Contract_Party;
 
--- Expand contract party group member info
+-- Expand contract party group member info (GroupInfo must be NULL if contract party is not a group)
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Group AS 
 SELECT 
 	cp.ContractId, cp.PartyUserId, cp.ContractRole, cp.GroupInfo, -- Contract party info
