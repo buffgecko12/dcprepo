@@ -64,7 +64,7 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (2012, 'RP', 'PF', 'AL', 'Experiencia negativa de grupo', '', -2),
 (2013, 'RP', 'PF', 'AL', 'Enviar feedback', '', 2),
 (2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15),
-(2015, 'RP', 'PF', 'TR', 'Finalizar un contrato', '', 10)
+(2015, 'RP', 'PF', 'TR', 'Evaluar un contrato', '', 10)
 ;
 
 -- Load badges
