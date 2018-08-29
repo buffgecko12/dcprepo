@@ -86,8 +86,8 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 
 -- Send contract
 (11, 'B', 1, 'participant','Participante', 'Enviar un contrato', 2014), 
-(12, 'S', 10, 'involved','Involucrado', 'Enviar 10 contratos', 2014), 
-(13, 'G', 50, 'motivated','Motivado', 'Enviar 50 contratos', 2014), 
+(12, 'S', 5, 'involved','Involucrado', 'Enviar 5 contratos', 2014), 
+(13, 'G', 25, 'motivated','Motivado', 'Enviar 50 contratos', 2014), 
 
 -- Accept contract goal
 (14, 'B', 1, 'participant', 'Participante', 'Aceptar un contrato', 2002),
