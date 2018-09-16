@@ -205,6 +205,30 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="ContractEvaluationTS" id="8816734D-1B5E-972A-F808-AC9DF1CCECC1">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-09 02:30:59 UTC</createdTime>
+<commentInRDBMS>When was the contract evaluated</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractFinalizationTS" id="1333B984-9615-2928-FD6B-80473A7DB71B">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-09 02:30:59 UTC</createdTime>
+<commentInRDBMS>When was the contract finalized.</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="ContractStatus" id="45A35359-84B8-9D16-A6F9-1ACA1E4A737F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-04-11 22:47:43 UTC</createdTime>

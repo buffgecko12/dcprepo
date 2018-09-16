@@ -70,7 +70,7 @@ CROSS JOIN JSONB_TO_RECORD(cp.GroupInfo) AS src ( -- Only return records with Gr
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Approval AS SELECT * FROM $APP_NAME$.Contract_Party_Approval;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Goal AS SELECT * FROM $APP_NAME$.Contract_Goal;
 CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Goal_Reward AS SELECT * FROM $APP_NAME$.Contract_Goal_Reward;
-CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Goal_Reward AS SELECT * FROM $APP_NAME$.Contract_Party_Goal_Reward;
+CREATE OR REPLACE VIEW $APP_NAME$Views.Contract_Party_Goal_Evaluation AS SELECT * FROM $APP_NAME$.Contract_Party_Goal_Evaluation;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.NextId AS SELECT * FROM $APP_NAME$.NextId;
 

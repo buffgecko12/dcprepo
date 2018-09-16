@@ -168,6 +168,8 @@ CREATE TABLE $APP_NAME$.Contract (
     StudentRequirements VARCHAR(500),
     ContractScanFile BYTEA,
     ContractApprovalTS TIMESTAMP WITH TIME ZONE,
+    ContractEvaluationTS TIMESTAMP WITH TIME ZONE,
+    ContractFinalizationTS TIMESTAMP WITH TIME ZONE,
     ContractStatus CHAR(1),
     TempContractId INTEGER,
     PRIMARY KEY (ContractId),
@@ -222,15 +224,20 @@ CREATE TABLE $APP_NAME$.Contract_Goal_Reward (
 );
 
 -- Reward selected for each contract goal for each student
-CREATE TABLE $APP_NAME$.Contract_Party_Goal_Reward (
-	PartyUserId INTEGER NOT NULL,
+CREATE TABLE $APP_NAME$.Contract_Party_Goal_Evaluation (
 	ContractId INTEGER NOT NULL,
+	PartyUserId INTEGER NOT NULL,
 	GoalId INTEGER NOT NULL,
+	AchievedFlag BOOLEAN,
+	ExperienceRating SMALLINT,
+	HighPerformerFlag BOOLEAN,
+	TopPerformerFlag BOOLEAN,
+	FeedbackMsg VARCHAR(500),
 	RewardId INTEGER,
 	RewardDeliveredFlag BOOLEAN,
 	ActualRewardValue INTEGER,
 	PRIMARY KEY (ContractId, PartyUserId, GoalId),
-	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
+--	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
 );
 

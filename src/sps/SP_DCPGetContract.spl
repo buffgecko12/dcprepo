@@ -9,15 +9,16 @@ RETURNS TABLE (
 	ContractId INTEGER, ContractName VARCHAR(100), ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
 	ContractValidPeriod TSTZRANGE, GuardianApprovalFlag BOOLEAN, RevisionDeadlineTS TIMESTAMP WITH TIME ZONE, RevisionDescription VARCHAR(500), RevisionApprovalTS TIMESTAMP WITH TIME ZONE, 
 	StudentLeaderRequirements VARCHAR(500), TeacherRequirements VARCHAR(500), StudentRequirements VARCHAR(500), ContractScanFile BYTEA, 
-	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), TempContractId INTEGER, GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER,
-	RevisionEligibilityFlag BOOLEAN
+	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractEvaluationTS TIMESTAMP WITH TIME ZONE, ContractFinalizationTS TIMESTAMP WITH TIME ZONE, 
+	ContractStatus CHAR(1), TempContractId INTEGER, GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER, RevisionEligibilityFlag BOOLEAN
 )AS $$
 BEGIN
     RETURN QUERY
     SELECT 
-    	c.ContractId, c.ContractName, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,
-		c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractStatus, c.TempContractId,
-		cg.GoalInfo, cp.PartyUserInfo, cp.PartyApprovalCount,
+    	c.ContractId, c.ContractName, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, 
+    	c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,	c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, 
+    	c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractEvaluationTS, c.ContractFinalizationTS, c.ContractStatus, c.TempContractId, cg.GoalInfo, 
+    	cp.PartyUserInfo, cp.PartyApprovalCount,
 		CASE 
 			WHEN CURRENT_DATE > (CAST(c.RevisionDeadlineTS AS DATE) + INTERVAL '1' DAY) OR c.RevisionDescription IS NOT NULL THEN FALSE 
 			ELSE TRUE 

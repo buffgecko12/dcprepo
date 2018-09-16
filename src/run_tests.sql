@@ -81,6 +81,12 @@ SELECT $APP_NAME$Views.SP_DCPDeleteContractGoalReward(100,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteContractGoal(100,2);
 SELECT $APP_NAME$Views.SP_DCPDeleteContractGoal(100,NULL);
 
+-- Evaluation
+SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'evaluate','evaluate',FALSE,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'save','evaluation',TRUE,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'save','rewards',TRUE,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetContractPartyGoalEvaluation(100,1,1,FALSE);
+
 SELECT $APP_NAME$Views.SP_DCPModifyContractParties(
 	100,
 	JSONB('{"deletedparties": [100],"currentparties": [{"partyuserid": null,"contractrole": "MR"},{"partyuserid": 103,"contractrole": "PL"}]}')

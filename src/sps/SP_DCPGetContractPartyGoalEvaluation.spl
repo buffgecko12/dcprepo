@@ -1,0 +1,42 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractPartyGoalEvaluation(
+    pContractId INTEGER,
+    pPartyUserId INTEGER,
+    pGoalId INTEGER,
+    pAchievedFlag BOOLEAN
+)
+RETURNS TABLE (
+	ContractId INTEGER, PartyUserId INTEGER, GoalId INTEGER, AchievedFlag BOOLEAN, ExperienceRating SMALLINT, HighPerformerFlag BOOLEAN, TopPerformerFlag BOOLEAN,
+	FeedbackMsg VARCHAR(500), RewardId INTEGER, RewardDeliveredFlag BOOLEAN, ActualRewardValue INTEGER, PartyUserFullName VARCHAR(500), RewardOptions JSONB
+) AS $$
+BEGIN
+	RETURN QUERY
+    SELECT cpge.ContractId, cpge.PartyUserId, cpge.GoalId, cpge.AchievedFlag, cpge.ExperienceRating, cpge.HighPerformerFlag, 
+    	   cpge.TopPerformerFlag, cpge.FeedbackMsg, cpge.RewardId, cpge.RewardDeliveredFlag, cpge.ActualRewardValue,
+    	   CAST((CASE WHEN ug.GroupName IS NOT NULL THEN ug.GroupName ELSE u.FirstName || ' ' || u.LastName END) AS VARCHAR(500)) AS PartyUserFullName,
+    	   ro.RewardOptions
+    FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge
+    INNER JOIN $APP_NAME$Views.Users u ON cpge.PartyUserId = u.UserId
+    LEFT JOIN $APP_NAME$Views.User_Group ug ON u.UserId = ug.GroupUserId -- Get user group info (if any)
+    LEFT JOIN (
+    	SELECT 
+    		cgr.ContractId, 
+    		cgr.GoalId, 
+    		JSONB_AGG(
+    			(
+	    			SELECT x FROM (
+	    				SELECT cgr.RewardId, lr.RewardDisplayName
+					) AS x
+				)
+				ORDER BY lr.RewardDisplayName
+			) AS RewardOptions
+    	FROM $APP_NAME$Views.Contract_Goal_Reward cgr
+    	INNER JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId = lr.RewardId
+		GROUP BY cgr.ContractId, cgr.GoalId    	
+    ) ro ON cpge.ContractId = ro.ContractId AND cpge.GoalId = ro.GoalId
+    WHERE (cpge.ContractId = pContractId OR pContractId IS NULL)
+    AND (cpge.PartyUserId = pPartyUserId OR pPartyUserId IS NULL)
+    AND (cpge.GoalId = pGoalId OR pGoalId IS NULL)
+    AND (cpge.AchievedFlag = pAchievedFlag OR pAchievedFlag IS NULL OR NOT pAchievedFlag)
+	;
+END;
+$$ LANGUAGE 'plpgsql';

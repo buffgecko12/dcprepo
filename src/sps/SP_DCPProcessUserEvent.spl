@@ -5,49 +5,59 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPProcessUserEvent (
 )
 RETURNS VOID AS $$
 DECLARE
-	NewReputationPointValueAgg INTEGER;
-	MyUserIdList INTEGER[];
 	MyRecord RECORD;
+	MyExpandUserGroupEventList INTEGER[];
 BEGIN   
+
+	-- List of user events to expand to user groups
+	MyExpandUserGroupEventList = ARRAY[2, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2012];
 	
-	-- Initialize variable
-	MyUserIdList = ARRAY[pUserId];
+	-- Temp table to store events
+	CREATE TEMPORARY TABLE IF NOT EXISTS tEvents (
+		ContractId INTEGER,
+		GoalId INTEGER,
+		PartyUserId INTEGER,
+		SourceEventId INTEGER
+	);
+
+	-- Seed table with single user event (if provided)
+	INSERT INTO tEvents(ContractId, GoalId, PartyUserId, SourceEventId)
+	SELECT pContractId, NULL, pUserId, pEventId
+	WHERE pUserId IS NOT NULL
+	OR pEventId IS NOT NULL
+	OR pContractId IS NOT NULL
+	ON CONFLICT DO NOTHING
+	;
+
+	-- Expand user group users for specific events
+	INSERT INTO tEvents(ContractId, GoalId, PartyUserId, SourceEventId)
+	SELECT ev.ContractId, ev.GoalId, cpg.PartyUserId_Group, ev.SourceEventId
+	FROM tEvents ev
+	INNER JOIN $APP_NAME$Views.Contract_Party_Group cpg ON ev.PartyUserId = cpg.PartyUserId AND ev.ContractId = cpg.ContractId -- Get group users
+	WHERE ev.SourceEventId = ANY(MyExpandUserGroupEventList)
+	ON CONFLICT DO NOTHING
+	;
+
+	-- Delete original "event" for user groups
+	DELETE FROM tEvents
+	WHERE PartyUserId IN(SELECT PartyUserId FROM $APP_NAME$Views.Contract_Party WHERE GroupInfo IS NOT NULL)
+	AND SourceEventId = ANY(MyExpandUserGroupEventList)
+	;
 	
-	-- CONTRACT: Determine user list
-	IF(pEventId IN (2002)) THEN
-	
-		-- Get individual users from user group
-		WITH groupusers AS (
-			SELECT ARRAY_AGG(PartyUserId_Group) AS UserIdList
-			FROM $APP_NAME$Views.Contract_Party_Group
-			WHERE PartyUserId = pUserId
-			AND ContractId = pContractId
-		)
-		SELECT 
-			CASE 
-				WHEN groupusers.UserIdList IS NOT NULL THEN groupusers.UserIdList -- User group
-				ELSE MyUserIdList -- Individual user
-			END 
-		FROM groupusers
-		INTO MyUserIdList
-		;
-	END IF;
-		
 	-- Update reputation info
 	FOR MyRecord IN 
 		WITH ins AS (
 			INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
-			SELECT u.UserId, pEventId, pContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
-			FROM $APP_NAME$Views.Users u 
-			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON u.Userid = ure.UserId AND ure.SourceEventId = pEventId AND ure.ContractId = pContractId -- Check if user already has this event for this contract
-			CROSS JOIN $APP_NAME$Views.Lookup_Event le
-			WHERE u.UserId = ANY(MyUserIdList)
-			AND le.EventId = pEventId
-			AND le.EventType = 'RP' -- Get reputation events only
+			SELECT ev.PartyUserId, ev.SourceEventId, ev.ContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
+			FROM tEvents ev -- Get user events
+			INNER JOIN $APP_NAME$Views.Users u ON ev.PartyUserId = u.UserId -- Make sure user exists
+			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON ev.PartyUserId = ure.UserId AND ure.SourceEventId = ev.SourceEventId AND ure.ContractId = ev.ContractId -- Check if user already has this event for this contract
+			INNER JOIN $APP_NAME$Views.Lookup_Event le ON ev.SourceEventId = le.EventId
+			WHERE le.EventType = 'RP' -- Get reputation events only
 			AND 
 			(
-				(pEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one
-				pEventId <> 2002
+				(ev.SourceEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one for this contract
+				ev.SourceEventId <> 2002
 			)
 			RETURNING UserId, PointValue
 		),
@@ -59,7 +69,7 @@ BEGIN
 				FROM ins
 				GROUP BY ins.UserId
 			) src
-			WHERE dest.UserId = ANY(MyUserIdList)
+			WHERE dest.UserId = src.UserId
 			RETURNING src.UserId, AggPointValue
 		)
 		SELECT UserId
@@ -67,63 +77,89 @@ BEGIN
 		WHERE AggPointValue > 0 -- Only look at positive-reputation value changes
 	LOOP
 		-- Create reputation notifications
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyRecord.UserId, 1001, pContractId); -- New reputation points
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyRecord.UserId, 1001, NULL); -- New reputation points
 	END LOOP;
 
 	-- Add new badges & profile pictures
 	FOR MyRecord IN 
+		-- Get new badges
 		WITH get_badges AS (
-			SELECT badges.UserId, badges.BadgeId, badges.BadgeLevel, MyBadgeRowNum, bpp.ProfilePictureId
+			SELECT badges.PartyUserId, badges.BadgeId, badges.BadgeLevel, MyBadgeRowNum, bpp.ProfilePictureId
 			FROM (
 				SELECT 
-					u.UserId,
+					ev.PartyUserId,
 					lb.BadgeId, 
 					lb.BadgeLevel,
-					ROW_NUMBER() OVER(PARTITION BY u.UserId) AS MyBadgeRowNum -- Assign each earned badge a RowId
-				FROM $APP_NAME$Views.Users u -- Get user info
-				CROSS JOIN $APP_NAME$Views.Lookup_Event le -- Get event info
+					ROW_NUMBER() OVER(PARTITION BY ev.PartyUserId) AS MyBadgeRowNum -- Assign each earned badge a RowId
+				FROM (
+					-- Get distinct list of badge triggers
+					SELECT DISTINCT PartyUserId, SourceEventId
+					FROM (
+						-- Event-specific triggers
+						SELECT PartyUserId, SourceEventId
+						FROM tEvents 
+						
+						UNION ALL
+	
+						-- Non-event-specific triggers
+						SELECT PartyUserId, EventId
+						FROM tEvents
+						INNER JOIN $APP_NAME$Views.Lookup_Event le ON le.EventId = 1 -- Reputation thresholds
+					) src
+				) AS ev
+				INNER JOIN $APP_NAME$Views.Users u ON ev.PartyUserId = u.UserId -- Make sure user exists
+				INNER JOIN $APP_NAME$Views.Lookup_Event le ON (ev.SourceEventId = le.EventId) -- Get event info
 				INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId -- Look up badges associated with events
-				WHERE u.UserId = ANY(MyUserIdList) -- Restrict to specified users
-				AND NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = u.UserId) -- Exclude badges user has already earned
+				WHERE NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = ev.PartyUserId) -- Exclude badges user has already earned
 				AND 
-				( -- Non event-specific badges
+				( 
+					-- NON-EVENT TRIGGERED BADGES
 					( -- Reputation threshold
 						le.EventId = 1 AND 
 						COALESCE(u.ReputationValue,0) >= lb.BadgeThresholdValue -- Check if user's reputation is greater than threshold values
 					) OR
-					( -- Event-specific badges (directly caused by source event)
-						le.EventId = pEventId AND 
-						( -- Non-threshold badges
-							lb.BadgeThresholdValue IS NULL OR 
-							( -- Threshold badges
-								( -- Goals accepted
-									le.EventId = 2002 AND (
-										SELECT COUNT(*) 
-										FROM $APP_NAME$Views.Contract_Party_Approval cpa -- Get all contract party approvals
-										LEFT JOIN $APP_NAME$Views.Contract_Party_Group cpg ON cpa.PartyUserId = cpg.PartyUserId AND cpa.ContractId = cpg.ContractId -- Get individual users associated with user group aproval
-										WHERE (
-											cpa.PartyUserId = u.UserId OR -- Individual user
-											cpg.PartyUserId_Group = u.UserId -- Group user
-										)
-										AND cpa.ApprovalType = 'C' 
-										AND cpa.PartyApprovalTS IS NOT NULL
-									) >= lb.BadgeThresholdValue -- Check if number of accepted contract goals for user has exceeded threshold value
-								) OR
-								( -- Contracts sent (teacher)
-									le.EventId = 2014 AND (
-										SELECT COUNT(*)
-										FROM $APP_NAME$Views.Contract
-										WHERE TeacherUserId = u.UserId
-										AND ContractStatus IN('A','C','P')
-									) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
-								) OR
-								( -- Goals completed
-									le.EventId = 2 AND (
-										SELECT COUNT(*)
-										FROM $APP_NAME$Views.Contract_Party_Goal_Reward cp -- Get contracts goals completed by user
-										WHERE cp.PartyUserId = u.UserId
-									) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
-								)
+					-- EVENT TRIGGERED BADGES
+					( 
+						-- Non-threshold badges
+						lb.BadgeThresholdValue IS NULL OR 
+						-- Threshold badges
+						(
+							( -- Goals accepted
+								le.EventId = 2002 AND (
+									SELECT COUNT(*) 
+									FROM $APP_NAME$Views.Contract_Party_Approval cpa -- Get all contract party approvals
+									LEFT JOIN $APP_NAME$Views.Contract_Party_Group cpg ON cpa.PartyUserId = cpg.PartyUserId AND cpa.ContractId = cpg.ContractId -- Get individual users associated with user group aproval
+									WHERE (
+										cpa.PartyUserId = ev.PartyUserId OR -- Individual user
+										cpg.PartyUserId_Group = ev.PartyUserId -- Group user
+									)
+									AND cpa.ApprovalType = 'C' 
+									AND cpa.PartyApprovalTS IS NOT NULL
+								) >= lb.BadgeThresholdValue -- Check if number of accepted contract goals for user has exceeded threshold value
+							) OR
+							( -- Contracts sent (teacher)
+								le.EventId = 2014 AND (
+									SELECT COUNT(*)
+									FROM $APP_NAME$Views.Contract
+									WHERE TeacherUserId = ev.PartyUserId
+									AND ContractStatus NOT IN('D','R')
+								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
+							) OR
+							( -- Goals completed
+								le.EventId = 2 AND (
+									SELECT COUNT(*)
+									FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge -- Get contracts goals completed by user
+									WHERE cpge.PartyUserId = ev.PartyUserId
+									AND cpge.AchievedFlag IS TRUE
+								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
+							) OR
+							( -- Positive feedback
+								le.EventId = 2008 AND (
+									SELECT COUNT(*)
+									FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge -- Lookup contract goals accepted
+									WHERE cpge.PartyUserId = ev.PartyUserId
+									AND ExperienceRating > 3 -- Only look at positive feedbacks (1 = worst, 5 = best)
+								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
 							)
 						)
 					)
@@ -131,33 +167,41 @@ BEGIN
 			) badges
 			LEFT JOIN ( -- Get all available (i.e. not already awarded) badge profile pictures, per user
 				SELECT 
-					u.UserId,
+					ev.PartyUserId,
 					lpp.ProfilePictureId, 
 					lpp.BadgeLevel, 
-					ROW_NUMBER() OVER(PARTITION BY u.UserId, lpp.BadgeLevel ORDER BY RANDOM()) MyProfilePictureRowNum -- Generate random ID values for each profilepicture (within badge level)
-				FROM $APP_NAME$Views.Users u
+					ROW_NUMBER() OVER(PARTITION BY ev.PartyUserId, lpp.BadgeLevel ORDER BY RANDOM()) MyProfilePictureRowNum -- Generate random ID values for each profilepicture (within badge level)
+				FROM (
+					SELECT DISTINCT PartyUserId
+					FROM tEvents
+				) ev -- Get distinct list of users
 				CROSS JOIN $APP_NAME$Views.Lookup_Profile_Picture lpp
-				LEFT JOIN $APP_NAME$Views.User_Profile_Picture upp ON upp.UserId = u.UserId AND upp.ProfilePictureId = lpp.ProfilePictureId
-				WHERE u.UserId = ANY(MyUserIdList)
-				AND upp.UserId IS NULL -- Exclude pictures user already has
-			) bpp ON badges.UserId = bpp.UserId AND badges.BadgeLevel = bpp.BadgeLevel AND badges.MyBadgeRowNum = bpp.MyProfilePictureRowNum -- Assign a random profile picture to each earned badge
+				LEFT JOIN $APP_NAME$Views.User_Profile_Picture upp ON upp.UserId = ev.PartyUserId AND upp.ProfilePictureId = lpp.ProfilePictureId
+				WHERE upp.UserId IS NULL -- Exclude pictures user already has
+			) bpp ON badges.PartyUserId = bpp.PartyUserId AND badges.BadgeLevel = bpp.BadgeLevel AND badges.MyBadgeRowNum = bpp.MyProfilePictureRowNum -- Assign a random profile picture to each earned badge
 		),
+		-- Insert new badges
 		insert_badges AS (
 			INSERT INTO $APP_NAME$.User_Badge (UserId, BadgeId, BadgeAchievedTS)
-			SELECT UserId, BadgeId, CURRENT_TIMESTAMP
+			SELECT PartyUserId, BadgeId, CURRENT_TIMESTAMP
 			FROM get_badges
 			ON CONFLICT(UserId, BadgeId) DO NOTHING -- Ignore duplicates
 		),
+		-- Insert new profile pictures
 		insert_profile_pics AS (
 			INSERT INTO $APP_NAME$.User_Profile_Picture (UserId, ProfilePictureId, SourceBadgeId, ProfilePictureAddedTS)
-			SELECT UserId, ProfilePictureId, BadgeId, CURRENT_TIMESTAMP
+			SELECT PartyUserId, ProfilePictureId, BadgeId, CURRENT_TIMESTAMP
 			FROM get_badges
 		)
-		SELECT UserId 
+		-- Return users with new badges
+		SELECT PartyUserId 
 		FROM get_badges
 	LOOP
 		-- Create badge notifications
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyRecord.UserId, 1002, pContractId); -- New badges
+		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(MyRecord.PartyUserId, 1002, NULL); -- New badges
 	END LOOP;
+	
+	-- Drop temp table
+	DROP TABLE tEvents;
 END;
 $$ LANGUAGE 'plpgsql';

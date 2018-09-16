@@ -46,12 +46,14 @@ BEGIN
 
     -- Copy main contract info (set ContractStatus = 'D')
     INSERT INTO $APP_NAME$.Contract (
-    	ContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription, 
-		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS, ContractStatus
+    	ContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, 
+    	RevisionDescription, RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, 
+    	ContractApprovalTS, ContractEvaluationTS, ContractFinalizationTS, ContractStatus
 	)
     SELECT 
-    	pTargetContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, RevisionDescription, 
-		RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, ContractApprovalTS, 'D'
+    	pTargetContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, RevisionDeadlineTS, 
+    	RevisionDescription, RevisionApprovalTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile, 
+    	ContractApprovalTS, ContractEvaluationTS, ContractFinalizationTS, 'D'
     FROM $APP_NAME$.Contract
     WHERE ContractId = pSourceContractId
     ;

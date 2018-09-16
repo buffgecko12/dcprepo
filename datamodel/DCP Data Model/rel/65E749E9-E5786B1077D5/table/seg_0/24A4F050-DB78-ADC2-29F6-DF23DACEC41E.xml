@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="24A4F050-DB78-ADC2-29F6-DF23DACEC41E" name="Contract_Party_Goal_Reward">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="24A4F050-DB78-ADC2-29F6-DF23DACEC41E" name="Contract_Party_Goal_Evaluation">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-04 16:43:34 UTC</createdTime>
 <comment>Tracks goal achievement / reward fulfilment for each contract party</comment>
@@ -51,6 +51,66 @@
 <associations>
 <colAssociation fkAssociation="285E9A67-E5A4-3229-6BD0-D518C6092529" referredColumn="E3216CD6-F7CE-F028-69C4-65F357B99B55"/>
 </associations>
+</Column>
+<Column name="AchievedFlag" id="586104B9-C957-6DA7-BC1B-63ADBF859331">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-07 15:55:45 UTC</createdTime>
+<commentInRDBMS>Whether the goal was achieved or not</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ExperienceRating" id="1499A14F-9E18-908D-73CD-76C3DBD3F55C">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-07 15:54:23 UTC</createdTime>
+<commentInRDBMS>Rating of experience from 1-5&lt;br/&gt;&lt;br/&gt;1 = negative&lt;br/&gt;3 = neutral&lt;br/&gt;5 = positive</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HighPerformerFlag" id="BDD61875-D76E-1993-9342-C3170B2E5E63">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-07 15:54:23 UTC</createdTime>
+<commentInRDBMS>High achiever</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TopPerformerFlag" id="394EBEFF-14D0-76D1-24FE-028D6918FC7D">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-07 15:54:23 UTC</createdTime>
+<commentInRDBMS>Top achiever</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FeedbackMsg" id="6500C0A1-9987-5071-850C-B1C69CC9BABB">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-07 20:46:33 UTC</createdTime>
+<commentInRDBMS>Note / feedback relating to goal</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="RewardId" id="963EA5C8-0510-7E99-D8DB-522ACCCBB403">
 <createdBy>ravioli</createdBy>

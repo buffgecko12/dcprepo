@@ -23,8 +23,9 @@ INSERT INTO $APP_NAME$.NextId (IdType, NextValue) VALUES
 INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES 
 ('P','Pendiente'),
 ('D','Borrador'),
-('C','Completo'),
+('F','Finalizado'),
 ('A','Activo'),
+('E','Evaluaci' || U&'\00F3' || 'n'),
 ('R','Revisi' || U&'\00F3' || 'n')
 ;
 
@@ -50,21 +51,18 @@ INSERT INTO $APP_NAME$.Lookup_Event
 
 
 -- Reputation events
-(2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5),
-(2002, 'RP', 'PT', 'ST', 'Aceptar una meta de contrato', '', 5),
-(2003, 'RP', 'PF', 'ST', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', '', 15),
-(2004, 'RP', 'PF', 'ST', 'Completar exitosamente una meta media de contrato', '', 30),
-(2005, 'RP', 'PF', 'ST', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', '', 50),
-(2006, 'RP', 'PF', 'ST', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', '', 50),
-(2007, 'RP', 'PF', 'ST', 'Feedback positivo (por el docente)', '', 20),
-(2008, 'RP', 'PF', 'ST', 'Feedback positivo (por los integrantes)', '', 10),
-(2009, 'RP', 'PF', 'ST', 'Experiencia positiva de grupo (por el docente)', '', 10),
-(2010, 'RP', 'PF', 'ST', 'Experiencia positiva de grupo (por los integrantes)', '', 5),
-(2011, 'RP', 'PF', 'TR', 'Feedback positivo (por los integrantes)', '', 25),
-(2012, 'RP', 'PF', 'AL', 'Experiencia negativa de grupo', '', -2),
-(2013, 'RP', 'PF', 'AL', 'Enviar feedback', '', 2),
-(2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15),
-(2015, 'RP', 'PF', 'TR', 'Evaluar un contrato', '', 10)
+(2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5), -- Create user account
+(2002, 'RP', 'PT', 'ST', 'Aceptar una meta de contrato', '', 5), -- Accept contract goal
+(2003, 'RP', 'PF', 'ST', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', '', 15), -- Complete easy goal
+(2004, 'RP', 'PF', 'ST', 'Completar exitosamente una meta media de contrato', '', 30), -- Complete medium goal
+(2005, 'RP', 'PF', 'ST', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', '', 50), -- Complete difficult goal
+(2006, 'RP', 'PF', 'ST', 'Alto desempe' || U&'\00F1' || 'o en un contrato', '', 25), -- High performance on contract
+(2007, 'RP', 'PF', 'ST', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', '', 50), -- Top performance on contract
+(2008, 'RP', 'PF', 'AL', 'Recibir feedback positivo', '', 10), -- Receive positive feedback
+(2012, 'RP', 'PF', 'AL', 'Recibir feedback negativo', '', -2),
+(2013, 'RP', 'PF', 'ST', 'Enviar feedback', '', 5), -- Send feedback
+(2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15), -- Send contract 
+(2015, 'RP', 'PF', 'TR', 'Evaluar un contrato', '', 15) -- Evaluate contract
 ;
 
 -- Load badges
@@ -72,12 +70,22 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (BadgeId, BadgeLevel, BadgeThresholdValue, BadgeShortName, BadgeDisplayName, BadgeDescription, SourceEventId) VALUES
 -- General
 (1, 'B', NULL, 'rookie', 'Novato', 'Crear una cuenta de usuario', 2001), -- New account
+
+-- Contract goals
 (6, 'B', NULL, 'achiever', 'Cumplidor', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', 2003), -- Complete easy goal
 (7, 'S', NULL, 'mediumachiever', 'Triunfador ', 'Completar exitosamente una meta media de contrato', 2004), -- Complete medium goal
 (8, 'G', NULL, 'highachiever', 'Triunfador Alto', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', 2005), -- Complete difficult goal
-(9, 'B', NULL, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Feedback positivo (por los integrantes)', 2008), -- Positive feedback
-(10, 'B', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', 2006), -- Voted top performer
+
+-- Contract performance
+(5, 'S', NULL, 'higherformer', 'Alto desempe' || U&'\00F1' || 'o', 'Alto desempe' || U&'\00F1' || 'o en un contrato', 2006), -- Voted high performer
+(10, 'G', NULL, 'topperformer', 'Mejor desempe' || U&'\00F1' || 'o', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', 2007), -- Voted top performer
+
 (19, 'B', NULL, 'feedback', 'Comunidad', 'Enviar feedback', 2013),
+
+-- Receive Positive Feedback (experience rating)
+(20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo', 2008), -- Positive feedback
+(21, 'S', 10, 'performer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo', 2008), -- Positive feedback
+(22, 'G', 50, 'performer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo', 2008), -- Positive feedback
 
 -- Reputation
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 

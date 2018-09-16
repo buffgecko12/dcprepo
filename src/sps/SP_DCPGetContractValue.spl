@@ -25,6 +25,7 @@ BEGIN
 					CASE
 						WHEN c.ContractStatus IN ('D','P') THEN lr.RewardValue -- Draft / Pending: get reward value for all goals
 						WHEN c.ContractStatus = 'A' AND cg.AcceptedFlag THEN lr.RewardValue -- Active: get reward value for accepted goals
+						WHEN c.ContractStatus = 'E' AND c.ContractEvaluationTS IS NULL THEN lr.RewardValue -- Evaluation (not submitted yet): get reward value for accepted goals
 						WHEN c.ContractStatus = 'R' AND pAllowRevisionContractFlag THEN lr.RewardValue -- Revision: allow only if "Revision" flag is enabled
 						ELSE 0
 					END 
@@ -43,7 +44,8 @@ BEGIN
 		LEFT JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId = lr.RewardId
 		WHERE (
 			ContractStatus IN('D','P','A') OR -- Look at non-completed contracts
-			(ContractStatus = 'R' AND COALESCE(pAllowRevisionContractFlag, FALSE)) -- Look at "Revision" contracts if specified
+			(ContractStatus = 'R' AND COALESCE(pAllowRevisionContractFlag, FALSE)) OR -- Look at "Revision" contracts if specified
+			(ContractStatus = 'E' AND ContractEvaluationTS IS NULL) -- Include contracts that have not yet been evaluated
 		)
 		AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 		AND (c.ContractId = pContractId OR pContractId IS NULL)
@@ -58,18 +60,34 @@ BEGIN
 		SELECT src.TeacherUserId, src.ContractId, src.PartyUserId, MAX(src.MaxRewardValue) ContractPartyRewardValue
 		FROM (
 			SELECT 
-				c.TeacherUserId, cpgr.ContractId, cpgr.PartyUserId, cpgr.GoalId, cpgr.RewardId, cpgr.ActualRewardValue, cgr.RewardId,
+				c.TeacherUserId, cpge.ContractId, cpge.PartyUserId, cpge.GoalId, cpge.RewardId, cpge.ActualRewardValue, cgr.RewardId,
 				CASE 
-					WHEN cpgr.ActualRewardValue IS NOT NULL THEN cpgr.ActualRewardValue -- Reward delivered: Use actual reward value
-					WHEN cpgr.RewardId IS NOT NULL THEN lrs.RewardValue -- Reward selected, but not delivered: use default reward value
-					ELSE lr.RewardValue -- Reward not selected: Get max reward value of available rewards
+					-- DELIVERED
+					WHEN cpge.RewardDeliveredFlag IS TRUE THEN
+						CASE 
+							WHEN cpge.ActualRewardValue IS NOT NULL THEN cpge.ActualRewardValue -- Reward delivered: Use actual reward value
+							ELSE lrs.RewardValue -- Reward delivered: user original estimated value
+						END
+					-- NOT DELIVERED
+					ELSE
+						CASE
+							WHEN c.ContractStatus = 'E' THEN -- Only applies to "evaluated" contracts (i.e. not finalized yet)
+								CASE 
+									WHEN cpge.RewardId IS NOT NULL THEN lrs.RewardValue -- Reward selected, but not delivered: use default reward value
+									ELSE lr.RewardValue -- Reward not selected: Get max reward value of available rewards
+								END
+						END
 				END AS MaxRewardValue-- Get "max" reward value per goal
-			FROM $APP_NAME$Views.Contract_Party_Goal_Reward cpgr -- Get completed goals
-			INNER JOIN $APP_NAME$Views.Contract c ON cpgr.ContractId = c.ContractId -- Get contract info
-			INNER JOIN $APP_NAME$Views.Contract_Goal_Reward cgr ON cpgr.ContractId = cgr.ContractId AND cpgr.GoalId = cgr.GoalId -- Get reward options for achieved goals
-			LEFT JOIN $APP_NAME$Views.Lookup_Reward lrs ON cpgr.RewardId= lrs.RewardId -- Get selected reward value
+			FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge -- Get completed goals
+			INNER JOIN $APP_NAME$Views.Contract c ON cpge.ContractId = c.ContractId -- Get contract info
+			INNER JOIN $APP_NAME$Views.Contract_Goal_Reward cgr ON cpge.ContractId = cgr.ContractId AND cpge.GoalId = cgr.GoalId -- Get reward options for achieved goals
+			LEFT JOIN $APP_NAME$Views.Lookup_Reward lrs ON cpge.RewardId= lrs.RewardId -- Get selected reward value
 			LEFT JOIN $APP_NAME$Views.Lookup_Reward lr ON cgr.RewardId= lr.RewardId-- Get reward default values
-			WHERE c.ContractStatus = 'C'
+			WHERE (
+				c.ContractStatus = 'F' OR -- Finalized contracts
+				(c.ContractStatus = 'E' AND c.ContractEvaluationTS IS NOT NULL) -- Evaluated contracts
+			)
+			AND cpge.AchievedFlag IS TRUE
 			AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL) -- Included just in case for optimization
 			AND (c.ContractId = pContractId OR pContractId IS NULL)
 		) src
