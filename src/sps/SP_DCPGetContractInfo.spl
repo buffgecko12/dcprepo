@@ -7,7 +7,7 @@ RETURNS TABLE (
 )AS $$
 BEGIN
     RETURN QUERY
-    SELECT src.ContractId, src.TeacherUserId, src.NumParticipants, src.MaxRewardValue, cv.ContractValue
+    SELECT src.ContractId, src.TeacherUserId, src.NumParticipants, src.MaxRewardValue, COALESCE(cv.ContractValue,0) AS ContractValue
     FROM (
 		SELECT c.ContractId, c.TeacherUserId, CAST(COUNT(*) AS INTEGER) AS NumParticipants, COALESCE(cr.MaxRewardValue,0) AS MaxRewardValue
 		FROM $APP_NAME$Views.Contract c
