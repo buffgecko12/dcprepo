@@ -14,7 +14,7 @@ BEGIN
     LEFT JOIN $APP_NAME$Views.Lookup_Profile_Picture lpp ON upp.ProfilePictureId = lpp.ProfilePictureId -- Lookup profile picture info
     WHERE (ub.UserId = pUserId OR pUserId IS NULL)
     AND (ub.BadgeId = pBadgeId OR pBadgeId IS NULL)
-    ORDER BY ub.UserId, CASE lb.BadgeLevel WHEN 'B' THEN 3 WHEN 'S' THEN 2 WHEN 'G' THEN 1 END, ub.BadgeAchievedTS
+    ORDER BY ub.UserId, CASE lb.BadgeLevel WHEN 'B' THEN 3 WHEN 'S' THEN 2 WHEN 'G' THEN 1 END, ub.BadgeAchievedTS DESC
     ;
 END;
 $$ LANGUAGE 'plpgsql';
