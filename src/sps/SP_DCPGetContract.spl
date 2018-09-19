@@ -44,7 +44,10 @@ BEGIN
 								cpa.PreferredGoalId, 
 								u.Firstname, 
 								u.Lastname, 
-								u.EmailAddress
+								u.EmailAddress,
+								cpge.AchievedFlag,
+								cpge.TopPerformerFlag,
+								cpge.HighPerformerFlag
 						) AS x
 					)
 					ORDER BY cp.ContractRole, cp.GroupInfo->'groupname', u.Firstname, u.LastName
@@ -55,8 +58,8 @@ BEGIN
 		LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
 		LEFT JOIN (
 			SELECT 
-				cpg.contractid, 
-				cpg.partyuserid, 
+				cpg.ContractId, 
+				cpg.PartyUserId, 
 				JSONB_AGG(
 					(
 						SELECT x FROM (
@@ -69,6 +72,16 @@ BEGIN
 			INNER JOIN $APP_NAME$Views.Users u ON cpg.PartyUserId_Group = u.UserId
 			GROUP BY cpg.ContractId, cpg.PartyUserId
 		) cpg ON cp.PartyUserId = cpg.PartyUserId AND cp.ContractId = cpg.ContractId -- Get group user info
+		LEFT JOIN (
+			SELECT 
+				cpge.ContractId, 
+				cpge.PartyUserId, 
+				CASE WHEN MAX(CASE WHEN cpge.AchievedFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS AchievedFlag,
+				CASE WHEN MAX(CASE WHEN cpge.HighPerformerFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS HighPerformerFlag,
+				CASE WHEN MAX(CASE WHEN cpge.TopPerformerFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS TopPerformerFlag
+			FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge
+			GROUP BY cpge.ContractId, cpge.PartyUserId
+		) cpge ON cpa.ContractId = cpge.ContractId AND cpa.PartyUserId = cpge.PartyUserId -- Get any goal evaluation info
 		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
 		GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId -- Get party info
