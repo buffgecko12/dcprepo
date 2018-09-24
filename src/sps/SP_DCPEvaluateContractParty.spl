@@ -40,10 +40,10 @@ BEGIN
 		) 
 		INSERT INTO tEvents (ContractId, GoalId, PartyUserId, SourceEventId)
 		-- Positive student feedback events
-		SELECT pContractId, NULL, src.UserId, 2009 AS EventId
+		SELECT pContractId, CAST(NULL AS INTEGER) AS GoalId, src.UserId, src.EventId
 		FROM (
 			-- For teacher (experience rating)
-			SELECT c.TeacherUserId AS UserId
+			SELECT c.TeacherUserId AS UserId, 2009 AS EventId
 			FROM $APP_NAME$Views.Contract c
 			CROSS JOIN src 
 			WHERE ContractId = pContractId
@@ -52,10 +52,16 @@ BEGIN
 			UNION ALL
 		
 			-- For student (high performer flag)
-			SELECT CAST(UNNEST(src.HighPerformers) AS INTEGER) AS UserId
+			SELECT CAST(UNNEST(src.HighPerformers) AS INTEGER) AS UserId, 2009 AS EventId
 			FROM src
+			
+			UNION ALL
+			
+			-- Send feedback (student)
+			SELECT pPartyUserId AS UserId, 2013 AS EventId
 		) src
 		INNER JOIN $APP_NAME$Views.Users u ON src.UserId = u.UserId	
+		
 		;
 		
 		-- Process new events (bulk)
