@@ -3,50 +3,44 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContract (
     pSendNotificationsFlag BOOLEAN
 ) 
 RETURNS VOID AS $$
-DECLARE mygoal RECORD;
+DECLARE 
+	MyGoal RECORD;
+	ContractIdList INTEGER[];
+	MyContractId INTEGER;
 BEGIN
+
+	-- Get contracts to delete
+	SELECT ARRAY_AGG(ContractId) INTO ContractIdList
+	FROM $APP_NAME$Views.Contract
+	WHERE (ContractId = pContractId OR pContractId IS NULL)
+	AND (ContractStatus IN('D','P') OR ContractStatus IS NULL)
+	;
 	
-	-- Send notifications (must be done first, since we are deleted contract rows)
+	-- Send notifications (must be done first, since we are deleting contract rows)
 	IF(pSendNotificationsFlag) THEN
-		PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, pContractId);
+		FOREACH MyContractId IN ARRAY ContractIdList
+		LOOP
+			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, MyContractId);
+		END LOOP;
 	END IF;
+
+	-- Delete contract evaluation info
+	DELETE FROM $APP_NAME$.Contract_Goal_Reward WHERE ContractId = ANY(ContractIdList);
+	DELETE FROM $APP_NAME$.Contract_Party_Evaluation WHERE ContractId = ANY(ContractIdList);
+	DELETE FROM $APP_NAME$.Contract_Party_Goal_Evaluation WHERE ContractId = ANY(ContractIdList);
 	
 	-- Delete contract goals
-	FOR mygoal IN
-		SELECT c.ContractId, cg.GoalId
-		FROM $APP_NAME$Views.Contract c
-		INNER JOIN $APP_NAME$.Contract_Goal cg ON c.ContractId = cg.ContractId
-		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
-		AND (c.ContractId = pContractId OR pContractId IS NULL)
+	FOR MyGoal IN
+		SELECT cg.ContractId, cg.GoalId
+		FROM $APP_NAME$.Contract_Goal cg
+		WHERE cg.ContractId = ANY(ContractIdList)
 	LOOP
-	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoal(mygoal.ContractId, mygoal.GoalId);
+	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoal(MyGoal.ContractId, MyGoal.GoalId);
 	END LOOP;
 
-	-- Delete contract party approval (should not apply since this is only for drafts)
-	DELETE FROM $APP_NAME$.Contract_Party_Approval cpa
-	WHERE cpa.ContractId IN (
-		SELECT c.ContractId
-		FROM $APP_NAME$Views.Contract c
-		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
-		AND (c.ContractId = pContractId OR pContractId IS NULL)
-	)
-	;
-	
-	-- Delete contract parties
-	DELETE FROM $APP_NAME$.Contract_Party cp
-	WHERE cp.ContractId IN (
-		SELECT c.ContractId
-		FROM $APP_NAME$Views.Contract c
-		WHERE (c.ContractStatus IN('D','P') OR c.ContractStatus IS NULL)
-		AND (c.ContractId = pContractId OR pContractId IS NULL)
-	)
-	;
-	
-	-- Delete contract
-	DELETE FROM $APP_NAME$.Contract
-	WHERE (ContractStatus IN('D','P') OR ContractStatus IS NULL)
-	AND (ContractId = pContractId OR pContractId IS NULL)
-	;
+	DELETE FROM $APP_NAME$.Contract_Party_Approval cpa WHERE cpa.ContractId = ANY(ContractIdList); -- party approvals
+	DELETE FROM $APP_NAME$.Contract_Party cp WHERE cp.ContractId = ANY(ContractIdList); -- parties
+	DELETE FROM $APP_NAME$.Contract	WHERE ContractId = ANY(ContractIdList); -- contract
 	
 END;
 $$ LANGUAGE 'plpgsql';

@@ -39,6 +39,7 @@ BEGIN
 								cp.PartyUserId, 
 								cp.ContractRole, 
 								cp.GroupInfo,
+								cpg.GroupUserIdList,
 								cpg.GroupUserInfo,
 								TO_CHAR(cpa.PartyApprovalTS, 'DD/MM/YYYY') AS PartyApprovalTS, 
 								cpa.PreferredGoalId, 
@@ -47,7 +48,8 @@ BEGIN
 								u.EmailAddress,
 								cpge.AchievedFlag,
 								cpge.TopPerformerFlag,
-								cpge.HighPerformerFlag
+								cpge.HighPerformerFlag,
+								TO_CHAR(cpe.EvaluationTS, 'DD/MM/YYYY') AS EvaluationTS
 						) AS x
 					)
 					ORDER BY cp.ContractRole, cp.GroupInfo->'groupname', u.Firstname, u.LastName
@@ -60,6 +62,7 @@ BEGIN
 			SELECT 
 				cpg.ContractId, 
 				cpg.PartyUserId, 
+				ARRAY_AGG(cpg.PartyUserId_Group) AS GroupUserIdList,
 				JSONB_AGG(
 					(
 						SELECT x FROM (
@@ -82,6 +85,8 @@ BEGIN
 			FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge
 			GROUP BY cpge.ContractId, cpge.PartyUserId
 		) cpge ON cpa.ContractId = cpge.ContractId AND cpa.PartyUserId = cpge.PartyUserId -- Get any goal evaluation info
+		LEFT JOIN $APP_NAME$Views.Contract_Party_Evaluation cpe ON cpa.ContractId = cpe.ContractId AND cpa.PartyUserId = cpe.PartyUserId 
+			AND cpa.PartyApprovalTS IS NOT NULL -- Check party has already evaluated the contract (TO-DO: Check for user group logic)
 		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
 		GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId -- Get party info

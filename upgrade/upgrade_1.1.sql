@@ -30,7 +30,18 @@ CREATE TABLE $APP_NAME$.Contract_Party_Goal_Evaluation (
 	PRIMARY KEY (ContractId, PartyUserId, GoalId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
 );
-	
+
+CREATE TABLE $APP_NAME$.Contract_Party_Evaluation (
+	ContractId INTEGER NOT NULL,
+	PartyUserId INTEGER NOT NULL,
+	EvaluationInfo JSONB,
+	Feedback VARCHAR(500),
+	EvaluationTS TIMESTAMP WITH TIME ZONE,
+	PRIMARY KEY(ContractId, PartyUserId),
+	FOREIGN KEY(ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
+	-- No FK on Contract_Party because party user may not exist in future (and want to keep evaluation info)
+);
+
 -- Update status table
 UPDATE $APP_NAME$.Lookup_Status SET Status = 'F', StatusDisplayName = 'Finalizado' WHERE Status = 'C';
 INSERT INTO $APP_NAME$.Lookup_Status VALUES('E','Evaluaci' || U&'\00F3' || 'n') ON CONFLICT DO NOTHING;
@@ -59,6 +70,7 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (1106, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado - votaci' || U&'\00F3' || 'n requerida', 0), -- Active revision (re-vote required)
 (1107, 'NT', 'CT', 'AL', '', 'Ha sido retirado de un contrato', 0),
 
+
 -- Reputation events
 (2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5), -- Create user account
 (2002, 'RP', 'PT', 'ST', 'Aceptar una meta de contrato', '', 5), -- Accept contract goal
@@ -67,8 +79,9 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (2005, 'RP', 'PF', 'ST', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', '', 50), -- Complete difficult goal
 (2006, 'RP', 'PF', 'ST', 'Alto desempe' || U&'\00F1' || 'o en un contrato', '', 25), -- High performance on contract
 (2007, 'RP', 'PF', 'ST', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', '', 50), -- Top performance on contract
-(2008, 'RP', 'PF', 'AL', 'Recibir feedback positivo', '', 10), -- Receive positive feedback
-(2012, 'RP', 'PF', 'AL', 'Recibir feedback negativo', '', -2),
+(2008, 'RP', 'PF', 'AL', 'Recibir feedback positivo de docente', '', 10), -- Receive positive feedback (from teacher)
+(2009, 'RP', 'PF', 'AL', 'Recibir feedback positivo de estudiante', '', 5), -- Receive positive feedback (from student)
+(2012, 'RP', 'PF', 'AL', 'Recibir feedback negativo de docente', '', -2), -- Negative feedback (from teacher)
 (2013, 'RP', 'PF', 'ST', 'Enviar feedback', '', 5), -- Send feedback
 (2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15), -- Send contract 
 (2015, 'RP', 'PF', 'TR', 'Evaluar un contrato', '', 15) -- Evaluate contract
@@ -92,9 +105,10 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (19, 'B', NULL, 'feedback', 'Comunidad', 'Enviar feedback', 2013),
 
 -- Receive Positive Feedback (experience rating)
-(20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo', 2008), -- Positive feedback
-(21, 'S', 10, 'performer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo', 2008), -- Positive feedback
-(22, 'G', 50, 'performer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo', 2008), -- Positive feedback
+(20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(21, 'S', 10, 'superperformer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(22, 'G', 50, 'eliteperformer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(23, 'B', NULL, 'peerrecognition', 'Reconocido', 'Recibir feedback positivo de estudiante', 2009), -- Positive feedback (from student)
 
 -- Reputation
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
@@ -115,7 +129,6 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (17, 'S', 3, '', '', 'Completar exitosamente 3 metas de contrato', 2),
 (18, 'G', 10, '', '', 'Completar exitosamente 10 metas de contrato', 2)
 ;
-
 -- Recreate all views (create_views.sql)
 
 -- Recreate modified SPs
@@ -127,3 +140,5 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 -- SP_DCPProcessUserEvent
 -- SP_DCPEvaluateContract
 -- SP_DCPGetContractPartyGoalEvaluation
+-- SP_DCPEvaluateContractParty
+

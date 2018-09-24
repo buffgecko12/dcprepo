@@ -1,0 +1,115 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F6FDD7C2-BE5A-89A4-7F80-C0B7F897CB59" name="Contract_Party_Evaluation">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:26:47 UTC</createdTime>
+<comment>Evaluation / feedback provided by contract participants</comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_24</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="ADC394F1-5FCD-654F-9611-7AB453A724DE">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:28:55 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BB73499D-5F06-22BF-A301-1BEE7C0810AC" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+<colAssociation fkAssociation="1E4181DB-6366-C519-E1BB-E70621B1BAF1" referredColumn="B2E4E90B-75ED-022F-3A11-AF4BBCF15943"/>
+</associations>
+</Column>
+<Column name="PartyUserId" id="0995E9AA-DA8F-CEB4-4368-9B9DBC2CB7A3">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:29:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1E4181DB-6366-C519-E1BB-E70621B1BAF1" referredColumn="3672FA92-922B-58F0-76E2-1FF67CCD7CC4"/>
+</associations>
+</Column>
+<Column name="EvaluationInfo" id="F92899FC-5F10-B0C3-6914-117B5D961546">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:32:38 UTC</createdTime>
+<commentInRDBMS>Evaluation info:&lt;br/&gt;&lt;br/&gt;- experience rating (with teacher)&lt;br/&gt;- top performer (within group)&lt;br/&gt;- high acheivers (among all participants)</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Feedback" id="04D656FF-715E-16EB-8F40-D8144CBB43B0">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:33:21 UTC</createdTime>
+<commentInRDBMS>General feedback / comments</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EvaluationTS" id="413B66EB-DB71-4A0F-07A0-62BCDA287290">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 14:11:50 UTC</createdTime>
+<commentInRDBMS>When was the evaluation done.</commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BA7A16D6-B357-2F1E-B612-A7122E7BC253" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:30:12 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="ADC394F1-5FCD-654F-9611-7AB453A724DE"/>
+<colUsage columnID="0995E9AA-DA8F-CEB4-4368-9B9DBC2CB7A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5879DAFC-B2C5-2B3E-DF77-FBA02D8B6BC6" name="FKv36">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:28:55 UTC</createdTime>
+<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="ADC394F1-5FCD-654F-9611-7AB453A724DE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="347A47B5-0998-C7B8-1F02-F4B8A46A73AD" name="FKv37">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-09-21 12:29:16 UTC</createdTime>
+<generatorID>CBA711A2-261B-2F73-5AA5-751CC9B62E16</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0995E9AA-DA8F-CEB4-4368-9B9DBC2CB7A3"/>
+<colUsage columnID="ADC394F1-5FCD-654F-9611-7AB453A724DE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -223,7 +223,7 @@ CREATE TABLE $APP_NAME$.Contract_Goal_Reward (
 	FOREIGN KEY (ContractId, GoalId) REFERENCES $APP_NAME$.Contract_Goal (ContractId, GoalId)
 );
 
--- Reward selected for each contract goal for each student
+-- Contract evaluation / feedback and reward selection (teacher perspective)
 CREATE TABLE $APP_NAME$.Contract_Party_Goal_Evaluation (
 	ContractId INTEGER NOT NULL,
 	PartyUserId INTEGER NOT NULL,
@@ -239,6 +239,18 @@ CREATE TABLE $APP_NAME$.Contract_Party_Goal_Evaluation (
 	PRIMARY KEY (ContractId, PartyUserId, GoalId),
 --	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
 	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
+);
+
+-- Contract evaluation / feedback (party perspective)
+CREATE TABLE $APP_NAME$.Contract_Party_Evaluation (
+	ContractId INTEGER NOT NULL,
+	PartyUserId INTEGER NOT NULL,
+	EvaluationInfo JSONB,
+	Feedback VARCHAR(500),
+	EvaluationTS TIMESTAMP WITH TIME ZONE,
+	PRIMARY KEY(ContractId, PartyUserId),
+	FOREIGN KEY(ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
+	-- No FK on Contract_Party because party user may not exist in future (and want to keep evaluation info)
 );
 
 -- Events that affect user reputation

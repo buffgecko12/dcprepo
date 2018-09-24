@@ -82,9 +82,10 @@ SELECT $APP_NAME$Views.SP_DCPDeleteContractGoal(100,2);
 SELECT $APP_NAME$Views.SP_DCPDeleteContractGoal(100,NULL);
 
 -- Evaluation
-SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'evaluate','evaluate',FALSE,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'evaluate',NULL,FALSE,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'save','evaluation',TRUE,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPEvaluateContract(100, 'save','rewards',TRUE,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPEvaluateContractParty(100, 1,JSONB('{"teacherrating":4,"highperformers":[102]}'),NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractPartyGoalEvaluation(100,1,1,FALSE);
 
 SELECT $APP_NAME$Views.SP_DCPModifyContractParties(
@@ -98,7 +99,7 @@ SELECT $APP_NAME$Views.SP_DCPGetContractInfo(100, NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractValue(NULL, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractGoal(100,2,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractGoalReward(100,2,NULL);
-SELECT $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL,NULL);
 
 -- Approve initial contract
 SELECT $APP_NAME$Views.SP_DCPApproveContract(100, 102, 'C', 1, NULL, 101, NULL);

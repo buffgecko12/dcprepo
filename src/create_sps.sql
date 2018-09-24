@@ -56,6 +56,7 @@
 \i install/sps/SP_DCPChangeContractStatus.spl
 \i install/sps/SP_DCPReviseContract.spl
 \i install/sps/SP_DCPEvaluateContract.spl
+\i install/sps/SP_DCPEvaluateContractParty.spl
 \i install/sps/SP_DCPApproveContract.spl
 \i install/sps/SP_DCPDuplicateContract.spl
 \i install/sps/SP_DCPCopyContract.spl

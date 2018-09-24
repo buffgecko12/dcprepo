@@ -58,8 +58,9 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (2005, 'RP', 'PF', 'ST', 'Completar exitosamente una meta dif' || U&'\00ED' || 'cil de contrato', '', 50), -- Complete difficult goal
 (2006, 'RP', 'PF', 'ST', 'Alto desempe' || U&'\00F1' || 'o en un contrato', '', 25), -- High performance on contract
 (2007, 'RP', 'PF', 'ST', 'Mejor desempe' || U&'\00F1' || 'o en un contrato', '', 50), -- Top performance on contract
-(2008, 'RP', 'PF', 'AL', 'Recibir feedback positivo', '', 10), -- Receive positive feedback
-(2012, 'RP', 'PF', 'AL', 'Recibir feedback negativo', '', -2),
+(2008, 'RP', 'PF', 'AL', 'Recibir feedback positivo de docente', '', 10), -- Receive positive feedback (from teacher)
+(2009, 'RP', 'PF', 'AL', 'Recibir feedback positivo de estudiante', '', 5), -- Receive positive feedback (from student)
+(2012, 'RP', 'PF', 'AL', 'Recibir feedback negativo de docente', '', -2), -- Negative feedback (from teacher)
 (2013, 'RP', 'PF', 'ST', 'Enviar feedback', '', 5), -- Send feedback
 (2014, 'RP', 'PF', 'TR', 'Enviar un contrato', '', 15), -- Send contract 
 (2015, 'RP', 'PF', 'TR', 'Evaluar un contrato', '', 15) -- Evaluate contract
@@ -83,9 +84,10 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 (19, 'B', NULL, 'feedback', 'Comunidad', 'Enviar feedback', 2013),
 
 -- Receive Positive Feedback (experience rating)
-(20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo', 2008), -- Positive feedback
-(21, 'S', 10, 'performer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo', 2008), -- Positive feedback
-(22, 'G', 50, 'performer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo', 2008), -- Positive feedback
+(20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(21, 'S', 10, 'superperformer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(22, 'G', 50, 'eliteperformer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(23, 'B', NULL, 'peerrecognition', 'Reconocido', 'Recibir feedback positivo de estudiante', 2009), -- Positive feedback (from student)
 
 -- Reputation
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
