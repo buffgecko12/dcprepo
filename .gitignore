@@ -6,6 +6,6 @@
 *.example
 *.settings
 install
-build_output.txt
+build_output.log
 database.ini
 *.local
