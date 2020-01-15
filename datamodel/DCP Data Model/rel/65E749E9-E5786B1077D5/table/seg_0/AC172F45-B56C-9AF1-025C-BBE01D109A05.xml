@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AC172F45-B56C-9AF1-025C-BBE01D109A05" name="Contract_Reward">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:23:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_25</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RewardId" id="421623DD-9E08-B57C-7712-8FBF42F7C51A">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:30:59 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3BD5F7AF-B4CC-3503-3509-ACD0A79C3243" referredColumn="E01FDA55-711A-7706-42B3-0B6C273F948D"/>
+</associations>
+</Column>
+<Column name="ContractId" id="2ECA2AF9-A521-8342-BC67-AB5251250EC0">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:36:04 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7940E450-3D88-D609-175B-3338FC9ADB0D" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+</associations>
+</Column>
+<Column name="Quantity" id="BF8C71B9-474E-E9B2-7B9A-4A3916412799">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:36:31 UTC</createdTime>
+<comment><![CDATA[Quantity of prize]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="State" id="C56FA80C-155E-9F92-0D6B-7F8A39BB1ED8">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:40:07 UTC</createdTime>
+<commentInRDBMS><![CDATA[R - Ready for purchase
+P - Purchased
+D - Delivered]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6A99AEB4-42DB-B02D-41E6-939BD2791E20" name="FKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:30:59 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="421623DD-9E08-B57C-7712-8FBF42F7C51A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="F94C7A2A-BE03-3F15-9767-053D362AB4C4" name="FKv4">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:36:04 UTC</createdTime>
+<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2ECA2AF9-A521-8342-BC67-AB5251250EC0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

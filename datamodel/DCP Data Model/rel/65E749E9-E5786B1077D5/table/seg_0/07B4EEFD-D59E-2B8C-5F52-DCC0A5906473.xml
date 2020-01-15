@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="07B4EEFD-D59E-2B8C-5F52-DCC0A5906473" name="Users">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User information.</comment>
+<comment><![CDATA[User information.]]></comment>
 <generatorID>56BEB667-801E-7E10-A277-A2EA94188B26</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
@@ -12,12 +12,12 @@
 <Column name="UserId" id="AD959C51-A7EA-8D43-7CD7-D87556D2B25B">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>F4454D5A-16C2-2EDD-4C6C-675393D147E4</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -26,9 +26,9 @@
 <createdTime>2018-08-03 20:40:54 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -39,7 +39,7 @@
 <Column name="UserName" id="0592760A-AF5D-87B5-1A98-2E1E5DE44E50">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User-specifid user name</comment>
+<comment><![CDATA[User-specifid user name]]></comment>
 <generatorID>F585BE06-9C3D-07CE-C44E-9D8C76610F99</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
@@ -52,7 +52,14 @@
 <Column name="UserType" id="5601B154-58B7-C346-16FF-3B365974E461">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User role:&lt;br/&gt;&lt;br/&gt;AD - Admin (program administrator)&lt;br/&gt;TR - teacher&lt;br/&gt;ST - student&lt;br/&gt;SG - student group&lt;br/&gt;SF - school staff&lt;br/&gt;OT - other</comment>
+<comment><![CDATA[User role:
+
+AD - Admin (program administrator)
+TR - teacher
+ST - student
+SG - student group
+SF - school staff
+OT - other]]></comment>
 <generatorID>82C0BA22-F218-269F-071B-DCE5F8D7B8D2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
@@ -65,58 +72,41 @@
 <Column name="FirstName" id="B9C5458B-BCC8-9D18-8D5C-724E624F7D98">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User&apos;s first name.  &lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
+<comment><![CDATA[User's first name.  
+
+For a user named Juan Miguel Espinoza Sanchez:
+
+Firstname = Juan Miguel
+Lastname = Espinoza Sanchez]]></comment>
 <generatorID>4E5E633B-7BA3-B036-9B3A-D289D1CA6DE0</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>5487AEA6-53D6-4440-3BD0-194C9422F683</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="LastName" id="E661047D-924E-EC81-728C-C2842835094B">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>User&apos;s last name.&lt;br/&gt;&lt;br/&gt;For a user named Juan Miguel Espinoza Sanchez:&lt;br/&gt;&lt;br/&gt;Firstname = Juan Miguel&lt;br/&gt;Lastname = Espinoza Sanchez</comment>
+<comment><![CDATA[User's last name.
+
+For a user named Juan Miguel Espinoza Sanchez:
+
+Firstname = Juan Miguel
+Lastname = Espinoza Sanchez]]></comment>
 <generatorID>7B1E72A2-CAF5-01D3-048F-DE71673E0646</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<domain>5487AEA6-53D6-4440-3BD0-194C9422F683</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="DefaultSignatureScanFile" id="A360F0D9-C1E8-08B2-1D8B-61DC505AFBA8">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Scanned image of person&apos;s signature to be used to generate contract digitally.&lt;br/&gt;&lt;br/&gt;This field to be used if user doesn&apos;t provide new signature for a contract.</comment>
-<generatorID>3ABDD3ED-45F8-F5F9-C2D1-707A4C970C8B</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<use>0</use>
-<logicalDatatype>LOGDT029</logicalDatatype>
-<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="PhoneNumber" id="4A5C118C-459B-B6C8-6E17-FFB86F907C37">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Phone number</comment>
-<generatorID>56735B68-31C2-9990-DD36-B3CC624B06B3</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>25</dataTypeSize>
-<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="EmailAddress" id="F74682B6-9376-13D7-4E3C-BFFE577B4587">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Email address</comment>
+<comment><![CDATA[Email address]]></comment>
 <generatorID>43CD1392-8BC4-0CAC-F148-04BE7A9510F0</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -130,7 +120,7 @@
 <Column name="Password" id="BF567362-950A-F828-D16C-D6B08EE193F3">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Hashed password value</comment>
+<comment><![CDATA[Hashed password value]]></comment>
 <generatorID>B54B64A0-350D-CBF9-C061-38961BE45BA8</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -144,7 +134,7 @@
 <Column name="ReputationValue" id="81DF1553-FBC5-E220-BD4C-688AD7CC06B6">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 03:01:17 UTC</createdTime>
-<commentInRDBMS>User reputation (points accrued based on participation in program)</commentInRDBMS>
+<commentInRDBMS><![CDATA[User reputation (points accrued based on participation in program)]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -156,19 +146,25 @@
 <Column name="ReputationValueLastSeenTS" id="C77CCB8E-E86F-FC04-5B8E-6FFD2253F55F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 21:05:51 UTC</createdTime>
-<comment>TS reputationvalue was last reviewed.&lt;br/&gt;&lt;br/&gt;Used to calculate newly gained reputation points</comment>
+<comment><![CDATA[TS reputationvalue was last reviewed.
+
+Used to calculate newly gained reputation points]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="UserRole" id="042CFFC7-50E7-1715-2341-E42ABBFB4F75">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-04-15 14:04:59 UTC</createdTime>
-<comment>Role used for site permissions&lt;br/&gt;&lt;br/&gt;S - super user&lt;br/&gt;A - admin&lt;br/&gt;U - user</comment>
+<comment><![CDATA[Role used for site permissions
+
+S - super user
+A - admin
+U - user]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -181,20 +177,20 @@
 <Column name="ProfilePictureId" id="DA778F68-C234-CB02-A349-A6EEA4B93E66">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-30 21:28:02 UTC</createdTime>
-<commentInRDBMS>Selected profile picture</commentInRDBMS>
+<commentInRDBMS><![CDATA[Selected profile picture]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Last_Login" id="27CFB008-CB29-FB9B-3275-74CD14025FEC">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Last login timestamp</comment>
+<comment><![CDATA[Last login timestamp]]></comment>
 <generatorID>5C02A1AC-EB84-2797-88D5-E86C6E401121</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
@@ -207,24 +203,24 @@
 <Column name="Is_Active" id="E1E3EB14-2683-2778-A861-713F1694F108">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-17 22:45:47 UTC</createdTime>
-<comment>Field used by django</comment>
+<comment><![CDATA[Field used by django]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT006</logicalDatatype>
-<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="DataUsePolicyAcceptedTS" id="2B9FDA7C-74FE-AC53-BFEB-736B576039F4">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 17:38:46 UTC</createdTime>
-<commentInRDBMS>Timestamp user accepted data use policy</commentInRDBMS>
+<commentInRDBMS><![CDATA[Timestamp user accepted data use policy]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

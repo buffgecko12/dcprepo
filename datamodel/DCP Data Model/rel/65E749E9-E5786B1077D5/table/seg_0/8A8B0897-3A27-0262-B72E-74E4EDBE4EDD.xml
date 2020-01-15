@@ -1,10 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="User_Teacher">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="Teacher">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Teacher-specific information.</comment>
+<comment><![CDATA[Teacher-specific information.]]></comment>
 <generatorID>334935A8-9287-B690-0A4C-5FE7A40B2033</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>user_teacher</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -12,12 +13,12 @@
 <Column name="TeacherUserId" id="2128FC24-FEAC-4E8D-5B9E-29269C4FD060">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>89176FB4-BCE1-7CD6-2BEC-EC1B582D251F</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -28,12 +29,24 @@
 <Column name="MaxBudget" id="095EF60D-59DE-D5BA-75EF-63720350BBBD">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-08 14:05:28 UTC</createdTime>
-<comment>Max budget available to teacher</comment>
+<comment><![CDATA[Max budget available to teacher]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SurveyTS" id="02528FEA-4E6F-835D-9C21-91098284BC9C">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:44:56 UTC</createdTime>
+<comment><![CDATA[Timestamp teacher turned in their own survey.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT046</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4F38C79F-7C6F-CE0F-37BD-48A275865C3F" name="School">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>School Info</comment>
+<comment><![CDATA[School Info]]></comment>
 <generatorID>17D6C784-C239-85B8-FD29-F3ED77C45DEC</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
@@ -12,12 +12,12 @@
 <Column name="SchoolId" id="295409DA-D526-9F0D-8D7F-E9814C627C41">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for school</comment>
+<comment><![CDATA[Unique ID for school]]></comment>
 <generatorID>DE50E935-F766-241A-7FA9-9FD7B63A3E11</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -36,7 +36,7 @@
 <Column name="SchoolAbbreviation" id="6668A413-D8D4-624D-1861-EBEB17BBCA1A">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-06-26 16:50:51 UTC</createdTime>
-<commentInRDBMS>Abbreviation</commentInRDBMS>
+<commentInRDBMS><![CDATA[Abbreviation]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -85,32 +85,6 @@
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="DataUsePolicyFileId" id="9379BC37-25B5-6E2C-FC36-65B137B6D164">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 14:28:24 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="C50A5A53-4365-7ABB-6B38-74AB854047C5" referredColumn="90966D88-7346-E173-9A6D-EB4189CA3832"/>
-</associations>
-</Column>
-<Column name="GuardianApprovalPolicy" id="6CB051F9-D5B7-CBE9-5DFB-4561AD875448">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 11:31:20 UTC</createdTime>
-<commentInRDBMS>Policy for parent approval of contracts:&lt;br/&gt;&lt;br/&gt;signature&lt;br/&gt;cedula (number, date/location of issue)</commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="750AE189-DEC7-9499-8C11-77659462F62A" name="PKv6">
@@ -123,16 +97,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="30629B2E-789D-2327-3B5E-309B9410EF2B" name="FKv30">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 14:28:24 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="9379BC37-25B5-6E2C-FC36-65B137B6D164"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

@@ -12,9 +12,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 14:07:53 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -81,23 +81,42 @@
 <createdTime>2018-08-03 14:07:53 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT029</logicalDatatype>
-<domain>906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="AccessClass" id="D1068E91-0012-901D-3041-189964F49D19">
+<Column name="FileURL" id="D43DA3DC-C33C-C9A2-03A7-8883BA5339CD">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 17:12:27 UTC</createdTime>
-<commentInRDBMS>Type of file (used for access permissions)&lt;br/&gt;&lt;br/&gt;US - user&lt;br/&gt;CT - contract&lt;br/&gt;PB - public</commentInRDBMS>
+<createdTime>2020-01-14 19:19:13 UTC</createdTime>
+<comment><![CDATA[URL to access file - i.e. Google Drive]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AccessRules" id="D1068E91-0012-901D-3041-189964F49D19">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-08-03 17:12:27 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rules for file access:
+
+Public : "True | False"
+UserType + School : "TR, GLV"
+School : "GLV"
+UserType : "TR"
+UserId : "1"
+UserIdList : "1, 4, 10"]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

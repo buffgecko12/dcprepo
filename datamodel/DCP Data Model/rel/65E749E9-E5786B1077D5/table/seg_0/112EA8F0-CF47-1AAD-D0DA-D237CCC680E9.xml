@@ -1,10 +1,11 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="112EA8F0-CF47-1AAD-D0DA-D237CCC680E9" name="User_Teacher_Class">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="112EA8F0-CF47-1AAD-D0DA-D237CCC680E9" name="Teacher_Class">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Classes assigned to a teacher</comment>
+<comment><![CDATA[Classes assigned to a teacher]]></comment>
 <generatorID>9E785875-A708-E5DB-1442-98031CAA062D</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>user_teacher_class</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
@@ -12,12 +13,12 @@
 <Column name="TeacherUserId" id="531B6063-54E7-3404-178B-5FEACC150B1F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>56858341-4FF3-C1BE-5B24-525AC77814E4</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -28,12 +29,14 @@
 <Column name="ClassId" id="84485D8A-2CA7-1E69-A691-6F125F8AB452">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
+<comment><![CDATA[Class Id used by school to group students together (i.e. 9-03).
+
+This should be a unique identifier to be able to lookup students in each particular group.]]></comment>
 <generatorID>49E992F5-ECF1-D1FE-6F69-0D9F33BD5F41</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>

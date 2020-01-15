@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="6C795A87-CA51-A51C-0BE8-1868EE9A2100" containerWithKeyObject="B8713A70-51D3-FAE5-3014-F1980FFB6973" localFKIndex="F1950B48-D7EC-8AC0-7122-85977F454360" name="FKv2">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-14 19:26:21 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableLongName>Lookup_Reward</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>7A867A0E-912C-C4CB-6EBA-9F7C855B7257</referredTableID>
+<keyObject>6125C0A5-95F1-E39E-6F44-9A3F05DC4524</keyObject>
+<referredKeyID>6125C0A5-95F1-E39E-6F44-9A3F05DC4524</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>RewardId</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

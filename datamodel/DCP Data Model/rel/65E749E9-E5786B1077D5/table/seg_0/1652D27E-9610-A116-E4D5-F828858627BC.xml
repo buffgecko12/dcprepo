@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1652D27E-9610-A116-E4D5-F828858627BC" name="User_Reputation_Event">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Track events that affect user reputation</comment>
+<comment><![CDATA[Track events that affect user reputation]]></comment>
 <generatorID>1C1A779B-53B5-17DD-361E-D1D216341C56</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
@@ -12,12 +12,12 @@
 <Column name="UserId" id="0DCB0FDD-6F4E-C47B-383D-DF17EFF40CCE">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>183317D0-9442-0C80-06A6-182C5FC6C1B0</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -25,10 +25,10 @@
 <colAssociation fkAssociation="AA1A8BBC-8FBB-286F-66AB-EFDA9EF52F78" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
 </associations>
 </Column>
-<Column name="ReputationEventId" id="D90285BF-9B2D-B86E-7D14-05302579B7BD">
+<Column name="EventId" id="D90285BF-9B2D-B86E-7D14-05302579B7BD">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:59:31 UTC</createdTime>
-<comment>Unique identifier for user event</comment>
+<comment><![CDATA[Unique identifier for user event]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -39,7 +39,7 @@
 <Column name="PointValue" id="CBC18224-8F5B-D3E4-0F16-EF5ECB44E6FE">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Reputation point value</comment>
+<comment><![CDATA[Reputation point value]]></comment>
 <generatorID>7062EF92-A848-B512-EF11-9B460AEFDE68</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
@@ -51,25 +51,25 @@
 <Column name="EventTS" id="DB7B8237-B4D2-2EED-BA7A-AF3D16C4FB74">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Event timestamp</comment>
+<comment><![CDATA[Event timestamp]]></comment>
 <generatorID>B56595CD-6A66-4D10-EA18-F2921240A9C7</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ContractId" id="80823E54-AD58-96ED-2DE1-B3D4904CFA1B">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for a contract</comment>
+<comment><![CDATA[Unique ID for a contract]]></comment>
 <generatorID>CB97DB36-87F6-D4AA-2D0C-E10757CC0800</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -80,12 +80,12 @@
 <Column name="SourceEventId" id="DE4856E8-41C9-4D6F-D7F6-CF26F11C550B">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:29:56 UTC</createdTime>
-<comment>Source event Id.</comment>
+<comment><![CDATA[Source event Id.]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>

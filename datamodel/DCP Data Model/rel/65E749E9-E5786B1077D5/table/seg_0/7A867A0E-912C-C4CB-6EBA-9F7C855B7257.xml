@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A867A0E-912C-C4CB-6EBA-9F7C855B7257" name="Lookup_Reward">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:42:51 UTC</createdTime>
-<comment>Lookup table that stores available rewards</comment>
+<comment><![CDATA[Lookup table that stores available rewards]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <ordsAlias>table_15</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
@@ -13,9 +13,9 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:44:10 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -36,16 +36,16 @@
 <createdTime>2018-07-05 19:44:10 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="RewardValue" id="C8A4DA32-3784-F55C-7E09-06FCA80461AE">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 19:44:24 UTC</createdTime>
-<commentInRDBMS>Item cost per student</commentInRDBMS>
+<commentInRDBMS><![CDATA[Item cost per student]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -57,19 +57,19 @@
 <Column name="DeactivatedTS" id="BB1B203E-CE7B-DF25-94CE-83F809CD258D">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-05 20:21:48 UTC</createdTime>
-<commentInRDBMS>Whether the reward is active or not.</commentInRDBMS>
+<commentInRDBMS><![CDATA[Whether the reward is active or not.]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT046</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="GlobalFlag" id="B68E9B23-611B-28DE-395F-E6A5101FDB3F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-06 02:42:23 UTC</createdTime>
-<commentInRDBMS>Whether the reward should be made available to all users</commentInRDBMS>
+<commentInRDBMS><![CDATA[Whether the reward should be made available to all users]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -77,20 +77,6 @@
 <logicalDatatype>LOGDT006</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="CreatedByUserId" id="7A80D8AA-1567-E461-D43C-4FFC8C07949D">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-07-05 19:46:45 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="7B5C86BF-7178-700C-EF22-35DF414F64C5" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
-</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -103,17 +89,6 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E01FDA55-711A-7706-42B3-0B6C273F948D"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="4AE93D12-3839-7CA6-C8E7-493841D8EAAE" name="FKv13">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-07-05 19:46:45 UTC</createdTime>
-<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="7A80D8AA-1567-E461-D43C-4FFC8C07949D"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
