@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FF86B0D6-95DF-DEFD-0156-5434A4203FE9" name="Class">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Class info</comment>
+<comment><![CDATA[Class info]]></comment>
 <generatorID>D845F59D-C900-01B9-9928-929807506AA3</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>
@@ -12,7 +12,9 @@
 <Column name="ClassId" id="65B72664-C878-14F0-0818-32DCF801F592">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Class Id used by school to group students together (i.e. 9-03).&lt;br/&gt;&lt;br/&gt;This should be a unique identifier to be able to lookup students in each particular group.</comment>
+<comment><![CDATA[Class Id used by school to group students together (i.e. 9-03).
+
+This should be a unique identifier to be able to lookup students in each particular group.]]></comment>
 <generatorID>3C27C694-F68D-EDEE-0847-C80552BE9FC7</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <use>0</use>
@@ -24,12 +26,12 @@
 <Column name="SchoolId" id="1F157983-8A93-49DB-4B39-8747717C0D25">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>Unique ID for school</comment>
+<comment><![CDATA[Unique ID for school]]></comment>
 <generatorID>BCAEAB8A-A8D3-8501-FFB0-C59C5D055628</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -40,7 +42,7 @@
 <Column name="ClassDisplayName" id="3918CBBC-BFF9-F9EB-52C4-7BE405A3129A">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment>How to display class name</comment>
+<comment><![CDATA[How to display class name]]></comment>
 <generatorID>E17E775C-9408-A2AE-BD57-50E53C1679B6</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
@@ -53,7 +55,7 @@
 <Column name="GradeLevel" id="2682A0F1-177C-81E3-67CF-AC7E5CA6F368">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-16 21:37:19 UTC</createdTime>
-<commentInRDBMS>Grade level (i.e. 8th grade)</commentInRDBMS>
+<commentInRDBMS><![CDATA[Grade level (i.e. 8th grade)]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>

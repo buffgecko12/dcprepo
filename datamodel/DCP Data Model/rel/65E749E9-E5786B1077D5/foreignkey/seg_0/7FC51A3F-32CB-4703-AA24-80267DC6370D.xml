@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="666A66B7-2277-9521-FB59-A62EC7ED3808" containerWithKeyObject="07B4EEFD-D59E-2B8C-5F52-DCC0A5906473" localFKIndex="7D6C6F42-65D3-D5A8-41A7-C0FD9585CB2C" name="FKv31">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="7FC51A3F-32CB-4703-AA24-80267DC6370D" containerWithKeyObject="C319CA33-E081-B24A-1557-C06200426203" localFKIndex="64793DB1-EB30-B81F-E133-DD59D9B505E8" name="FKv12">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 20:40:54 UTC</createdTime>
+<createdTime>2020-01-15 18:27:21 UTC</createdTime>
 <generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableLongName>School</referredTableLongName>
@@ -9,7 +9,7 @@
 <referredTableID>4F38C79F-7C6F-CE0F-37BD-48A275865C3F</referredTableID>
 <keyObject>750AE189-DEC7-9499-8C11-77659462F62A</keyObject>
 <referredKeyID>750AE189-DEC7-9499-8C11-77659462F62A</referredKeyID>
-<mandatory>false</mandatory>
+<mandatory>true</mandatory>
 <refColNames>SchoolId</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>

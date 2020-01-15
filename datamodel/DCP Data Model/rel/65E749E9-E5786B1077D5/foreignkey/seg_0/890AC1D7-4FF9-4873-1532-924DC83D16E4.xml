@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="3BD5F7AF-B4CC-3503-3509-ACD0A79C3243" containerWithKeyObject="AC172F45-B56C-9AF1-025C-BBE01D109A05" localFKIndex="6A99AEB4-42DB-B02D-41E6-939BD2791E20" name="FKv3">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="890AC1D7-4FF9-4873-1532-924DC83D16E4" containerWithKeyObject="AC172F45-B56C-9AF1-025C-BBE01D109A05" localFKIndex="F6C35A44-CF30-BDA6-DFBB-17231FD6B2FD" name="FKv4">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-14 19:30:59 UTC</createdTime>
+<createdTime>2020-01-15 18:49:45 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableLongName>Lookup_Reward</referredTableLongName>
 <deleteRule>NO ACTION</deleteRule>

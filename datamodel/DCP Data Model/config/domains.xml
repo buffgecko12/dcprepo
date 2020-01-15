@@ -56,9 +56,9 @@
       <Domain class="oracle.dbtools.crest.model.design.Domain" name="BinaryField" id="906FD53C-A4DB-23F5-6CCA-8E9FB6FAED64">
          <createdBy>ravioli</createdBy>
          <createdTime>2017-10-07 15:47:54 UTC</createdTime>
-         <ownerDesignName>System</ownerDesignName>
+         <ownerDesignName>domains</ownerDesignName>
          <avTSortOrder>0</avTSortOrder>
-         <fileName>defaultdomains</fileName>
+         <fileName>domains</fileName>
          <logicalDatatype>LOGDT029</logicalDatatype>
       </Domain>
       <Domain class="oracle.dbtools.crest.model.design.Domain" name="ObjectID" id="C156DD6B-7DE0-3155-0140-EBC7D983755A">

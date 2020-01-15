@@ -21,11 +21,9 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="TeacherUserId" id="970D621F-5471-F156-D3D9-CE07493B1112">
+<Column name="TeacherUserId" id="1D8370B7-6949-BA4E-87E6-BA34CD507BCF">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment><![CDATA[Unique ID for each user]]></comment>
-<generatorID>724A4C2D-6153-4680-54AA-D34AE1E0DDE8</generatorID>
+<createdTime>2020-01-15 18:10:39 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -34,25 +32,7 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="D8F883EA-7E7B-021A-E699-F7DE06F2F16B" referredColumn="531B6063-54E7-3404-178B-5FEACC150B1F"/>
-</associations>
-</Column>
-<Column name="ClassId" id="213A0471-99DF-AC8F-2AAF-1B6C028C7947">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment><![CDATA[Class Id used by school to group students together (i.e. 9-03).
-
-This should be a unique identifier to be able to lookup students in each particular group.]]></comment>
-<generatorID>7491A5BF-F9A7-DDE6-AEB5-0D53F04F3634</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="D8F883EA-7E7B-021A-E699-F7DE06F2F16B" referredColumn="84485D8A-2CA7-1E69-A691-6F125F8AB452"/>
+<colAssociation fkAssociation="D6ED19A7-E5BE-0D07-BE84-3AEC149B89F7" referredColumn="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
 </associations>
 </Column>
 <Column name="ActivityName" id="5636417B-6615-D68D-0DA3-52578D1A2FAD">
@@ -209,28 +189,15 @@ C - complete (completed)]]></comment>
 <colUsage columnID="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="6DFA920E-2441-042E-1DD9-AF0A6D01CCC1" name="IDX">
+<ind_PK_UK id="01DDA71F-3E61-B16B-592F-7897A965C3FD" name="FKv7">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Unique Plain Index</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<relationGeneratorID>FC016790-76D0-C0F3-9386-ECE41443BB16</relationGeneratorID>
-<indexColumnUsage>
-<colUsage columnID="970D621F-5471-F156-D3D9-CE07493B1112"/>
-<colUsage columnID="213A0471-99DF-AC8F-2AAF-1B6C028C7947"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="844BA006-0BC8-3FBF-DF80-F25929BE08CF" name="FKv7">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<generatorID>FC016790-76D0-C0F3-9386-ECE41443BB16</generatorID>
+<createdTime>2020-01-15 18:10:39 UTC</createdTime>
+<generatorID>E878968F-4744-3A69-938B-B5EFBFBB08A2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="970D621F-5471-F156-D3D9-CE07493B1112"/>
-<colUsage columnID="213A0471-99DF-AC8F-2AAF-1B6C028C7947"/>
+<colUsage columnID="1D8370B7-6949-BA4E-87E6-BA34CD507BCF"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

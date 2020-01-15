@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="736BCDA0-9A0F-D0BC-06E3-91A47ADCEE44" name="School_Calendar">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-15 18:25:25 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_19</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CalendarItemId" id="E8341100-CDAA-E107-B4AD-3100A6344148">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-15 18:59:23 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>67601FC1-9BE5-66BB-0A66-1FE6C8E4068D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolId" id="5C1F20B5-E69B-D698-0714-5B50BE323BE4">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-15 18:27:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="CC153F00-EA5C-4B17-F90B-F39FAF30283C" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AD8CB4A8-0B01-F234-C715-1D6CB70C9991" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-15 19:00:44 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E8341100-CDAA-E107-B4AD-3100A6344148"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="680D2F96-22FD-2214-757F-56B5C68AEC0F" name="FKv8">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-15 18:27:16 UTC</createdTime>
+<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5C1F20B5-E69B-D698-0714-5B50BE323BE4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
