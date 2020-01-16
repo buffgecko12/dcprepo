@@ -2,7 +2,9 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FF86B0D6-95DF-DEFD-0156-5434A4203FE9" name="Class">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment><![CDATA[Class info]]></comment>
+<comment><![CDATA[Class info
+
+Create new classes for each school year]]></comment>
 <generatorID>D845F59D-C900-01B9-9928-929807506AA3</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <allowColumnReorder>false</allowColumnReorder>

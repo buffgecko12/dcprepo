@@ -18,7 +18,7 @@
 <Attribute name="ContractId" id="13FCCD66-A193-CBBD-4DBE-F5202B4066E8">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:32:22 UTC</createdTime>
-<comment>Unique ID for a contract</comment>
+<comment><![CDATA[Unique ID for a contract]]></comment>
 <generatorID>7CC932F0-E04F-6A4F-D082-0368D97C5FA6</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
@@ -33,7 +33,7 @@
 <Attribute name="PartyUserId" id="3A7AEEF5-5BC1-029A-1450-AFDE93AE7AA3">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:32:22 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>7CC932F0-E04F-6A4F-D082-0368D97C5FA6</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
@@ -48,7 +48,11 @@
 <Attribute name="SignatureType" id="504F16D6-E616-464A-21BB-65ADFB8B5348">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:27:19 UTC</createdTime>
-<comment>Reason for signature&lt;br/&gt;&lt;br/&gt;A - participant acceptance&lt;br/&gt;R - contract revision&lt;br/&gt;G - guardian approval</comment>
+<comment><![CDATA[Reason for signature
+
+A - participant acceptance
+R - contract revision
+G - guardian approval]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
@@ -63,7 +67,7 @@
 <Attribute name="SignatureScanFile" id="78633C51-2A64-E9A0-4EAC-7B4F54BBC980">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:27:54 UTC</createdTime>
-<comment>Digital copy of signature (can be inherited from user&apos;s profile)</comment>
+<comment><![CDATA[Digital copy of signature (can be inherited from user's profile)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
@@ -77,21 +81,21 @@
 <Attribute name="SignatureTS" id="BCDE5E94-5798-EA4A-6D17-C81061368E4F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:28:18 UTC</createdTime>
-<comment>Signature timestamp</comment>
+<comment><![CDATA[Signature timestamp]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="LogonUserId" id="697F1021-BA5F-1490-EFEA-3B0B9720A22A">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:30:28 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>4FF0CFA2-7F78-776C-91BC-98EEB7B76513</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>

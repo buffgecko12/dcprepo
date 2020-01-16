@@ -849,7 +849,7 @@
 		<mapping rdbms="DB2/UDB 7.1">TIMESTAMP</mapping>
 	</logicaltype>
 	<logicaltype name="TIMESTAMP WITH TIME ZONE" objectid="LOGDT046">
-		<mapping rdbms="Oracle Database 12cR2">TIMESTAMP WITH TIME ZONE, precision</mapping>
+		<mapping rdbms="Oracle Database 12cR2">TIMESTAMPTZ</mapping>
 		<mapping rdbms="Oracle Database 12c">TIMESTAMP WITH TIME ZONE, precision</mapping>
 		<mapping rdbms="Oracle Database 11g">TIMESTAMP WITH TIME ZONE, precision</mapping>
 		<mapping rdbms="Oracle Database 10g">TIMESTAMP WITH TIME ZONE, precision</mapping>
@@ -1184,6 +1184,22 @@
 		<mapping rdbms="DB2/UDB 8.1">UNKNOWN</mapping>
 		<mapping rdbms="DB2/UDB 7.1">UNKNOWN</mapping>
 	</logicaltype>
+	<logicaltype name="TIMESTAMPTZ" objectid="ACF56F06-188D-C6E7-7494-F77E788D9647">
+		<mapping rdbms="Oracle Database 12cR2">TIMESTAMPTZ</mapping>
+		<mapping rdbms="Oracle Database 12c">TIMESTAMPTZ</mapping>
+		<mapping rdbms="Oracle Database 11g">UNKNOWN</mapping>
+		<mapping rdbms="Oracle Database 10g">UNKNOWN</mapping>
+		<mapping rdbms="Oracle9i">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2012">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2008">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2005">UNKNOWN</mapping>
+		<mapping rdbms="SQL Server 2000">UNKNOWN</mapping>
+		<mapping rdbms="DB2/390 8">UNKNOWN</mapping>
+		<mapping rdbms="DB2/390 7">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 9">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 8.1">UNKNOWN</mapping>
+		<mapping rdbms="DB2/UDB 7.1">UNKNOWN</mapping>
+	</logicaltype>
 	<native_to_logical_mappings>
 		<mappings_for_RDBMS_type rdbms_type="Oracle Database 12cR2" />
 		<mappings_for_RDBMS_type rdbms_type="Oracle Database 12c">
@@ -1479,6 +1495,7 @@
 			<ud_db_type native_type="JSONB" />
 			<ud_db_type native_type="SERIAL" />
 			<ud_db_type native_type="TIME" />
+			<ud_db_type native_type="TIMESTAMPTZ" logicaltype="TIMESTAMPTZ" log_type_id="ACF56F06-188D-C6E7-7494-F77E788D9647" />
 			<ud_db_type native_type="TSRANGE" />
 			<ud_db_type native_type="TSTZRANGE" />
 		</ud_native_for_db_type>
@@ -1491,7 +1508,8 @@
 			<ud_db_type native_type="JSON" />
 			<ud_db_type native_type="JSONB" />
 			<ud_db_type native_type="SERIAL" />
-			<ud_db_type native_type="TIME" />
+			<ud_db_type native_type="TIME" logicaltype="Time" log_type_id="LOGDT014" />
+			<ud_db_type native_type="TIMESTAMPTZ" logicaltype="TIMESTAMPTZ" log_type_id="ACF56F06-188D-C6E7-7494-F77E788D9647" />
 			<ud_db_type native_type="TSRANGE" />
 			<ud_db_type native_type="TSTZRANGE" />
 		</ud_native_for_db_type>

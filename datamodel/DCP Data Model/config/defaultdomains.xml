@@ -43,14 +43,14 @@
 <fileName>defaultdomains</fileName>
 <logicalDatatype>LOGDT006</logicalDatatype>
 </Domain>
-<Domain class="oracle.dbtools.crest.model.design.Domain" name="Timestamp" id="6D3F6CFE-F371-A990-DB03-067F7194548D">
+<Domain class="oracle.dbtools.crest.model.design.Domain" name="TimestampTZ" id="6D3F6CFE-F371-A990-DB03-067F7194548D">
 <createdBy>ravioli</createdBy>
 <createdTime>2017-09-23 22:38:46 UTC</createdTime>
 <ownerDesignName>System</ownerDesignName>
 <avTSortOrder>0</avTSortOrder>
 <dataTypePrecision>6</dataTypePrecision>
 <fileName>defaultdomains</fileName>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 </Domain>
 <Domain class="oracle.dbtools.crest.model.design.Domain" name="DescriptionField" id="8318227B-30D2-3AFF-2886-6E1C37B7339C">
 <createdBy>ravioli</createdBy>

@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="59AC8B6B-D6C1-C00D-092E-7FBC55AE32C4" name="User_Notification">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:32:02 UTC</createdTime>
-<comment>User notifications</comment>
+<comment><![CDATA[User notifications]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <ordsAlias>table_20</ordsAlias>
 <allowColumnReorder>false</allowColumnReorder>
@@ -13,9 +13,8 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:38:19 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -26,7 +25,7 @@
 <Column name="NotificationId" id="415F2D55-4EF2-A07B-1CD4-153713869FCC">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:34:06 UTC</createdTime>
-<commentInRDBMS>Unique identifier for a notification</commentInRDBMS>
+<commentInRDBMS><![CDATA[Unique identifier for a notification]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
@@ -40,7 +39,7 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -48,7 +47,7 @@
 <Column name="NotificationSeen" id="08153D98-2C9C-9350-5A47-BCFA5571361E">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:34:06 UTC</createdTime>
-<commentInRDBMS>Has the notification been seen by the user?</commentInRDBMS>
+<commentInRDBMS><![CDATA[Has the notification been seen by the user?]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -60,7 +59,7 @@
 <Column name="NotificationText" id="2CAA208A-7BD0-1FC2-DDB0-D56829984B4E">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:35:10 UTC</createdTime>
-<commentInRDBMS>Text</commentInRDBMS>
+<commentInRDBMS><![CDATA[Text]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
@@ -74,9 +73,8 @@
 <createdTime>2018-07-30 17:08:47 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -87,7 +85,7 @@
 <Column name="SourceEventId" id="0FD80356-0C49-8168-BB3A-8B79CB4A12AA">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:35:37 UTC</createdTime>
-<commentInRDBMS>Event that genereated this alert</commentInRDBMS>
+<commentInRDBMS><![CDATA[Event that genereated this alert]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>

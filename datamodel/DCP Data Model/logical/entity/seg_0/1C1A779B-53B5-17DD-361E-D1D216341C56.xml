@@ -2,7 +2,7 @@
 <Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="1C1A779B-53B5-17DD-361E-D1D216341C56" name="User Reputation Event">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:14:11 UTC</createdTime>
-<comment>Track events that affect user reputation</comment>
+<comment><![CDATA[Track events that affect user reputation]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
@@ -19,20 +19,19 @@
 <Attribute name="EventId" id="1C47AEAC-3C7B-107D-3939-10BA27003084">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:14:29 UTC</createdTime>
-<comment>Unique event identifier</comment>
+<comment><![CDATA[Unique event identifier]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>FADD5F8E-0806-E5FC-EBE5-F92A98042A63</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="UserId" id="183317D0-9442-0C80-06A6-182C5FC6C1B0">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:20:19 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>DBA5055A-0EBF-B950-9EFE-B6FD892A4A20</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
@@ -47,7 +46,12 @@
 <Attribute name="EventType" id="4198226A-89FA-5012-0DB3-0183ABFE1B84">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:14:33 UTC</createdTime>
-<comment>Event type:&lt;br/&gt;&lt;br/&gt;BP - best overall performer&lt;br/&gt;TP - top performers&lt;br/&gt;PO - project organizer&lt;br/&gt;PV - project vote (poor, average, excellent)</comment>
+<comment><![CDATA[Event type:
+
+BP - best overall performer
+TP - top performers
+PO - project organizer
+PV - project vote (poor, average, excellent)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
@@ -62,21 +66,21 @@
 <Attribute name="EventTS" id="B56595CD-6A66-4D10-EA18-F2921240A9C7">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:14:40 UTC</createdTime>
-<comment>Event timestamp</comment>
+<comment><![CDATA[Event timestamp]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
 <Attribute name="PointValue" id="7062EF92-A848-B512-EF11-9B460AEFDE68">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:14:42 UTC</createdTime>
-<comment>Reputation point value</comment>
+<comment><![CDATA[Reputation point value]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
 <item key="65E749E9-E4C3-DDE2-B26F-E5786B1077D5" value="true"/>
@@ -90,7 +94,7 @@
 <Attribute name="ContractId" id="F55EA8EF-C821-6A41-CE60-96A5926D46E1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:36:27 UTC</createdTime>
-<comment>Unique ID for a contract</comment>
+<comment><![CDATA[Unique ID for a contract]]></comment>
 <generatorID>89E1EC56-5B9B-A53D-6DB3-1431D4C10856</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <shouldEngineer>false</shouldEngineer>
@@ -106,7 +110,7 @@
 <Attribute name="PartyUserId" id="F3AF89BE-E35F-7636-9AC7-FDEF95671A87">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 03:02:47 UTC</createdTime>
-<comment>Unique ID for each user</comment>
+<comment><![CDATA[Unique ID for each user]]></comment>
 <generatorID>F042D411-A3CA-E390-6540-05572CB9A314</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>
@@ -121,7 +125,7 @@
 <Attribute name="Contract Party.ContractId" id="1DE840DE-1B43-9321-B839-F9573DD6A515">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 03:02:47 UTC</createdTime>
-<comment>Unique ID for a contract</comment>
+<comment><![CDATA[Unique ID for a contract]]></comment>
 <generatorID>F042D411-A3CA-E390-6540-05572CB9A314</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <engineerTo>

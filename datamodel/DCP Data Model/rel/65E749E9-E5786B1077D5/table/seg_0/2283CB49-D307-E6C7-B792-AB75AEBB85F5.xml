@@ -12,9 +12,8 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:46:21 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<use>0</use>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>8E4A1998-36C6-B109-7E74-8436D3D13074</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -39,10 +38,10 @@
 <Column name="BadgeAchievedTS" id="EF2CD2AE-D5F6-8237-CDC0-61BABCDC8B4F">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-22 13:50:50 UTC</createdTime>
-<comment>Timestamp badge was achieved.</comment>
+<comment><![CDATA[Timestamp badge was achieved.]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>

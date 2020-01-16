@@ -21,9 +21,9 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="TeacherUserId" id="1D8370B7-6949-BA4E-87E6-BA34CD507BCF">
+<Column name="TeacherUserId" id="EA6BEF5D-71F8-37F2-6179-21C3B3095889">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:10:39 UTC</createdTime>
+<createdTime>2020-01-16 18:42:48 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -32,8 +32,19 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="D6ED19A7-E5BE-0D07-BE84-3AEC149B89F7" referredColumn="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
+<colAssociation fkAssociation="A2A03308-01C6-1383-EAF4-169155BE1EB0" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
 </associations>
+</Column>
+<Column name="SchoolYear" id="0234FDC0-A949-0E48-9061-0A60B218FFE0">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-16 18:48:34 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ActivityName" id="5636417B-6615-D68D-0DA3-52578D1A2FAD">
 <createdBy>ravioli</createdBy>
@@ -92,8 +103,9 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -105,8 +117,9 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -117,8 +130,9 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -189,15 +203,15 @@ C - complete (completed)]]></comment>
 <colUsage columnID="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="01DDA71F-3E61-B16B-592F-7897A965C3FD" name="FKv7">
+<ind_PK_UK id="E5AEE3E4-B56D-1F24-6973-D4B7206F1C96" name="FKv7">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:10:39 UTC</createdTime>
-<generatorID>E878968F-4744-3A69-938B-B5EFBFBB08A2</generatorID>
+<createdTime>2020-01-16 18:42:48 UTC</createdTime>
+<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="1D8370B7-6949-BA4E-87E6-BA34CD507BCF"/>
+<colUsage columnID="EA6BEF5D-71F8-37F2-6179-21C3B3095889"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

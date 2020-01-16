@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="Teacher">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="Teacher_Program">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
 <comment><![CDATA[Teacher-specific information.]]></comment>
@@ -22,23 +22,16 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="E89A78EE-FDE6-658D-6CCB-69353AFF981A" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
-</associations>
 </Column>
-<Column name="SchoolId" id="D2C9F38D-4A1D-DF07-550B-19D20100B256">
+<Column name="SchoolYear" id="F825A3BA-D14E-519E-213C-64F307770029">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:09:21 UTC</createdTime>
+<createdTime>2020-01-16 17:40:36 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
+<use>0</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="B85C654D-798E-B353-D5EC-5C9DBEAE7D1D" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
-</associations>
 </Column>
 <Column name="MaxBudget" id="095EF60D-59DE-D5BA-75EF-63720350BBBD">
 <createdBy>ravioli</createdBy>
@@ -59,7 +52,7 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
-<logicalDatatype>LOGDT046</logicalDatatype>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -76,28 +69,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="872986C1-D6E3-F16F-389B-79F2B8EC4593" name="FKv15">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<generatorID>EE56AAEA-DAB3-715E-2BAC-C17E2AD646AC</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="B93502C0-4406-CFD6-F351-7A50D2EFA54E" name="FKv5">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:09:21 UTC</createdTime>
-<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="D2C9F38D-4A1D-DF07-550B-19D20100B256"/>
+<colUsage columnID="F825A3BA-D14E-519E-213C-64F307770029"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
