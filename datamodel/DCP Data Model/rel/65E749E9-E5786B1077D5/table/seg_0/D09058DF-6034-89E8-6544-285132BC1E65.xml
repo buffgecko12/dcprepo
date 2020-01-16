@@ -14,7 +14,6 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>67601FC1-9BE5-66BB-0A66-1FE6C8E4068D</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -70,7 +69,7 @@ G - Gold]]></commentInRDBMS>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="C5E40D95-8E46-8B00-F49B-52328BE66146" name="PKv4">
+<ind_PK_UK id="C5E40D95-8E46-8B00-F49B-52328BE66146" name="PKv4v1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-31 00:33:06 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

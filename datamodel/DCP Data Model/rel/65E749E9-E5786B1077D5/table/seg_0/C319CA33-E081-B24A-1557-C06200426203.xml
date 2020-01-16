@@ -32,9 +32,74 @@
 <colAssociation fkAssociation="7FC51A3F-32CB-4703-AA24-80267DC6370D" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
 </associations>
 </Column>
+<Column name="SchoolYear" id="640A6CAC-504B-EFD1-DB69-5565EA3B1AE5">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 11:13:15 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Category" id="D93EBD07-2290-6CC3-03EC-21905058FC92">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 10:45:30 UTC</createdTime>
+<commentInRDBMS><![CDATA[Criteria Category
+PT - Participation
+CT - Contracts
+PL - Punctuality
+SV - Surveys]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Criterion" id="EEF6C9D2-A8A1-512C-C3B7-987FBFC947C1">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 10:45:30 UTC</createdTime>
+<comment><![CDATA[Aspect being evaluated]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Description" id="24DF0B50-9F66-4244-FDE1-DBBF64477C6F">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 10:45:30 UTC</createdTime>
+<comment><![CDATA[Description]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Weight" id="FC53FE36-628B-4A6F-FABE-A8027B398322">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 10:45:30 UTC</createdTime>
+<comment><![CDATA[Weight to apply to criterion.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="26E99D8C-48C4-A0EF-7B1C-52C1F017F31A" name="PK">
+<ind_PK_UK id="26E99D8C-48C4-A0EF-7B1C-52C1F017F31A" name="PKv8">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-15 19:00:39 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

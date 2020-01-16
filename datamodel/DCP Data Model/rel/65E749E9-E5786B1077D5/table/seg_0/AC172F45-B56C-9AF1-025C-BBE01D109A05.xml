@@ -36,6 +36,17 @@
 <colAssociation fkAssociation="890AC1D7-4FF9-4873-1532-924DC83D16E4" referredColumn="E01FDA55-711A-7706-42B3-0B6C273F948D"/>
 </associations>
 </Column>
+<Column name="SchoolYear" id="DAED6D3D-1E1B-7F2D-C89C-90DD3E859994">
+<createdBy>ckhosravi</createdBy>
+<createdTime>2020-01-16 11:30:36 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="Quantity" id="BF8C71B9-474E-E9B2-7B9A-4A3916412799">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:36:31 UTC</createdTime>
@@ -77,7 +88,7 @@ D - Delivered]]></commentInRDBMS>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="84F58157-C572-2E46-136D-485505AE9CC2" name="PK">
+<ind_PK_UK id="84F58157-C572-2E46-136D-485505AE9CC2" name="PKv4">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-15 18:50:08 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
