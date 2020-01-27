@@ -1,0 +1,92 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="59A497D9-129B-61F1-11E0-F86D426F8817" name="Contract_Party">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:23:09 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_22</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ContractId" id="9274BC52-FA05-8319-C59F-23749B7C25C0">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:24:13 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="4B487437-0698-B0C0-AEC1-660521DAEB16" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+</associations>
+</Column>
+<Column name="TeacherUserId" id="7B4740C8-6BBA-6A87-396E-7900F627909B">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:26:17 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E0223EA2-4A2F-F5D1-F94F-F994292C2CF4" referredColumn="531B6063-54E7-3404-178B-5FEACC150B1F"/>
+</associations>
+</Column>
+<Column name="ClassId" id="EE363E9A-05C2-87BD-59F0-72F54635AD92">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:26:17 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E0223EA2-4A2F-F5D1-F94F-F994292C2CF4" referredColumn="84485D8A-2CA7-1E69-A691-6F125F8AB452"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="55832CD6-FD10-A701-E692-FB2332C33AFB" name="PKv2">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 14:41:41 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9274BC52-FA05-8319-C59F-23749B7C25C0"/>
+<colUsage columnID="7B4740C8-6BBA-6A87-396E-7900F627909B"/>
+<colUsage columnID="EE363E9A-05C2-87BD-59F0-72F54635AD92"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FF700A9C-450F-7EF3-9427-403D3C1E3155" name="FKv14">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:24:13 UTC</createdTime>
+<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9274BC52-FA05-8319-C59F-23749B7C25C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AF981877-2EE5-9C79-AAD1-D732710EB1B2" name="FKv15">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 13:26:17 UTC</createdTime>
+<generatorID>B3881BFF-DB8F-F602-D90F-9AB6329AF589</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7B4740C8-6BBA-6A87-396E-7900F627909B"/>
+<colUsage columnID="EE363E9A-05C2-87BD-59F0-72F54635AD92"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

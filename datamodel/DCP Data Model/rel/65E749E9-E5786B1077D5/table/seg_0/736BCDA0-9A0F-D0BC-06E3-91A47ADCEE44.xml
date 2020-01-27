@@ -38,7 +38,6 @@
 <createdBy>ckhosravi</createdBy>
 <createdTime>2020-01-16 11:10:29 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT018</logicalDatatype>
 <domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
@@ -50,7 +49,6 @@
 <createdTime>2020-01-16 11:07:28 UTC</createdTime>
 <comment><![CDATA[Item Date]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT007</logicalDatatype>
@@ -62,14 +60,14 @@
 <createdTime>2020-01-16 11:07:28 UTC</createdTime>
 <comment><![CDATA[Item type: 
 
-- start program
-- end program
-- contract proposals due
-- contract evaluations and proof due
-- surveys (student) due
-- surveys (teacher) due]]></comment>
+SP - Start program
+EP - End program
+CTP - Contract proposals due
+CTE - Contract evaluations and proof due
+SVS - Surveys (student) due
+SVT - Surveys (teacher) due
+OT - Other]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -102,7 +100,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="AD8CB4A8-0B01-F234-C715-1D6CB70C9991" name="PKv2">
+<ind_PK_UK id="AD8CB4A8-0B01-F234-C715-1D6CB70C9991" name="PKv2v1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-15 19:00:44 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

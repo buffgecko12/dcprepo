@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="90D9F197-F5F7-CC5C-1531-687000F444B8" containerWithKeyObject="4D978AB5-6348-A2FB-BAC7-024B2CE9B51D" localFKIndex="AB91EFE7-31CA-08FF-4BA9-CA0883132F5B" name="FKv20">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:59:32 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableLongName>ACL</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>1579F0D2-7881-D380-7556-6D581723FDB0</referredTableID>
+<keyObject>D663ABF9-6877-B185-2273-8380169A8D05</keyObject>
+<referredKeyID>D663ABF9-6877-B185-2273-8380169A8D05</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>ACLID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

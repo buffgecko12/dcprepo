@@ -40,7 +40,6 @@
 <createdBy>ckhosravi</createdBy>
 <createdTime>2020-01-16 11:29:07 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT018</logicalDatatype>
 <domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
@@ -49,7 +48,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="03D9CEF9-4850-63BA-F33A-645F69E09D30" name="PKv2v1">
+<ind_PK_UK id="03D9CEF9-4850-63BA-F33A-645F69E09D30" name="PKv2v1v1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:26:42 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

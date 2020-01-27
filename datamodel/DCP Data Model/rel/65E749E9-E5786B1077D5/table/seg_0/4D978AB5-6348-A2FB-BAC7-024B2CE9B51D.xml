@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4D978AB5-6348-A2FB-BAC7-024B2CE9B51D" name="UI_Objects">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:57:45 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_23</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ObjectId" id="0EE5A516-E47A-D6CC-BDBC-51D35BBE78C2">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:58:33 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Type" id="4F408203-A16A-AAFA-A887-FBDFA04BBAEE">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:58:33 UTC</createdTime>
+<commentInRDBMS><![CDATA[V - view]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ACLID" id="299F33D9-8154-17DA-7555-C9E4F21C09E0">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:59:32 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="90D9F197-F5F7-CC5C-1531-687000F444B8" referredColumn="4FE08D94-6D96-465B-2617-D2851601CB20"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C6671589-8270-04F7-C71E-7ACB30BF8727" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:59:01 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0EE5A516-E47A-D6CC-BDBC-51D35BBE78C2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AB91EFE7-31CA-08FF-4BA9-CA0883132F5B" name="FKv20">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:59:32 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="299F33D9-8154-17DA-7555-C9E4F21C09E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

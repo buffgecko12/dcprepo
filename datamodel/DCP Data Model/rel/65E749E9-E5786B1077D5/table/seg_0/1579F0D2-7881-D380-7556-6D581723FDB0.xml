@@ -1,0 +1,139 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1579F0D2-7881-D380-7556-6D581723FDB0" name="ACL">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:32:41 UTC</createdTime>
+<notes><![CDATA[Access Rules for objects (files, views)]]></notes>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_22</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ACLID" id="4FE08D94-6D96-465B-2617-D2851601CB20">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:34:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Class" id="77333420-C4C3-565A-F341-4E6FE555B685">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:44:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[F - File
+V - View]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Name" id="208B0959-8B62-DC1B-560D-AF93F2B16BB1">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:34:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Description" id="8D36341E-13DD-F8CF-0A6B-5E871D27AA9C">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:44:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[Description]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>8318227B-30D2-3AFF-2886-6E1C37B7339C</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Type" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:34:16 UTC</createdTime>
+<commentInRDBMS><![CDATA[SU (School + UserType) : "TR, GLV"
+SC (School) : "GLV"
+UT (UserType) : "TR"
+US (UserId) : "1"
+UL (UserIdList) : "1, 4, 10"]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PublicFlag" id="6F9615DC-1E98-1CDF-304D-72FE63CA41CE">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:44:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[Public access?]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolList" id="A42C4552-CB45-FC07-1586-E39C36C74D6A">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:50:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[List of schools that have access]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>0860E90D-C9DB-C33A-1E96-B5CEC2DEB28D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UserList" id="460339BE-EC80-157E-504F-B737052E4956">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:50:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[List of individual users that have access.]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>0860E90D-C9DB-C33A-1E96-B5CEC2DEB28D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UserTypeList" id="9ACE42E4-B128-443E-2716-BE4AF3593164">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:50:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[User types that have access]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>0860E90D-C9DB-C33A-1E96-B5CEC2DEB28D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D663ABF9-6877-B185-2273-8380169A8D05" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:55:18 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4FE08D94-6D96-465B-2617-D2851601CB20"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

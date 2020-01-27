@@ -100,22 +100,40 @@
 <ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="AccessRules" id="D1068E91-0012-901D-3041-189964F49D19">
+<Column name="ACLID" id="D1068E91-0012-901D-3041-189964F49D19">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 17:12:27 UTC</createdTime>
-<commentInRDBMS><![CDATA[Rules for file access:
-
-Public : "True | False"
-UserType + School : "TR, GLV"
-School : "GLV"
-UserType : "TR"
-UserId : "1"
-UserIdList : "1, 4, 10"]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[Access rules]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="768B9CDB-073C-4DD1-BA59-04D86F95976C" referredColumn="4FE08D94-6D96-465B-2617-D2851601CB20"/>
+</associations>
+</Column>
+<Column name="StartTS" id="881221DB-332D-09B0-D651-CA87FE051763">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:31:14 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EndTS" id="D3BFA9D6-3492-1630-2F77-291370F26223">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:31:14 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -130,6 +148,16 @@ UserIdList : "1, 4, 10"]]></commentInRDBMS>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="90966D88-7346-E173-9A6D-EB4189CA3832"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C55255FE-172F-F456-5262-7DDB90582E1B" name="FKv18">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-27 03:56:50 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1068E91-0012-901D-3041-189964F49D19"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

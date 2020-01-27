@@ -21,6 +21,21 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="SchoolId" id="10EECA7A-A276-63F0-77BA-C281F781AE40">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-16 17:33:45 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1033A47B-E9D9-57D5-E2C3-E6BA786160F5" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</associations>
+</Column>
 <Column name="UserName" id="0592760A-AF5D-87B5-1A98-2E1E5DE44E50">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -54,21 +69,6 @@ OT - other]]></comment>
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="SchoolId" id="10EECA7A-A276-63F0-77BA-C281F781AE40">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-16 17:33:45 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="1033A47B-E9D9-57D5-E2C3-E6BA786160F5" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
-</associations>
-</Column>
 <Column name="FirstName" id="B9C5458B-BCC8-9D18-8D5C-724E624F7D98">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -83,7 +83,8 @@ Lastname = Espinoza Sanchez]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="LastName" id="E661047D-924E-EC81-728C-C2842835094B">
@@ -100,7 +101,8 @@ Lastname = Espinoza Sanchez]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="EmailAddress" id="F74682B6-9376-13D7-4E3C-BFFE577B4587">
@@ -211,19 +213,6 @@ U - user]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT006</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="DataUsePolicyAcceptedTS" id="2B9FDA7C-74FE-AC53-BFEB-736B576039F4">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-08-03 17:38:46 UTC</createdTime>
-<commentInRDBMS><![CDATA[Timestamp user accepted data use policy]]></commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>0</use>
-<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
-<domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

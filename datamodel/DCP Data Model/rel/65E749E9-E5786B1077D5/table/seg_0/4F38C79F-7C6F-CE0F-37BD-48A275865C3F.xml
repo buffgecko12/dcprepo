@@ -21,6 +21,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="SchoolAbbreviation" id="6668A413-D8D4-624D-1861-EBEB17BBCA1A">
+<createdBy>ravioli</createdBy>
+<createdTime>2018-06-26 16:50:51 UTC</createdTime>
+<commentInRDBMS><![CDATA[Abbreviation]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="SchoolDisplayName" id="32B87E60-6CD5-D7B4-856D-1810CF91DB8C">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
@@ -31,19 +43,6 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="SchoolAbbreviation" id="6668A413-D8D4-624D-1861-EBEB17BBCA1A">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-06-26 16:50:51 UTC</createdTime>
-<commentInRDBMS><![CDATA[Abbreviation]]></commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>25</dataTypeSize>
-<ownDataTypeParameters>25,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Address" id="61C7163E-E2EE-D148-2D30-39E095ACE688">
@@ -83,6 +82,28 @@
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>100</dataTypeSize>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="StartTS" id="66084F84-9391-FFB1-EA35-7C555AC05FBE">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:38:45 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EndTS" id="948CEA35-5102-0A88-8C68-CB0E1FD26EFD">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:38:45 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

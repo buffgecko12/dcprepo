@@ -2,7 +2,7 @@
 <Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8A8B0897-3A27-0262-B72E-74E4EDBE4EDD" name="Teacher_Program">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment><![CDATA[Teacher-specific information.]]></comment>
+<comment><![CDATA[Teacher info, per program (school) year.]]></comment>
 <generatorID>334935A8-9287-B690-0A4C-5FE7A40B2033</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <ordsAlias>user_teacher</ordsAlias>
@@ -22,6 +22,9 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="08EA2476-B826-B28D-B29D-580364EBDC67" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
+</associations>
 </Column>
 <Column name="SchoolYear" id="F825A3BA-D14E-519E-213C-64F307770029">
 <createdBy>ravioli</createdBy>
@@ -32,6 +35,21 @@
 <domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolId" id="90184C3A-E1AB-2230-348F-A0308AC1F153">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 14:08:50 UTC</createdTime>
+<comment><![CDATA[Copy value here in case teacher changes schools later on.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="24F431D3-36B7-FD65-88A0-0EECCB51210C" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
+</associations>
 </Column>
 <Column name="MaxBudget" id="095EF60D-59DE-D5BA-75EF-63720350BBBD">
 <createdBy>ravioli</createdBy>
@@ -48,13 +66,37 @@
 <Column name="SurveyTS" id="02528FEA-4E6F-835D-9C21-91098284BC9C">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:44:56 UTC</createdTime>
-<comment><![CDATA[Timestamp teacher turned in their own survey.]]></comment>
+<comment><![CDATA[Timestamp of when teacher turned in their own survey.]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NumStudentSurveys" id="54C2F785-FAA4-3B13-0C39-79F0D7C4B423">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 12:23:24 UTC</createdTime>
+<comment><![CDATA[Number of student surveys turned in.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Notes" id="0CBE9E3C-F72C-1D0A-9DA6-015B562D2BD8">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 12:52:48 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>
@@ -70,6 +112,28 @@
 <indexColumnUsage>
 <colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
 <colUsage columnID="F825A3BA-D14E-519E-213C-64F307770029"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AD3AD386-AC08-BB39-2F51-D0C61F1D270D" name="FKv13">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 12:26:32 UTC</createdTime>
+<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CECC190F-3DB9-8EF1-A327-85B72B824D2E" name="FKv7">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-17 14:08:50 UTC</createdTime>
+<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="90184C3A-E1AB-2230-348F-A0308AC1F153"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

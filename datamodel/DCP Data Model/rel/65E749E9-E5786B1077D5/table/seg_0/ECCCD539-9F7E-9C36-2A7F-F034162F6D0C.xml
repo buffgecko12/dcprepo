@@ -21,32 +21,17 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="TeacherUserId" id="EA6BEF5D-71F8-37F2-6179-21C3B3095889">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-16 18:42:48 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="A2A03308-01C6-1383-EAF4-169155BE1EB0" referredColumn="AD959C51-A7EA-8D43-7CD7-D87556D2B25B"/>
-</associations>
-</Column>
 <Column name="SchoolYear" id="0234FDC0-A949-0E48-9061-0A60B218FFE0">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-16 18:48:34 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>LOGDT018</logicalDatatype>
 <domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ActivityName" id="5636417B-6615-D68D-0DA3-52578D1A2FAD">
+<Column name="ContractName" id="5636417B-6615-D68D-0DA3-52578D1A2FAD">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-16 22:10:50 UTC</createdTime>
 <commentInRDBMS><![CDATA[Activity name for contract (i.e. Best healthy food presentation)]]></commentInRDBMS>
@@ -65,6 +50,7 @@
 <comment><![CDATA[Round number - 1, 2, 3 ]]></comment>
 <generatorID>F902E7A4-A135-7311-17AA-C6FCF2BA1849</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT042</logicalDatatype>
@@ -77,24 +63,26 @@
 <comment><![CDATA[Valid time for contract]]></comment>
 <generatorID>D1A3DBA2-5A9A-E424-0453-F16C46654A3F</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>A00CF224-8E47-8D8C-EB8C-54250C2E4A82</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ContractScanFile" id="4FB8AF33-4FF0-6768-3311-DCFC52B2446B">
+<Column name="ContractScanFileId" id="3D48C0BD-046F-45CD-9C87-399D445F3A76">
 <createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<comment><![CDATA[Contract scan file (if printed)]]></comment>
-<generatorID>A0F52832-A4B9-2F8D-E1CD-74A512C93B2D</generatorID>
+<createdTime>2020-01-25 17:19:21 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT029</logicalDatatype>
+<logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E0865CEC-39A5-EDD2-26F9-1839C6C26296" referredColumn="90966D88-7346-E173-9A6D-EB4189CA3832"/>
+</associations>
 </Column>
 <Column name="ProposalTS" id="56E155E4-E074-272C-9B69-8B167D896596">
 <createdBy>ravioli</createdBy>
@@ -154,10 +142,10 @@ C - complete (completed)]]></comment>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="NumWinners" id="3164F7D3-F0AA-50FD-A4AE-50CE4ABB49F6">
+<Column name="NumParticipants" id="F1DF87D0-0DA0-14CB-1763-8F6DEDDDC532">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:50:44 UTC</createdTime>
-<comment><![CDATA[Number of winners]]></comment>
+<comment><![CDATA[Number of participants]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -166,10 +154,10 @@ C - complete (completed)]]></comment>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="NumParticipants" id="F1DF87D0-0DA0-14CB-1763-8F6DEDDDC532">
+<Column name="NumWinners" id="3164F7D3-F0AA-50FD-A4AE-50CE4ABB49F6">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:50:44 UTC</createdTime>
-<comment><![CDATA[Number of participants]]></comment>
+<comment><![CDATA[Number of winners]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -186,6 +174,29 @@ C - complete (completed)]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="StartTS" id="E707D7BF-882F-200F-02C8-BF88D6DC54E6">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:43:24 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EndTS" id="2B3EB5C1-E9A5-F94A-BE74-F578C544731F">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-25 17:43:24 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -203,15 +214,14 @@ C - complete (completed)]]></comment>
 <colUsage columnID="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="E5AEE3E4-B56D-1F24-6973-D4B7206F1C96" name="FKv7">
+<ind_PK_UK id="2479F055-E9D4-DE6C-8BA6-E485AB407412" name="FKv17">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-16 18:42:48 UTC</createdTime>
-<generatorID>C2C23535-EFE0-74B2-E37C-5503421EE68C</generatorID>
+<createdTime>2020-01-25 17:19:21 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="EA6BEF5D-71F8-37F2-6179-21C3B3095889"/>
+<colUsage columnID="3D48C0BD-046F-45CD-9C87-399D445F3A76"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
