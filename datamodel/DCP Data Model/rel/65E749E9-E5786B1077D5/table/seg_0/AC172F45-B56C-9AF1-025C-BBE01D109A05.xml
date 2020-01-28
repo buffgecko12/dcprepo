@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AC172F45-B56C-9AF1-025C-BBE01D109A05" name="Contract_Reward">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AC172F45-B56C-9AF1-025C-BBE01D109A05" name="Contract_Party_Reward">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:23:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -19,7 +19,35 @@
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
 <associations>
-<colAssociation fkAssociation="DF30F335-CB22-2245-FD23-BC99E1C3D080" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+<colAssociation fkAssociation="02E9DC5B-5898-A051-A22C-7926E73815EE" referredColumn="9274BC52-FA05-8319-C59F-23749B7C25C0"/>
+</associations>
+</Column>
+<Column name="TeacherUserId" id="7E4EC037-AF80-E120-88F5-EA95E95167F3">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 17:17:41 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02E9DC5B-5898-A051-A22C-7926E73815EE" referredColumn="7B4740C8-6BBA-6A87-396E-7900F627909B"/>
+</associations>
+</Column>
+<Column name="ClassId" id="E26C6C20-EE4F-5D5C-E1D2-FD8AB2351E72">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 17:17:41 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02E9DC5B-5898-A051-A22C-7926E73815EE" referredColumn="EE363E9A-05C2-87BD-59F0-72F54635AD92"/>
 </associations>
 </Column>
 <Column name="RewardId" id="FDB898A7-BB22-1280-2897-848D63EE8CF1">
@@ -84,18 +112,9 @@ D - Delivered]]></commentInRDBMS>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="024D543C-9F23-45C8-062B-2675C96E2DC6"/>
+<colUsage columnID="7E4EC037-AF80-E120-88F5-EA95E95167F3"/>
+<colUsage columnID="E26C6C20-EE4F-5D5C-E1D2-FD8AB2351E72"/>
 <colUsage columnID="FDB898A7-BB22-1280-2897-848D63EE8CF1"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="E0A4C3F9-E598-C49F-77E5-7C85E2B126A7" name="FKv3">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:49:38 UTC</createdTime>
-<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="024D543C-9F23-45C8-062B-2675C96E2DC6"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="F6C35A44-CF30-BDA6-DFBB-17231FD6B2FD" name="FKv4">
@@ -106,6 +125,18 @@ D - Delivered]]></commentInRDBMS>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="FDB898A7-BB22-1280-2897-848D63EE8CF1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="9B2CFDF8-3DD2-D3F1-1E51-26A90A4819F9" name="FKv3">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 17:17:41 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="024D543C-9F23-45C8-062B-2675C96E2DC6"/>
+<colUsage columnID="7E4EC037-AF80-E120-88F5-EA95E95167F3"/>
+<colUsage columnID="E26C6C20-EE4F-5D5C-E1D2-FD8AB2351E72"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

@@ -70,20 +70,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ContractScanFileId" id="3D48C0BD-046F-45CD-9C87-399D445F3A76">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-25 17:19:21 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
-<autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="E0865CEC-39A5-EDD2-26F9-1839C6C26296" referredColumn="90966D88-7346-E173-9A6D-EB4189CA3832"/>
-</associations>
-</Column>
 <Column name="ProposalTS" id="56E155E4-E074-272C-9B69-8B167D896596">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-03-07 23:21:58 UTC</createdTime>
@@ -212,16 +198,6 @@ C - complete (completed)]]></comment>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
-</indexColumnUsage>
-</ind_PK_UK>
-<ind_PK_UK id="2479F055-E9D4-DE6C-8BA6-E485AB407412" name="FKv17">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-25 17:19:21 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="3D48C0BD-046F-45CD-9C87-399D445F3A76"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

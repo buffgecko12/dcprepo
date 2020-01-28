@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="DF30F335-CB22-2245-FD23-BC99E1C3D080" containerWithKeyObject="AC172F45-B56C-9AF1-025C-BBE01D109A05" localFKIndex="E0A4C3F9-E598-C49F-77E5-7C85E2B126A7" name="FKv3">
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="0502725C-2C99-62B3-CE31-A81700A44D76" containerWithKeyObject="15B5697F-79B4-1C93-A739-C362D71E1641" localFKIndex="E195A98C-A7D7-56F0-1A4B-2067DFC4D9D3" name="FKv17">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:49:38 UTC</createdTime>
+<createdTime>2020-01-28 03:53:38 UTC</createdTime>
 <generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableLongName>Contract</referredTableLongName>
@@ -9,7 +9,7 @@
 <referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
 <keyObject>6FC97EDF-8728-8211-3195-B6D9536BEE5D</keyObject>
 <referredKeyID>6FC97EDF-8728-8211-3195-B6D9536BEE5D</referredKeyID>
-<mandatory>true</mandatory>
+<mandatory>false</mandatory>
 <refColNames>ContractId</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>

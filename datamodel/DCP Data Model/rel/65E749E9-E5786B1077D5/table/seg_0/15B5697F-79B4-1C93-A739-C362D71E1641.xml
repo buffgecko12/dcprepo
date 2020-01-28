@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="15B5697F-79B4-1C93-A739-C362D71E1641" name="Binary_File">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="15B5697F-79B4-1C93-A739-C362D71E1641" name="File">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 14:04:51 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -100,6 +100,82 @@
 <ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="FileClass" id="DD711ACB-CD68-4960-5DF7-C13CD4ACDF19">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 04:01:54 UTC</createdTime>
+<comment><![CDATA[Contract
+Interview
+General
+Form
+Survey]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FileCategory" id="0F9383CC-E36D-D6CA-61E8-FA043863D207">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 04:01:54 UTC</createdTime>
+<comment><![CDATA[Contract
+CT - Contract scan file
+CE - Contract evidences
+CC - Contract congratulations video
+
+Interviews
+IV - Interview video
+IT - Interview transcript
+
+Program
+WV - Welcome video
+YR - Yearly report
+TL - Thank-you letter (teachers)
+
+Forms
+CF - Contract Form
+
+Surveys
+ST - Survey results (teacher)
+SS - Survey results (student)]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractId" id="386B650B-F656-B4A2-0B5D-339AB52A4F60">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 03:53:38 UTC</createdTime>
+<comment><![CDATA[Contract associated with file]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0502725C-2C99-62B3-CE31-A81700A44D76" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
+</associations>
+</Column>
+<Column name="SchoolYear" id="3C9E520F-A27F-0623-8E0B-A68A66115A60">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 04:16:56 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="ACLID" id="D1068E91-0012-901D-3041-189964F49D19">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 17:12:27 UTC</createdTime>
@@ -139,7 +215,7 @@
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="5CAA407B-797A-2D26-FBD7-5F805445F1F6" name="PK">
+<ind_PK_UK id="5CAA407B-797A-2D26-FBD7-5F805445F1F6" name="PKv1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-08-03 14:10:01 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -158,6 +234,17 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="D1068E91-0012-901D-3041-189964F49D19"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E195A98C-A7D7-56F0-1A4B-2067DFC4D9D3" name="FKv17">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-28 03:53:38 UTC</createdTime>
+<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="386B650B-F656-B4A2-0B5D-339AB52A4F60"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
