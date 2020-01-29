@@ -63,7 +63,7 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="SurveyTS" id="02528FEA-4E6F-835D-9C21-91098284BC9C">
+<Column name="TeacherSurveyTS" id="02528FEA-4E6F-835D-9C21-91098284BC9C">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:44:56 UTC</createdTime>
 <comment><![CDATA[Timestamp of when teacher turned in their own survey.]]></comment>
@@ -75,16 +75,18 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="NumStudentSurveys" id="54C2F785-FAA4-3B13-0C39-79F0D7C4B423">
+<Column name="StudentSurveyURL" id="54C2F785-FAA4-3B13-0C39-79F0D7C4B423">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-17 12:23:24 UTC</createdTime>
 <comment><![CDATA[Number of student surveys turned in.]]></comment>
+<commentInRDBMS><![CDATA[URL for student surveys]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT018</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>500</dataTypeSize>
+<ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Notes" id="0CBE9E3C-F72C-1D0A-9DA6-015B562D2BD8">

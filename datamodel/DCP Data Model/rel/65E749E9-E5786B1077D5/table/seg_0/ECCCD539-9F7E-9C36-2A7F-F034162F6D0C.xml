@@ -128,30 +128,6 @@ C - complete (completed)]]></comment>
 <ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="NumParticipants" id="F1DF87D0-0DA0-14CB-1763-8F6DEDDDC532">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-14 19:50:44 UTC</createdTime>
-<comment><![CDATA[Number of participants]]></comment>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT018</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="NumWinners" id="3164F7D3-F0AA-50FD-A4AE-50CE4ABB49F6">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-14 19:50:44 UTC</createdTime>
-<comment><![CDATA[Number of winners]]></comment>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT018</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="Notes" id="8C3CA58F-A2BC-CB91-A4B1-154469B44C52">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-14 19:45:44 UTC</createdTime>

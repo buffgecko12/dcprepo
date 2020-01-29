@@ -50,6 +50,28 @@
 <colAssociation fkAssociation="E0223EA2-4A2F-F5D1-F94F-F994292C2CF4" referredColumn="84485D8A-2CA7-1E69-A691-6F125F8AB452"/>
 </associations>
 </Column>
+<Column name="NumParticipants" id="4814142C-C109-6424-1737-C3BB5530176C">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-29 17:46:11 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NumWinners" id="D4DE48B0-A871-23FC-7777-8BE9A477B084">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-29 17:46:11 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="55832CD6-FD10-A701-E692-FB2332C33AFB" name="PKv2v1">
