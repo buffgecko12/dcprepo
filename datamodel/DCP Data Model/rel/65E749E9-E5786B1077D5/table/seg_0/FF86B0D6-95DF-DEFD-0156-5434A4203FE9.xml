@@ -35,11 +35,7 @@ This should be a unique identifier to be able to lookup students in each particu
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="DFA140D0-CD3B-E461-767F-8CC7DF0490DA" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
-</associations>
 </Column>
 <Column name="SchoolYear" id="62B1D94C-AF91-096B-DBBA-5107A3BE6A51">
 <createdBy>ckhosravi</createdBy>
@@ -102,16 +98,14 @@ This should be a unique identifier to be able to lookup students in each particu
 <colUsage columnID="65B72664-C878-14F0-0818-32DCF801F592"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="1CF428DC-7F2D-F304-AFDB-206B19B8A3FA" name="FKv6">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-03-06 01:23:41 UTC</createdTime>
-<generatorID>CBBE57CE-4E0A-8171-3A36-0B29BC75BBC3</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="1F157983-8A93-49DB-4B39-8747717C0D25"/>
-</indexColumnUsage>
-</ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v6" id="9E39D8EE-077C-8CD5-628C-00878BB29047">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:34:14 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>4F38C79F-7C6F-CE0F-37BD-48A275865C3F</referredTableID>
+<referredTableLongName>School</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

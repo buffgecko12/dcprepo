@@ -189,11 +189,7 @@ SS - Survey results (student)]]></comment>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="0502725C-2C99-62B3-CE31-A81700A44D76" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
-</associations>
 </Column>
 <Column name="SchoolYear" id="3C9E520F-A27F-0623-8E0B-A68A66115A60">
 <createdBy>ravioli</createdBy>
@@ -225,7 +221,6 @@ SS - Survey results (student)]]></comment>
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-25 17:31:14 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
@@ -236,7 +231,6 @@ SS - Survey results (student)]]></comment>
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-25 17:31:14 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
@@ -254,6 +248,7 @@ SS - Survey results (student)]]></comment>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="90966D88-7346-E173-9A6D-EB4189CA3832"/>
+<colUsage columnID="D3BFA9D6-3492-1630-2F77-291370F26223"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="C55255FE-172F-F456-5262-7DDB90582E1B" name="FKv18">
@@ -266,16 +261,14 @@ SS - Survey results (student)]]></comment>
 <colUsage columnID="D1068E91-0012-901D-3041-189964F49D19"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="E195A98C-A7D7-56F0-1A4B-2067DFC4D9D3" name="FKv17">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-28 03:53:38 UTC</createdTime>
-<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="386B650B-F656-B4A2-0B5D-339AB52A4F60"/>
-</indexColumnUsage>
-</ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v2" id="063B465E-9E01-2F2C-355F-20806F056D17">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:22:34 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
+<referredTableLongName>Contract</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

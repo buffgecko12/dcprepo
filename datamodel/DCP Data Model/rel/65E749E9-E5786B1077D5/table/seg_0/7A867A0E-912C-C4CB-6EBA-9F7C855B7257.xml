@@ -79,7 +79,6 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-25 17:50:52 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
@@ -90,7 +89,6 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-25 17:50:52 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
@@ -108,6 +106,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="E01FDA55-711A-7706-42B3-0B6C273F948D"/>
+<colUsage columnID="E91BAE1E-ABFC-DAE5-D26A-2443E53F5783"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>

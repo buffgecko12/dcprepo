@@ -28,11 +28,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="CC153F00-EA5C-4B17-F90B-F39FAF30283C" referredColumn="295409DA-D526-9F0D-8D7F-E9814C627C41"/>
-</associations>
 </Column>
 <Column name="SchoolYear" id="F10F2C80-F24C-B1E6-E8AA-10DC593552EE">
 <createdBy>ckhosravi</createdBy>
@@ -111,16 +107,14 @@ OT - Other]]></comment>
 <colUsage columnID="E8341100-CDAA-E107-B4AD-3100A6344148"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="680D2F96-22FD-2214-757F-56B5C68AEC0F" name="FKv8">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:27:16 UTC</createdTime>
-<generatorID>CCA9AD07-150E-A3A9-CE2B-C14DADB4698A</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="5C1F20B5-E69B-D698-0714-5B50BE323BE4"/>
-</indexColumnUsage>
-</ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v7" id="04323D31-FA75-BA04-3ED5-AE99B60588F9">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:34:19 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>4F38C79F-7C6F-CE0F-37BD-48A275865C3F</referredTableID>
+<referredTableLongName>School</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

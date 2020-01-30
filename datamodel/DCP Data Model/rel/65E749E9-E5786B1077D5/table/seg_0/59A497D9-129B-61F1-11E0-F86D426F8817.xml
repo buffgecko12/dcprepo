@@ -18,9 +18,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="4B487437-0698-B0C0-AEC1-660521DAEB16" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
-</associations>
 </Column>
 <Column name="TeacherUserId" id="7B4740C8-6BBA-6A87-396E-7900F627909B">
 <createdBy>ravioli</createdBy>
@@ -87,17 +84,6 @@
 <colUsage columnID="EE363E9A-05C2-87BD-59F0-72F54635AD92"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="FF700A9C-450F-7EF3-9427-403D3C1E3155" name="FKv14">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-17 13:24:13 UTC</createdTime>
-<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="9274BC52-FA05-8319-C59F-23749B7C25C0"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="AF981877-2EE5-9C79-AAD1-D732710EB1B2" name="FKv15">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-17 13:26:17 UTC</createdTime>
@@ -111,4 +97,13 @@
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v3" id="E87EA7ED-0A51-AE39-F01F-69040A9C8490">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:23:33 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
+<referredTableLongName>Contract</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

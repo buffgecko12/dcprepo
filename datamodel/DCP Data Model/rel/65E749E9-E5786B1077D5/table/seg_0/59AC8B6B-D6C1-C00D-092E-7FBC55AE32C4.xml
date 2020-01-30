@@ -13,6 +13,7 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-26 11:38:19 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
@@ -73,14 +74,11 @@
 <createdTime>2018-07-30 17:08:47 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="681BD9AA-A05F-0F6C-C79B-B5C3B525B161" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
-</associations>
 </Column>
 <Column name="SourceEventId" id="0FD80356-0C49-8168-BB3A-8B79CB4A12AA">
 <createdBy>ravioli</createdBy>
@@ -132,16 +130,14 @@
 <colUsage columnID="0359AE99-7A30-19F7-2972-5CCB590A0EFB"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="C82FBDAF-9CE7-B5EF-90CA-590A37248EC1" name="FKv27">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-07-30 17:08:47 UTC</createdTime>
-<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="CA64C946-6152-E60E-F4A7-A69C423E645A"/>
-</indexColumnUsage>
-</ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v5" id="EE6B1FBF-2F61-17D8-0CF6-22CEBD75491C">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:25:04 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
+<referredTableLongName>Contract</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

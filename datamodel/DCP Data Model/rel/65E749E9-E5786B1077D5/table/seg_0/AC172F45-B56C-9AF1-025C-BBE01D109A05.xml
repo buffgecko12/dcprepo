@@ -60,9 +60,6 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="890AC1D7-4FF9-4873-1532-924DC83D16E4" referredColumn="E01FDA55-711A-7706-42B3-0B6C273F948D"/>
-</associations>
 </Column>
 <Column name="Quantity" id="BF8C71B9-474E-E9B2-7B9A-4A3916412799">
 <createdBy>ravioli</createdBy>
@@ -117,16 +114,6 @@ D - Delivered]]></commentInRDBMS>
 <colUsage columnID="FDB898A7-BB22-1280-2897-848D63EE8CF1"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="F6C35A44-CF30-BDA6-DFBB-17231FD6B2FD" name="FKv4">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-15 18:49:45 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="FDB898A7-BB22-1280-2897-848D63EE8CF1"/>
-</indexColumnUsage>
-</ind_PK_UK>
 <ind_PK_UK id="9B2CFDF8-3DD2-D3F1-1E51-26A90A4819F9" name="FKv3">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-28 17:17:41 UTC</createdTime>
@@ -140,4 +127,13 @@ D - Delivered]]></commentInRDBMS>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1" id="EB200ACA-9F4E-909F-633F-71CF7D836612">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:08:19 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>7A867A0E-912C-C4CB-6EBA-9F7C855B7257</referredTableID>
+<referredTableLongName>Lookup_Reward</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>

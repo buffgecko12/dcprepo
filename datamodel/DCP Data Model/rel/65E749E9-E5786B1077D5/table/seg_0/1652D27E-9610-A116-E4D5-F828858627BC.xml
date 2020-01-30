@@ -71,11 +71,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="AEEA7B23-2C39-4937-0A15-AFE7D233A0F8" referredColumn="8CB2FF01-9B22-BC1F-A3CF-1A2F9F93AEB6"/>
-</associations>
 </Column>
 <Column name="SourceEventId" id="DE4856E8-41C9-4D6F-D7F6-CF26F11C550B">
 <createdBy>ravioli</createdBy>
@@ -84,8 +80,9 @@
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
+<use>0</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
@@ -150,16 +147,14 @@
 <colUsage columnID="DE4856E8-41C9-4D6F-D7F6-CF26F11C550B"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="370400BE-33DA-36A2-1855-5C8D067F6364" name="FKv28">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-07-30 17:09:32 UTC</createdTime>
-<generatorID>7C39509B-7D7F-8975-5ECE-F52F3705C189</generatorID>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<indexState>Foreign Key</indexState>
-<isSurrogateKey>false</isSurrogateKey>
-<indexColumnUsage>
-<colUsage columnID="80823E54-AD58-96ED-2DE1-B3D4904CFA1B"/>
-</indexColumnUsage>
-</ind_PK_UK>
 </indexes>
+<impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
+<impliedForeignKey name="ImpliedForeignKey_1v4" id="E151EA72-E985-C106-DBDB-A3CD167430F4">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-30 04:24:17 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
+<referredTableLongName>Contract</referredTableLongName>
+</impliedForeignKey>
+</impliedForeignKeys>
 </Table>
