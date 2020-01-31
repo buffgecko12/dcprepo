@@ -97,6 +97,28 @@
 <ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="StartTS" id="5E5ACD04-EEBD-F217-1D57-006FAFE46F48">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-31 14:22:04 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EndTS" id="41E36859-4583-940C-26B9-5B3A147CE863">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-01-31 14:22:04 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
+<domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="1EA54C1D-16F9-8619-336C-958217012A58" name="PKv9">
