@@ -41,11 +41,11 @@
 <Column name="Category" id="D93EBD07-2290-6CC3-03EC-21905058FC92">
 <createdBy>ckhosravi</createdBy>
 <createdTime>2020-01-16 10:45:30 UTC</createdTime>
-<commentInRDBMS><![CDATA[Criteria Category
+<comment><![CDATA[Criteria Category
 PT - Participation
 CT - Contracts
 PL - Punctuality
-SV - Surveys]]></commentInRDBMS>
+SV - Surveys]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -86,7 +86,7 @@ SV - Surveys]]></commentInRDBMS>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
+<logicalDatatype>LOGDT018</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

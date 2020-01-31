@@ -82,7 +82,7 @@ OT - Other]]></comment>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ItemRound" id="9D1C0B8F-EF04-DAB1-143F-4983B81CD578">
+<Column name="Round" id="9D1C0B8F-EF04-DAB1-143F-4983B81CD578">
 <createdBy>ckhosravi</createdBy>
 <createdTime>2020-01-16 11:07:28 UTC</createdTime>
 <comment><![CDATA[Contract round: 1, 2, 3]]></comment>
