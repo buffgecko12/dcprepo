@@ -78,11 +78,6 @@
 <backgroundColor>-2472729</backgroundColor>
 <lineWidth>1</lineWidth>
 </Connector>
-<Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="063B465E-9E01-2F2C-355F-20806F056D17" otype="ImpliedForeignKey" vid_source="BF082089-1EBF-F8AB-A268-C69C342D06C8" vid_target="64BD4410-8000-3D3B-C422-656B6C71605A">
-<hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<backgroundColor>-2472729</backgroundColor>
-<lineWidth>1</lineWidth>
-</Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="08EA2476-B826-B28D-B29D-580364EBDC67" otype="FKIndexAssociation" vid_source="4A082195-D767-237B-2612-B2D3ED4D4D30" vid_target="0D47F7AF-9B9A-CE57-29CC-8FC07F0F8137">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
 <backgroundColor>-16777216</backgroundColor>
@@ -130,6 +125,11 @@
 <point x="906" y="755"/>
 <point x="843" y="755"/>
 </points>
+</Connector>
+<Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="C654056F-CDD0-BE31-734D-892331C7F0DE" otype="ImpliedForeignKey" vid_source="BF082089-1EBF-F8AB-A268-C69C342D06C8" vid_target="64BD4410-8000-3D3B-C422-656B6C71605A">
+<hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
+<backgroundColor>-2472729</backgroundColor>
+<lineWidth>1</lineWidth>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="E0223EA2-4A2F-F5D1-F94F-F994292C2CF4" otype="FKIndexAssociation" vid_source="9311CAD5-7FFD-5156-D32D-BE7EFAA26300" vid_target="77D26C72-D5DC-1BB3-72F4-D238EC68EE6C">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
