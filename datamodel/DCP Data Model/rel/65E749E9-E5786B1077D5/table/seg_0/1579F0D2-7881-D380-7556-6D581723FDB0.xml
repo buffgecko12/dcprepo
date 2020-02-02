@@ -58,14 +58,31 @@ CT - Contract]]></commentInRDBMS>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="Type" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
+<Column name="AccessLevel" id="BAAD1F6A-9EFE-C29B-54E0-B5E4DB9F0659">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-02-01 17:25:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[Level of access granted
+0 - None
+1 - Browse (metadata; list objects)
+4 - Read (object details)
+8 - Write
+12 -  Delete]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AccessRule" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:34:16 UTC</createdTime>
-<commentInRDBMS><![CDATA[SU (School + UserType) : "TR, GLV"
-SC (School) : "GLV"
-UT (UserType) : "TR"
-US (UserId) : "1"
-UL (UserIdList) : "1, 4, 10"]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[PB - Public
+SU - School + UserType (TR, GLV)
+SC - School (GLV)
+UT - UserType (TR)
+US - UserId (1)]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -73,18 +90,6 @@ UL (UserIdList) : "1, 4, 10"]]></commentInRDBMS>
 <logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>2</dataTypeSize>
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="PublicFlag" id="6F9615DC-1E98-1CDF-304D-72FE63CA41CE">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-27 03:44:47 UTC</createdTime>
-<commentInRDBMS><![CDATA[Public access?]]></commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<use>0</use>
-<logicalDatatype>LOGDT006</logicalDatatype>
-<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="SchoolList" id="A42C4552-CB45-FC07-1586-E39C36C74D6A">

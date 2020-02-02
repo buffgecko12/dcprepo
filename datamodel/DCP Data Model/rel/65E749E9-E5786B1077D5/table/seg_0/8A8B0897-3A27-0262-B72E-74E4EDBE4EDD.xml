@@ -112,7 +112,6 @@
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-31 14:22:04 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <use>0</use>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
@@ -132,6 +131,7 @@
 <indexColumnUsage>
 <colUsage columnID="2128FC24-FEAC-4E8D-5B9E-29269C4FD060"/>
 <colUsage columnID="F825A3BA-D14E-519E-213C-64F307770029"/>
+<colUsage columnID="41E36859-4583-940C-26B9-5B3A147CE863"/>
 </indexColumnUsage>
 </ind_PK_UK>
 <ind_PK_UK id="AD3AD386-AC08-BB39-2F51-D0C61F1D270D" name="FKv13">
