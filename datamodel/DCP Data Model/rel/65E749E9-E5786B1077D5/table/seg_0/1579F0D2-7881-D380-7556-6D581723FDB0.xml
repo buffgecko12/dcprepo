@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1579F0D2-7881-D380-7556-6D581723FDB0" name="ACL">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="1579F0D2-7881-D380-7556-6D581723FDB0" name="Role">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:32:41 UTC</createdTime>
 <notes><![CDATA[Access Rules for objects (files, views)]]></notes>
@@ -9,7 +9,7 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
-<Column name="ACLID" id="4FE08D94-6D96-465B-2617-D2851601CB20">
+<Column name="RoleId" id="4FE08D94-6D96-465B-2617-D2851601CB20">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:34:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -19,26 +19,10 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="Class" id="77333420-C4C3-565A-F341-4E6FE555B685">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-01-27 03:44:47 UTC</createdTime>
-<commentInRDBMS><![CDATA[FL - File
-VW - View
-CT - Contract]]></commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
 <Column name="Name" id="208B0959-8B62-DC1B-560D-AF93F2B16BB1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:34:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -58,24 +42,7 @@ CT - Contract]]></commentInRDBMS>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="AccessLevel" id="BAAD1F6A-9EFE-C29B-54E0-B5E4DB9F0659">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-02-01 17:25:01 UTC</createdTime>
-<commentInRDBMS><![CDATA[Level of access granted
-0 - None
-1 - Browse (metadata; list objects)
-4 - Read (object details)
-8 - Write
-12 -  Delete]]></commentInRDBMS>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT018</logicalDatatype>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="AccessRule" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
+<Column name="RoleType" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:34:16 UTC</createdTime>
 <commentInRDBMS><![CDATA[PB - Public
@@ -84,7 +51,6 @@ SC - School (GLV)
 UT - UserType (TR)
 US - UserId (1)]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>

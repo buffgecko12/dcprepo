@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4D978AB5-6348-A2FB-BAC7-024B2CE9B51D" name="UI_Object">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4D978AB5-6348-A2FB-BAC7-024B2CE9B51D" name="Object">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:57:45 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -21,14 +21,29 @@
 <Column name="ObjectClass" id="4F408203-A16A-AAFA-A887-FBDFA04BBAEE">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:58:33 UTC</createdTime>
-<commentInRDBMS><![CDATA[VW - view]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[BO - business object (i.e. contract, school)
+VW - view (i.e. download_file)
+]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT025</logicalDatatype>
 <dataTypeSize>2</dataTypeSize>
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ObjectName" id="D2E4CA35-490A-1B9D-2CD0-5ABFEE7E7FED">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-02-02 17:25:08 UTC</createdTime>
+<commentInRDBMS><![CDATA[BO - contract, school, class
+VW - download_file]]></commentInRDBMS>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 </columns>

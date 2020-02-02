@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B13FD3F4-3157-D3A8-0787-9280322E6140" name="Object_ACL">
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B13FD3F4-3157-D3A8-0787-9280322E6140" name="Role_ACL">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-02-01 03:41:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -8,6 +8,20 @@
 <existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
 <parsed>true</parsed>
 <columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RoleId" id="8CB022D1-2704-7C39-4C0D-77FD0BD145BA">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-02-02 17:20:22 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="435A728D-0224-126F-4C8E-3869887187D8" referredColumn="4FE08D94-6D96-465B-2617-D2851601CB20"/>
+</associations>
+</Column>
 <Column name="ObjectId" id="4F04D46C-5B9B-69CE-0FAC-3744D909F9B5">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-02-01 03:44:21 UTC</createdTime>
@@ -32,19 +46,21 @@ CT - Contract]]></commentInRDBMS>
 <ownDataTypeParameters>2,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ACLID" id="D21113E3-4903-5A7D-7180-D4D86C4311BF">
+<Column name="AccessLevel" id="965BD370-808E-3DF5-7F79-349D038C7E40">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-02-01 03:43:54 UTC</createdTime>
+<createdTime>2020-02-02 17:19:51 UTC</createdTime>
+<commentInRDBMS><![CDATA[Level of access granted
+0 - None
+1 - Browse (metadata; list objects)
+4 - Read (object details)
+8 - Write
+12 -  Delete]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT011</logicalDatatype>
+<logicalDatatype>LOGDT018</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<previousColumn>false</previousColumn>
 <autoIncrementCycle>false</autoIncrementCycle>
-<associations>
-<colAssociation fkAssociation="60037F41-0DCD-08F6-6768-A29FA73A64F1" referredColumn="4FE08D94-6D96-465B-2617-D2851601CB20"/>
-</associations>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
@@ -56,36 +72,36 @@ CT - Contract]]></commentInRDBMS>
 <indexState>Primary Constraint</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="D21113E3-4903-5A7D-7180-D4D86C4311BF"/>
 <colUsage columnID="4F04D46C-5B9B-69CE-0FAC-3744D909F9B5"/>
 <colUsage columnID="2C6C97E2-85AE-3FD1-33EE-5005568B4A9F"/>
+<colUsage columnID="8CB022D1-2704-7C39-4C0D-77FD0BD145BA"/>
 </indexColumnUsage>
 </ind_PK_UK>
-<ind_PK_UK id="44FD829A-842D-62D9-FEAD-B1EC9B0E598E" name="FK">
+<ind_PK_UK id="D9EB98D7-E276-04BA-8794-A0E2A2D18A3E" name="FK">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-02-01 03:43:54 UTC</createdTime>
+<createdTime>2020-02-02 17:20:22 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <indexState>Foreign Key</indexState>
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
-<colUsage columnID="D21113E3-4903-5A7D-7180-D4D86C4311BF"/>
+<colUsage columnID="8CB022D1-2704-7C39-4C0D-77FD0BD145BA"/>
 </indexColumnUsage>
 </ind_PK_UK>
 </indexes>
 <impliedForeignKeys itemClass="oracle.dbtools.crest.model.design.relational.ImpliedForeignKey">
-<impliedForeignKey name="ImpliedForeignKey_1v12" id="4DB8763A-BF1A-084D-4BBC-88A9F4E706EB">
-<createdBy>ravioli</createdBy>
-<createdTime>2020-02-01 03:46:53 UTC</createdTime>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<referredTableID>4D978AB5-6348-A2FB-BAC7-024B2CE9B51D</referredTableID>
-<referredTableLongName>UI_Object</referredTableLongName>
-</impliedForeignKey>
 <impliedForeignKey name="ImpliedForeignKey_1v2" id="04D8D2EC-4F09-B471-5249-64AE6BD9A69B">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-02-01 03:49:52 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableID>15B5697F-79B4-1C93-A739-C362D71E1641</referredTableID>
 <referredTableLongName>File</referredTableLongName>
+</impliedForeignKey>
+<impliedForeignKey name="ImpliedForeignKey_1v12" id="4DB8763A-BF1A-084D-4BBC-88A9F4E706EB">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-02-01 03:46:53 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>4D978AB5-6348-A2FB-BAC7-024B2CE9B51D</referredTableID>
+<referredTableLongName>Objects_ACL</referredTableLongName>
 </impliedForeignKey>
 </impliedForeignKeys>
 </Table>
