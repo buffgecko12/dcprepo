@@ -42,20 +42,16 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="RoleType" id="30DBBC18-97C6-E3B7-F3C0-14DB2A585E4C">
+<Column name="PublicFlag" id="7B47568F-565E-80AA-4E42-20C3E1903E2C">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-27 03:34:16 UTC</createdTime>
-<commentInRDBMS><![CDATA[PB - Public
-SU - School + UserType (TR, GLV)
-SC - School (GLV)
-UT - UserType (TR)
-US - UserId (1)]]></commentInRDBMS>
+<createdTime>2020-02-03 17:41:28 UTC</createdTime>
+<comment><![CDATA[Public]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="SchoolList" id="A42C4552-CB45-FC07-1586-E39C36C74D6A">
@@ -70,10 +66,10 @@ US - UserId (1)]]></commentInRDBMS>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UserList" id="460339BE-EC80-157E-504F-B737052E4956">
+<Column name="UserTypeList" id="9ACE42E4-B128-443E-2716-BE4AF3593164">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:50:01 UTC</createdTime>
-<commentInRDBMS><![CDATA[List of individual users that have access.]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[User types that have access]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -82,10 +78,10 @@ US - UserId (1)]]></commentInRDBMS>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="UserTypeList" id="9ACE42E4-B128-443E-2716-BE4AF3593164">
+<Column name="UserList" id="460339BE-EC80-157E-504F-B737052E4956">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:50:01 UTC</createdTime>
-<commentInRDBMS><![CDATA[User types that have access]]></commentInRDBMS>
+<commentInRDBMS><![CDATA[List of individual users that have access.]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
