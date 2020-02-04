@@ -1,26 +1,17 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
     pRewardId INTEGER,
-    pCreatedByUserId INTEGER,
-    pActiveFlag BOOLEAN,
-    pGlobalFlag BOOLEAN
+    pSchoolYear SMALLINT
 )
 RETURNS TABLE (
-	RewardId INTEGER, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, CreatedByUserId INTEGER, GlobalFlag BOOLEAN
+	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, Vendor VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT r.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.CreatedByUserId, r.GlobalFlag
+	SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.Vendor
 	FROM $APP_NAME$Views.Lookup_Reward r
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
-	AND (
-			(r.CreatedByUserId = pCreatedByUserId OR pCreatedByUserId IS NULL) OR -- Return only user-defined and global rewards (if enabled)
-			(pGlobalFlag = r.GlobalFlag OR pGlobalFlag IS NULL)
-		)
-	AND (
-		(pActiveFlag AND DeactivatedTS IS NULL) OR 
-		pActiveFlag IS NULL
-	)
-	ORDER BY r.GlobalFlag, r.RewardDisplayName
+	AND (r.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	ORDER BY r.SchoolYear DESC, r.Vendor, r.RewardDisplayName
 	;	
 END;
 $$ LANGUAGE 'plpgsql';

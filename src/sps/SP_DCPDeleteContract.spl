@@ -1,10 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContract (
-    pContractId INTEGER,
-    pSendNotificationsFlag BOOLEAN
+    pContractId INTEGER
 ) 
 RETURNS VOID AS $$
 DECLARE 
-	MyGoal RECORD;
 	ContractIdList INTEGER[];
 	MyContractId INTEGER;
 BEGIN
@@ -13,34 +11,24 @@ BEGIN
 	SELECT ARRAY_AGG(ContractId) INTO ContractIdList
 	FROM $APP_NAME$Views.Contract
 	WHERE (ContractId = pContractId OR pContractId IS NULL)
-	AND (ContractStatus IN('D','P') OR ContractStatus IS NULL)
 	;
+
+	-- Do delete if any contracts apply
+	IF(ContractIdList IS NOT NULL) THEN
 	
-	-- Send notifications (must be done first, since we are deleting contract rows)
-	IF(pSendNotificationsFlag) THEN
+		-- Delete dependencies	
 		FOREACH MyContractId IN ARRAY ContractIdList
 		LOOP
-			PERFORM $APP_NAME$Views.SP_DCPUpsertUserNotification(NULL, 1103, MyContractId);
+			PERFORM $APP_NAME$Views.SP_DCPDeleteContractParty(MyContractId, NULL, NULL); -- parties
+			PERFORM $APP_NAME$Views.SP_DCPDeleteFile(NULL, pContractId);
 		END LOOP;
+		
+		-- Delete contract(s)
+		UPDATE $APP_NAME$.Contract 
+		SET EndTS = CURRENT_TIMESTAMP 
+		WHERE ContractId = ANY(ContractIdList)
+		AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+		;
 	END IF;
-
-	-- Delete contract evaluation info
-	DELETE FROM $APP_NAME$.Contract_Goal_Reward WHERE ContractId = ANY(ContractIdList);
-	DELETE FROM $APP_NAME$.Contract_Party_Evaluation WHERE ContractId = ANY(ContractIdList);
-	DELETE FROM $APP_NAME$.Contract_Party_Goal_Evaluation WHERE ContractId = ANY(ContractIdList);
-	
-	-- Delete contract goals
-	FOR MyGoal IN
-		SELECT cg.ContractId, cg.GoalId
-		FROM $APP_NAME$.Contract_Goal cg
-		WHERE cg.ContractId = ANY(ContractIdList)
-	LOOP
-	    PERFORM $APP_NAME$Views.SP_DCPDeleteContractGoal(MyGoal.ContractId, MyGoal.GoalId);
-	END LOOP;
-
-	DELETE FROM $APP_NAME$.Contract_Party_Approval cpa WHERE cpa.ContractId = ANY(ContractIdList); -- party approvals
-	DELETE FROM $APP_NAME$.Contract_Party cp WHERE cp.ContractId = ANY(ContractIdList); -- parties
-	DELETE FROM $APP_NAME$.Contract	WHERE ContractId = ANY(ContractIdList); -- contract
-	
 END;
 $$ LANGUAGE 'plpgsql';

@@ -1,0 +1,25 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolRubric (
+	pRubricItemId INTEGER,
+	pSchoolId INTEGER,
+	pSchoolYear SMALLINT,
+	pCategory CHAR(2),
+	pCriterion VARCHAR(100),
+	pDescription VARCHAR(500),
+	pWeight SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+	-- Delete existing item first
+	IF(pRubricItemId IS NOT NULL) THEN
+		DELETE FROM $APP_NAME$.School_Rubric
+		WHERE RubricItemId = pRubricItemId
+		;
+	END IF;
+
+	INSERT INTO $APP_NAME$.School_Rubric(SchoolId, SchoolYear, Category, Criterion, Description, Weight)
+	VALUES (pSchoolId, pSchoolYear, pCategory, pCriterion, pDescription, pWeight)
+	;
+
+END;
+$$ LANGUAGE 'plpgsql';

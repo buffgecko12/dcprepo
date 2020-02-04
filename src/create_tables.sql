@@ -1,44 +1,67 @@
 -- Tables must be created in correct order to allow for referential integrity constraints
--- TO-DO: Add temporal support (DEFAULT(TSTZRANGE(current_timestamp,'infinity','[]')))
 
-CREATE TABLE $APP_NAME$.Binary_File (
-    FileId INTEGER NOT NULL,
-    FileName VARCHAR(500),
+-- Permissions
+CREATE TABLE $APP_NAME$.Role (
+	RoleId INTEGER NOT NULL,
+	Name VARCHAR(100) NOT NULL,
+	Description VARCHAR(500),
+	PublicFlag BOOLEAN,
+	SchoolList INTEGER[],
+	UserTypeList CHAR(2)[],
+	UserList INTEGER[],
+	PRIMARY KEY (RoleId)
+);
+
+CREATE TABLE $APP_NAME$.Role_ACL (
+	RoleId INTEGER NOT NULL,
+	ObjectId INTEGER NOT NULL,
+	ObjectClass CHAR(2) NOT NULL,
+	AccessLevel SMALLINT NOT NULL,
+	PRIMARY KEY (RoleId, ObjectId, ObjectClass),
+	FOREIGN KEY (RoleId) REFERENCES $APP_NAME$.Role (RoleId)
+);
+
+CREATE TABLE $APP_NAME$.Object(
+	ObjectID INTEGER NOT NULL,
+	ObjectClass CHAR(2) NOT NULL,
+	ObjectName VARCHAR(100),
+	PRIMARY KEY(ObjectID)
+);
+
+-- LOOKUP: Next ID
+CREATE TABLE $APP_NAME$.NextId (
+    IDType VARCHAR(50) NOT NULL,
+    NextValue INTEGER NOT NULL,
+    PRIMARY KEY (IDType)
+);
+
+-- LOOKUP: Rewards
+CREATE TABLE $APP_NAME$.Lookup_Reward (
+	RewardId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	RewardDisplayName VARCHAR(100) NOT NULL,
+	RewardDescription VARCHAR(500),
+	RewardValue INTEGER NOT NULL DEFAULT 0,
+	Vendor VARCHAR(100),
+    StartTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    EndTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
+	PRIMARY KEY(RewardId, EndTS)
+);
+
+-- LOOKUP: Profile pictures
+CREATE TABLE $APP_NAME$.Lookup_Profile_Picture (
+	ProfilePictureId SERIAL NOT NULL,
+	BadgeLevel CHAR(1) NOT NULL,
+    FilePath VARCHAR(250),
+    FileName VARCHAR(250),
     FileExtension VARCHAR(50),
-    FileSize INTEGER,
-    FileType VARCHAR(100),
-    FileDescription VARCHAR(500),
-    FileData BYTEA,
-    AccessClass CHAR(2),
-    PRIMARY KEY (FileId)
+    Description VARCHAR(500),
+	PRIMARY KEY(ProfilePictureId)
 );
 
--- Schools
-CREATE TABLE $APP_NAME$.School (
-	SchoolId INTEGER NOT NULL,
-	SchoolDisplayName VARCHAR(100) NOT NULL,
-	SchoolAbbreviation VARCHAR(25),
-	Address VARCHAR(100),
-	City VARCHAR(100),
-	Department VARCHAR(100),
-	DataUsePolicyFileId INTEGER,
-	GuardianApprovalPolicy JSONB,
-	PRIMARY KEY (SchoolId),
-	FOREIGN KEY (DataUsePolicyFileId) REFERENCES $APP_NAME$.Binary_File(FileId)
-);
-
--- Classes
-CREATE TABLE $APP_NAME$.Class (
-	ClassId INTEGER NOT NULL,
-	SchoolId INTEGER NOT NULL,
-	ClassDisplayName VARCHAR(100) NOT NULL,
-	GradeLevel INTEGER,
-	PRIMARY KEY (ClassId),
-	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId)
-);
-
+-- LOOKUP: Events
 CREATE TABLE $APP_NAME$.Lookup_Event (
-	EventId INTEGER,
+	EventId INTEGER NOT NULL,
 	EventType CHAR(2) NOT NULL,
 	EventClass CHAR(2) NOT NULL,
 	EventUserType CHAR(2),
@@ -48,7 +71,7 @@ CREATE TABLE $APP_NAME$.Lookup_Event (
 	PRIMARY KEY(EventId)
 );
 
--- Reputation event info
+-- LOOKUP: Badges
 CREATE TABLE $APP_NAME$.Lookup_Badge (
 	BadgeId INTEGER NOT NULL,
 	BadgeLevel CHAR(1) NOT NULL,
@@ -61,26 +84,68 @@ CREATE TABLE $APP_NAME$.Lookup_Badge (
 	FOREIGN KEY(SourceEventId) REFERENCES $APP_NAME$.Lookup_Event(EventId)
 );
 
--- Reputation event info
-CREATE TABLE $APP_NAME$.Lookup_Profile_Picture (
-	ProfilePictureId SERIAL NOT NULL,
-	BadgeLevel CHAR(1) NOT NULL,
-    FilePath VARCHAR(250),
-    FileName VARCHAR(250),
-    FileExtension VARCHAR(50),
-    Description VARCHAR(500),
-	PRIMARY KEY(ProfilePictureId)
+-- Schools
+CREATE TABLE $APP_NAME$.School (
+	SchoolId INTEGER NOT NULL,
+	SchoolAbbreviation VARCHAR(25) NOT NULL,
+	SchoolDisplayName VARCHAR(100) NOT NULL,
+	Address VARCHAR(100),
+	City VARCHAR(100),
+	Department VARCHAR(100),
+    StartTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    EndTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
+	PRIMARY KEY (SchoolId, EndTS)
 );
 
--- Events that affect user reputation
-CREATE TABLE $APP_NAME$.User_Badge (
-	UserId INTEGER NOT NULL,
-	BadgeId INTEGER NOT NULL,
-	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (UserId, BadgeId)
+-- School calendar
+CREATE TABLE $APP_NAME$.School_Calendar (
+	CalendarItemId SERIAL NOT NULL,
+	SchoolId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	ItemDate DATE NOT NULL,
+	ItemType VARCHAR(100) NOT NULL,
+	ItemDescription VARCHAR(500),
+	Round SMALLINT,
+	PRIMARY KEY (CalendarItemId)
+--	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
 );
 
--- User profiles
+-- School rewards
+CREATE TABLE $APP_NAME$.School_Reward (
+	SchoolId INTEGER NOT NULL,
+	RewardId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	PRIMARY KEY (SchoolId, RewardId)
+--	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
+--	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Lookup_Reward (RewardId) -- Can't use with history rows
+);
+
+-- School rubric
+CREATE TABLE $APP_NAME$.School_Rubric (
+	RubricItemId SERIAL NOT NULL,
+	SchoolId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	Category CHAR(2) NOT NULL,
+	Criterion VARCHAR(100) NOT NULL,
+	Description VARCHAR(500),
+	Weight SMALLINT,
+	PRIMARY KEY (RubricItemId)
+--	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
+);
+
+-- Classes
+CREATE TABLE $APP_NAME$.Class (
+	ClassId INTEGER NOT NULL,
+	SchoolId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	ClassDisplayName VARCHAR(100) NOT NULL,
+	GradeLevel SMALLINT,
+	NumStudentSurveys SMALLINT,
+	PRIMARY KEY (ClassId)
+--	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
+);
+
+-- USER: Profile
 CREATE TABLE $APP_NAME$.Users (
     UserId INTEGER NOT NULL,
     SchoolId INTEGER,
@@ -88,8 +153,6 @@ CREATE TABLE $APP_NAME$.Users (
     UserType CHAR(2) NOT NULL DEFAULT 'ST',
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100) NOT NULL,
-    DefaultSignatureScanFile BYTEA,
-    PhoneNumber VARCHAR(25),
     EmailAddress VARCHAR(250),
     Password VARCHAR(128),
     ReputationValue INTEGER DEFAULT 0,
@@ -98,12 +161,19 @@ CREATE TABLE $APP_NAME$.Users (
     ProfilePictureId INTEGER,
     Last_Login TIMESTAMP WITH TIME ZONE,
 	Is_Active BOOLEAN, -- Required for django authentication
-	DataUsePolicyAcceptedTS TIMESTAMP WITH TIME ZONE,
-    -- TO-DO: May need to add separate field to access source "user" table from school (i.e. cedula/StudentIdNo)
-    PRIMARY KEY(UserId),
-    FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School(SchoolId)
+    PRIMARY KEY(UserId)
+--    FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School(SchoolId)
 );
 
+-- USER: Badges
+CREATE TABLE $APP_NAME$.User_Badge (
+	UserId INTEGER NOT NULL,
+	BadgeId INTEGER NOT NULL,
+	BadgeAchievedTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (UserId, BadgeId)
+);
+
+-- USER: Profile picture
 CREATE TABLE $APP_NAME$.User_Profile_Picture (
 	UserId INTEGER NOT NULL,
 	ProfilePictureId INTEGER NOT NULL,
@@ -114,146 +184,75 @@ CREATE TABLE $APP_NAME$.User_Profile_Picture (
 	FOREIGN KEY(ProfilePictureId) REFERENCES $APP_NAME$.Lookup_Profile_Picture(ProfilePictureId)
 );
 
-CREATE TABLE $APP_NAME$.User_Group (
-	GroupUserId INTEGER NOT NULL,
-	GroupName VARCHAR(100),
-	ClassId INTEGER,
-	LeaderUserId INTEGER NOT NULL,
-	UserIdList INTEGER[],
-	PRIMARY KEY(GroupUserId),
-	FOREIGN KEY(GroupUserId) REFERENCES $APP_NAME$.Users(UserId),
-	FOREIGN KEY(LeaderUserId) REFERENCES $APP_NAME$.Users(UserId)
-);
-
--- Additional teacher user info
-CREATE TABLE $APP_NAME$.User_Teacher (
+-- TEACHER: Program summary
+CREATE TABLE $APP_NAME$.Teacher_Program (
 	TeacherUserId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
+	SchoolId INTEGER NOT NULL,
 	MaxBudget INTEGER,
-	PRIMARY KEY (TeacherUserId),
+	TeacherSurveyTS TIMESTAMP WITH TIME ZONE,
+	StudentSurveyURL VARCHAR(500),
+	Notes VARCHAR(500),
+    StartTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    EndTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
+	PRIMARY KEY (TeacherUserId, SchoolYear, EndTS),
 	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId)
+--	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
 );
 
--- Classes associated with a teacher
-CREATE TABLE $APP_NAME$.User_Teacher_Class (
+-- TEACHER: Classes
+CREATE TABLE $APP_NAME$.Teacher_Class (
 	TeacherUserId INTEGER NOT NULL,
 	ClassId INTEGER NOT NULL,
 	PRIMARY KEY (TeacherUserId, ClassId),
-	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.User_Teacher (TeacherUserId),
+	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId),
 	FOREIGN KEY (ClassId) REFERENCES $APP_NAME$.Class (ClassId)
 );
 
--- Additional student user info
-CREATE TABLE $APP_NAME$.User_Student (
-	StudentUserId INTEGER NOT NULL,
-	ClassId INTEGER NOT NULL,
-	PRIMARY KEY (StudentUserId),
-	FOREIGN KEY (StudentUserId) REFERENCES $APP_NAME$.Users (UserId),
-	FOREIGN KEY (ClassId) REFERENCES $APP_NAME$.Class (ClassId)
-);
-
--- Main contract
+-- CONTRACT: Info
 CREATE TABLE $APP_NAME$.Contract (
     ContractId INTEGER NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
     ContractName VARCHAR(100),
-    ClassId INTEGER NOT NULL,
-    ContractType CHAR(1) NOT NULL DEFAULT 'G',
-    TeacherUserId INTEGER NOT NULL,
+    Round SMALLINT,
     ContractValidPeriod TSTZRANGE NOT NULL,
-    GuardianApprovalFlag BOOLEAN,
-    RevisionDeadlineTS TIMESTAMP WITH TIME ZONE NOT NULL,
-    RevisionDescription VARCHAR(500),
-    RevisionApprovalTS TIMESTAMP WITH TIME ZONE,
-    StudentLeaderRequirements VARCHAR(500),
-    TeacherRequirements VARCHAR(500),
-    StudentRequirements VARCHAR(500),
-    ContractScanFile BYTEA,
-    ContractApprovalTS TIMESTAMP WITH TIME ZONE,
-    ContractEvaluationTS TIMESTAMP WITH TIME ZONE,
-    ContractFinalizationTS TIMESTAMP WITH TIME ZONE,
+    ProposalTS TIMESTAMP WITH TIME ZONE,
+    EvaluationTS TIMESTAMP WITH TIME ZONE,
+    EvidenceTS TIMESTAMP WITH TIME ZONE,
     ContractStatus CHAR(1),
-    TempContractId INTEGER,
-    PRIMARY KEY (ContractId),
-    FOREIGN KEY (ClassId, TeacherUserId) REFERENCES $APP_NAME$.User_Teacher_Class (ClassId, TeacherUserId)
+    Notes VARCHAR(500),
+    StartTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    EndTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
+    PRIMARY KEY (ContractId, EndTS)
 );
 
--- Contract parties (students, teachers)
+-- CONTRACT: Parties (i.e. classes)
 CREATE TABLE $APP_NAME$.Contract_Party (
     ContractId INTEGER NOT NULL,
-    PartyUserId INTEGER NOT NULL,
-    ContractRole CHAR(2) NOT NULL DEFAULT 'PT', -- Set default to "participant"
-    GroupInfo JSONB,
-    PRIMARY KEY (ContractId, PartyUserId),
-    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId),
-    FOREIGN KEY (PartyUserId) REFERENCES $APP_NAME$.Users (UserId)    
+    TeacherUserId INTEGER NOT NULL,
+    ClassId INTEGER NOT NULL DEFAULT 0,
+    NumParticipants SMALLINT,
+    NumWinners SMALLINT,
+    PRIMARY KEY (ContractId, TeacherUserId, ClassId),
+--    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId), -- Can't use with history rows
+    FOREIGN KEY (TeacherUserId, ClassId) REFERENCES $APP_NAME$.Teacher_Class (TeacherUserId, ClassId)    
 );
 
-CREATE TABLE $APP_NAME$.Contract_Party_Approval (
+-- CONTRACT: Rewards
+CREATE TABLE $APP_NAME$.Contract_Party_Reward (
 	ContractId INTEGER NOT NULL,
-	PartyUserId INTEGER NOT NULL,
-	ApprovalType CHAR(1) NOT NULL,
-	PreferredGoalId INTEGER,
-	SignatureScanFile BYTEA,
-	GuardianApprovalInfo JSONB,
-	PartyApprovalTS TIMESTAMP WITH TIME ZONE,
-	LogonUserId INTEGER NOT NULL,
-	PRIMARY KEY (ContractId, PartyUserId, ApprovalType),
-	FOREIGN KEY (LogonUserId) REFERENCES $APP_NAME$.Users (UserId),
-	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party(ContractId, PartyUserId)
-);
-
--- Contract goals
-CREATE TABLE $APP_NAME$.Contract_Goal (
-    ContractId INTEGER NOT NULL,
-    GoalId INTEGER NOT NULL,
-    DifficultyLevel CHAR(1) NOT NULL DEFAULT 'M',
-    GoalDescription VARCHAR(500) NOT NULL,
-    AcceptedFlag BOOLEAN,
-    MaxNumRewards INTEGER, -- 0 = no limit
-    RewardSelectedBy CHAR(2) DEFAULT 'ST',
-    PRIMARY KEY (ContractId, GoalId),
-    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
-);
-
--- Contract rewards
-CREATE TABLE $APP_NAME$.Contract_Goal_Reward (
-	ContractId INTEGER NOT NULL,
-	GoalId INTEGER NOT NULL,
+	TeacherUserId INTEGER NOT NULL,
+	ClassId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
-	PRIMARY KEY (ContractId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, GoalId) REFERENCES $APP_NAME$.Contract_Goal (ContractId, GoalId)
+	Quantity SMALLINT NOT NULL,
+	ActualRewardValue INTEGER NOT NULL,
+	Status CHAR(1),
+	PRIMARY KEY (ContractId, TeacherUserId, ClassId, RewardId),
+	FOREIGN KEY (ContractId, TeacherUserId, ClassId) REFERENCES $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId)
+--	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Lookup_Reward (RewardId) -- Can't use with history rows
 );
 
--- Contract evaluation / feedback and reward selection (teacher perspective)
-CREATE TABLE $APP_NAME$.Contract_Party_Goal_Evaluation (
-	ContractId INTEGER NOT NULL,
-	PartyUserId INTEGER NOT NULL,
-	GoalId INTEGER NOT NULL,
-	AchievedFlag BOOLEAN,
-	ExperienceRating SMALLINT,
-	HighPerformerFlag BOOLEAN,
-	TopPerformerFlag BOOLEAN,
-	FeedbackMsg VARCHAR(500),
-	RewardId INTEGER,
-	RewardDeliveredFlag BOOLEAN,
-	ActualRewardValue INTEGER,
-	PRIMARY KEY (ContractId, PartyUserId, GoalId),
---	FOREIGN KEY (ContractId, GoalId, RewardId) REFERENCES $APP_NAME$.Contract_Goal_Reward (ContractId, GoalId, RewardId),
-	FOREIGN KEY (ContractId, PartyUserId) REFERENCES $APP_NAME$.Contract_Party (ContractId, PartyUserId)
-);
-
--- Contract evaluation / feedback (party perspective)
-CREATE TABLE $APP_NAME$.Contract_Party_Evaluation (
-	ContractId INTEGER NOT NULL,
-	PartyUserId INTEGER NOT NULL,
-	EvaluationInfo JSONB,
-	Feedback VARCHAR(500),
-	EvaluationTS TIMESTAMP WITH TIME ZONE,
-	PRIMARY KEY(ContractId, PartyUserId),
-	FOREIGN KEY(ContractId) REFERENCES $APP_NAME$.Contract(ContractId)
-	-- No FK on Contract_Party because party user may not exist in future (and want to keep evaluation info)
-);
-
--- Events that affect user reputation
+-- USER: Reputation events
 CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	UserId INTEGER NOT NULL,
 	EventId BIGSERIAL NOT NULL,
@@ -265,6 +264,7 @@ CREATE TABLE $APP_NAME$.User_Reputation_Event (
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
+-- USER: Notifications
 CREATE TABLE $APP_NAME$.User_Notification (
 	UserId INTEGER NOT NULL,
 	NotificationId BIGSERIAL NOT NULL,
@@ -277,31 +277,26 @@ CREATE TABLE $APP_NAME$.User_Notification (
 	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 );
 
--- Reward info
-CREATE TABLE $APP_NAME$.Lookup_Reward (
-	RewardId INTEGER NOT NULL,
-	RewardDisplayName VARCHAR(100) NOT NULL,
-	RewardDescription VARCHAR(500) NOT NULL,
-	RewardValue INTEGER NOT NULL DEFAULT 0,
-    DeactivatedTS TIMESTAMP WITH TIME ZONE,
-    GlobalFlag BOOLEAN DEFAULT TRUE,
-	CreatedByUserId INTEGER NOT NULL,
-	PRIMARY KEY(RewardId),
-	FOREIGN KEY(CreatedByUserId) REFERENCES $APP_NAME$.Users(UserId)
-);
-
--- Contract status
-CREATE TABLE $APP_NAME$.Lookup_Status (
-	Status CHAR(1) NOT NULL,
-	StatusDisplayName VARCHAR(50) NOT NULL,
-	PRIMARY KEY(Status)
-);
-
--- Next ID lookup
-CREATE TABLE $APP_NAME$.NextId (
-    IDType VARCHAR(50) NOT NULL,
-    NextValue INTEGER NOT NULL,
-    PRIMARY KEY (IDType)
+-- Files
+CREATE TABLE $APP_NAME$.File (
+    FileId INTEGER NOT NULL,
+    FileName VARCHAR(500) NOT NULL,
+    FileExtension VARCHAR(50),
+    FileSize INTEGER,
+    FileType VARCHAR(100),
+    FileDescription VARCHAR(500),
+    FileSource CHAR(2),
+    FileData BYTEA,
+    FileURL VARCHAR(500),
+    FilePath VARCHAR(256),
+    FileClass VARCHAR(50),
+    FileCategory CHAR(2),
+    ContractId INTEGER,
+    SchoolYear SMALLINT,
+    StartTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    EndTS TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
+    PRIMARY KEY (FileId, EndTS)
+--    FOREIGN KEY (ContractId) REFERENCES $APP_NAME$.Contract (ContractId) -- Can't use with history rows
 );
 
 -- Sample table

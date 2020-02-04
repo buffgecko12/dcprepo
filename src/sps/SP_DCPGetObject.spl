@@ -1,0 +1,15 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetObject(
+    pObjectId INTEGER,
+    pObjectClass CHAR(2)
+)
+RETURNS TABLE (ObjectId INTEGER, ObjectClass CHAR(2), ObjectName VARCHAR(100)) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT o.ObjectId, o.ObjectClass, o.ObjectName
+    FROM $APP_NAME$Views.Object o
+	WHERE (o.ObjectId = pObjectId OR pObjectId IS NULL)
+	AND (o.ObjectClass = pObjectClass OR pObjectClass IS NULL)
+	ORDER BY o.ObjectClass, o.ObjectName
+	;
+END;
+$$ LANGUAGE 'plpgsql';

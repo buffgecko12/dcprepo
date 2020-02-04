@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteSchoolReward (
+    pSchoolId INTEGER,
+    pRewardId INTEGER,
+    pSchoolYear SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	DELETE FROM $APP_NAME$.School_Reward
+	WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)
+	AND (RewardId = pRewardId OR pRewardId IS NULL)
+	AND (SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	;	
+	
+END;
+$$ LANGUAGE 'plpgsql';

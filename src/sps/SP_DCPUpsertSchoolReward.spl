@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolReward (
+	pSchoolId INTEGER,
+	pRewardId INTEGER,
+	pRewardIdList INTEGER[],
+	pSchoolYear SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+	INSERT INTO $APP_NAME$.School_Reward(SchoolId, RewardId, SchoolYear)
+	SELECT pSchoolId, r.RewardId, r.SchoolYear
+	FROM $APP_NAME$Views.Lookup_Reward r
+	WHERE (
+		r.RewardId = pRewardId OR -- Single reward
+		r.RewardId = ANY(pRewardIdList) -- List of rewards
+	)
+	AND r.SchoolYear = pSchoolYear -- Make sure rewards are for given school year
+	ON CONFLICT (SchoolId, RewardId) DO NOTHING
+	;
+
+END;
+$$ LANGUAGE 'plpgsql';

@@ -5,11 +5,11 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetTeacherClass(
 RETURNS TABLE (TeacherUserId INTEGER, ClassId INTEGER) AS $$
 BEGIN
     RETURN QUERY
-    SELECT utc.TeacherUserId, utc.ClassId
-    FROM $APP_NAME$Views.User_Teacher_Class utc
-	WHERE (utc.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
-	AND (utc.ClassId = pClassId OR pClassId IS NULL)
-	ORDER BY 1,2
+    SELECT tc.TeacherUserId, tc.ClassId
+    FROM $APP_NAME$Views.Teacher_Class tc
+	WHERE (tc.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (tc.ClassId = pClassId OR pClassId IS NULL)
+	ORDER BY tc.TeacherUserId, tc.ClassId
 	;	
 END;
 $$ LANGUAGE 'plpgsql';

@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteTeacherProgram (
+	pTeacherUserId INTEGER,
+	pSchoolYear SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	UPDATE $APP_NAME$.Teacher_Program
+	SET EndTS = CURRENT_TIMESTAMP
+	WHERE (TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	;
+	
+END;
+$$ LANGUAGE 'plpgsql';

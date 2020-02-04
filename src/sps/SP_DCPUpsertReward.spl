@@ -1,10 +1,10 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 	pRewardId INTEGER,
+	pSchoolYear SMALLINT,
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
 	pRewardValue INTEGER,
-	pGlobalFlag BOOLEAN,
-	pCreatedByUserId INTEGER
+	Vendor VARCHAR(100)
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -18,13 +18,15 @@ BEGIN
     	MyRewardId = pRewardId;
     END IF;
     
-    -- Upsert reward
-    INSERT INTO $APP_NAME$.Lookup_Reward(RewardId, RewardDisplayName, RewardDescription, RewardValue, GlobalFlag, CreatedByUserId)
-    VALUES(MyRewardId, pRewardDisplayName, pRewardDescription, pRewardValue, pGlobalFlag, pCreatedByUserId)
-    ON CONFLICT(RewardId) DO UPDATE SET
-	    RewardDisplayName = EXCLUDED.RewardDisplayName,
-	    RewardDescription = EXCLUDED.RewardDescription,
-	    RewardValue = EXCLUDED.RewardValue
+    -- Close current row
+    UPDATE $APP_NAME$.Lookup_Reward
+    SET EndTS = CURRENT_TIMESTAMP
+    WHERE RewardId = pRewardId
+    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+    ;
+    
+    INSERT INTO $APP_NAME$.Lookup_Reward(RewardId, SchoolYear, RewardDisplayName, RewardDescription, RewardValue, Vendor, StartTS, EndTS)
+    SELECT MyRewardId, pSchoolYear, pRewardDisplayName, pRewardDescription, pRewardValue, Vendor, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
     ;   
     
 	-- Return id

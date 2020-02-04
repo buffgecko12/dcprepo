@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertRoleACL (
+	pRoleId INTEGER,
+	pObjectId INTEGER,
+	pObjectClass CHAR(2),
+	pAccessLevel SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+	INSERT INTO $APP_NAME$.Role_ACL(RoleId, ObjectId, ObjectClass, AccessLevel)
+	VALUES(pRoleId, pObjectId, pObjectClass, pAccessLevel)
+	ON CONFLICT (RoleId, ObjectId, ObjectClass) DO UPDATE
+	SET AccessLevel = EXCLUDED.AccessLevel
+	;
+
+END;
+$$ LANGUAGE 'plpgsql';

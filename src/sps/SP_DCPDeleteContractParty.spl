@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteContractParty (
+    pContractId INTEGER,
+    pTeacherUserId INTEGER,
+    pClassId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN
+	-- Remove associated rewards first
+	PERFORM $APP_NAME$Views.SP_DCPDeleteContractPartyReward(pContractId, pTeacherUserId, pClassId, NULL);
+	
+	DELETE FROM $APP_NAME$.Contract_Party
+	WHERE (ContractId = pContractId OR pContractId IS NULL)
+	AND (TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (ClassId = pClassId OR pClassId IS NULL)
+	;
+		
+END;
+$$ LANGUAGE 'plpgsql';

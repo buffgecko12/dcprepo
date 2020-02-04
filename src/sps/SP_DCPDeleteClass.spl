@@ -4,10 +4,10 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteClass (
 RETURNS VOID AS $$
 BEGIN	
 	-- Cascaded DELETEs (must delete from child tables first)
-	UPDATE $APP_NAME$.User_Student SET ClassId = 0 WHERE ClassId = pClassId; -- Disassociate students from class
-	UPDATE $APP_NAME$.Contract SET ClassId = 0, TeacherUserId = 0 WHERE ClassId = pClassId; -- Disassociate contracts from class
-	
-	DELETE FROM $APP_NAME$.User_Teacher_Class WHERE ClassId = pClassId; -- Remove class-teacher mapping (TO-DO: Update to call SP_DCPDeleteTeacherUserClass when ready)
+	PERFORM $APP_NAME$Views.SP_DCPDeleteContractParty(NULL, NULL, pClassId);
+	PERFORM $APP_NAME$Views.SP_DCPDeleteTeacherClass(NULL, pClassId);
+
+	-- Delete class	
 	DELETE FROM $APP_NAME$.Class WHERE ClassId = pClassId; -- Delete class
 END;
 $$ LANGUAGE 'plpgsql';

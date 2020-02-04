@@ -1,16 +1,20 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteFile (
-    pFileId INTEGER
+    pFileId INTEGER,
+    pContractId INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
 
-	-- Update file references
-	UPDATE $APP_NAME$.School
-	SET DataUsePolicyFileId = NULL
-	WHERE DataUsePolicyFileId = pFileId
+	-- Delete dependencies first
+	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(NULL, pFileId, 'FL'); -- ACLs
+
+	-- Delete file
+	UPDATE $APP_NAME$.File 
+	SET EndTS = CURRENT_TIMESTAMP
+	WHERE (FileId = pFileId OR pFileId IS NULL)
+	AND (ContractId = pContractId OR pContractId IS NULL)
+	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
 	;
 	
-	-- Delete file
-	DELETE FROM $APP_NAME$.Binary_File WHERE FileId = pFileId;
 END;
 $$ LANGUAGE 'plpgsql';

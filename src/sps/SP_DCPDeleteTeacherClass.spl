@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteTeacherClass (
+	pTeacherUserId INTEGER,
+    pClassId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	-- Delete dependencies
+	PERFORM $APP_NAME$Views.SP_DCPDeleteContractParty(NULL, pTeacherUserId, pClassId);
+
+	-- Delete teacher class
+	DELETE FROM $APP_NAME$.Teacher_Class 
+	WHERE (TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (ClassId = pClassId OR pClassId IS NULL)
+	;
+	
+END;
+$$ LANGUAGE 'plpgsql';

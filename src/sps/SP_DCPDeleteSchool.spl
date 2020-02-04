@@ -2,23 +2,19 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteSchool (
     pSchoolId INTEGER
 ) 
 RETURNS VOID AS $$
-DECLARE 
-	myclass RECORD;
 BEGIN	
-	-- Cascaded DELETEs (must delete from child tables first)
-	-- Delete all classes associated with school
-	FOR myclass IN 
-		SELECT ClassId FROM $APP_NAME$.Class WHERE SchoolId = pSchoolId
-	LOOP
-		PERFORM $APP_NAME$Views.SP_DCPDeleteClass(myclass.ClassId); -- PERFORM runs function and discards the results
-	END LOOP;
 
-	-- Set schoolId as unassigned/deactivated
+	-- Set schoolId as unassigned
 	UPDATE $APP_NAME$.Users
 	SET SchoolId = 0
 	WHERE SchoolId = pSchoolId;
 	
 	-- Delete school
-	DELETE FROM $APP_NAME$.School WHERE SchoolId = pSchoolId;
+	UPDATE $APP_NAME$.School 
+	SET EndTS = CURRENT_TIMESTAMP
+	WHERE SchoolId = pSchoolId
+	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	;
+	
 END;
 $$ LANGUAGE 'plpgsql';

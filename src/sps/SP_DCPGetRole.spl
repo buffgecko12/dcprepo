@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetRole(
+    pRoleId INTEGER
+)
+RETURNS TABLE (
+  RoleId INTEGER, Name VARCHAR(100), Description VARCHAR(500), PublicFlag BOOLEAN, 
+  SchoolList INTEGER[], UserList INTEGER[], UserTypeList CHAR(2)[]
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT r.RoleId, r.Name, r.Description, r.PublicFlag, r.SchoolList, r.UserList, r.UserTypeList
+    FROM $APP_NAME$Views.Role r
+    WHERE (r.RoleId = pRoleId OR pRoleId IS NULL)
+    ORDER BY r.PublicFlag, r.SchoolList, r.UserTypeList, r.UserList, r.Name
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

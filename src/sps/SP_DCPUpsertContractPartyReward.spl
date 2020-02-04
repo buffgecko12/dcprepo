@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractPartyReward(
+    pContractId INTEGER,
+    pTeacherUserId INTEGER,
+    pClassId INTEGER,
+    pRewardId INTEGER,
+    pQuantity SMALLINT,
+    pActualRewardValue INTEGER,
+    pStatus CHAR(1)
+)
+RETURNS VOID AS $$
+BEGIN
+
+    INSERT INTO $APP_NAME$.Contract_Party_Reward (ContractId, TeacherUserId, ClassId, RewardId, Quantity, ActualRewardValue, Status)
+    SELECT pContractId, pTeacherUserId, pClassId, pRewardId, pQuantity, pActualRewardValue, pStatus
+    FROM $APP_NAME$Views.Lookup_Reward
+    WHERE RewardId = pRewardId
+    ON CONFLICT (ContractId, TeacherUserId, ClassId, RewardId) DO UPDATE
+    SET Quantity = pQuantity,
+    	ActualRewardValue = pActualRewardValue,
+    	Status = pStatus
+    ;
+END
+$$ LANGUAGE 'plpgsql';

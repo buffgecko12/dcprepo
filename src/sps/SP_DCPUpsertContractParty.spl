@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractParty(
+    pContractId INTEGER,
+    pTeacherUserId INTEGER,
+    pClassId INTEGER,
+    pNumParticipants SMALLINT,
+    pNumWinners SMALLINT,
+    pPartyInfo JSONB
+)
+RETURNS VOID AS $$
+BEGIN
+	-- Single update
+	IF(pPartyInfo IS NULL) THEN
+	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId, NumParticipants, NumWinners)
+	    VALUES(pContractId, pTeacherUserId, pClassId, pNumParticipants, pNumWinners)
+	    ON CONFLICT (ContractId, TeacherUserId, ClassId) DO UPDATE
+	    SET NumParticipants = pNumParticipants,
+	    	NumWinners = pNumWinners
+	    ;
+	    
+    -- Bulk update
+	ELSE
+	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId, NumParticipants, NumWinners)
+	    SELECT src.ContractId, src.TeacherUserId, src.ClassId, src.NumParticipants, src.NumWinners
+		FROM JSONB_TO_RECORDSET(pPartyInfo) AS src (
+			ContractId INTEGER,
+			TeacherUserId INTEGER,
+			ClassId INTEGER,
+			NumParticipants SMALLINT,
+			NumWinners SMALLINT
+	    )
+	    ON CONFLICT (ContractId, TeacherUserId, ClassId) DO UPDATE
+	    SET NumParticipants = pNumParticipants,
+	    	NumWinners = pNumWinners
+	    ;
+	END IF;
+END
+$$ LANGUAGE 'plpgsql';

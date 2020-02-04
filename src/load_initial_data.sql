@@ -1,33 +1,37 @@
 -- Create DEACTIVATED lookup entries (must be done in correct orders)
-SELECT $APP_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', 'DEACTIVATED', NULL, NULL, NULL, NULL, NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertClass (0, 0, 'DEACTIVATED', 0);
+SELECT $APP_NAME$Views.SP_DCPUpsertSchool (0, 'DEACTIVATED', 'DEACTIVATED', NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertClass (0, 0, CAST(2020 AS SMALLINT), 'DEACTIVATED', CAST(0 AS SMALLINT), NULL);
 
 --SELECT $APP_NAME$Views.SP_DCPUpsertUser (-1, 'Anonymous', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL);
 
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 0, 'DEACTIVATED', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPDeactivateUser(0);
-
-SELECT $APP_NAME$Views.SP_DCPUpsertTeacher(0, NULL, JSONB('{"currentclasses": [{"classid":0}]}'));
-SELECT $APP_NAME$Views.SP_DCPUpsertStudent(0, 0);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 0, 'DEACTIVATED', 'OT', '', '', NULL,NULL,'U',NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteUser(0);
 
 -- Load NextId initial values
 INSERT INTO $APP_NAME$.NextId (IdType, NextValue) VALUES 
-('contract', 1),
-('user', 1), 
+('object', 1), 
+('user', 1),
 ('school', 1), 
 ('class', 1), 
+('contract', 1),
 ('reward', 1),
-('file', 1);
+('file', 1),
+('role', 1);
 
--- Load contract status
-INSERT INTO $APP_NAME$.Lookup_Status (Status, StatusDisplayName) VALUES 
-('P','Pendiente'),
-('D','Borrador'),
-('F','Finalizado'),
-('A','Activo'),
-('E','Evaluaci' || U&'\00F3' || 'n'),
-('R','Revisi' || U&'\00F3' || 'n')
-;
+-- Default Roles
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'General', 'Todos los usuarios', TRUE, NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Docentes', 'Todos los docentes', FALSE, NULL, '{TR}', NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Administradores de colegio', 'Todos los administradores de colegio', FALSE, NULL, '{SF}', NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Administrador del sitio', 'Todos los administradores del sitio', FALSE, NULL, '{AD}', NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'S' || U&'\00FA' || 'per usuario', 'Todos los s' || U&'\00FA' || 'per usuarios', FALSE, NULL, '{SU}', NULL);
+
+-- Default objects
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'school');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'class');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'contract');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'reward');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'file');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
 
 -- Load events
 INSERT INTO $APP_NAME$.Lookup_Event 
@@ -41,16 +45,11 @@ INSERT INTO $APP_NAME$.Lookup_Event
 (1002, 'NT', 'BD', 'AL', '', 'Ha ganado una nueva medalla', 0),
 
 -- Notifications - Contract
-(1101, 'NT', 'CT', 'AL', '', 'Su contrato ha sido aprobado', 0),
-(1102, 'NT', 'CT', 'AL', '', 'Su contrato ha sido actualizado', 0), -- Draft edit
-(1103, 'NT', 'CT', 'AL', '', 'Su contrato ha sido eliminado', 0),
-(1104, 'NT', 'CT', 'AL', '', 'Tiene un contrato nuevo para revisar', 0),
-(1105, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado', 0), -- Active revision
-(1106, 'NT', 'CT', 'AL', '', 'Su contrato ha sido modificado - votaci' || U&'\00F3' || 'n requerida', 0), -- Active revision (re-vote required)
-(1107, 'NT', 'CT', 'AL', '', 'Ha sido retirado de un contrato', 0),
+(1101, 'NT', 'CT', 'AL', '', 'Se ha recibido su contrato', 0),
+(1102, 'NT', 'CT', 'AL', '', 'Se ha finalizado su contrato', 0), -- Draft edit
 
 
--- Reputation events
+-- Reputation events # TO-DO: Clean these up
 (2001, 'RP', 'PT', 'AL', 'Crear una cuenta de usuario', '', 5), -- Create user account
 (2002, 'RP', 'PT', 'ST', 'Aceptar una meta de contrato', '', 5), -- Accept contract goal
 (2003, 'RP', 'PF', 'ST', 'Completar exitosamente una meta f' || U&'\00E1' || 'cil de contrato', '', 15), -- Complete easy goal
@@ -85,13 +84,13 @@ INSERT INTO $APP_NAME$.Lookup_Badge
 
 -- Receive Positive Feedback (experience rating)
 (20, 'B', 1, 'performer', 'Buen desempe'|| U&'\00F1' ||'o', 'Recibir feedback positivo de docente', 2008), -- Positive feedback (from teacher)
-(21, 'S', 10, 'superperformer', 'Super desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
+(21, 'S', 10, 'superperformer', 'S' || U&'\00FA' || 'per desempe'|| U&'\00F1' ||'o', 'Recibir 10 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
 (22, 'G', 50, 'eliteperformer', U&'\00E9' || 'lite desempe'|| U&'\00F1' ||'o', 'Recibir 50 feedback positivo de docente', 2008), -- Positive feedback (from teacher)
 (23, 'B', NULL, 'peerrecognition', 'Reconocido', 'Recibir feedback positivo de estudiante', 2009), -- Positive feedback (from student)
 
 -- Reputation
 (2, 'B', 50, 'junioruser','Usuario junior', 'Ganar 50 puntos de reputaci' || U&'\00F3' || 'n', 1), 
-(3, 'S', 200, 'superuser','Usuario super', 'Ganar 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
+(3, 'S', 200, 'superuser','Usuario s' || U&'\00FA' || 'per', 'Ganar 200 puntos de reputaci' || U&'\00F3' || 'n', 1),
 (4, 'G', 500, 'eliteuser','Usuario ' || U&'\00E9' || 'lite', 'Ganar 500 puntos de reputaci' || U&'\00F3' || 'n', 1),
 
 -- Send contract

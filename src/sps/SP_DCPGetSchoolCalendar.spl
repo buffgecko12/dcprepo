@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchoolCalendar (
+    pCalendarItemId INTEGER,
+    pSchoolId INTEGER,
+    pSchoolYear SMALLINT
+)
+RETURNS TABLE (
+  CalendarItemId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, ItemDate DATE, 
+  ItemType VARCHAR(100), ItemDescription VARCHAR(500), Round SMALLINT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT sc.CalendarItemId, sc.SchoolId, sc.SchoolYear, sc.ItemDate, sc.ItemType, sc.ItemDescription, sc.Round
+    FROM $APP_NAME$Views.School s
+    INNER JOIN $APP_NAME$Views.School_Calendar sc ON s.SchoolId = sc.SchoolId
+    WHERE (sc.CalendarItemId = pCalendarItemId OR pCalendarItemId IS NULL)
+    AND (sc.SchoolId = pSchoolId OR pSchoolId IS NULL)
+    AND (sc.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+    ORDER BY s.SchoolAbbreviation, sc.SchoolYear, sc.ItemDate, sc.ItemType
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

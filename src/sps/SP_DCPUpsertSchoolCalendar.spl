@@ -1,0 +1,26 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolCalendar (
+	pCalendarItemId INTEGER,
+	pSchoolId INTEGER,
+	pSchoolYear SMALLINT,
+	pItemDate DATE,
+	pItemType VARCHAR(100),
+	pItemDescription VARCHAR(500),
+	pRound SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN   
+
+	-- Delete existing item first
+	IF(pCalendarItemId IS NOT NULL) THEN
+		DELETE FROM $APP_NAME$.School_Calendar
+		WHERE CalendarItemId = pCalendarItemId
+		;
+	END IF;
+
+	-- Insert
+	INSERT INTO $APP_NAME$.School_Calendar(SchoolId, SchoolYear, ItemDate, ItemType, ItemDescription, Round)
+	VALUES (pSchoolId, pSchoolYear, pItemDate, pItemType, pItemDescription, pRound)
+	;
+
+END;
+$$ LANGUAGE 'plpgsql';

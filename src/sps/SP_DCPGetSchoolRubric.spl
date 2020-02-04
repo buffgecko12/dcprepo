@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchoolRubric (
+    pRubricItemId INTEGER,
+    pSchoolId INTEGER,
+    pSchoolYear SMALLINT
+)
+RETURNS TABLE (
+  RubricItemId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, Category CHAR(2), 
+  Criterion VARCHAR(100), Description VARCHAR(500), Weight SMALLINT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT sr.RubricItemId, sr.SchoolId, sr.SchoolYear, sr.Category, sr.Criterion, sr.Description, sr.Weight
+    FROM $APP_NAME$Views.School s
+    INNER JOIN $APP_NAME$Views.School_Rubric sr ON s.SchoolId = sr.SchoolId
+    WHERE (sr.RubricItemId = pRubricItemId OR pRubricItemId IS NULL)
+    AND (sr.SchoolId = pSchoolId OR pSchoolId IS NULL)
+    AND (sr.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+    ORDER BY s.SchoolAbbreviation, sr.SchoolYear, sr.Category, sr.Weight, sr.Criterion
+    ;
+END;
+$$ LANGUAGE 'plpgsql';

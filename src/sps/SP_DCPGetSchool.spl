@@ -1,13 +1,15 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchool(
     pSchoolId INTEGER
 )
-RETURNS SETOF $APP_NAME$Views.School AS $$
+RETURNS TABLE (
+  SchoolId INTEGER, SchoolAbbreviation VARCHAR(25), SchoolDisplayName VARCHAR(100), Address VARCHAR(100), City VARCHAR(100), Department VARCHAR(100)
+) AS $$
 BEGIN
     RETURN QUERY -- Return these query results
-    SELECT SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department, DataUsePolicyFileId, GuardianApprovalPolicy
-    FROM $APP_NAME$Views.School
-    WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
-    ORDER BY SchoolDisplayName
+    SELECT s.SchoolId, s.SchoolAbbreviation, s.SchoolDisplayName, s.Address, s.City, s.Department
+    FROM $APP_NAME$Views.School s
+    WHERE (s.SchoolId = pSchoolId OR pSchoolId IS NULL)-- Return school (if specified, otherwise return all)
+    ORDER BY s.SchoolDisplayName
     ;
 END;
 $$ LANGUAGE 'plpgsql';

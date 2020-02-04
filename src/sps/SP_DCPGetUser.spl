@@ -13,12 +13,13 @@ RETURNS SETOF $APP_NAME$Views.Users AS $$
 BEGIN
     RETURN QUERY
     -- Lookup a single user based on userid OR emailaddress / username
-    SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, DefaultSignatureScanFile, PhoneNumber, EmailAddress, Password, 
-    	   ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, Last_Login, Is_Active, DataUsePolicyAcceptedTS
+    SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, EmailAddress, Password, 
+    	   ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, Last_Login, Is_Active
     FROM $APP_NAME$Views.Users
     WHERE (UserId = pUserId OR pUserId IS NULL)
     AND (Username = pUsername OR pUsername IS NULL)
-    AND (
+    AND 
+    (
     	(
     		EmailAddress = pEmailAddress AND
     		TRIM(EmailAddress) <> '' -- Exclude empty e-mail addresses

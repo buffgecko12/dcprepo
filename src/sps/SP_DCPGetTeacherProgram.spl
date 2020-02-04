@@ -1,0 +1,26 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetTeacherProgram(
+    pTeacherUserId INTEGER,
+    pSchoolYear SMALLINT
+) 
+RETURNS TABLE (
+	TeacherUserId INTEGER, SchoolYear SMALLINT, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER
+) AS $$
+BEGIN
+	RETURN QUERY
+	SELECT 
+		tp.TeacherUserId,
+		tp.SchoolYear,
+		tp.MaxBudget,
+		bg.BudgetSpent,
+		tp.MaxBudget - COALESCE(bg.BudgetSpent,0) AS AvailableBudget
+	FROM $APP_NAME$Views.Teacher_Program tp
+	LEFT JOIN ( -- Get contract values for teachers
+		SELECT src.TeacherUserId, src.SchoolYear, CAST(SUM(ContractValue) AS INTEGER) AS BudgetSpent
+		FROM $APP_NAME$Views.SP_DCPGetContractValue(pTeacherUserId, NULL, pSchoolYear) AS src
+		GROUP BY src.TeacherUserId, src.SchoolYear
+	) bg ON tp.TeacherUserId = bg.TeacherUserId AND bg.SchoolYear = tp.SchoolYear
+	WHERE (tp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+	AND (tp.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	;
+END;
+$$ LANGUAGE 'plpgsql';

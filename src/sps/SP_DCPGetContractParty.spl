@@ -1,29 +1,21 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractParty(
     pContractId INTEGER,
-    pPartyUserId INTEGER,
-    pContractRole CHAR(2),
-    pAcceptedFlag BOOLEAN
+    pTeacherUserId INTEGER,
+    pClassId INTEGER
 )
 
 RETURNS TABLE (
-	ContractId INTEGER, PartyUserId INTEGER, ContractRole CHAR(2), GroupInfo JSONB, FirstName VARCHAR(100), LastName VARCHAR(100), 
-	PreferredGoalId INTEGER, PartyApprovalSignature BYTEA, GuardianApprovalInfo JSONB, PartyApprovalTS TIMESTAMP WITH TIME ZONE, PartyLogonUserId INTEGER
+	ContractId INTEGER, TeacherUserId INTEGER, ClassId INTEGER, ClassDisplayName VARCHAR(100), NumParticipants SMALLINT, NumWinners SMALLINT
 ) AS $$
 
 BEGIN
 	RETURN QUERY
-    SELECT 
-		cp.ContractId, cp.PartyUserId, cp.ContractRole, cp.GroupInfo,
-		u.firstname, u.lastname,
-		cpa.PreferredGoalId, cpa.SignatureScanFile PartyApprovalSignature, cpa.GuardianApprovalInfo, cpa.PartyApprovalTS, cpa.logonuserid PartyLogonUserId
+    SELECT cp.ContractId, cp.TeacherUserId, cp.ClassId, c.ClassDisplayName, cp.NumParticipants, cp.NumWinners
     FROM $APP_NAME$Views.Contract_Party cp
-    LEFT JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId -- Get user info
-	LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract approval info
---	LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpag ON cp.contractid = cpag.contractid AND cp.partyuserid = cpag.partyuserid AND cpag.approvaltype = 'G' -- Get guardian approval info
+    LEFT JOIN $APP_NAME$Views.Class c ON cp.ClassId = c.ClassId -- Get class info
     WHERE (cp.ContractId = pContractId OR pContractId IS NULL)
-    AND (cp.PartyUserId = pPartyUserId OR pPartyUserId IS NULL)
-    AND (cp.ContractRole = pContractRole OR pContractRole IS NULL)
-    AND ((pAcceptedFlag IS TRUE AND cpa.PartyApprovalTS IS NOT NULL) OR NOT pAcceptedFlag OR pAcceptedFlag IS NULL)
+    AND (cp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+    AND (cp.ClassId = pClassId OR pClassId IS NULL)
 	;
 END;
 $$ LANGUAGE 'plpgsql';

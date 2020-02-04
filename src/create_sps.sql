@@ -10,30 +10,33 @@
 \i install/sps/SP_DCPGetUserNotification.spl
 \i install/sps/SP_DCPUpsertUserNotification.spl
 \i install/sps/SP_DCPClearUserNotification.spl
-\i install/sps/SP_DCPDeactivateUser.spl
 \i install/sps/SP_DCPGetUserProfilePicture.spl
 
--- User groups
-\i install/sps/SP_DCPUpsertUserGroup.spl
-\i install/sps/SP_DCPGetUserGroup.spl
-\i install/sps/SP_DCPDeleteUserGroup.spl
-
-
--- Teacher
-\i install/sps/SP_DCPUpsertTeacher.spl
-\i install/sps/SP_DCPGetTeacher.spl
+-- Teacher Info
+\i install/sps/SP_DCPUpsertTeacherClass.spl
+\i install/sps/SP_DCPDeleteTeacherClass.spl
 \i install/sps/SP_DCPGetTeacherClass.spl
-\i install/sps/SP_DCPGetTeacherBudget.spl
-\i install/sps/SP_DCPUpsertTeacherBudget.spl
 
--- Student
-\i install/sps/SP_DCPUpsertStudent.spl
-\i install/sps/SP_DCPGetStudent.spl
+\i install/sps/SP_DCPUpsertTeacherProgram.spl
+\i install/sps/SP_DCPDeleteTeacherProgram.spl
+\i install/sps/SP_DCPGetTeacherProgram.spl
 
 -- School
 \i install/sps/SP_DCPUpsertSchool.spl
 \i install/sps/SP_DCPDeleteSchool.spl
 \i install/sps/SP_DCPGetSchool.spl
+
+\i install/sps/SP_DCPUpsertSchoolReward.spl
+\i install/sps/SP_DCPDeleteSchoolReward.spl
+\i install/sps/SP_DCPGetSchoolReward.spl
+
+\i install/sps/SP_DCPUpsertSchoolRubric.spl
+\i install/sps/SP_DCPDeleteSchoolRubric.spl
+\i install/sps/SP_DCPGetSchoolRubric.spl
+
+\i install/sps/SP_DCPUpsertSchoolCalendar.spl
+\i install/sps/SP_DCPDeleteSchoolCalendar.spl
+\i install/sps/SP_DCPGetSchoolCalendar.spl
 
 -- Class
 \i install/sps/SP_DCPUpsertClass.spl
@@ -42,7 +45,7 @@
 
 -- Reward
 \i install/sps/SP_DCPUpsertReward.spl
-\i install/sps/SP_DCPDeactivateReward.spl
+\i install/sps/SP_DCPDeleteReward.spl
 \i install/sps/SP_DCPGetReward.spl
 
 -- Contract
@@ -50,32 +53,34 @@
 \i install/sps/SP_DCPDeleteContract.spl
 \i install/sps/SP_DCPGetContract.spl
 \i install/sps/SP_DCPGetContractValue.spl
-\i install/sps/SP_DCPGetContractInfo.spl
 
-\i install/sps/SP_DCPApproveContract.spl
-\i install/sps/SP_DCPChangeContractStatus.spl
-\i install/sps/SP_DCPReviseContract.spl
-\i install/sps/SP_DCPEvaluateContract.spl
-\i install/sps/SP_DCPEvaluateContractParty.spl
-\i install/sps/SP_DCPApproveContract.spl
-\i install/sps/SP_DCPDuplicateContract.spl
-\i install/sps/SP_DCPCopyContract.spl
-
-\i install/sps/SP_DCPUpsertContractGoal.spl
-\i install/sps/SP_DCPDeleteContractGoal.spl
-\i install/sps/SP_DCPGetContractGoal.spl
-
-\i install/sps/SP_DCPUpsertContractGoalReward.spl
-\i install/sps/SP_DCPDeleteContractGoalReward.spl
-\i install/sps/SP_DCPGetContractGoalReward.spl
-
+\i install/sps/SP_DCPUpsertContractParty.spl
+\i install/sps/SP_DCPDeleteContractParty.spl
 \i install/sps/SP_DCPGetContractParty.spl
-\i install/sps/SP_DCPModifyContractParties.spl
-\i install/sps/SP_DCPGetContractPartyGoalEvaluation.spl
-\i install/sps/SP_DCPResetContractPartyVote.spl
 
--- Other
+\i install/sps/SP_DCPUpsertContractPartyReward.spl
+\i install/sps/SP_DCPDeleteContractPartyReward.spl
+\i install/sps/SP_DCPGetContractPartyReward.spl
+
+-- File
 \i install/sps/SP_DCPGetFile.spl
 \i install/sps/SP_DCPUpsertFile.spl
 \i install/sps/SP_DCPDeleteFile.spl
+
+-- Object
+\i install/sps/SP_DCPUpsertObject.spl
+\i install/sps/SP_DCPDeleteObject.spl
+\i install/sps/SP_DCPGetObject.spl
+
+-- Other
 \i install/sps/SP_DCPGetNextId.spl
+
+-- Role
+\i install/sps/SP_DCPGetRole.spl
+\i install/sps/SP_DCPUpsertRole.spl
+\i install/sps/SP_DCPDeleteRole.spl
+
+\i install/sps/SP_DCPUpsertRoleACL.spl
+\i install/sps/SP_DCPDeleteRoleACL.spl
+
+\i install/sps/SP_DCPCheckUserObjectAccess.spl

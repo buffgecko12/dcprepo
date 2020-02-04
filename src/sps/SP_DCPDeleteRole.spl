@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteRole (
+    pRoleId INTEGER
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	-- Remove dependencies
+	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(pRoleId, NULL, NULL);
+
+	-- Delete role
+	DELETE FROM $APP_NAME$.Role	WHERE (RoleId = pRoleId OR pRoleId IS NULL);	
+	
+END;
+$$ LANGUAGE 'plpgsql';

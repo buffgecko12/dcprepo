@@ -1,0 +1,37 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertRole (
+	pRoleId INTEGER,
+	pName VARCHAR(100),
+	pDescription VARCHAR(500),
+	pPublicFlag BOOLEAN,
+	pSchoolList INTEGER[],
+	pUserTypeList CHAR(2)[],
+	pUserList INTEGER[]
+) 
+RETURNS INTEGER AS $$
+DECLARE 
+	MyRoleId INTEGER; -- Return new RoleId (if created)
+BEGIN   
+
+	-- Get next id value (for new role only)
+	IF(pRoleId IS NULL) THEN
+	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('role') INTO MyRoleId;
+    ELSE
+    	MyRoleId = pRoleId;
+    END IF;
+    
+    -- Upsert role
+    INSERT INTO $APP_NAME$.Role(RoleId, Name, Description, PublicFlag, SchoolList, UserTypeList, UserList)
+    VALUES(MyRoleId, pName, pDescription, pPublicFlag, pSchoolList, pUserTypeList, pUserList)
+    ON CONFLICT(RoleId) DO UPDATE SET
+	    Name = EXCLUDED.Name,
+	    Description = EXCLUDED.Description,
+	    PublicFlag = EXCLUDED.PublicFlag,
+	    SchoolList = EXCLUDED.SchoolList,
+	    UserTypeList = EXCLUDED.UserTypeList,
+	    UserList = EXCLUDED.UserList
+    ;   
+    
+	-- Return new id (if new school)
+    RETURN MyRoleId;
+END;
+$$ LANGUAGE 'plpgsql';

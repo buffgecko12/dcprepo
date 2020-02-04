@@ -1,0 +1,17 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteObject (
+	pObjectId INTEGER,
+    pObjectClass CHAR(2)
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	-- Delete dependencies first
+	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(NULL, pObjectId, pObjectClass); -- ACLs
+
+	DELETE FROM $APP_NAME$.Object
+	WHERE (ObjectId = pObjectId OR pObjectId IS NULL)
+	AND (ObjectClass = pObjectClass OR pObjectClass IS NULL)
+	;
+	
+END;
+$$ LANGUAGE 'plpgsql';

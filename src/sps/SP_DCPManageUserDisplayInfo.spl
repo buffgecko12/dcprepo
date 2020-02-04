@@ -51,15 +51,6 @@ BEGIN
 		-- Clear any "new reputation point" notifications
 		PERFORM $APP_NAME$Views.SP_DCPClearUserNotification(pUserId, 1001, NULL, NULL);		
 		
-	-- Reset last view TS and clear relevant notifications
-	ELSEIF(pActionType = 'acceptdatausepolicy') THEN
-
-		-- Set last viewed TS
-		UPDATE $APP_NAME$.Users
-		SET DataUsePolicyAcceptedTS = CURRENT_TIMESTAMP
-		WHERE UserId = pUserId
-		;
-
 	END IF;
 END;
 $$ LANGUAGE 'plpgsql';

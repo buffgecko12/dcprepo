@@ -1,143 +1,50 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContract(
     pContractId INTEGER,
-    pPartyUserId INTEGER,
     pTeacherUserId INTEGER,
-    pExcludeDraftsFlag BOOLEAN,
-    pExcludeRevisionsFlag BOOLEAN
+    pSchoolYear SMALLINT
 )
 RETURNS TABLE (
-	ContractId INTEGER, ContractName VARCHAR(100), ClassId INTEGER, ClassDisplayName VARCHAR(100), ContractType CHAR(1), TeacherUserId INTEGER, TeacherFirstName VARCHAR(100), TeacherLastName VARCHAR(100),
-	ContractValidPeriod TSTZRANGE, GuardianApprovalFlag BOOLEAN, RevisionDeadlineTS TIMESTAMP WITH TIME ZONE, RevisionDescription VARCHAR(500), RevisionApprovalTS TIMESTAMP WITH TIME ZONE, 
-	StudentLeaderRequirements VARCHAR(500), TeacherRequirements VARCHAR(500), StudentRequirements VARCHAR(500), ContractScanFile BYTEA, 
-	ContractApprovalTS TIMESTAMP WITH TIME ZONE, ContractEvaluationTS TIMESTAMP WITH TIME ZONE, ContractFinalizationTS TIMESTAMP WITH TIME ZONE, 
-	ContractStatus CHAR(1), TempContractId INTEGER, GoalInfo JSONB, PartyUserInfo JSONB, PartyApprovalCount INTEGER, RevisionEligibilityFlag BOOLEAN
-)AS $$
+  ContractId INTEGER, SchoolYear SMALLINT, ContractName VARCHAR(100), Round SMALLINT, ContractValidPeriod TSTZRANGE, ProposalTS TIMESTAMP WITH TIME ZONE, 
+  EvaluationTS TIMESTAMP WITH TIME ZONE, EvidenceTS TIMESTAMP WITH TIME ZONE, ContractStatus CHAR(1), Notes VARCHAR(500), PartyInfo JSONB, ContractValue INTEGER
+) AS $$
 BEGIN
     RETURN QUERY
     SELECT 
-    	c.ContractId, c.ContractName, c.ClassId, cl.ClassDisplayName, c.ContractType, c.TeacherUserId, t.firstname AS TeacherFirstName, t.lastname AS TeacherLastName, 
-    	c.ContractValidPeriod, c.GuardianApprovalFlag, c.RevisionDeadlineTS, c.RevisionDescription,	c.RevisionApprovalTS, c.StudentLeaderRequirements, c.TeacherRequirements, 
-    	c.StudentRequirements, c.ContractScanFile, c.ContractApprovalTS, c.ContractEvaluationTS, c.ContractFinalizationTS, c.ContractStatus, c.TempContractId, cg.GoalInfo, 
-    	cp.PartyUserInfo, cp.PartyApprovalCount,
-		CASE 
-			WHEN CURRENT_DATE > (CAST(c.RevisionDeadlineTS AS DATE) + INTERVAL '1' DAY) OR c.RevisionDescription IS NOT NULL THEN FALSE 
-			ELSE TRUE 
-		END AS RevisionEligibilityFlag  -- Add one-day fudge factor just in case
+    	c.ContractId, c.SchoolYear, c.ContractName, c.Round, c.ContractValidPeriod, c.ProposalTS, c.EvaluationTS, c.EvidenceTS, c.ContractStatus, c.Notes,
+    	cp.PartyInfo, COALESCE(cv.ContractValue,0) AS ContractValue
     FROM $APP_NAME$Views.Contract c
-    LEFT JOIN $APP_NAME$Views.Class cl ON c.ClassId = cl.ClassId
-    LEFT JOIN $APP_NAME$Views.Teachers t ON c.TeacherUserId = t.TeacherUserId
-    LEFT JOIN (
-		SELECT 
-			cp.ContractId, 
-			JSONB_BUILD_OBJECT(
-				'currentparties',
-				JSONB_AGG(
-					(
-						SELECT x 
-						FROM (
-							SELECT 
-								cp.PartyUserId, 
-								cp.ContractRole, 
-								cp.GroupInfo,
-								cpg.GroupUserIdList,
-								cpg.GroupUserInfo,
-								TO_CHAR(cpa.PartyApprovalTS, 'DD/MM/YYYY') AS PartyApprovalTS, 
-								cpa.PreferredGoalId, 
-								u.Firstname, 
-								u.Lastname, 
-								u.EmailAddress,
-								cpge.AchievedFlag,
-								cpge.TopPerformerFlag,
-								cpge.HighPerformerFlag,
-								TO_CHAR(cpe.EvaluationTS, 'DD/MM/YYYY') AS EvaluationTS
-						) AS x
-					)
-					ORDER BY cp.ContractRole, cp.GroupInfo->'groupname', u.Firstname, u.LastName
-				)
-			) AS PartyUserInfo,
-			CAST(SUM(CASE WHEN cpa.PartyApprovalTS IS NOT NULL THEN 1 ELSE 0 END) AS INTEGER) AS PartyApprovalCount
-		FROM $APP_NAME$Views.Contract_Party cp
-		LEFT JOIN $APP_NAME$Views.Contract_Party_Approval cpa ON cp.ContractId = cpa.ContractId AND cp.PartyUserId = cpa.PartyUserId AND cpa.ApprovalType = 'C' -- Get contract party approval info
-		LEFT JOIN (
-			SELECT 
-				cpg.ContractId, 
-				cpg.PartyUserId, 
-				ARRAY_AGG(cpg.PartyUserId_Group) AS GroupUserIdList,
-				JSONB_AGG(
-					(
-						SELECT x FROM (
-							SELECT cpg.PartyUserId_Group, u.EmailAddress
-						) AS x
-					)
-					ORDER BY cpg.GroupName
-				) AS GroupUserInfo
-			FROM $APP_NAME$Views.Contract_Party_Group cpg 
-			INNER JOIN $APP_NAME$Views.Users u ON cpg.PartyUserId_Group = u.UserId
-			GROUP BY cpg.ContractId, cpg.PartyUserId
-		) cpg ON cp.PartyUserId = cpg.PartyUserId AND cp.ContractId = cpg.ContractId -- Get group user info
-		LEFT JOIN (
-			SELECT 
-				cpge.ContractId, 
-				cpge.PartyUserId, 
-				CASE WHEN MAX(CASE WHEN cpge.AchievedFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS AchievedFlag,
-				CASE WHEN MAX(CASE WHEN cpge.HighPerformerFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS HighPerformerFlag,
-				CASE WHEN MAX(CASE WHEN cpge.TopPerformerFlag THEN 1 ELSE 0 END) = 1 THEN TRUE ELSE FALSE END AS TopPerformerFlag
-			FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge
-			GROUP BY cpge.ContractId, cpge.PartyUserId
-		) cpge ON cpa.ContractId = cpge.ContractId AND cpa.PartyUserId = cpge.PartyUserId -- Get any goal evaluation info
-		LEFT JOIN $APP_NAME$Views.Contract_Party_Evaluation cpe ON cpa.ContractId = cpe.ContractId AND cpa.PartyUserId = cpe.PartyUserId 
-			AND cpa.PartyApprovalTS IS NOT NULL -- Check party has already evaluated the contract (TO-DO: Check for user group logic)
-		INNER JOIN $APP_NAME$Views.Users u ON cp.PartyUserId = u.UserId
-		GROUP BY cp.ContractId
-    ) cp ON c.ContractId = cp.ContractId -- Get party info
-    LEFT JOIN (
-		SELECT 
-			cg.ContractId, 
-			JSONB_BUILD_OBJECT(
-				'currentgoals',
-				JSONB_AGG(
-					(SELECT x FROM (SELECT cg.GoalId, cg.DifficultyLevel, cg.GoalDescription, cg.AcceptedFlag, cg.MaxNumRewards, cg.RewardSelectedBy, cgr.rewardinfo) AS x)
-					ORDER BY cg.ContractId, CASE cg.DifficultyLevel WHEN 'E' THEN 3 WHEN 'M' THEN 2 WHEN 'D' THEN 1 ELSE 0 END DESC, cg.GoalId
-				)
-			) AS goalinfo
-		FROM $APP_NAME$Views.Contract_Goal cg
-		LEFT JOIN (
-			SELECT 
-				cgr.ContractId, 
-				cgr.GoalId, 
-				JSONB_BUILD_OBJECT(
-					'currentrewards',
-					JSONB_AGG(
-						(SELECT x FROM (SELECT cgr.RewardId, r.RewardDisplayName, r.RewardDescription, r.RewardValue) AS x)
-						ORDER BY cgr.ContractId, cgr.GoalId, r.RewardDisplayName
-					)
-				) AS RewardInfo
-			FROM $APP_NAME$Views.Contract_Goal_Reward cgr
-			INNER JOIN $APP_NAME$Views.Lookup_Reward r ON cgr.RewardId = r.RewardId
-			GROUP BY cgr.ContractId, cgr.GoalId
-		) cgr ON cg.ContractId = cgr.ContractId AND cg.GoalId = cgr.GoalId
-		GROUP BY cg.ContractId
-    ) cg ON c.ContractId = cg.ContractId -- Get goal/reward info
-    WHERE (c.ContractId = pContractId OR pContractId IS NULL)
-	AND (c.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
-    AND (
-    	c.ContractId IN (
-    		-- Get all users assigned to contract
-    		SELECT cp.ContractId 
+    INNER JOIN (
+    	SELECT 
+    		cp.ContractId, 
+    		JSONB_AGG(
+    			(
+    				SELECT x FROM (SELECT cp.TeacherUserId, cp.ClassId, cp.NumParticipants, cp.NumWinners, cp.ContractPartyRewardInfo) AS x
+    			)
+    			ORDER BY cp.TeacherUserId, cp.ClassId -- Order rows in party array
+    		) AS PartyInfo
+    	FROM (
+    		SELECT cp.ContractId, cp.TeacherUserId, cp.ClassId, MAX(cp.NumParticipants) AS NumParticipants, MAX(cp.NumWinners) AS NumWinners,
+    			JSONB_AGG(
+    				(
+    					SELECT x FROM (SELECT cpr.RewardId, cpr.Quantity, cpr.ActualRewardValue, cpr.Status, lr.RewardDisplayName) AS x
+    				)
+    				ORDER BY lr.Vendor, lr.RewardDisplayName
+    			) AS ContractPartyRewardInfo
     		FROM $APP_NAME$Views.Contract_Party cp
-    		WHERE cp.PartyUserId = pPartyUserId
-    		
-    		UNION ALL
-    		
-    		-- Get users that belong to groups assigned to contract
-    		SELECT cpg.ContractId
-    		FROM $APP_NAME$Views.Contract_Party_Group cpg
-    		WHERE cpg.PartyUserId_Group = pPartyUserId
-		) OR pPartyUserId IS NULL
-	) -- Return contracts for a specific user
-	AND (c.ContractStatus <> 'D' OR pExcludeDraftsFlag IS NULL OR NOT pExcludeDraftsFlag) -- Exclude draft contracts unless specified otherwise
-	AND (c.ContractId NOT IN (SELECT c.TempContractId FROM $APP_NAME$Views.Contract c WHERE c.TempContractId IS NOT NULL) OR pExcludeRevisionsFlag IS NULL OR NOT pExcludeRevisionsFlag)  -- Exclude "under revision" contracts
-	ORDER BY c.ContractId
-	;
+    		INNER JOIN $APP_NAME$Views.Contract_Party_Reward cpr ON cp.ContractId = cpr.ContractId AND cp.TeacherUserId = cpr.TeacherUserId AND cp.ClassId = cpr.ClassId
+    		INNER JOIN $APP_NAME$Views.Lookup_Reward lr ON cpr.RewardId = lr.RewardId
+		    WHERE (cp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
+			GROUP BY cp.ContractId, cp.TeacherUserId, cp.ClassId
+		) cp -- Get contract party / reward info
+	    GROUP BY cp.ContractId
+    ) cp ON c.ContractId = cp.ContractId
+	LEFT JOIN (
+		SELECT src.ContractId, src.ContractValue 
+		FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, pContractId, NULL) AS src
+	) cv ON c.ContractId = cv.ContractId -- Get contract value
+    WHERE (c.ContractId = pContractId OR pContractId IS NULL)
+    AND (c.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+    ORDER BY LOWER(c.ContractValidPeriod)
+    ;
 END;
 $$ LANGUAGE 'plpgsql';

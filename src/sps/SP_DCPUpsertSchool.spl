@@ -1,12 +1,10 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchool (
 	pSchoolId INTEGER,
-	pSchoolDisplayName VARCHAR(100),
 	pSchoolAbbreviation VARCHAR(20),
+	pSchoolDisplayName VARCHAR(100),
 	pAddress VARCHAR(100),
 	pCity VARCHAR(100),
-	pDepartment VARCHAR(100),
-	pDataUsePolicyFileId INTEGER,
-	pGuardianApprovalPolicy JSONB
+	pDepartment VARCHAR(100)
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -16,21 +14,34 @@ BEGIN
 	-- Get next id value (for new school only)
 	IF(pSchoolId IS NULL) THEN
 	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('school') INTO MySchoolId;
+	    
+	    -- Create default roles
+		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
+			NULL, pSchoolAbbreviation || ' - Docentes', 'Todos los docentes del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{TR}', NULL
+		);
+		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
+			NULL, pSchoolAbbreviation || ' - General', 'Todos los integrantes del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), NULL, NULL
+		);
+		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
+			NULL, pSchoolAbbreviation || ' - Administraci' || U&'\00F3' || 'n', 'La administracion del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{SF}', NULL
+		);
+	    
     ELSE
+    	-- Existing school
     	MySchoolId = pSchoolId;
+    	
+	    -- Close current row
+	    UPDATE $APP_NAME$.School
+	    SET EndTS = CURRENT_TIMESTAMP
+	    WHERE SchoolId = pSchoolId
+	    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	    ;
+    	
     END IF;
     
-    -- Upsert school
-    INSERT INTO $APP_NAME$.School(SchoolId, SchoolDisplayName, SchoolAbbreviation, Address, City, Department, DataUsePolicyFileId, GuardianApprovalPolicy)
-    VALUES(MySchoolId, pSchoolDisplayName, pSchoolAbbreviation, pAddress, pCity, pDepartment, pDataUsePolicyFileId, pGuardianApprovalPolicy)
-    ON CONFLICT(SchoolId) DO UPDATE SET
-	    SchoolDisplayName = EXCLUDED.SchoolDisplayName,
-	    SchoolAbbreviation = EXCLUDED.SchoolAbbreviation,
-	    Address = EXCLUDED.Address,
-	    City = EXCLUDED.City,
-        Department = EXCLUDED.Department,
-        DataUsePolicyFileId = EXCLUDED.DataUsePolicyFileId,
-        GuardianApprovalPolicy = EXCLUDED.GuardianApprovalPolicy
+	-- Add new row
+    INSERT INTO $APP_NAME$.School(SchoolId, SchoolAbbreviation, SchoolDisplayName, Address, City, Department, StartTS, EndTS)
+    SELECT MySchoolId, pSchoolAbbreviation, pSchoolDisplayName, pAddress, pCity, pDepartment, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
     ;   
     
 	-- Return new id (if new school)

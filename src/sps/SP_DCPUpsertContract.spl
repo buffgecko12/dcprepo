@@ -1,80 +1,44 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
+    pSchoolYear SMALLINT,
 	pContractName VARCHAR(100),
-    pClassId INTEGER,
-    pContractType CHAR(1),
-    pTeacherUserId INTEGER,
+	pRound SMALLINT,
     pContractValidPeriod TSTZRANGE,
-    pGuardianApprovalFlag BOOLEAN,
-    pRevisionDeadlineTS TIMESTAMP WITH TIME ZONE,
-    pStudentLeaderRequirements VARCHAR(500),
-    pTeacherRequirements VARCHAR(500),
-    pStudentRequirements VARCHAR(500),
-    pContractScanFile BYTEA,
-    pGoalInfo JSONB,
-    pPartyUserInfo JSONB
+    pProposalTS TIMESTAMP WITH TIME ZONE,
+    pEvaluationTS TIMESTAMP WITH TIME ZONE,
+    pEvidenceTS TIMESTAMP WITH TIME ZONE,
+    pContractStatus CHAR(1),
+    pNotes VARCHAR(500)
 ) 
 RETURNS INTEGER AS $$
 DECLARE
 	MyContractId INTEGER;
-	mygoal RECORD;
 BEGIN
 	
 	-- Determine contractid
 	IF(pContractId IS NULL) THEN
-		-- Create contract (get new id)
 	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('contract') INTO MyContractId;
     ELSE
-    	-- Update contract (use provided id)
     	MyContractId = pContractId;
     END IF;
 
-	-- Upsert general info
-	INSERT INTO $APP_NAME$.Contract (ContractId, ContractName, ClassId, ContractType, TeacherUserId, ContractValidPeriod, GuardianApprovalFlag, 
-	  RevisionDeadlineTS, StudentLeaderRequirements, TeacherRequirements, StudentRequirements, ContractScanFile)
-    VALUES(MyContractId, pContractName, pClassId, pContractType, pTeacherUserId, pContractValidPeriod, pGuardianApprovalFlag, pRevisionDeadlineTS, 
-      pStudentLeaderRequirements, pTeacherRequirements, pStudentRequirements, NULLIF(pContractScanFile,''))
-    ON CONFLICT (ContractId) DO UPDATE SET
-        ContractName = EXCLUDED.ContractName,
-        ClassId = EXCLUDED.ClassId,
-        ContractType = EXCLUDED.ContractType,
-        TeacherUserId = EXCLUDED.TeacherUserId,
-	    ContractValidPeriod = EXCLUDED.ContractValidPeriod,
-	    GuardianApprovalFlag = EXCLUDED.GuardianApprovalFlag,
-	    RevisionDeadlineTS = EXCLUDED.RevisionDeadlineTS,
-	    StudentLeaderRequirements = EXCLUDED.StudentLeaderRequirements,
-	    TeacherRequirements = EXCLUDED.TeacherRequirements,
-	    StudentRequirements = EXCLUDED.StudentRequirements,
-	    ContractScanFile = EXCLUDED.ContractScanFile
+	-- Close current row
+	UPDATE $APP_NAME$.Contract
+	SET EndTS = CURRENT_TIMESTAMP
+	WHERE ContractId = pContractId
+	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	;
+
+	-- Add new row
+	INSERT INTO $APP_NAME$.Contract (
+		ContractId, SchoolYear, ContractName, Round, ContractValidPeriod, ProposalTS, 
+		EvaluationTS, EvidenceTS, ContractStatus, Notes, StartTS, EndTS
+	)
+    VALUES(
+    	MyContractId, pSchoolYear, pContractName, pRound, pContractValidPeriod, pProposalTS, pEvaluationTS, 
+    	pEvidenceTS, pContractStatus, pNotes, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59')
     ;
-
-    -- Delete old goals (if applicable)
-    IF(pGoalInfo->'deletedgoals') IS NOT NULL THEN
-		-- Delete goals
-    END IF;
     
-	-- Upsert goals
-    IF (pGoalInfo->'currentgoals' IS NOT NULL) THEN 
-		FOR mygoal IN 
-			SELECT src.GoalId, src.DifficultyLevel, src.GoalDescription, src.AcceptedFlag, src.RewardInfo, src.MaxNumRewards, src.RewardSelectedBy
-			FROM JSONB_TO_RECORDSET(pGoalInfo->'currentgoals')
-			  AS src(
-			   GoalId INTEGER, 
-			   DifficultyLevel CHAR(1),
-			   GoalDescription VARCHAR(500), 
-			   AcceptedFlag BOOLEAN,
-			   RewardInfo JSONB,
-			   MaxNumRewards INTEGER,
-			   RewardSelectedBy CHAR(2)
-		   ) -- Be careful with case-sensitivity with PG (use all lower-case values in JSON to be safe)    
-		LOOP
-		    PERFORM $APP_NAME$Views.SP_DCPUpsertContractGoal(MyContractId, mygoal.GoalId, mygoal.DifficultyLevel, mygoal.GoalDescription, mygoal.AcceptedFlag, mygoal.RewardInfo, mygoal.MaxNumRewards, mygoal.RewardSelectedBy);
-		END LOOP;
-	END IF;
-    
-	-- Update parties info	
-    PERFORM $APP_NAME$Views.SP_DCPModifyContractParties(MyContractId, pPartyUserInfo);
-
     -- Return contractId
     RETURN MyContractId;
 END

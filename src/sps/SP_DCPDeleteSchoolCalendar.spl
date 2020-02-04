@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteSchoolCalendar (
+    pCalendarItemId INTEGER,
+    pSchoolId INTEGER,
+    pSchoolYear SMALLINT
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	DELETE FROM $APP_NAME$.School_Calendar
+	WHERE (CalendarItemId = pCalendarItemId OR pCalendarItemId IS NULL)
+	AND (SchoolId = pSchoolId OR pSchoolId IS NULL)
+	AND (SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	;	
+	
+END;
+$$ LANGUAGE 'plpgsql';

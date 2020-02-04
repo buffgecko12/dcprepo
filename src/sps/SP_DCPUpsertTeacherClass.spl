@@ -1,0 +1,18 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacherClass (
+    pTeacherUserId INTEGER, 
+    pClassId INTEGER,
+    pClassIdList INTEGER[]
+) 
+RETURNS VOID AS $$
+BEGIN
+
+    INSERT INTO $APP_NAME$.Teacher_Class(TeacherUserId, ClassId)
+    SELECT pTeacherUserId, c.ClassId
+    FROM $APP_NAME$Views.Class c
+    WHERE (ClassId = pClassId OR pClassId IS NULL)
+    AND (ClassId = ANY (pClassIdList) OR pClassIdList IS NULL)
+    ON CONFLICT(TeacherUserId, ClassId) DO NOTHING
+    ;
+
+END;
+$$ LANGUAGE 'plpgsql';

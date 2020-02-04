@@ -1,0 +1,16 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteRoleACL (
+    pRoleId INTEGER,
+    pObjectId INTEGER,
+    pObjectClass CHAR(2)
+) 
+RETURNS VOID AS $$
+BEGIN	
+
+	DELETE FROM $APP_NAME$.Role_ACL
+	WHERE (RoleId = pRoleId OR pRoleId IS NULL)
+	AND (ObjectId = pObjectId OR pObjectId IS NULL)
+	AND (ObjectClass = pObjectClass OR pObjectClass IS NULL)
+	;	
+	
+END;
+$$ LANGUAGE 'plpgsql';

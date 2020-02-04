@@ -1,12 +1,24 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
-    pFileId INTEGER
+    pFileId INTEGER,
+	pFileClass VARCHAR(50),
+	pFileCategory CHAR(2),
+	pContractId INTEGER,
+	pSchoolYear SMALLINT
 ) 
-RETURNS SETOF $APP_NAME$Views.Binary_File AS $$
+RETURNS TABLE (
+	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), Filesource CHAR(2),
+	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory CHAR(2), ContractId INTEGER, SchoolYear SMALLINT
+) AS $$
 BEGIN
     RETURN QUERY
-    SELECT FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileData, AccessClass
-    FROM $APP_NAME$Views.Binary_File
-    WHERE (FileId = pFileId OR pFileId IS NULL)
+    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, 
+    	f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.ContractId, f.SchoolYear
+    FROM $APP_NAME$Views.File f
+    WHERE (f.FileId = pFileId OR pFileId IS NULL)
+    AND (f.FileClass = pFileClass OR pFileClass IS NULL)
+    AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
+    AND (f.ContractId = pContractId OR pContractId IS NULL)
+    AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
     ;
 END;
 $$

@@ -1,0 +1,93 @@
+/*
+
+CHECK USER - OBJECT PERMISSIONS
+1. Get all roles associated with object
+2. Determine which roles given user is associated with
+3. Return most permissive access level to object
+
+USE CASES
+1. Check if user has access to view contracts
+2. Check if user has access to download a file
+
+*/
+
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCheckUserObjectAccess(
+    pUserId INTEGER,
+    pObjectId INTEGER,
+    pObjectClass CHAR(2),
+    pRequestedAccess CHAR(1)
+)
+RETURNS BOOLEAN AS $$
+DECLARE
+	MyAccessLevel SMALLINT;
+	RequestedAccessLevel SMALLINT;
+	AccessFlag BOOLEAN DEFAULT FALSE;
+BEGIN
+
+	-- Convert requested access level
+	RequestedAccessLevel = CAST(
+		CASE pRequestedAccess 
+			WHEN 'N' THEN 0
+			WHEN 'B' THEN 1 -- Browse / List
+			WHEN 'R' THEN 4 -- Read (details)
+			WHEN 'W' THEN 8 -- Edit / Write
+			WHEN 'D' THEN 12 -- Delete
+			ELSE 0
+		END AS SMALLINT)
+	;
+
+	-- Implicit Permissions (check first)
+	IF(pObjectClass = 'F') THEN 
+	
+		-- Contract files
+	    SELECT 4 INTO MyAccessLevel -- Default read access (i.e. download)
+	    WHERE EXISTS (
+	        SELECT 1
+	        FROM $APP_NAME$Views.File f
+	        INNER JOIN $APP_NAME$Views.Contract_Party cp ON f.ContractId = cp.ContractId -- Get contract parties (i.e. teachers associated with file)
+	        WHERE cp.TeacherUserId = pUserId -- Get contracts related to specified user
+	        AND f.FileId = pObjectId
+	    )
+	    ;
+	END IF;
+	    
+	-- Explicit Permissions (continue only if implicit permissions 
+	IF(AccessFlag IS NOT TRUE) THEN
+
+		-- Return access level for a given user / object
+		SELECT 
+			CASE 
+				WHEN MIN(ra.AccessLevel) <> 0 THEN MAX(ra.AccessLevel) -- Return most permissible access only if it has not been revoked
+				ELSE 0 -- No access
+			END INTO MyAccessLevel
+		FROM (
+			-- Files
+			SELECT CAST(FileId AS INTEGER) AS ObjectId, CAST('FL' AS CHAR(2)) AS ObjectClass 
+			FROM $APP_NAME$Views.File
+			WHERE pObjectClass = 'FL'
+			AND FileId = pObjectId
+			
+			UNION ALL
+	
+			-- Objects (don't re-use other object classes, i.e. 'FL')
+			SELECT ObjectId, ObjectClass 
+			FROM $APP_NAME$Views.Object
+			WHERE ObjectId = pObjectId
+		) o -- Objects
+		INNER JOIN $APP_NAME$Views.Role_ACL ra ON o.ObjectId = ra.ObjectId AND o.ObjectClass = ra.ObjectClass -- Roles associated with objects
+		INNER JOIN $APP_NAME$Views.Role r ON ra.RoleId = r.RoleId -- Role info
+		INNER JOIN $APP_NAME$Views.Users u ON u.UserId = pUserId -- User info
+		WHERE (r.PublicFlag IS TRUE OR r.PublicFlag IS NULL) -- check public flag
+	    AND (u.SchoolId = ANY(r.SchoolList) OR r.SchoolList IS NULL) -- check schools (if specifeid)
+	    AND (u.UserType = ANY(r.UserTypeList) OR r.UserTypeList IS NULL) -- check user types (if specified)
+	    AND (u.UserId = ANY(r.UserList) OR r.UserList IS NULL) -- check user list (if specified)
+		;
+	
+	END IF;
+
+	-- Check if user has requested access
+	AccessFlag = CASE WHEN COALESCE(MyAccessLevel,0) >= RequestedAccessLevel THEN TRUE ELSE FALSE END;
+
+	RETURN AccessFlag;	
+END;
+$$ LANGUAGE 'plpgsql';
