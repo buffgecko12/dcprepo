@@ -2,8 +2,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractParty(
     pContractId INTEGER,
     pTeacherUserId INTEGER,
     pClassId INTEGER,
-    pNumParticipants SMALLINT,
-    pNumWinners SMALLINT,
+    pNumParticipants INTEGER,
+    pNumWinners INTEGER,
     pPartyInfo JSONB
 )
 RETURNS VOID AS $$

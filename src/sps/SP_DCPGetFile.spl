@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
 	pFileClass VARCHAR(50),
 	pFileCategory CHAR(2),
 	pContractId INTEGER,
-	pSchoolYear SMALLINT
+	pSchoolYear INTEGER
 ) 
 RETURNS TABLE (
 	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), Filesource CHAR(2),

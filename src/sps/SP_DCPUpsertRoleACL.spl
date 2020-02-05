@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertRoleACL (
 	pRoleId INTEGER,
 	pObjectId INTEGER,
 	pObjectClass CHAR(2),
-	pAccessLevel SMALLINT
+	pAccessLevel INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN   

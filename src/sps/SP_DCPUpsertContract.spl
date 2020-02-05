@@ -1,8 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pContractId INTEGER,
-    pSchoolYear SMALLINT,
+    pSchoolYear INTEGER,
 	pContractName VARCHAR(100),
-	pRound SMALLINT,
+	pRound INTEGER,
     pContractValidPeriod TSTZRANGE,
     pProposalTS TIMESTAMP WITH TIME ZONE,
     pEvaluationTS TIMESTAMP WITH TIME ZONE,

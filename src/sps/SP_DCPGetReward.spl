@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
     pRewardId INTEGER,
-    pSchoolYear SMALLINT
+    pSchoolYear INTEGER
 )
 RETURNS TABLE (
 	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, Vendor VARCHAR(100)

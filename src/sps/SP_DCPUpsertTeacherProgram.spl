@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertTeacherProgram (
     pTeacherUserId INTEGER, 
-    pSchoolYear SMALLINT,
+    pSchoolYear INTEGER,
     pSchoolId INTEGER,
     pMaxBudget INTEGER,
     pTeacherSurveyTS TIMESTAMP WITH TIME ZONE,

@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetTeacherProgram(
     pTeacherUserId INTEGER,
-    pSchoolYear SMALLINT
+    pSchoolYear INTEGER
 ) 
 RETURNS TABLE (
 	TeacherUserId INTEGER, SchoolYear SMALLINT, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER

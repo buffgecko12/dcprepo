@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContract(
     pContractId INTEGER,
     pTeacherUserId INTEGER,
-    pSchoolYear SMALLINT
+    pSchoolYear INTEGER
 )
 RETURNS TABLE (
   ContractId INTEGER, SchoolYear SMALLINT, ContractName VARCHAR(100), Round SMALLINT, ContractValidPeriod TSTZRANGE, ProposalTS TIMESTAMP WITH TIME ZONE, 

@@ -1,11 +1,11 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolCalendar (
 	pCalendarItemId INTEGER,
 	pSchoolId INTEGER,
-	pSchoolYear SMALLINT,
+	pSchoolYear INTEGER,
 	pItemDate DATE,
 	pItemType VARCHAR(100),
 	pItemDescription VARCHAR(500),
-	pRound SMALLINT
+	pRound INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN   

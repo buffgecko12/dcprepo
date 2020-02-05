@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchoolCalendar (
     pCalendarItemId INTEGER,
     pSchoolId INTEGER,
-    pSchoolYear SMALLINT
+    pSchoolYear INTEGER
 )
 RETURNS TABLE (
   CalendarItemId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, ItemDate DATE, 

@@ -1,11 +1,11 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolRubric (
 	pRubricItemId INTEGER,
 	pSchoolId INTEGER,
-	pSchoolYear SMALLINT,
+	pSchoolYear INTEGER,
 	pCategory CHAR(2),
 	pCriterion VARCHAR(100),
 	pDescription VARCHAR(500),
-	pWeight SMALLINT
+	pWeight INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN   

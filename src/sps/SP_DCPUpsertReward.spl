@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 	pRewardId INTEGER,
-	pSchoolYear SMALLINT,
+	pSchoolYear INTEGER,
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
 	pRewardValue INTEGER,

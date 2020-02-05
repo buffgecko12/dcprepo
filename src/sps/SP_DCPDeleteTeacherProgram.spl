@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteTeacherProgram (
 	pTeacherUserId INTEGER,
-	pSchoolYear SMALLINT
+	pSchoolYear INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	

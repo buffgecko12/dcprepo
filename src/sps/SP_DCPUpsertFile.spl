@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFile(
 	pFileClass VARCHAR(50),
 	pFileCategory CHAR(2),
 	pContractId INTEGER,
-	pSchoolYear SMALLINT
+	pSchoolYear INTEGER
 )
 RETURNS INTEGER AS $$
 DECLARE

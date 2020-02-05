@@ -3,7 +3,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContractPartyReward(
     pTeacherUserId INTEGER,
     pClassId INTEGER,
     pRewardId INTEGER,
-    pQuantity SMALLINT,
+    pQuantity INTEGER,
     pActualRewardValue INTEGER,
     pStatus CHAR(1)
 )

@@ -1,9 +1,9 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertClass (
 	pClassId INTEGER,
 	pSchoolId INTEGER,
-	pSchoolYear SMALLINT,
+	pSchoolYear INTEGER,
 	pClassDisplayName VARCHAR(100),
-	pGradeLevel SMALLINT,
+	pGradeLevel INTEGER,
 	pNumStudentSurveys INTEGER
 ) 
 RETURNS INTEGER AS $$

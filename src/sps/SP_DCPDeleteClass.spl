@@ -8,6 +8,6 @@ BEGIN
 	PERFORM $APP_NAME$Views.SP_DCPDeleteTeacherClass(NULL, pClassId);
 
 	-- Delete class	
-	DELETE FROM $APP_NAME$.Class WHERE ClassId = pClassId; -- Delete class
+	DELETE FROM $APP_NAME$.Class WHERE (ClassId = pClassId OR pClassId IS NULL); -- Delete class
 END;
 $$ LANGUAGE 'plpgsql';

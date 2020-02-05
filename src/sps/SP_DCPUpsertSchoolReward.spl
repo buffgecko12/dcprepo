@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolReward (
 	pSchoolId INTEGER,
 	pRewardId INTEGER,
 	pRewardIdList INTEGER[],
-	pSchoolYear SMALLINT
+	pSchoolYear INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN   
