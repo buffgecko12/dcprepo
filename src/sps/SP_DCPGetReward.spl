@@ -8,7 +8,7 @@ RETURNS TABLE (
 BEGIN
     RETURN QUERY
 	SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.Vendor
-	FROM $APP_NAME$Views.Lookup_Reward r
+	FROM $APP_NAME$Views.Reward r
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
 	AND (r.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	ORDER BY r.SchoolYear DESC, r.Vendor, r.RewardDisplayName

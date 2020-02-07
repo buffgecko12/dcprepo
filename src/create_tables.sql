@@ -36,7 +36,7 @@ CREATE TABLE $APP_NAME$.NextId (
 );
 
 -- LOOKUP: Rewards
-CREATE TABLE $APP_NAME$.Lookup_Reward (
+CREATE TABLE $APP_NAME$.Reward (
 	RewardId INTEGER NOT NULL,
 	SchoolYear SMALLINT NOT NULL,
 	RewardDisplayName VARCHAR(100) NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE $APP_NAME$.School_Reward (
 	SchoolYear SMALLINT NOT NULL,
 	PRIMARY KEY (SchoolId, RewardId)
 --	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
---	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Lookup_Reward (RewardId) -- Can't use with history rows
+--	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Reward (RewardId) -- Can't use with history rows
 );
 
 -- School rubric
@@ -249,7 +249,7 @@ CREATE TABLE $APP_NAME$.Contract_Party_Reward (
 	Status CHAR(1),
 	PRIMARY KEY (ContractId, TeacherUserId, ClassId, RewardId),
 	FOREIGN KEY (ContractId, TeacherUserId, ClassId) REFERENCES $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId)
---	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Lookup_Reward (RewardId) -- Can't use with history rows
+--	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Reward (RewardId) -- Can't use with history rows
 );
 
 -- USER: Reputation events

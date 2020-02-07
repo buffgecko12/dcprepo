@@ -13,7 +13,7 @@ BEGIN
     SELECT cpr.ContractId, cpr.RewardId, cpr.Quantity, cpr.ActualRewardValue, cpr.Status, 
     	r.RewardDisplayName, r.RewardDescription, r.Vendor
     FROM $APP_NAME$Views.Contract_Party_Reward cpr
-    INNER JOIN $APP_NAME$Views.Lookup_Reward r ON cpr.RewardId = r.RewardId
+    INNER JOIN $APP_NAME$Views.Reward r ON cpr.RewardId = r.RewardId
     WHERE (cpr.ContractId = pContractId OR pContractId IS NULL)
     AND (cpr.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
     AND (cpr.ClassId = pClassId OR pClassId IS NULL)

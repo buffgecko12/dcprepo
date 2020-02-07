@@ -9,7 +9,7 @@ BEGIN
 
 	INSERT INTO $APP_NAME$.School_Reward(SchoolId, RewardId, SchoolYear)
 	SELECT pSchoolId, r.RewardId, r.SchoolYear
-	FROM $APP_NAME$Views.Lookup_Reward r
+	FROM $APP_NAME$Views.Reward r
 	WHERE (
 		r.RewardId = pRewardId OR -- Single reward
 		r.RewardId = ANY(pRewardIdList) -- List of rewards

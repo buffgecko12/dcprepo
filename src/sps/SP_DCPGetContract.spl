@@ -32,7 +32,7 @@ BEGIN
     			) AS ContractPartyRewardInfo
     		FROM $APP_NAME$Views.Contract_Party cp
     		INNER JOIN $APP_NAME$Views.Contract_Party_Reward cpr ON cp.ContractId = cpr.ContractId AND cp.TeacherUserId = cpr.TeacherUserId AND cp.ClassId = cpr.ClassId
-    		INNER JOIN $APP_NAME$Views.Lookup_Reward lr ON cpr.RewardId = lr.RewardId
+    		INNER JOIN $APP_NAME$Views.Reward lr ON cpr.RewardId = lr.RewardId
 		    WHERE (cp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 			GROUP BY cp.ContractId, cp.TeacherUserId, cp.ClassId
 		) cp -- Get contract party / reward info

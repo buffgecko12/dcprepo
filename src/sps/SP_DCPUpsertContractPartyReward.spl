@@ -12,7 +12,7 @@ BEGIN
 
     INSERT INTO $APP_NAME$.Contract_Party_Reward (ContractId, TeacherUserId, ClassId, RewardId, Quantity, ActualRewardValue, Status)
     SELECT pContractId, pTeacherUserId, pClassId, pRewardId, pQuantity, pActualRewardValue, pStatus
-    FROM $APP_NAME$Views.Lookup_Reward
+    FROM $APP_NAME$Views.Reward
     WHERE RewardId = pRewardId
     ON CONFLICT (ContractId, TeacherUserId, ClassId, RewardId) DO UPDATE
     SET Quantity = pQuantity,
