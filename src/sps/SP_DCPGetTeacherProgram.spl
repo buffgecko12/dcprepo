@@ -3,16 +3,21 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetTeacherProgram(
     pSchoolYear INTEGER
 ) 
 RETURNS TABLE (
-	TeacherUserId INTEGER, SchoolYear SMALLINT, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER
+	TeacherUserId INTEGER, SchoolYear SMALLINT, SchoolId INTEGER, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER,
+	TeacherSurveyTS TIMESTAMP WITH TIME ZONE, StudentSurveyURL VARCHAR(500), Notes VARCHAR(500)
 ) AS $$
 BEGIN
 	RETURN QUERY
 	SELECT 
 		tp.TeacherUserId,
 		tp.SchoolYear,
+		tp.SchoolId,
 		tp.MaxBudget,
 		bg.BudgetSpent,
-		tp.MaxBudget - COALESCE(bg.BudgetSpent,0) AS AvailableBudget
+		tp.MaxBudget - COALESCE(bg.BudgetSpent,0) AS AvailableBudget,
+		tp.TeacherSurveyTS,
+		tp.StudentSurveyURL,
+		tp.Notes
 	FROM $APP_NAME$Views.Teacher_Program tp
 	LEFT JOIN ( -- Get contract values for teachers
 		SELECT src.TeacherUserId, src.SchoolYear, CAST(SUM(ContractValue) AS INTEGER) AS BudgetSpent
