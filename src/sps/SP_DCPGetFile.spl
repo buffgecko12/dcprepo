@@ -6,12 +6,12 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
 	pSchoolYear INTEGER
 ) 
 RETURNS TABLE (
-	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), Filesource CHAR(2),
+	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileStore CHAR(2),
 	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory CHAR(2), ContractId INTEGER, SchoolYear SMALLINT
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, 
+    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileStore, 
     	f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.ContractId, f.SchoolYear
     FROM $APP_NAME$Views.File f
     WHERE (f.FileId = pFileId OR pFileId IS NULL)

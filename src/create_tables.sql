@@ -285,7 +285,7 @@ CREATE TABLE $APP_NAME$.File (
     FileSize INTEGER,
     FileType VARCHAR(100),
     FileDescription VARCHAR(500),
-    FileSource CHAR(2),
+    FileStore CHAR(2),
     FileData BYTEA,
     FileURL VARCHAR(500),
     FilePath VARCHAR(256),
