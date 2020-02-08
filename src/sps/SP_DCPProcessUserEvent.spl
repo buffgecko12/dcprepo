@@ -6,12 +6,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPProcessUserEvent (
 RETURNS VOID AS $$
 DECLARE
 	MyRecord RECORD;
-	MyExpandUserGroupEventList INTEGER[];
 BEGIN   
 
-	-- List of user events to expand to user groups
-	MyExpandUserGroupEventList = ARRAY[2, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2012];
-	
 	-- Temp table to store events
 	CREATE TEMPORARY TABLE IF NOT EXISTS tEvents (
 		ContractId INTEGER,
@@ -29,21 +25,6 @@ BEGIN
 	ON CONFLICT DO NOTHING
 	;
 
-	-- Expand user group users for specific events
-	INSERT INTO tEvents(ContractId, GoalId, PartyUserId, SourceEventId)
-	SELECT ev.ContractId, ev.GoalId, cpg.PartyUserId_Group, ev.SourceEventId
-	FROM tEvents ev
-	INNER JOIN $APP_NAME$Views.Contract_Party_Group cpg ON ev.PartyUserId = cpg.PartyUserId AND ev.ContractId = cpg.ContractId -- Get group users
-	WHERE ev.SourceEventId = ANY(MyExpandUserGroupEventList)
-	ON CONFLICT DO NOTHING
-	;
-
-	-- Delete original "event" for user groups
-	DELETE FROM tEvents
-	WHERE PartyUserId IN(SELECT PartyUserId FROM $APP_NAME$Views.Contract_Party WHERE GroupInfo IS NOT NULL)
-	AND SourceEventId = ANY(MyExpandUserGroupEventList)
-	;
-	
 	-- Update reputation info
 	FOR MyRecord IN 
 		WITH ins AS (
@@ -51,14 +32,14 @@ BEGIN
 			SELECT ev.PartyUserId, ev.SourceEventId, ev.ContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
 			FROM tEvents ev -- Get user events
 			INNER JOIN $APP_NAME$Views.Users u ON ev.PartyUserId = u.UserId -- Make sure user exists
-			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON ev.PartyUserId = ure.UserId AND ure.SourceEventId = ev.SourceEventId AND ure.ContractId = ev.ContractId -- Check if user already has this event for this contract
+--			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON ev.PartyUserId = ure.UserId AND ure.SourceEventId = ev.SourceEventId AND ure.ContractId = ev.ContractId -- Check if user already has this event for this contract
 			INNER JOIN $APP_NAME$Views.Lookup_Event le ON ev.SourceEventId = le.EventId
 			WHERE le.EventType = 'RP' -- Get reputation events only
-			AND 
-			(
-				(ev.SourceEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one for this contract
-				ev.SourceEventId <> 2002
-			)
+--			AND 
+--			(
+--				(ev.SourceEventId = 2002 AND ure.UserId IS NULL) OR -- Ignore "accept goal" reputation event if user already has one for this contract
+--				ev.SourceEventId <> 2002
+--			)
 			RETURNING UserId, PointValue
 		),
 		upd AS (
@@ -124,41 +105,12 @@ BEGIN
 						lb.BadgeThresholdValue IS NULL OR 
 						-- Threshold badges
 						(
-							( -- Goals accepted
-								le.EventId = 2002 AND (
-									SELECT COUNT(*) 
-									FROM $APP_NAME$Views.Contract_Party_Approval cpa -- Get all contract party approvals
-									LEFT JOIN $APP_NAME$Views.Contract_Party_Group cpg ON cpa.PartyUserId = cpg.PartyUserId AND cpa.ContractId = cpg.ContractId -- Get individual users associated with user group aproval
-									WHERE (
-										cpa.PartyUserId = ev.PartyUserId OR -- Individual user
-										cpg.PartyUserId_Group = ev.PartyUserId -- Group user
-									)
-									AND cpa.ApprovalType = 'C' 
-									AND cpa.PartyApprovalTS IS NOT NULL
-								) >= lb.BadgeThresholdValue -- Check if number of accepted contract goals for user has exceeded threshold value
-							) OR
 							( -- Contracts sent (teacher)
 								le.EventId = 2014 AND (
 									SELECT COUNT(*)
-									FROM $APP_NAME$Views.Contract
-									WHERE TeacherUserId = ev.PartyUserId
-									AND ContractStatus NOT IN('D','R')
-								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
-							) OR
-							( -- Goals completed
-								le.EventId = 2 AND (
-									SELECT COUNT(*)
-									FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge -- Get contracts goals completed by user
-									WHERE cpge.PartyUserId = ev.PartyUserId
-									AND cpge.AchievedFlag IS TRUE
-								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
-							) OR
-							( -- Positive feedback
-								le.EventId = 2008 AND (
-									SELECT COUNT(*)
-									FROM $APP_NAME$Views.Contract_Party_Goal_Evaluation cpge -- Lookup contract goals accepted
-									WHERE cpge.PartyUserId = ev.PartyUserId
-									AND ExperienceRating > 3 -- Only look at positive feedbacks (1 = worst, 5 = best)
+									FROM $APP_NAME$Views.Contract c
+									INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId
+									WHERE cp.TeacherUserId = ev.PartyUserId
 								) >= lb.BadgeThresholdValue -- Check if number of contracts sent out has exceeded threshold value
 							)
 						)
