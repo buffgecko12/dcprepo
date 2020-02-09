@@ -18,7 +18,7 @@ BEGIN
     		cp.ContractId, 
     		JSONB_AGG(
     			(
-    				SELECT x FROM (SELECT cp.TeacherUserId, cp.ClassId, cp.NumParticipants, cp.NumWinners, cp.ContractPartyRewardInfo) AS x
+    				SELECT x FROM (SELECT cp.TeacherUserId, cp.ClassId, cp.NumParticipants, cp.NumWinners, cp.ContractPartyRewardInfo, u.EmailAddress AS TeacherEmailAddress) AS x
     			)
     			ORDER BY cp.TeacherUserId, cp.ClassId -- Order rows in party array
     		) AS PartyInfo
@@ -31,11 +31,12 @@ BEGIN
     				ORDER BY lr.Vendor, lr.RewardDisplayName
     			) AS ContractPartyRewardInfo
     		FROM $APP_NAME$Views.Contract_Party cp
-    		INNER JOIN $APP_NAME$Views.Contract_Party_Reward cpr ON cp.ContractId = cpr.ContractId AND cp.TeacherUserId = cpr.TeacherUserId AND cp.ClassId = cpr.ClassId
-    		INNER JOIN $APP_NAME$Views.Reward lr ON cpr.RewardId = lr.RewardId
+    		LEFT JOIN $APP_NAME$Views.Contract_Party_Reward cpr ON cp.ContractId = cpr.ContractId AND cp.TeacherUserId = cpr.TeacherUserId AND cp.ClassId = cpr.ClassId
+    		LEFT JOIN $APP_NAME$Views.Reward lr ON cpr.RewardId = lr.RewardId
 		    WHERE (cp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 			GROUP BY cp.ContractId, cp.TeacherUserId, cp.ClassId
 		) cp -- Get contract party / reward info
+		LEFT JOIN $APP_NAME$Views.Users u ON cp.TeacherUserId = u.UserId -- Get user info (left join in case users is removed)
 	    GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId
 	LEFT JOIN (
