@@ -8,7 +8,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertContract(
     pEvaluationTS TIMESTAMP WITH TIME ZONE,
     pEvidenceTS TIMESTAMP WITH TIME ZONE,
     pContractStatus CHAR(1),
-    pNotes VARCHAR(500)
+    pNotes VARCHAR(500),
+    pPartyInfo JSONB
 ) 
 RETURNS INTEGER AS $$
 DECLARE
@@ -38,6 +39,11 @@ BEGIN
     	MyContractId, pSchoolYear, pContractName, pRound, pContractValidPeriod, pProposalTS, pEvaluationTS, 
     	pEvidenceTS, pContractStatus, pNotes, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59')
     ;
+    
+    -- Add party info
+    IF(pPartyInfo IS NOT NULL) THEN
+    	PERFORM $APP_NAME$Views.SP_DCPUpsertContractParty(MyContractId, NULL, NULL, NULL, NULL, pPartyInfo);
+    END IF;
     
     -- Return contractId
     RETURN MyContractId;

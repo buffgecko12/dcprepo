@@ -63,17 +63,23 @@ SELECT $APP_NAME$Views.SP_DCPDeleteReward(1);
 SELECT $APP_NAME$Views.SP_DCPDeleteReward(2);
 
 -- Add contract
-SELECT $APP_NAME$Views.SP_DCPUpsertContract(
+SELECT $APP_NAME$Views.SP_DCPUpsertContract( -- No party info
 	100, 2020, 'Reading activity', 1, TSTZRANGE(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + INTERVAL '1' MONTH),
-	NULL, NULL, NULL, 'A', 'Some notes'
+	NULL, NULL, NULL, 'A', 'Some notes', JSONB('[{"teacheruserid":100,"classid":101},{"teacheruserid":100,"classid":102}]')
+);
+
+-- Update contract
+SELECT $APP_NAME$Views.SP_DCPUpsertContract( -- Change (no party info)
+	100, 2020, 'Reading activity', 2, TSTZRANGE(CURRENT_TIMESTAMP, CURRENT_TIMESTAMP + INTERVAL '1' MONTH),
+	NULL, NULL, NULL, 'A', 'Some notes', NULL
 );
 
 -- Contract party / reward info
 SELECT $APP_NAME$Views.SP_DCPUpsertContractParty(100,100,100,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertContractParty(100,NULL,NULL,NULL,NULL,JSONB('[
-	{"contractid":100,"teacheruserid":100,"classid":100,"numparticipants":null,"numwinners":null},
-	{"contractid":100,"teacheruserid":100,"classid":101,"numparticipants":10,"numwinners":null},
-	{"contractid":100,"teacheruserid":100,"classid":102,"numparticipants":10,"numwinners":5}
+	{"teacheruserid":100,"classid":100,"numparticipants":null,"numwinners":null},
+	{"teacheruserid":100,"classid":101,"numparticipants":10,"numwinners":null},
+	{"teacheruserid":100,"classid":102,"numparticipants":10,"numwinners":5}
 ]')
 );
 SELECT $APP_NAME$Views.SP_DCPUpsertContractPartyReward(100,100,100,1, 10, 10000,NULL);
@@ -140,9 +146,6 @@ SELECT $APP_NAME$Views.SP_DCPDeleteContractPartyReward(100,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteContractParty(100,100,NULL);
 
 SELECT $APP_NAME$Views.SP_DCPDeleteContract(100);
-SELECT $APP_NAME$Views.SP_DCPDeleteContract(1); -- Duplicate Contract
-SELECT $APP_NAME$Views.SP_DCPDeleteContract(2); -- Revise Contract
-SELECT $APP_NAME$Views.SP_DCPDeleteContract(999); -- Copy Contract
 
 SELECT $APP_NAME$Views.SP_DCPDeleteTeacherClass(100,100);
 SELECT $APP_NAME$Views.SP_DCPDeleteTeacherProgram(100,2020);
