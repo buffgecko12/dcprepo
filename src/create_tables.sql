@@ -215,7 +215,7 @@ CREATE TABLE $APP_NAME$.Contract (
     SchoolYear SMALLINT NOT NULL,
     ContractName VARCHAR(100),
     Round SMALLINT,
-    ContractValidPeriod TSTZRANGE NOT NULL,
+    ContractValidPeriod TSTZRANGE,
     ProposalTS TIMESTAMP WITH TIME ZONE,
     EvaluationTS TIMESTAMP WITH TIME ZONE,
     EvidenceTS TIMESTAMP WITH TIME ZONE,
