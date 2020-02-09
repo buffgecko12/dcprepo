@@ -20,9 +20,8 @@ BEGIN
     -- Bulk update
 	ELSE
 	    INSERT INTO $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId, NumParticipants, NumWinners)
-	    SELECT src.ContractId, src.TeacherUserId, src.ClassId, src.NumParticipants, src.NumWinners
+	    SELECT pContractId, src.TeacherUserId, src.ClassId, src.NumParticipants, src.NumWinners
 		FROM JSONB_TO_RECORDSET(pPartyInfo) AS src (
-			ContractId INTEGER,
 			TeacherUserId INTEGER,
 			ClassId INTEGER,
 			NumParticipants SMALLINT,
