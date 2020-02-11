@@ -40,8 +40,9 @@ BEGIN
 	    GROUP BY cp.ContractId
     ) cp ON c.ContractId = cp.ContractId
 	LEFT JOIN (
-		SELECT src.ContractId, src.ContractValue 
+		SELECT src.ContractId, CAST(SUM(src.ContractValue) AS INTEGER) AS ContractValue 
 		FROM $APP_NAME$Views.SP_DCPGetContractValue(NULL, pContractId, NULL) AS src
+		GROUP BY src.ContractId
 	) cv ON c.ContractId = cv.ContractId -- Get contract value
     WHERE (c.ContractId = pContractId OR pContractId IS NULL)
     AND (c.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
