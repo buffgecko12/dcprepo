@@ -21,14 +21,14 @@ BEGIN
 	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('contract') INTO MyContractId;
     ELSE
     	MyContractId = pContractId;
+    	
+		-- Close current row
+		UPDATE $APP_NAME$.Contract
+		SET EndTS = CURRENT_TIMESTAMP
+		WHERE ContractId = pContractId
+		AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+		;
     END IF;
-
-	-- Close current row
-	UPDATE $APP_NAME$.Contract
-	SET EndTS = CURRENT_TIMESTAMP
-	WHERE ContractId = pContractId
-	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
-	;
 
 	-- Add new row
 	INSERT INTO $APP_NAME$.Contract (

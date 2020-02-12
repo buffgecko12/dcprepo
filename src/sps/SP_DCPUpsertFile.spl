@@ -24,15 +24,15 @@ BEGIN
 	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('file') INTO MyFileId;
     ELSE
     	MyFileId = pFileId;
+    	
+	    -- Close current row
+	    UPDATE $APP_NAME$.File
+	    SET EndTS = CURRENT_TIMESTAMP
+	    WHERE FileId = pFileId
+	    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	    ;
     END IF;
 	
-    -- Close current row
-    UPDATE $APP_NAME$.File
-    SET EndTS = CURRENT_TIMESTAMP
-    WHERE FileId = pFileId
-    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
-    ;
-    
     -- Add new row
 	INSERT INTO $APP_NAME$.File (FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileStore, FileData, FileURL,
 		FilePath, FileClass, FileCategory, ContractId, SchoolYear, StartTS, EndTS)
