@@ -5,12 +5,12 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractPartyReward(
     pRewardId INTEGER
 )
 RETURNS TABLE (
-	ContractId INTEGER, RewardId INTEGER, Quantity SMALLINT, ActualRewardValue INTEGER, Status CHAR(1), 
-	RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(100), Vendor VARCHAR(100)
+	ContractId INTEGER, TeacherUserId INTEGER, ClassId INTEGER, RewardId INTEGER, Quantity SMALLINT, ActualRewardValue INTEGER, 
+	Status CHAR(1), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(100), Vendor VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT cpr.ContractId, cpr.RewardId, cpr.Quantity, cpr.ActualRewardValue, cpr.Status, 
+    SELECT cpr.ContractId, cpr.TeacherUserId, cpr.ClassId, cpr.RewardId, cpr.Quantity, cpr.ActualRewardValue, cpr.Status, 
     	r.RewardDisplayName, r.RewardDescription, r.Vendor
     FROM $APP_NAME$Views.Contract_Party_Reward cpr
     INNER JOIN $APP_NAME$Views.Reward r ON cpr.RewardId = r.RewardId
