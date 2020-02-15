@@ -80,6 +80,7 @@
 \i install/sps/SP_DCPUpsertRole.spl
 \i install/sps/SP_DCPDeleteRole.spl
 
+\i install/sps/SP_DCPGetRoleACL.spl
 \i install/sps/SP_DCPUpsertRoleACL.spl
 \i install/sps/SP_DCPDeleteRoleACL.spl
 

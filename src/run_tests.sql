@@ -87,8 +87,9 @@ SELECT $APP_NAME$Views.SP_DCPUpsertContractPartyReward(100,100,100,1, 10, 10000,
 -- Object
 SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO');
 
--- Role
+-- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPGetRole(NULL);
+SELECT $APP_NAME$Views.SP_DCPGetRoleACL(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,200,'FL','R'); -- Check read access on specified file for given user
 
 -- Get contract info

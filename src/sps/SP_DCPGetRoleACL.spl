@@ -1,0 +1,21 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetRoleACL(
+    pRoleId INTEGER,
+    pObjectId INTEGER,
+    pObjectClass CHAR(2),
+    pAccessLevel INTEGER -- Use INTEGER instead of SMALLINT because python has no SMALLINT type
+)
+RETURNS TABLE (
+  RoleId INTEGER, ObjectId INTEGER, ObjectClass CHAR(2), AccessLevel SMALLINT
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT acl.RoleId, acl.ObjectId, acl.ObjectClass, acl.AccessLevel
+    FROM $APP_NAME$Views.Role_ACL acl
+    WHERE (acl.RoleId = pRoleId OR pRoleId IS NULL)
+    AND (acl.ObjectId = pObjectId OR pObjectId IS NULL)
+    AND (acl.ObjectClass = pObjectClass OR pObjectClass IS NULL)
+    AND (acl.AccessLevel = pAccessLevel OR pAccessLevel IS NULL)
+    ORDER BY acl.RoleId, acl.ObjectId, acl.ObjectClass, acl.AccessLevel
+    ;
+END;
+$$ LANGUAGE 'plpgsql';
