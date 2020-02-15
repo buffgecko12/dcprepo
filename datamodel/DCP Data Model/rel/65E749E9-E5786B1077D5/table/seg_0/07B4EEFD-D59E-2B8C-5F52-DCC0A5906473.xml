@@ -53,7 +53,6 @@
 AD - Admin (program administrator)
 TR - teacher
 ST - student
-SG - student group
 SF - school staff
 OT - other]]></comment>
 <generatorID>82C0BA22-F218-269F-071B-DCE5F8D7B8D2</generatorID>
@@ -154,23 +153,6 @@ Used to calculate newly gained reputation points]]></comment>
 <logicalDatatype>ACF56F06-188D-C6E7-7494-F77E788D9647</logicalDatatype>
 <domain>6D3F6CFE-F371-A990-DB03-067F7194548D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
-<autoIncrementCycle>false</autoIncrementCycle>
-</Column>
-<Column name="UserRole" id="042CFFC7-50E7-1715-2341-E42ABBFB4F75">
-<createdBy>ravioli</createdBy>
-<createdTime>2018-04-15 14:04:59 UTC</createdTime>
-<comment><![CDATA[Role used for site permissions
-
-S - super user
-A - admin
-U - user]]></comment>
-<ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>1</dataTypeSize>
-<ownDataTypeParameters>1,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ProfilePictureId" id="DA778F68-C234-CB02-A349-A6EEA4B93E66">

@@ -15,7 +15,7 @@ BEGIN
     RETURN QUERY
     -- Lookup a single user based on userid OR emailaddress / username
     SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, EmailAddress, Password, 
-    	   ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, Last_Login, Is_Active
+    	   ReputationValue, ReputationValueLastSeenTS, ProfilePictureId, Last_Login, Is_Active
     FROM $APP_NAME$Views.Users
     WHERE (UserId = pUserId OR pUserId IS NULL)
     AND (Username = pUsername OR pUsername IS NULL)

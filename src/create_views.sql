@@ -33,7 +33,7 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.User_Profile_Picture AS SELECT * FROM $AP
 -- Users
 CREATE OR REPLACE VIEW $APP_NAME$Views.Users AS 
 SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, EmailAddress, Password, 
-		ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, 
+		ReputationValue, ReputationValueLastSeenTS, ProfilePictureId, 
 		Last_Login, Is_Active -- Required for django authentication
 FROM $APP_NAME$.Users u
 WHERE UserId <> 0 -- Ignore reserve fields

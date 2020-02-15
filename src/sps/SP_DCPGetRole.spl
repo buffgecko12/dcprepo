@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetRole(
-    pRoleId INTEGER
+    pRoleId INTEGER,
+    pName VARCHAR(100)
 )
 RETURNS TABLE (
   RoleId INTEGER, Name VARCHAR(100), Description VARCHAR(500), PublicFlag BOOLEAN, 
@@ -10,6 +11,7 @@ BEGIN
     SELECT r.RoleId, r.Name, r.Description, r.PublicFlag, r.SchoolList, r.UserList, r.UserTypeList
     FROM $APP_NAME$Views.Role r
     WHERE (r.RoleId = pRoleId OR pRoleId IS NULL)
+    AND (r.Name = pName OR pName IS NULL)
     ORDER BY r.PublicFlag, r.SchoolList, r.UserTypeList, r.UserList, r.Name
     ;
 END;

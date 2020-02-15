@@ -3,7 +3,7 @@
 -- Permissions
 CREATE TABLE $APP_NAME$.Role (
 	RoleId INTEGER NOT NULL,
-	Name VARCHAR(100) NOT NULL,
+	Name VARCHAR(100) NOT NULL UNIQUE,
 	Description VARCHAR(500),
 	PublicFlag BOOLEAN,
 	SchoolList INTEGER[],
@@ -157,7 +157,6 @@ CREATE TABLE $APP_NAME$.Users (
     Password VARCHAR(128),
     ReputationValue INTEGER DEFAULT 0,
     ReputationValueLastSeenTS TIMESTAMP WITH TIME ZONE,
-    UserRole CHAR(1),
     ProfilePictureId INTEGER,
     Last_Login TIMESTAMP WITH TIME ZONE,
 	Is_Active BOOLEAN, -- Required for django authentication

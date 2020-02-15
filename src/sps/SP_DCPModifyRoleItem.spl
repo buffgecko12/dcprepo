@@ -1,0 +1,43 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPModifyRoleItem(
+    pRoleId INTEGER,
+    pUserId INTEGER,
+    pSchoolId INTEGER,
+    pUserType CHAR(2),
+    pChangeType CHAR(1)
+)
+RETURNS VOID AS $$
+BEGIN
+
+	UPDATE $APP_NAME$.Role
+	SET UserList = 
+			CASE WHEN pUserId IS NOT NULL THEN 
+				CASE pChangeType
+					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(UserList || pUserId) e) -- Don't add duplicates
+--					WHEN 'A' THEN ARRAY_APPEND(UserList, pUserId)
+					WHEN 'D' THEN ARRAY_REMOVE(UserList, pUserId)
+				END
+			ELSE UserList
+			END,
+		SchoolList = 
+			CASE WHEN pSchoolId IS NOT NULL THEN 
+				CASE pChangeType
+					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(SchoolList || pSchoolId) e) -- Don't add duplicates
+--					WHEN 'A' THEN ARRAY_APPEND(SchoolList, pSchoolId)
+					WHEN 'D' THEN ARRAY_REMOVE(SchoolList, pSchoolId)
+				END
+			ELSE SchoolList
+			END,
+		UserTypeList = 
+			CASE WHEN pUserType IS NOT NULL THEN 
+				CASE pChangeType
+					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(UserTypeList || pUserType) e) -- Don't add duplicates
+--					WHEN 'A' THEN ARRAY_APPEND(UserTypeList, pUserType)
+					WHEN 'D' THEN ARRAY_REMOVE(UserTypeList, pUserType)
+				END
+			ELSE UserTypeList
+			END
+	WHERE RoleId = pRoleId
+	;
+	
+END;
+$$ LANGUAGE 'plpgsql';

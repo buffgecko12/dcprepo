@@ -4,7 +4,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertClass (0, 0, 2020, 'DEACTIVATED', 0, NULL);
 
 --SELECT $APP_NAME$Views.SP_DCPUpsertUser (-1, 'Anonymous', 'OT', '', '', NULL, NULL, NULL,NULL,'U',NULL);
 
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 0, 'DEACTIVATED', 'OT', '', '', NULL,NULL,'U',NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (0, 0, 'DEACTIVATED', 'OT', '', '', NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteUser(0);
 
 -- Load NextId initial values
