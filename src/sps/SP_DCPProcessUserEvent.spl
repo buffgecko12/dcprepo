@@ -31,7 +31,7 @@ BEGIN
 			INSERT INTO $APP_NAME$.User_Reputation_Event (UserId, SourceEventId, ContractId, PointValue, EventTS)
 			SELECT ev.PartyUserId, ev.SourceEventId, ev.ContractId, le.DefaultReputationPointValue, CURRENT_TIMESTAMP
 			FROM tEvents ev -- Get user events
-			INNER JOIN $APP_NAME$Views.Users u ON ev.PartyUserId = u.UserId -- Make sure user exists
+			INNER JOIN $APP_NAME$Views.UsersActive u ON ev.PartyUserId = u.UserId -- Make sure user exists
 --			LEFT JOIN $APP_NAME$Views.User_Reputation_Event ure ON ev.PartyUserId = ure.UserId AND ure.SourceEventId = ev.SourceEventId AND ure.ContractId = ev.ContractId -- Check if user already has this event for this contract
 			INNER JOIN $APP_NAME$Views.Lookup_Event le ON ev.SourceEventId = le.EventId
 			WHERE le.EventType = 'RP' -- Get reputation events only
@@ -88,7 +88,7 @@ BEGIN
 						INNER JOIN $APP_NAME$Views.Lookup_Event le ON le.EventId = 1 -- Reputation thresholds
 					) src
 				) AS ev
-				INNER JOIN $APP_NAME$Views.Users u ON ev.PartyUserId = u.UserId -- Make sure user exists
+				INNER JOIN $APP_NAME$Views.UsersActive u ON ev.PartyUserId = u.UserId -- Make sure user exists
 				INNER JOIN $APP_NAME$Views.Lookup_Event le ON (ev.SourceEventId = le.EventId) -- Get event info
 				INNER JOIN $APP_NAME$Views.Lookup_Badge lb ON le.EventId = lb.SourceEventId -- Look up badges associated with events
 				WHERE NOT EXISTS(SELECT 1 FROM $APP_NAME$Views.User_Badge ub WHERE lb.BadgeId = ub.BadgeId AND ub.UserId = ev.PartyUserId) -- Exclude badges user has already earned

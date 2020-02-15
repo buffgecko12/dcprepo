@@ -36,9 +36,10 @@ SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, EmailAddress, 
 		ReputationValue, ReputationValueLastSeenTS, UserRole, ProfilePictureId, 
 		Last_Login, Is_Active -- Required for django authentication
 FROM $APP_NAME$.Users u
-WHERE Is_Active IS TRUE -- Ignore deactivated users
-AND UserId <> 0 -- Ignore reserve fields
+WHERE UserId <> 0 -- Ignore reserve fields
 ;
+
+CREATE OR REPLACE VIEW $APP_NAME$Views.UsersActive AS SELECT * FROM $APP_NAME$.Users WHERE Is_Active IS TRUE;
 
 -- Lookup
 CREATE OR REPLACE VIEW $APP_NAME$Views.Reward AS SELECT * FROM $APP_NAME$.Reward WHERE EndTS = TIMESTAMP '9999-12-31 23:59:59';
