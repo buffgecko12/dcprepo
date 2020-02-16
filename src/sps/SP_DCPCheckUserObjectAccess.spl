@@ -9,35 +9,31 @@ USE CASES
 1. Check if user has access to view contracts
 2. Check if user has access to download a file
 
+0 - No access
+1 - Browse / List
+4 - Read /download
+8 - Edit / Write
+12 - Delete
+
 */
 
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCheckUserObjectAccess(
     pUserId INTEGER,
     pObjectId INTEGER,
     pObjectClass CHAR(2),
-    pRequestedAccess CHAR(1)
+    pRequestedAccessLevel INTEGER
 )
-RETURNS BOOLEAN AS $$
+RETURNS TABLE (
+	UserId INTEGER, -- Need to return PK field for Django user object
+	HasAccess BOOLEAN
+) AS $$
 DECLARE
 	MyAccessLevel SMALLINT;
-	RequestedAccessLevel SMALLINT;
 	AccessFlag BOOLEAN DEFAULT FALSE;
 BEGIN
 
-	-- Convert requested access level
-	RequestedAccessLevel = CAST(
-		CASE pRequestedAccess 
-			WHEN 'N' THEN 0
-			WHEN 'B' THEN 1 -- Browse / List
-			WHEN 'R' THEN 4 -- Read (details)
-			WHEN 'W' THEN 8 -- Edit / Write
-			WHEN 'D' THEN 12 -- Delete
-			ELSE 0
-		END AS SMALLINT)
-	;
-
 	-- Implicit Permissions (check first)
-	IF(pObjectClass = 'F') THEN 
+	IF(pObjectClass = 'FL') THEN 
 	
 		-- Contract files
 	    SELECT 4 INTO MyAccessLevel -- Default read access (i.e. download)
@@ -51,8 +47,8 @@ BEGIN
 	    ;
 	END IF;
 	    
-	-- Explicit Permissions (continue only if implicit permissions 
-	IF(AccessFlag IS NOT TRUE) THEN
+	-- Explicit Permissions (continue only if no implicit permissions)
+	IF(MyAccessLevel IS NULL OR MyAccessLevel < pRequestedAccessLevel) THEN
 
 		-- Return access level for a given user / object
 		SELECT 
@@ -86,8 +82,10 @@ BEGIN
 	END IF;
 
 	-- Check if user has requested access
-	AccessFlag = CASE WHEN COALESCE(MyAccessLevel,0) >= RequestedAccessLevel THEN TRUE ELSE FALSE END;
+	AccessFlag = CASE WHEN COALESCE(MyAccessLevel,0) >= pRequestedAccessLevel THEN TRUE ELSE FALSE END;
 
-	RETURN AccessFlag;	
+	RETURN QUERY
+	SELECT puserId, AccessFlag
+	;	
 END;
 $$ LANGUAGE 'plpgsql';

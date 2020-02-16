@@ -90,7 +90,7 @@ SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO');
 -- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetRoleACL(NULL,NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,200,'FL','R'); -- Check read access on specified file for given user
+SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,200,'FL',4); -- Check read access on specified file for given user
 SELECT $APP_NAME$Views.SP_DCPModifyRoleItem(1,100,NULL,NULL,'A');
 
 -- Get contract info
