@@ -73,10 +73,12 @@ BEGIN
 		INNER JOIN $APP_NAME$Views.Role_ACL ra ON o.ObjectId = ra.ObjectId AND o.ObjectClass = ra.ObjectClass -- Roles associated with objects
 		INNER JOIN $APP_NAME$Views.Role r ON ra.RoleId = r.RoleId -- Role info
 		INNER JOIN $APP_NAME$Views.Users u ON u.UserId = pUserId -- User info
-		WHERE (r.PublicFlag IS TRUE AND r.PublicFlag IS NOT NULL) -- check public flag (only if specified)
-		OR (u.SchoolId = ANY(r.SchoolList) AND r.SchoolList IS NOT NULL) -- check schools (only if specifeid)
-		OR (u.UserType = ANY(r.UserTypeList) AND r.UserTypeList IS NOT NULL) -- check user types (only if specified)
-		OR (u.UserId = ANY(r.UserList) AND r.UserList IS NOT NULL) -- check user list (only if specified)
+		WHERE r.PublicFlag IS TRUE -- Public
+		OR u.UserId = ANY(r.UserList) -- Specific user
+		OR ( -- Check School and UserType together (in case they are both are specified)
+		    (u.SchoolId = ANY(r.SchoolList) OR r.SchoolList IS NULL) AND -- School
+		    (u.UserType = ANY(r.UserTypeList) OR r.UserTypeList IS NULL ) -- UserType
+		)
 		;
 	
 	END IF;

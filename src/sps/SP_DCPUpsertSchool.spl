@@ -6,25 +6,30 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchool (
 	pCity VARCHAR(100),
 	pDepartment VARCHAR(100)
 ) 
-RETURNS INTEGER AS $$
+RETURNS TABLE (
+	MySchoolId INTEGER, MyRoleIds JSONB
+) AS $$
 DECLARE 
 	MySchoolId INTEGER; -- Return new school id (if created)
+	MyRoleIds JSONB;
 BEGIN   
 
+	-- Initialize variable
+	MyRoleIds = '{}';
+	
 	-- Get next id value (for new school only)
 	IF(pSchoolId IS NULL) THEN
 	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('school') INTO MySchoolId;
 	    
 	    -- Create default roles
-		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
-			NULL, pSchoolAbbreviation || ' - Docentes', 'Todos los docentes del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{TR}', NULL
-		);
-		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
-			NULL, pSchoolAbbreviation || ' - General', 'Todos los integrantes del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), NULL, NULL
-		);
-		PERFORM $APP_NAME$Views.SP_DCPUpsertRole(
-			NULL, pSchoolAbbreviation || ' - Administraci' || U&'\00F3' || 'n', 'La administracion del colegio ' || pSchoolDisplayName, FALSE, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{SF}', NULL
-		);
+		MyRoleIds = MyRoleIds || 
+			JSONB_BUILD_OBJECT('teachers',
+				(SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, pSchoolAbbreviation || ' - Docentes', 'Todos los docentes del colegio ' || pSchoolDisplayName, NULL, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{TR}', NULL))) || 
+			JSONB_BUILD_OBJECT('school',
+				(SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, pSchoolAbbreviation || ' - General', 'Todos los integrantes del colegio ' || pSchoolDisplayName, NULL, CAST('{' || MySchoolId || '}' AS INTEGER[]), NULL, NULL))) ||
+			JSONB_BUILD_OBJECT('admin',
+				(SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, pSchoolAbbreviation || ' - Administraci' || U&'\00F3' || 'n', 'La administracion del colegio ' || pSchoolDisplayName, NULL, CAST('{' || MySchoolId || '}' AS INTEGER[]), '{SF}', NULL)))
+		;
 	    
     ELSE
     	-- Existing school
@@ -45,6 +50,7 @@ BEGIN
     ;   
     
 	-- Return new id (if new school)
-    RETURN MySchoolId;   
+    RETURN QUERY 
+    SELECT MySchoolId, MyRoleIds;   
 END;
 $$ LANGUAGE 'plpgsql';
