@@ -1,6 +1,6 @@
 -- Create objects
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'contract');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(2, 'VW', 'download_file');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'some_object');
+SELECT $APP_NAME$Views.SP_DCPUpsertObject(2, 'VW', 'some_view');
 
 -- Create Roles (do NULL ID upsert first to preserve next ID ordering)
 SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Some role', 'Some description', NULL, '{200}', NULL, NULL);
@@ -85,7 +85,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertContractParty(100,NULL,NULL,NULL,NULL,JSONB('
 SELECT $APP_NAME$Views.SP_DCPUpsertContractPartyReward(100,100,100,1, 10, 10000,NULL);
 
 -- Object
-SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO');
+SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO', NULL);
 
 -- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL);

@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetObject(
     pObjectId INTEGER,
-    pObjectClass CHAR(2)
+    pObjectClass CHAR(2),
+    pObjectName VARCHAR(100)
 )
 RETURNS TABLE (ObjectId INTEGER, ObjectClass CHAR(2), ObjectName VARCHAR(100)) AS $$
 BEGIN
@@ -9,6 +10,7 @@ BEGIN
     FROM $APP_NAME$Views.Object o
 	WHERE (o.ObjectId = pObjectId OR pObjectId IS NULL)
 	AND (o.ObjectClass = pObjectClass OR pObjectClass IS NULL)
+	AND (o.ObjectName = pObjectName OR pObjectName IS NULL)
 	ORDER BY o.ObjectClass, o.ObjectName
 	;
 END;
