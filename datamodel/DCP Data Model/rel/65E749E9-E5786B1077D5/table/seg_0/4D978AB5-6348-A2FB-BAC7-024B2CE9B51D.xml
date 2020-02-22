@@ -38,7 +38,6 @@ VW - view (i.e. download_file)
 <commentInRDBMS><![CDATA[BO - contract, school, class
 VW - download_file]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
-<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>

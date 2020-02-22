@@ -51,6 +51,7 @@
 <comment><![CDATA[User role:
 
 SU - Super user
+SA - Site admin
 AD - Admin (program administrator)
 TR - teacher
 ST - student
