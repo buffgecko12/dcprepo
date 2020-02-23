@@ -13,6 +13,7 @@ USE CASES
 1 - Browse / List
 4 - Read /download
 8 - Edit / Write
+10 - Create
 12 - Delete
 
 */
