@@ -53,9 +53,9 @@
 SU - Super user
 SA - Site admin
 AD - Admin (program administrator)
-TR - teacher
-ST - student
 SF - school staff
+TR - teacher
+ST - student (unused)
 OT - other]]></comment>
 <generatorID>82C0BA22-F218-269F-071B-DCE5F8D7B8D2</generatorID>
 <ownerDesignName>DCP Data Model</ownerDesignName>

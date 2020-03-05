@@ -54,6 +54,7 @@ CT - Contract]]></commentInRDBMS>
 1 - Browse (metadata; list objects)
 4 - Read (object details)
 8 - Write
+10 - Create
 12 -  Delete]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
@@ -101,7 +102,7 @@ CT - Contract]]></commentInRDBMS>
 <createdTime>2020-02-01 03:46:53 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableID>4D978AB5-6348-A2FB-BAC7-024B2CE9B51D</referredTableID>
-<referredTableLongName>Objects_ACL</referredTableLongName>
+<referredTableLongName>Object</referredTableLongName>
 </impliedForeignKey>
 </impliedForeignKeys>
 </Table>
