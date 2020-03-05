@@ -2,16 +2,47 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertRoleACL (
 	pRoleId INTEGER,
 	pObjectId INTEGER,
 	pObjectClass CHAR(2),
-	pAccessLevel INTEGER
+	pAccessLevel INTEGER,
+	pACLList JSONB
 ) 
 RETURNS VOID AS $$
 BEGIN   
 
 	INSERT INTO $APP_NAME$.Role_ACL(RoleId, ObjectId, ObjectClass, AccessLevel)
-	VALUES(pRoleId, pObjectId, pObjectClass, pAccessLevel)
+	SELECT RoleId, ObjectId, ObjectClass, MAX(AccessLevel) AS AccessLevel -- Get max if duplicates
+	FROM (
+		-- Single entry
+		SELECT CAST(pRoleId AS INTEGER) AS RoleId, CAST(pObjectId AS INTEGER) AS ObjectId, CAST(pObjectClass AS CHAR(2)) AS ObjectClass, CAST(pAccessLevel AS SMALLINT) AS AccessLevel
+		WHERE pACLList IS NULL
+		
+		UNION ALL
+
+		-- Batch
+        SELECT 
+            src.RoleId, 
+            CAST(acl.value->'objectid' AS INTEGER) AS ObjectId,
+            acl.value->>'objectclass' AS ObjectClass,
+            CAST(acl.value->'accesslevel' AS INTEGER) AS AccessLevel
+        FROM (
+            SELECT batch.RoleId, batch.aclinfo
+            FROM JSONB_TO_RECORDSET(pACLList) AS batch (RoleId INTEGER, AclInfo JSONB)
+        ) src    
+        CROSS JOIN JSONB_ARRAY_ELEMENTS(src.aclinfo) AS acl		
+		
+--		SELECT batch.RoleId, batch.ObjectId, batch.ObjectClass, batch.AccessLevel
+--		FROM JSONB_TO_RECORDSET(pACLList) AS batch (
+--			RoleId INTEGER,
+--			ObjectId INTEGER,
+--			ObjectClass CHAR(2),
+--			AccessLevel SMALLINT
+--		)
+		WHERE pACLList IS NOT NULL
+	) src
+	WHERE RoleId IS NOT NULL
+	GROUP BY src.RoleId, src.ObjectId, src.ObjectClass
 	ON CONFLICT (RoleId, ObjectId, ObjectClass) DO UPDATE
 	SET AccessLevel = EXCLUDED.AccessLevel
 	;
-
+	
 END;
 $$ LANGUAGE 'plpgsql';

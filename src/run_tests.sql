@@ -11,7 +11,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, 'Some role (school 2)', 'Some descrip
 SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,2020);
 SELECT $APP_NAME$Views.SP_DCPUpsertFile(200,'MySchoolDataPolicy2','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,2020);
 
-SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 200, 'FL', 4); -- Set role ACL
+SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 200, 'FL', 4, NULL); -- Set role ACL
 
 -- Add reward info
 SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'Pizza Show');
@@ -125,7 +125,7 @@ SELECT SP_DCPGetFile(100, NULL, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, 'BD');
 SELECT $APP_NAME$Views.SP_DCPDeleteClass(100);
-SELECT $APP_NAME$Views.SP_DCPDeleteSchool(100);
+SELECT $APP_NAME$Views.SP_DCPDeleteSchool(NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteFile(100, NULL);
 
 -- Object
