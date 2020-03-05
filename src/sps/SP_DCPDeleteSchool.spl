@@ -7,12 +7,12 @@ BEGIN
 	-- Set schoolId as unassigned
 	UPDATE $APP_NAME$.Users
 	SET SchoolId = 0
-	WHERE SchoolId = pSchoolId;
+	WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL);
 	
 	-- Delete school
 	UPDATE $APP_NAME$.School 
 	SET EndTS = CURRENT_TIMESTAMP
-	WHERE SchoolId = pSchoolId
+	WHERE (SchoolId = pSchoolId OR pSchoolId IS NULL)
 	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
 	;
 	
