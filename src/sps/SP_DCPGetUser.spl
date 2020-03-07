@@ -10,26 +10,30 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUser(
     pEmailAddress VARCHAR(250),
     pActiveFlag BOOLEAN
 )
-RETURNS SETOF $APP_NAME$Views.Users AS $$
+RETURNS TABLE (
+	UserId INTEGER, SchoolId INTEGER, UserName VARCHAR(50), UserType CHAR(2), FirstName VARCHAR(100), LastName VARCHAR(100), UserDisplayName VARCHAR(250), 
+	EmailAddress VARCHAR(250), Password VARCHAR(128), ReputationValue INTEGER, ReputationValueLastSeenTS TIMESTAMPTZ, ProfilePictureId INTEGER, 
+	Last_Login TIMESTAMPTZ, Is_Active BOOLEAN
+) AS $$
 BEGIN
     RETURN QUERY
     -- Lookup a single user based on userid OR emailaddress / username
-    SELECT UserId, SchoolId, UserName, UserType, FirstName, LastName, EmailAddress, Password, 
-    	   ReputationValue, ReputationValueLastSeenTS, ProfilePictureId, Last_Login, Is_Active
-    FROM $APP_NAME$Views.Users
-    WHERE (UserId = pUserId OR pUserId IS NULL)
-    AND (Username = pUsername OR pUsername IS NULL)
+    SELECT u.UserId, u.SchoolId, u.UserName, u.UserType, u.FirstName, u.LastName, u.UserDisplayName, u.EmailAddress, u.Password, 
+    u.ReputationValue, u.ReputationValueLastSeenTS, u.ProfilePictureId, u.Last_Login, u.Is_Active
+    FROM $APP_NAME$Views.Users u
+    WHERE (u.UserId = pUserId OR pUserId IS NULL)
+    AND (u.Username = pUsername OR pUsername IS NULL)
     AND 
     (
     	(
-    		EmailAddress = pEmailAddress AND
-    		TRIM(EmailAddress) <> '' -- Exclude empty e-mail addresses
+    		u.EmailAddress = pEmailAddress AND
+    		TRIM(u.EmailAddress) <> '' -- Exclude empty e-mail addresses
 		) OR 
     	pEmailAddress IS NULL
 	)
     AND (
-	    Is_Active = pActiveFlag OR
-	    (pActiveFlag IS NULL AND Is_Active = TRUE) -- Default to "active"
+	    u.Is_Active = pActiveFlag OR
+	    (pActiveFlag IS NULL AND u.Is_Active = TRUE) -- Default to "active"
     )
     ;
 END;
