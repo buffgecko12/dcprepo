@@ -6,14 +6,16 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetClass(
     pClassDisplayName VARCHAR(100)
 )
 RETURNS TABLE (
-	ClassId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, SchoolDisplayName VARCHAR(100), ClassDisplayName VARCHAR(100), GradeLevel SMALLINT, NumStudentSurveys SMALLINT
+	ClassId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, SchoolAbbreviation VARCHAR(25), SchoolDisplayName VARCHAR(100), 
+	ClassDisplayName VARCHAR(100), GradeLevel SMALLINT, NumStudentSurveys SMALLINT, TeacherDisplayName VARCHAR(250)
 ) AS $$
 BEGIN
     RETURN QUERY -- Return these query results
-    SELECT DISTINCT cl.ClassId, cl.SchoolId, cl.SchoolYear, sc.SchoolDisplayName, cl.ClassDisplayName, cl.GradeLevel, cl.NumStudentSurveys
+    SELECT DISTINCT cl.ClassId, cl.SchoolId, cl.SchoolYear, sc.SchoolAbbreviation, sc.SchoolDisplayName, cl.ClassDisplayName, cl.GradeLevel, cl.NumStudentSurveys, u.UserDisplayName AS TeacherDisplayName
     FROM $APP_NAME$Views.Class cl
     INNER JOIN $APP_NAME$Views.School sc ON cl.SchoolId = sc.SchoolId -- Look up school info
 	LEFT JOIN $APP_NAME$Views.Teacher_Class tc ON cl.ClassId = tc.ClassId -- Lookup teacher info
+	LEFT JOIN $APP_NAME$Views.Users u ON tc.TeacherUserId = u.UserId -- Get user info
     WHERE (cl.ClassId = pClassId OR pClassId IS NULL)
     AND (cl.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (cl.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
