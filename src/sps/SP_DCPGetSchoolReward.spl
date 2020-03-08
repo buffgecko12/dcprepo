@@ -9,7 +9,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, lr.RewardDescription, lr.RewardValue
+    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, lr.RewardDescription, sr.RewardValue
     FROM $APP_NAME$Views.School s
     INNER JOIN $APP_NAME$Views.School_Reward sr ON s.SchoolId = sr.SchoolId
     INNER JOIN (

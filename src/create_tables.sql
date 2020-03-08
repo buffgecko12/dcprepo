@@ -115,6 +115,7 @@ CREATE TABLE $APP_NAME$.School_Reward (
 	SchoolId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	SchoolYear SMALLINT NOT NULL,
+	RewardValue INTEGER NOT NULL,
 	PRIMARY KEY (SchoolId, RewardId)
 --	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
 --	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Reward (RewardId) -- Can't use with history rows

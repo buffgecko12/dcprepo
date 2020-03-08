@@ -40,6 +40,17 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="RewardValue" id="78EE8324-7DDE-CDDB-ED3E-8EEE38E97490">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-08 16:56:41 UTC</createdTime>
+<comment><![CDATA[School-specific value.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="03D9CEF9-4850-63BA-F33A-645F69E09D30" name="PKv2v1v1v1">
@@ -61,7 +72,7 @@
 <createdTime>2020-01-30 04:10:11 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableID>7A867A0E-912C-C4CB-6EBA-9F7C855B7257</referredTableID>
-<referredTableLongName>Lookup_Reward</referredTableLongName>
+<referredTableLongName>Reward</referredTableLongName>
 </impliedForeignKey>
 <impliedForeignKey name="ImpliedForeignKey_1v10" id="35BA00AA-DAB0-1265-2B53-A046BF111166">
 <createdBy>ravioli</createdBy>
