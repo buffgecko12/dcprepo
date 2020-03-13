@@ -26,7 +26,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertClass(102, 100, 2020, '9-05', 9, NULL); -- Cl
 
 -- Create school-related items (rubric, calendar, rewards)
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(100,1,NULL,2020,1000);
-SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(200,NULL,'{1,2}',2020,0);
+SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(200,NULL,JSONB('[{"rewardid":1,"rewardvalue":1000},{"rewardid":2,"rewardvalue":4000}]'),2020,0);
 SELECT $APP_NAME$Views.SP_DCPGetSchoolReward(100,1,NULL);
 
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolCalendar(NULL,100,2020,CURRENT_DATE,'Entrega de propuestas','Entrega',1);

@@ -1,23 +1,36 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolReward (
 	pSchoolId INTEGER,
 	pRewardId INTEGER,
-	pRewardIdList INTEGER[],
+	pRewardInfo JSONB,
 	pSchoolYear INTEGER,
 	pRewardValue INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN   
 
-	INSERT INTO $APP_NAME$.School_Reward(SchoolId, RewardId, SchoolYear, RewardValue)
-	SELECT pSchoolId, r.RewardId, r.SchoolYear, COALESCE(pRewardValue, r.RewardValue)
-	FROM $APP_NAME$Views.Reward r
-	WHERE (
-		r.RewardId = pRewardId OR -- Single reward
-		r.RewardId = ANY(pRewardIdList) -- List of rewards
-	)
-	AND r.SchoolYear = pSchoolYear -- Make sure rewards are for given school year
-	ON CONFLICT (SchoolId, RewardId) DO NOTHING
-	;
+	-- Clean out existing entries for bulk load
+	IF(pRewardInfo IS NOT NULL) THEN
+		DELETE FROM $APP_NAME$.School_Reward
+		WHERE SchoolId = pSchoolId
+		AND SchoolYear = pSchoolYear
+		;
+	END IF;
 
+	INSERT INTO $APP_NAME$.School_Reward(SchoolId, RewardId, SchoolYear, RewardValue)
+	SELECT pSchoolId, src.RewardId, pSchoolYear, src.RewardValue
+	FROM $APP_NAME$Views.Reward r
+	INNER JOIN (
+		-- Single record
+		SELECT CAST(pRewardId AS INTEGER) AS RewardId, CAST(pRewardValue AS INTEGER) AS RewardValue
+
+		UNION -- Ignore duplicates
+		
+		-- Batch
+		SELECT RewardId, RewardValue
+		FROM JSONB_TO_RECORDSET(pRewardInfo) AS src(RewardId INTEGER, RewardValue INTEGER)
+	) src ON r.RewardId = src.RewardId
+	ON CONFLICT (SchoolId, RewardId) DO UPDATE -- SchoolYear is not part of PK
+	SET RewardValue = EXCLUDED.RewardValue
+	;
 END;
 $$ LANGUAGE 'plpgsql';
