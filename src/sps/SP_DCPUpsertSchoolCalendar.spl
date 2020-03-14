@@ -3,24 +3,41 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertSchoolCalendar (
 	pSchoolId INTEGER,
 	pSchoolYear INTEGER,
 	pItemDate DATE,
-	pItemType VARCHAR(100),
-	pItemDescription VARCHAR(500),
-	pRound INTEGER
+	pItemType VARCHAR(10),
+	pItemNotes VARCHAR(500),
+	pRound INTEGER,
+	pCalendarInfo JSONB
 ) 
 RETURNS VOID AS $$
 BEGIN   
 
-	-- Delete existing item first
-	IF(pCalendarItemId IS NOT NULL) THEN
+	-- Bulk update
+	IF(pCalendarInfo IS NOT NULL) THEN
+	
+		-- Delete current rows for given school and year
+		DELETE FROM $APP_NAME$.School_Calendar
+		WHERE SchoolId = pSchoolId
+		AND (SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+		;
+		
+		-- Add new rows
+		INSERT INTO $APP_NAME$.School_Calendar(SchoolId, SchoolYear, ItemDate, ItemType, ItemNotes, Round)
+		SELECT pSchoolId, pSchoolYear, src.ItemDate, src.ItemType, src.ItemNotes, src.Round
+		FROM JSONB_TO_RECORDSET(pCalendarInfo) AS src(ItemDate DATE, ItemType VARCHAR(10), ItemNotes VARCHAR(500), Round SMALLINT)
+		ON CONFLICT(CalendarItemId) DO NOTHING
+		;
+		
+	-- Single row	
+	ELSE
+	
 		DELETE FROM $APP_NAME$.School_Calendar
 		WHERE CalendarItemId = pCalendarItemId
 		;
+		
+		INSERT INTO $APP_NAME$.School_Calendar(SchoolId, SchoolYear, ItemDate, ItemType, ItemNotes, Round)
+		VALUES(pSchoolId, pSchoolYear, pItemDate, pItemType, pItemNotes, pRound)
+		;
+	
 	END IF;
-
-	-- Insert
-	INSERT INTO $APP_NAME$.School_Calendar(SchoolId, SchoolYear, ItemDate, ItemType, ItemDescription, Round)
-	VALUES (pSchoolId, pSchoolYear, pItemDate, pItemType, pItemDescription, pRound)
-	;
-
 END;
 $$ LANGUAGE 'plpgsql';

@@ -113,8 +113,8 @@ CREATE TABLE $APP_NAME$.School_Calendar (
 	SchoolId INTEGER NOT NULL,
 	SchoolYear SMALLINT NOT NULL,
 	ItemDate DATE NOT NULL,
-	ItemType VARCHAR(100) NOT NULL,
-	ItemDescription VARCHAR(500),
+	ItemType VARCHAR(10) NOT NULL,
+	ItemNotes VARCHAR(500),
 	Round SMALLINT,
 	PRIMARY KEY (CalendarItemId)
 --	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows

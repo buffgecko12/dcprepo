@@ -29,8 +29,8 @@ SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(100,1,NULL,2020,1000);
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(200,NULL,JSONB('[{"rewardid":1,"rewardvalue":1000},{"rewardid":2,"rewardvalue":4000}]'),2020,0);
 SELECT $APP_NAME$Views.SP_DCPGetSchoolReward(100,1,NULL);
 
-SELECT $APP_NAME$Views.SP_DCPUpsertSchoolCalendar(NULL,100,2020,CURRENT_DATE,'Entrega de propuestas','Entrega',1);
-SELECT $APP_NAME$Views.SP_DCPGetSchoolCalendar(NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertSchoolCalendar(NULL,100,2020,CURRENT_DATE,'CTE','Entrega',1,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetSchoolCalendar(NULL,NULL,NULL,NULL,NULL);
 
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolRubric(NULL,100,2020,'PT','Entrega de los contratos','Entrega',50);
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolRubric(NULL,100,2020,'PT','Entrega de las evidencias','Evidencias',50);

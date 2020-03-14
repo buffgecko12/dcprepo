@@ -67,11 +67,11 @@ OT - Other]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ItemDescription" id="72CAC628-C2BE-4736-1555-75B333BA3C98">
+<Column name="ItemNotes" id="72CAC628-C2BE-4736-1555-75B333BA3C98">
 <createdBy>ckhosravi</createdBy>
 <createdTime>2020-01-16 11:07:28 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
