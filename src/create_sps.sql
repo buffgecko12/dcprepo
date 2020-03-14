@@ -74,6 +74,7 @@
 
 -- Other
 \i install/sps/SP_DCPGetNextId.spl
+\i install/sps/SP_DCPGetCategory.spl
 
 -- Role
 \i install/sps/SP_DCPGetRole.spl

@@ -154,6 +154,7 @@ SELECT $APP_NAME$Views.SP_DCPDeleteTeacherProgram(100,2020);
 
 -- Meta
 SELECT $APP_NAME$Views.SP_DCPGetNextId('dummyvalue');
+SELECT $APP_NAME$Views.SP_DCPGetCategory('reward','PT');
 
 -- Reset counters
 -- UPDATE $APP_NAME$.NextId SET NextValue = 1;
