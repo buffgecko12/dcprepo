@@ -33,6 +33,16 @@ SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'reward');
 SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'file');
 SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
 
+-- Load categories
+INSERT INTO $APP_NAME$.Lookup_Category
+(CategoryClass, CategoryType, CategoryDisplayName) VALUES
+('reward', 'PT', 'Participaci' || U&'\00F3' || 'n'),
+('reward', 'FD', 'Comida'),
+('reward', 'ET', 'Entretenimiento'),
+('reward', 'AC', 'Acad' || U&'\00E9' || 'mico'),
+('reward', 'OT', 'Otro')
+;
+
 -- Load events
 INSERT INTO $APP_NAME$.Lookup_Event 
 (EventId, EventType, EventClass, EventUserType, EventDisplayName, EventMessage, DefaultReputationPointValue) VALUES

@@ -14,8 +14,8 @@ SELECT $APP_NAME$Views.SP_DCPUpsertFile(200,'MySchoolDataPolicy2','.pdf',1000,'p
 SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 200, 'FL', 4, NULL); -- Set role ACL
 
 -- Add reward info
-SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'Pizza Show');
-SELECT $APP_NAME$Views.SP_DCPUpsertReward(2, 2020, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 'Innovo');
+SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'FD', 'Pizza Show');
+SELECT $APP_NAME$Views.SP_DCPUpsertReward(2, 2020, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 'ET', 'Innovo');
 
 -- Create schools/classes
 SELECT $APP_NAME$Views.SP_DCPUpsertSchool(100, 'TS1', 'Test School 1', 'My Address','Duitama','Boyaca'); -- Schools

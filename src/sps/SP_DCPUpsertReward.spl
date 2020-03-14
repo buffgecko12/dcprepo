@@ -4,7 +4,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
 	pRewardValue INTEGER,
-	Vendor VARCHAR(100)
+	pRewardCategory CHAR(2),
+	pVendor VARCHAR(100)
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -26,8 +27,8 @@ BEGIN
     END IF;
     
     -- Add new row
-    INSERT INTO $APP_NAME$.Reward(RewardId, SchoolYear, RewardDisplayName, RewardDescription, RewardValue, Vendor, StartTS, EndTS)
-    SELECT MyRewardId, pSchoolYear, pRewardDisplayName, pRewardDescription, pRewardValue, Vendor, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
+    INSERT INTO $APP_NAME$.Reward(RewardId, SchoolYear, RewardDisplayName, RewardDescription, RewardValue, RewardCategory, Vendor, StartTS, EndTS)
+    SELECT MyRewardId, pSchoolYear, pRewardDisplayName, pRewardDescription, pRewardValue, pRewardCategory, pVendor, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
     ;   
     
 	-- Return id

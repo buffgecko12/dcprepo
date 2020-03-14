@@ -3,15 +3,16 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
     pSchoolYear INTEGER
 )
 RETURNS TABLE (
-	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, Vendor VARCHAR(100)
+	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, 
+	RewardCategory CHAR(2), RewardCategoryDisplayName VARCHAR(100), Vendor VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.Vendor
+	SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.RewardCategory, r.RewardCategoryDisplayName, r.Vendor
 	FROM $APP_NAME$Views.Reward r
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
 	AND (r.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
-	ORDER BY r.SchoolYear DESC, r.Vendor, r.RewardDisplayName
+	ORDER BY r.SchoolYear DESC, r.RewardCategoryDisplayName, r.Vendor, r.RewardDisplayName
 	;	
 END;
 $$ LANGUAGE 'plpgsql';

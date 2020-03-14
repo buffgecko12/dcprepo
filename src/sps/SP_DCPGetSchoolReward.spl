@@ -5,21 +5,21 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchoolReward(
 )
 RETURNS TABLE (
   SchoolId INTEGER, SchoolAbbreviation VARCHAR(25), RewardId INTEGER, SchoolYear SMALLINT, 
-  Vendor VARCHAR(100), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER
+  Vendor VARCHAR(100), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, RewardCategoryDisplayName VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, lr.RewardDescription, sr.RewardValue
+    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, lr.RewardDescription, sr.RewardValue, lr.RewardCategoryDisplayName
     FROM $APP_NAME$Views.School s
     INNER JOIN $APP_NAME$Views.School_Reward sr ON s.SchoolId = sr.SchoolId
     INNER JOIN (
-    	SELECT src.RewardId, src.Vendor, src.RewardDisplayName, src.RewardDescription, src.RewardValue 
+    	SELECT src.RewardId, src.Vendor, src.RewardDisplayName, src.RewardDescription, src.RewardValue, src.RewardCategoryDisplayName
     	FROM $APP_NAME$Views.SP_DCPGetReward(pRewardId, pSchoolYear) AS src
 	) lr ON sr.RewardId = lr.RewardId -- Get reward info
     WHERE (sr.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (sr.RewardId = pRewardId OR pRewardId IS NULL)
     AND (sr.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
-    ORDER BY s.SchoolAbbreviation, lr.Vendor, lr.RewardDisplayName
+    ORDER BY s.SchoolAbbreviation, lr.RewardCategoryDisplayName, lr.Vendor, lr.RewardDisplayName
     ;
 END;
 $$ LANGUAGE 'plpgsql';
