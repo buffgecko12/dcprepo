@@ -47,7 +47,7 @@ CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Event AS SELECT * FROM $APP_NAME$.
 CREATE OR REPLACE VIEW $APP_NAME$Views.Lookup_Badge AS SELECT * FROM $APP_NAME$.Lookup_Badge;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.RewardAll AS 
-SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.RewardCategory, rc.DisplayName AS RewardCategoryDisplayName, r.Vendor, r.StartTS, r.EndTS
+SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.RewardCategory, rc.CategoryDisplayName AS RewardCategoryDisplayName, r.Vendor, r.StartTS, r.EndTS
 FROM $APP_NAME$.Reward r
 INNER JOIN $APP_NAME$Views.Lookup_Category rc ON r.RewardCategory = rc.CategoryType AND rc.CategoryClass = 'reward';
 

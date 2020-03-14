@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
 )
 RETURNS TABLE (
 	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, 
-	RewardCategory CHAR(2), RewardCategoryDisplayName VARCHAR(100), Vendor VARCHAR(100)
+	RewardCategory VARCHAR(10), RewardCategoryDisplayName VARCHAR(100), Vendor VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY

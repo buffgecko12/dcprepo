@@ -6,7 +6,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractPartyReward(
 )
 RETURNS TABLE (
 	ContractId INTEGER, TeacherUserId INTEGER, ClassId INTEGER, RewardId INTEGER, Quantity SMALLINT, ActualRewardValue INTEGER, 
-	Status CHAR(1), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(100), RewardCategory CHAR(2), Vendor VARCHAR(100)
+	Status CHAR(1), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(100), RewardCategory VARCHAR(10), Vendor VARCHAR(100)
 ) AS $$
 BEGIN
     RETURN QUERY

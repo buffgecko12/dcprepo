@@ -35,12 +35,25 @@ SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
 
 -- Load categories
 INSERT INTO $APP_NAME$.Lookup_Category
-(CategoryClass, CategoryType, DisplayName, Description) VALUES
+(CategoryClass, CategoryType, CategoryDisplayName, Description) VALUES
+
+-- Reward items
 ('reward', 'PT', 'Participaci' || U&'\00F3' || 'n', NULL),
 ('reward', 'FD', 'Comida', NULL),
 ('reward', 'ET', 'Entretenimiento', NULL),
 ('reward', 'AC', 'Acad' || U&'\00E9' || 'mico', NULL),
-('reward', 'OT', 'Otro', NULL)
+('reward', 'OT', 'Otro', NULL),
+
+-- Calendar items
+('calendar', 'SP', 'Inicio de programa', NULL),
+('calendar', 'EP', 'Fin de programa', NULL),
+('calendar', 'CTP', 'Entregar los acuerdos (propuestas) con firmas', NULL),
+('calendar', 'CTE', 'Entregar las evaluaciones y las evidencias', NULL),
+('calendar', 'ID', 'Entrega de incentivos', NULL),
+('calendar', 'SVS', 'Presentar las encuestas de estudiante', NULL),
+('calendar', 'SVT', 'Presentar las encuestas de docente', NULL),
+('calendar', 'FR', 'Recibir el informe con los resultados del programa', NULL),
+('calendar', 'OT', 'Otro', NULL)
 ;
 
 -- Load events

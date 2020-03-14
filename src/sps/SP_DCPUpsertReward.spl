@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 	pRewardDisplayName VARCHAR(100),
 	pRewardDescription VARCHAR(500),
 	pRewardValue INTEGER,
-	pRewardCategory CHAR(2),
+	pRewardCategory VARCHAR(10),
 	pVendor VARCHAR(100)
 ) 
 RETURNS INTEGER AS $$

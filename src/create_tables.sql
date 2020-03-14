@@ -38,8 +38,8 @@ CREATE TABLE $APP_NAME$.NextId (
 -- LOOKUP: Category
 CREATE TABLE $APP_NAME$.Lookup_Category (
 	CategoryClass VARCHAR(50) NOT NULL,
-	CategoryType CHAR(2) NOT NULL,
-	DisplayName VARCHAR(250),
+	CategoryType VARCHAR(10) NOT NULL,
+	CategoryDisplayName VARCHAR(100),
 	Description VARCHAR(500),
 	PRIMARY KEY(CategoryClass, CategoryType)
 );
@@ -51,7 +51,7 @@ CREATE TABLE $APP_NAME$.Reward (
 	RewardDisplayName VARCHAR(100) NOT NULL,
 	RewardDescription VARCHAR(500),
 	RewardValue INTEGER NOT NULL DEFAULT 0,
-	RewardCategory CHAR(2),
+	RewardCategory VARCHAR(10),
 	Vendor VARCHAR(100),
     StartTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     EndTS TIMESTAMP NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
