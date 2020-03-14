@@ -11,6 +11,9 @@
 <Column name="CategoryClass" id="ED67E570-0CA9-E9A5-259B-F5413F021ECF">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<comment><![CDATA[reward
+usertype
+calendar]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
@@ -22,15 +25,17 @@
 <Column name="CategoryType" id="F930720F-9EF1-3808-C573-7C4EA3D77C0D">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<comment><![CDATA[PT - participation
+FD - food]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="DisplayName" id="529F8E3F-6127-FA51-645A-181783DF5905">
+<Column name="CategoryDisplayName" id="529F8E3F-6127-FA51-645A-181783DF5905">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-03-14 04:52:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -38,8 +43,8 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>250</dataTypeSize>
-<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<dataTypeSize>100</dataTypeSize>
+<ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Description" id="C030D6FE-B4BA-CC1E-E560-2435EF52E284">
