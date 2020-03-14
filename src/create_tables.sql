@@ -35,6 +35,14 @@ CREATE TABLE $APP_NAME$.NextId (
     PRIMARY KEY (IDType)
 );
 
+-- LOOKUP: Category
+CREATE TABLE $APP_NAME$.Lookup_Category (
+	CategoryClass VARCHAR(50) NOT NULL,
+	CategoryType CHAR(2) NOT NULL,
+	CategoryDisplayName VARCHAR(250),
+	PRIMARY KEY(CategoryClass, CategoryType)
+);
+
 -- LOOKUP: Rewards
 CREATE TABLE $APP_NAME$.Reward (
 	RewardId INTEGER NOT NULL,
@@ -42,6 +50,7 @@ CREATE TABLE $APP_NAME$.Reward (
 	RewardDisplayName VARCHAR(100) NOT NULL,
 	RewardDescription VARCHAR(500),
 	RewardValue INTEGER NOT NULL DEFAULT 0,
+	RewardCategory CHAR(2),
 	Vendor VARCHAR(100),
     StartTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     EndTS TIMESTAMP NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',

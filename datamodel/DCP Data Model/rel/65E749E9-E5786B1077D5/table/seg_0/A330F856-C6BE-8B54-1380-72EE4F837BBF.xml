@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A330F856-C6BE-8B54-1380-72EE4F837BBF" name="Lookup_Category">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:51:12 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_25</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CategoryClass" id="ED67E570-0CA9-E9A5-259B-F5413F021ECF">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CategoryType" id="F930720F-9EF1-3808-C573-7C4EA3D77C0D">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CategoryDisplayName" id="529F8E3F-6127-FA51-645A-181783DF5905">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>250</dataTypeSize>
+<ownDataTypeParameters>250,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="675D4028-D798-C917-29A0-E9E50ACCC26E" name="PK">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:52:16 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="ED67E570-0CA9-E9A5-259B-F5413F021ECF"/>
+<colUsage columnID="F930720F-9EF1-3808-C573-7C4EA3D77C0D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

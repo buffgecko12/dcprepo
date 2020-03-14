@@ -63,6 +63,24 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="RewardCategory" id="64EB4693-1E50-CA44-FD04-A5F221B6C737">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-14 04:04:41 UTC</createdTime>
+<comment><![CDATA[Category:
+
+PT - Participation
+FD - Food
+ET - Entertainment
+AC - Academic]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="Vendor" id="E84CCBCB-D3C2-BF45-9777-54562CCEA4F0">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-17 12:54:05 UTC</createdTime>
