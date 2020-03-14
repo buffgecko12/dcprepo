@@ -35,12 +35,12 @@ SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
 
 -- Load categories
 INSERT INTO $APP_NAME$.Lookup_Category
-(CategoryClass, CategoryType, CategoryDisplayName) VALUES
-('reward', 'PT', 'Participaci' || U&'\00F3' || 'n'),
-('reward', 'FD', 'Comida'),
-('reward', 'ET', 'Entretenimiento'),
-('reward', 'AC', 'Acad' || U&'\00E9' || 'mico'),
-('reward', 'OT', 'Otro')
+(CategoryClass, CategoryType, DisplayName, Description) VALUES
+('reward', 'PT', 'Participaci' || U&'\00F3' || 'n', NULL),
+('reward', 'FD', 'Comida', NULL),
+('reward', 'ET', 'Entretenimiento', NULL),
+('reward', 'AC', 'Acad' || U&'\00E9' || 'mico', NULL),
+('reward', 'OT', 'Otro', NULL)
 ;
 
 -- Load events
