@@ -37,6 +37,24 @@ SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
 INSERT INTO $APP_NAME$.Lookup_Category
 (CategoryClass, CategoryType, CategoryDisplayName, Description) VALUES
 
+-- Contract files
+('contractfile', 'CT', 'Contrato', 'Propuesta de contrato'),
+('contractfile', 'CTE', 'Evidencia de contrato', 'Evidencias del cumplimiento del contrato'),
+('contractfile', 'CTC', 'Felicitaciones', 'Video de felicitaci' || U&'\00F3' || 'n'),
+('contractfile', 'CTO', 'Otro', 'Fotos de la premiaci' || U&'\00F3' || 'n o de agradecimiento'),
+
+-- Program files
+('programfile', 'CTF', 'Formulario de contrato', 'Un modelo del contrato'),
+('programfile', 'WV', 'Video de bienvenida', 'Video de bienvenida para invitar a los integrantes'),
+('programfile', 'IV', 'Entrevista', 'Entrevista para animar a los estudiantes'),
+('programfile', 'IVF', 'Transcripci' || U&'\00F3' || 'n de entrevista', NULL),
+('programfile', 'LTT', 'Carta de agradecimiento', NULL),
+('programfile', 'LTI', 'Carta de invitaci' || U&'\00F3' || 'n', NULL),
+('programfile', 'RTY', 'Informe anual', NULL),
+('programfile', 'RT', 'Informe', NULL),
+('programfile', 'SVT', 'Resultados de entrevista (docente)', NULL),
+('programfile', 'SVS', 'Resultados de entrevista (estudiante)', NULL),
+
 -- Reward categories
 ('reward', 'PT', 'Participaci' || U&'\00F3' || 'n', NULL),
 ('reward', 'FD', 'Comida', NULL),
