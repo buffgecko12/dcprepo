@@ -1,6 +1,7 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteFile (
     pFileId INTEGER,
-    pContractId INTEGER
+    pContractId INTEGER,
+    pSchoolId INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
@@ -13,6 +14,7 @@ BEGIN
 	SET EndTS = CURRENT_TIMESTAMP
 	WHERE (FileId = pFileId OR pFileId IS NULL)
 	AND (ContractId = pContractId OR pContractId IS NULL)
+	AND (SchoolId = pSchoolId OR pSchoolId IS NULL)
 	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
 	;
 	

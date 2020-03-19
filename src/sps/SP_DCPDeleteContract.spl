@@ -20,7 +20,7 @@ BEGIN
 		FOREACH MyContractId IN ARRAY ContractIdList
 		LOOP
 			PERFORM $APP_NAME$Views.SP_DCPDeleteContractParty(MyContractId, NULL, NULL); -- parties
-			PERFORM $APP_NAME$Views.SP_DCPDeleteFile(NULL, pContractId);
+			PERFORM $APP_NAME$Views.SP_DCPDeleteFile(NULL, pContractId, NULL);
 		END LOOP;
 		
 		-- Delete contract(s)

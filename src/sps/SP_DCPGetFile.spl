@@ -1,23 +1,25 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
     pFileId INTEGER,
 	pFileClass VARCHAR(50),
-	pFileCategory CHAR(2),
+	pFileCategory VARCHAR(10),
 	pContractId INTEGER,
+	pSchoolId INTEGER,
 	pSchoolYear INTEGER
 ) 
 RETURNS TABLE (
 	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileStore CHAR(2),
-	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory CHAR(2), ContractId INTEGER, SchoolYear SMALLINT
+	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT
 ) AS $$
 BEGIN
     RETURN QUERY
     SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileStore, 
-    	f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.ContractId, f.SchoolYear
+    	f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.ContractId, f.SchoolId, f.SchoolYear
     FROM $APP_NAME$Views.File f
     WHERE (f.FileId = pFileId OR pFileId IS NULL)
     AND (f.FileClass = pFileClass OR pFileClass IS NULL)
     AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
     AND (f.ContractId = pContractId OR pContractId IS NULL)
+    AND (f.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
     ;
 END;
