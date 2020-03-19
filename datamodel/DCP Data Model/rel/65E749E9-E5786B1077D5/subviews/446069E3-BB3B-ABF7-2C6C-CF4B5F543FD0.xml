@@ -34,7 +34,7 @@
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="15B5697F-79B4-1C93-A739-C362D71E1641" otype="Table" vid="E1BAB64A-89E0-4E5B-ACA3-A18818AF5D54">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<bounds x="519" y="534" width="206" height="270"/>
+<bounds x="519" y="525" width="206" height="284"/>
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="1652D27E-9610-A116-E4D5-F828858627BC" otype="Table" vid="16B01FA3-E358-F675-B27A-625D3B4A369F">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
@@ -145,7 +145,7 @@
 <backgroundColor>-2472729</backgroundColor>
 <lineWidth>1</lineWidth>
 <points>
-<point x="625" y="534"/>
+<point x="625" y="525"/>
 <point x="625" y="497"/>
 </points>
 </Connector>
@@ -165,6 +165,15 @@
 <points>
 <point x="1293" y="361"/>
 <point x="1293" y="406"/>
+</points>
+</Connector>
+<Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="1E515A44-00AA-C0C4-3B85-8F568EF6129F" otype="ImpliedForeignKey" vid_source="935C1E67-7D4E-B6C0-482F-DC35C6DB30AD" vid_target="E1BAB64A-89E0-4E5B-ACA3-A18818AF5D54">
+<hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
+<backgroundColor>-2472729</backgroundColor>
+<lineWidth>1</lineWidth>
+<points>
+<point x="997" y="365"/>
+<point x="725" y="578"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="23DE07F8-931B-4C4E-1592-94BBB9ECD566" otype="FKIndexAssociation" vid_source="C8DBBDF3-5179-07E2-836E-30F1E56FC181" vid_target="336284A6-5897-011F-AAC5-0B3D92B05035">
@@ -325,8 +334,8 @@
 <backgroundColor>-2472729</backgroundColor>
 <lineWidth>1</lineWidth>
 <points>
-<point x="1026" y="708"/>
-<point x="725" y="708"/>
+<point x="1026" y="703"/>
+<point x="725" y="703"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVFKRelation" oid="D4C39498-78F2-B980-DB0D-F4F6B96DEBAB" otype="FKIndexAssociation" vid_source="49506F4F-708B-5607-D2DE-03394DAA8A33" vid_target="D3F9F2A1-8007-9CAD-D768-868B5DD449C4">

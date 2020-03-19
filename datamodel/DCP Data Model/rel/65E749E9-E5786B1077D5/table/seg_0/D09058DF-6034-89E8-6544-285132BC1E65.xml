@@ -82,7 +82,7 @@ G - Gold]]></commentInRDBMS>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="C5E40D95-8E46-8B00-F49B-52328BE66146" name="PKv4v1">
+<ind_PK_UK id="C5E40D95-8E46-8B00-F49B-52328BE66146" name="PKv4v1v1">
 <createdBy>ravioli</createdBy>
 <createdTime>2018-07-31 00:33:06 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

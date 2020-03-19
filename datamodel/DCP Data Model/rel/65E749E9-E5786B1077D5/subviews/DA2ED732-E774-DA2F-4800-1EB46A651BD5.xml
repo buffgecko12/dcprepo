@@ -87,6 +87,11 @@
 <point x="1086" y="676"/>
 </points>
 </Connector>
+<Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="1E515A44-00AA-C0C4-3B85-8F568EF6129F" otype="ImpliedForeignKey" vid_source="B8E159D2-1D75-0CED-B99E-26E63A36DEB0" vid_target="64BD4410-8000-3D3B-C422-656B6C71605A">
+<hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
+<backgroundColor>-2472729</backgroundColor>
+<lineWidth>1</lineWidth>
+</Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="30A30615-77BA-CB47-825E-CE9A12EC7E67" otype="ImpliedForeignKey" vid_source="B8E159D2-1D75-0CED-B99E-26E63A36DEB0" vid_target="0D47F7AF-9B9A-CE57-29CC-8FC07F0F8137">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
 <backgroundColor>-2472729</backgroundColor>

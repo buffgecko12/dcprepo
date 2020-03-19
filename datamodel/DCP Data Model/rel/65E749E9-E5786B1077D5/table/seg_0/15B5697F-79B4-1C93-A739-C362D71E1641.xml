@@ -133,11 +133,8 @@ FS - Filesystem
 <Column name="FileClass" id="DD711ACB-CD68-4960-5DF7-C13CD4ACDF19">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-28 04:01:54 UTC</createdTime>
-<comment><![CDATA[Contract
-Interview
-General
-Form
-Survey]]></comment>
+<comment><![CDATA[Programfile
+Contractfile]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -174,9 +171,9 @@ SS - Survey results (student)]]></comment>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
-<logicalDatatype>LOGDT025</logicalDatatype>
-<dataTypeSize>2</dataTypeSize>
-<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="ContractId" id="386B650B-F656-B4A2-0B5D-339AB52A4F60">
@@ -188,6 +185,17 @@ SS - Survey results (student)]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolId" id="D8020990-76AB-C2F1-E07A-CFC586962B8A">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-19 16:09:11 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
@@ -244,6 +252,13 @@ SS - Survey results (student)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableID>ECCCD539-9F7E-9C36-2A7F-F034162F6D0C</referredTableID>
 <referredTableLongName>Contract</referredTableLongName>
+</impliedForeignKey>
+<impliedForeignKey name="ImpliedForeignKey_1v14" id="1E515A44-00AA-C0C4-3B85-8F568EF6129F">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-19 16:08:52 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<referredTableID>4F38C79F-7C6F-CE0F-37BD-48A275865C3F</referredTableID>
+<referredTableLongName>School</referredTableLongName>
 </impliedForeignKey>
 </impliedForeignKeys>
 </Table>

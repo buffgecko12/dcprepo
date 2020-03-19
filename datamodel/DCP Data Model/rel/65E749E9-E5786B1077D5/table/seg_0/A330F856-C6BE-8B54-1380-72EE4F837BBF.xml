@@ -60,7 +60,7 @@ FD - food]]></comment>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="675D4028-D798-C917-29A0-E9E50ACCC26E" name="PK">
+<ind_PK_UK id="675D4028-D798-C917-29A0-E9E50ACCC26E" name="PKv4">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-03-14 04:52:16 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>

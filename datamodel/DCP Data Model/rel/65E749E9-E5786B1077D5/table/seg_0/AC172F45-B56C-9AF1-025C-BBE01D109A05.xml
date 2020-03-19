@@ -100,7 +100,7 @@ D - Delivered]]></commentInRDBMS>
 </Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
-<ind_PK_UK id="84F58157-C572-2E46-136D-485505AE9CC2" name="PKv4">
+<ind_PK_UK id="84F58157-C572-2E46-136D-485505AE9CC2" name="PKv4v1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-15 18:50:08 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
@@ -133,7 +133,7 @@ D - Delivered]]></commentInRDBMS>
 <createdTime>2020-01-30 04:08:19 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <referredTableID>7A867A0E-912C-C4CB-6EBA-9F7C855B7257</referredTableID>
-<referredTableLongName>Lookup_Reward</referredTableLongName>
+<referredTableLongName>Reward</referredTableLongName>
 </impliedForeignKey>
 </impliedForeignKeys>
 </Table>
