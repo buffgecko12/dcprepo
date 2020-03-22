@@ -13,14 +13,16 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUser(
 RETURNS TABLE (
 	UserId INTEGER, SchoolId INTEGER, UserName VARCHAR(50), UserType CHAR(2), FirstName VARCHAR(100), LastName VARCHAR(100), UserDisplayName VARCHAR(250), 
 	EmailAddress VARCHAR(250), Password VARCHAR(128), ReputationValue INTEGER, ReputationValueLastSeenTS TIMESTAMPTZ, ProfilePictureId INTEGER, 
-	Last_Login TIMESTAMPTZ, Is_Active BOOLEAN
+	Last_Login TIMESTAMPTZ, Is_Active BOOLEAN,
+	SchoolAbbreviation VARCHAR(25)
 ) AS $$
 BEGIN
     RETURN QUERY
     -- Lookup a single user based on userid OR emailaddress / username
     SELECT u.UserId, u.SchoolId, u.UserName, u.UserType, u.FirstName, u.LastName, u.UserDisplayName, u.EmailAddress, u.Password, 
-    u.ReputationValue, u.ReputationValueLastSeenTS, u.ProfilePictureId, u.Last_Login, u.Is_Active
+    u.ReputationValue, u.ReputationValueLastSeenTS, u.ProfilePictureId, u.Last_Login, u.Is_Active, s.SchoolAbbreviation
     FROM $APP_NAME$Views.Users u
+    LEFT JOIN $APP_NAME$Views.School s ON u.SchoolId = s.SchoolId
     WHERE (u.UserId = pUserId OR pUserId IS NULL)
     AND (u.Username = pUsername OR pUsername IS NULL)
     AND 
