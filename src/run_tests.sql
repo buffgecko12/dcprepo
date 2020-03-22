@@ -95,7 +95,7 @@ SELECT $APP_NAME$Views.SP_DCPModifyRoleItem(1,100,NULL,NULL,'A');
 
 -- Get contract info
 SELECT $APP_NAME$Views.SP_DCPGetContract(100,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPGetContractValue(NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetContractValue(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractParty(100,100,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetContractPartyReward(100,NULL,NULL,NULL);
 
@@ -106,7 +106,7 @@ SELECT $APP_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL,NULL);
 -- Get user info
 SELECT $APP_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT $APP_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
-SELECT $APP_NAME$Views.SP_DCPGetTeacherProgram(100, NULL);
+SELECT $APP_NAME$Views.SP_DCPGetTeacherProgram(100, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);

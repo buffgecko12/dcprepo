@@ -11,6 +11,7 @@ BEGIN
     FROM $APP_NAME$Views.Lookup_Category c
     WHERE (c.CategoryClass = pCategoryClass OR pCategoryClass IS NULL)
     AND (c.CategoryType = pCategoryType OR pCategoryType IS NULL)
+    ORDER BY c.CategoryDisplayName, c.CategoryType
     ;
 END;
 $$

@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetContractValue(
     pTeacherUserId INTEGER,
     pContractId INTEGER,
-    pSchoolYear INTEGER
+    pSchoolYear INTEGER,
+    pSchoolId INTEGER
 ) 
 RETURNS TABLE (
 	ContractId INTEGER, TeacherUserId INTEGER, ContractValue INTEGER, SchoolYear SMALLINT
@@ -15,10 +16,12 @@ BEGIN
 	  MAX(c.SchoolYear) AS SchoolYear
 	FROM $APP_NAME$Views.Contract c
 	INNER JOIN $APP_NAME$Views.Contract_Party cp ON c.ContractId = cp.ContractId -- Get parties
+	INNER JOIN $APP_NAME$Views.Class cl ON cp.ClassId = cl.ClassId -- Get class / school info
 	LEFT JOIN $APP_NAME$Views.Contract_Party_Reward cpr ON c.ContractId = cpr.ContractId -- Get rewards (if any)
 	WHERE (cp.TeacherUserId = pTeacherUserId OR pTeacherUserId IS NULL)
 	AND (c.ContractId = pContractId OR pContractId IS NULL)
 	AND (c.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	AND (cl.SchoolId = pSchoolId OR pSchoolId IS NULL)
 	GROUP BY c.ContractId, cp.TeacherUserId
 	;
 END;
