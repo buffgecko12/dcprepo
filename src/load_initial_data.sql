@@ -39,9 +39,10 @@ INSERT INTO $APP_NAME$.Lookup_Category
 
 -- Contract files
 ('contractfile', 'CT', 'Contrato', 'Propuesta de contrato'),
-('contractfile', 'CTE', 'Evidencia de contrato', 'Evidencias del cumplimiento del contrato'),
-('contractfile', 'CTC', 'Felicitaciones', 'Video de felicitaci' || U&'\00F3' || 'n'),
-('contractfile', 'CTO', 'Otro', 'Fotos de la premiaci' || U&'\00F3' || 'n o de agradecimiento'),
+('contractfile', 'CTE', 'Evidencia', 'Evidencias del cumplimiento del contrato'),
+('contractfile', 'CTC', 'Felicitaciones', 'Mensaje de felicitaci' || U&'\00F3' || 'n'),
+('contractfile', 'CTP', 'Premiaci' || U&'\00F3' || 'n', NULL),
+('contractfile', 'CTO', 'Otro', NULL),
 
 -- Program files
 ('programfile', 'CTF', 'Formulario de contrato', 'Un modelo del contrato'),
