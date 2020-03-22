@@ -2,25 +2,31 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
     pFileId INTEGER,
 	pFileClass VARCHAR(50),
 	pFileCategory VARCHAR(10),
+	pAlternateFileId VARCHAR(256),
 	pContractId INTEGER,
 	pSchoolId INTEGER,
-	pSchoolYear INTEGER
+	pSchoolYear INTEGER,
+	pAttributeFilter JSONB
 ) 
 RETURNS TABLE (
-	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileStore CHAR(2),
-	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT
+	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
+	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), FileAttributes JSONB, AlternateFileId VARCHAR(256),
+	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileStore, 
-    	f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.ContractId, f.SchoolId, f.SchoolYear
+    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, 
+    	   f.FilePath, f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear
     FROM $APP_NAME$Views.File f
     WHERE (f.FileId = pFileId OR pFileId IS NULL)
     AND (f.FileClass = pFileClass OR pFileClass IS NULL)
     AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
+    AND (f.AlternateFileId = pAlternateFileId OR pAlternateFileId IS NULL)
     AND (f.ContractId = pContractId OR pContractId IS NULL)
     AND (f.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+--    AND (f.Attributes->pAttributeKey = pAttributeValue OR pAttributeKey IS NULL)
+    AND (f.FileAttributes @> pAttributeFilter OR pAttributeFilter IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
     ;
 END;
 $$
