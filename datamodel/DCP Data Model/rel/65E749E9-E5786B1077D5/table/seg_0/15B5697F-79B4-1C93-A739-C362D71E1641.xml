@@ -76,13 +76,13 @@
 <ownDataTypeParameters>500,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="FileStore" id="E507594B-50DE-5882-9CE9-ED0FF60CF28C">
+<Column name="FileSource" id="E507594B-50DE-5882-9CE9-ED0FF60CF28C">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-29 17:22:24 UTC</createdTime>
 <comment><![CDATA[GD - Google Drive
 DB - Database
 FS - Filesystem
-]]></comment>
+UL - URL]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -134,7 +134,9 @@ FS - Filesystem
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-28 04:01:54 UTC</createdTime>
 <comment><![CDATA[Programfile
-Contractfile]]></comment>
+Contractfile
+
+Used to lookup info for known file types (i.e. Contract Scan, Congratulations video)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -176,10 +178,36 @@ SS - Survey results (student)]]></comment>
 <ownDataTypeParameters>10,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="ContractId" id="386B650B-F656-B4A2-0B5D-339AB52A4F60">
+<Column name="FileAttributes" id="399847CB-9D62-7AC2-220A-468337E55C50">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-01-28 03:53:38 UTC</createdTime>
-<comment><![CDATA[Contract associated with file]]></comment>
+<createdTime>2020-03-22 07:12:31 UTC</createdTime>
+<comment><![CDATA[Any additional attributes:
+
+userid]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AlternateFileId" id="B10FFBA5-7433-B9D0-1A9B-800DA675B48A">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-22 07:12:31 UTC</createdTime>
+<comment><![CDATA[i.e. Google Drive FileId]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>256</dataTypeSize>
+<ownDataTypeParameters>256,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ContractId" id="199A68B3-2179-2C66-BC4C-FA11193A083D">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-03-22 07:16:02 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
@@ -188,14 +216,14 @@ SS - Survey results (student)]]></comment>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
-<Column name="SchoolId" id="D8020990-76AB-C2F1-E07A-CFC586962B8A">
+<Column name="SchoolId" id="9AD59F54-21F7-2191-ECF5-3D1EFDF10F4D">
 <createdBy>ravioli</createdBy>
-<createdTime>2020-03-19 16:09:11 UTC</createdTime>
+<createdTime>2020-03-22 07:16:02 UTC</createdTime>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

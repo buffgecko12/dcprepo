@@ -5,12 +5,14 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFile(
     pFileSize INTEGER,
     pFileType VARCHAR(100),
 	pFileDescription VARCHAR(500),
-	pFileStore CHAR(2),
+	pFileSource CHAR(2),
     pFileData BYTEA,
 	pFileURL VARCHAR(500),
 	pFilePath VARCHAR(256),
 	pFileClass VARCHAR(50),
 	pFileCategory VARCHAR(10),
+	pFileAttributes JSONB,
+	pAlternateFileId VARCHAR(256),
 	pContractId INTEGER,
 	pSchoolId INTEGER,
 	pSchoolYear INTEGER
@@ -35,10 +37,10 @@ BEGIN
     END IF;
 	
     -- Add new row
-	INSERT INTO $APP_NAME$.File (FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileStore, FileData, FileURL,
-		FilePath, FileClass, FileCategory, ContractId, SchoolId, SchoolYear, StartTS, EndTS)
-	SELECT MyFileId, pFileName, pFileExtension, pFileSize, pFileType, pFileDescription, pFileStore, pFileData, pFileURL, 
-		   pFilePath, pFileClass, pFileCategory, pContractId, pSchoolId, pSchoolYear, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
+	INSERT INTO $APP_NAME$.File (FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileSource, FileData, FileURL,
+		FilePath, FileClass, FileCategory, FileAttributes, AlternateFileId, ContractId, SchoolId, SchoolYear, StartTS, EndTS)
+	SELECT MyFileId, pFileName, pFileExtension, pFileSize, pFileType, pFileDescription, pFileSource, pFileData, pFileURL, 
+		   pFilePath, pFileClass, pFileCategory, pFileAttributes, pAlternateFileId, pContractId, pSchoolId, pSchoolYear, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
     ;
     
 	-- Return file id

@@ -8,8 +8,8 @@ SELECT $APP_NAME$Views.SP_DCPUpsertRole(2, 'Some role (school 1)', 'Some descrip
 SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, 'Some role (school 2)', 'Some description', NULL, '{200}', NULL, NULL);
 
 -- Update files
-SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,2020);
-SELECT $APP_NAME$Views.SP_DCPUpsertFile(200,'MySchoolDataPolicy2','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,2020);
+SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
+SELECT $APP_NAME$Views.SP_DCPUpsertFile(200,'MySchoolDataPolicy2','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
 
 SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 200, 'FL', 4, NULL); -- Set role ACL
 
@@ -119,7 +119,7 @@ SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification'
 SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',NULL);
 SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
 
-SELECT SP_DCPGetFile(100, NULL, NULL, NULL, NULL, NULL);
+SELECT SP_DCPGetFile(100, NULL,NULL,NULL, NULL, NULL, NULL, NULL);
 
 -- Delete objects
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);
