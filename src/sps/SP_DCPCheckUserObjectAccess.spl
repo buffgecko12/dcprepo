@@ -69,7 +69,8 @@ BEGIN
 			-- Objects (don't re-use other object classes, i.e. 'FL')
 			SELECT ObjectId, ObjectClass 
 			FROM $APP_NAME$Views.Object
-			WHERE ObjectId = pObjectId
+			WHERE ObjectClass = pObjectClass
+			AND ObjectId = pObjectId
 		) o -- Objects
 		INNER JOIN $APP_NAME$Views.Role_ACL ra ON o.ObjectId = ra.ObjectId AND o.ObjectClass = ra.ObjectClass -- Roles associated with objects
 		INNER JOIN $APP_NAME$Views.Role r ON ra.RoleId = r.RoleId -- Role info
