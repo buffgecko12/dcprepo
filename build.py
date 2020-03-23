@@ -149,8 +149,8 @@ if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
     print("\n### Loading initial data ...")
     ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
             'from django.contrib.auth import get_user_model; ' + \
-            'import load_initial_data; ' + \
-            'load_initial_data.load_all(); ' + \
+            'import setup; ' + \
+            'setup.setup_all(); ' + \
             '"'
          , 'Y', my_env = env_dict)
     print("")
