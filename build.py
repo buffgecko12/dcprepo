@@ -146,10 +146,12 @@ if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
     print("### Running migration ...\n")
     ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
 
-    print("\n### Loading initial data ...")
+    print("\n### Configuring environment")
     ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
-            'from django.contrib.auth import get_user_model; ' + \
+            'import os; ' + \
             'import setup; ' + \
+            'from django.contrib.auth import get_user_model; ' + \
+            'os.chdir(r' + '""' + DJANGO_BASEDIR + '""' + '); ' + \
             'setup.setup_all(); ' + \
             '"'
          , 'Y', my_env = env_dict)
