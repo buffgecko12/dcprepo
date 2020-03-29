@@ -1,7 +1,9 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteFile (
     pFileId INTEGER,
     pContractId INTEGER,
-    pSchoolId INTEGER
+    pSchoolId INTEGER,
+    pAlternateFileId VARCHAR(256),
+    pFileSource CHAR(2)
 ) 
 RETURNS VOID AS $$
 BEGIN	
@@ -15,6 +17,8 @@ BEGIN
 	WHERE (FileId = pFileId OR pFileId IS NULL)
 	AND (ContractId = pContractId OR pContractId IS NULL)
 	AND (SchoolId = pSchoolId OR pSchoolId IS NULL)
+	AND (AlternateFileId = pAlternateFileId OR pAlternateFileId IS NULL)
+	AND (FileSource = pFileSource OR pFileSource IS NULL)
 	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
 	;
 	

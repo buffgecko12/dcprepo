@@ -126,7 +126,7 @@ SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, 'BD');
 SELECT $APP_NAME$Views.SP_DCPDeleteClass(100);
 SELECT $APP_NAME$Views.SP_DCPDeleteSchool(NULL);
-SELECT $APP_NAME$Views.SP_DCPDeleteFile(100, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteFile(100, NULL, NULL, NULL, NULL);
 
 -- Object
 SELECT $APP_NAME$Views.SP_DCPDeleteObject(NULL,NULL);
