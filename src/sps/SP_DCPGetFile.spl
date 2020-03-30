@@ -6,7 +6,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
 	pContractId INTEGER,
 	pSchoolId INTEGER,
 	pSchoolYear INTEGER,
-	pAttributeFilter JSONB
+	pFileAttributes JSONB,
+	pFileSource CHAR(2)
 ) 
 RETURNS TABLE (
 	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
@@ -25,8 +26,8 @@ BEGIN
     AND (f.ContractId = pContractId OR pContractId IS NULL)
     AND (f.SchoolId = pSchoolId OR pSchoolId IS NULL)
     AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
---    AND (f.Attributes->pAttributeKey = pAttributeValue OR pAttributeKey IS NULL)
-    AND (f.FileAttributes @> pAttributeFilter OR pAttributeFilter IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
+    AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
+    AND (f.FileSource = pFileSource OR pFileSource IS NULL)
     ;
 END;
 $$
