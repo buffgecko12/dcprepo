@@ -195,18 +195,18 @@ CREATE TABLE $APP_NAME$.User_Profile_Picture (
 );
 
 -- TEACHER: Program summary
-CREATE TABLE $APP_NAME$.Teacher_Program (
-	TeacherUserId INTEGER NOT NULL,
-	SchoolYear SMALLINT NOT NULL,
+CREATE TABLE $APP_NAME$.User_Program (
+	UserId INTEGER NOT NULL,
+	ProgramName VARCHAR(50) NOT NULL,
 	SchoolId INTEGER NOT NULL,
+	SchoolYear SMALLINT NOT NULL,
 	MaxBudget INTEGER,
-	TeacherSurveyTS TIMESTAMP WITH TIME ZONE,
-	StudentSurveyURL VARCHAR(500),
-	Notes VARCHAR(500),
+	UploadDirectoryId INTEGER,
+	Details JSONB,
     StartTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     EndTS TIMESTAMP NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
-	PRIMARY KEY (TeacherUserId, SchoolYear, EndTS),
-	FOREIGN KEY (TeacherUserId) REFERENCES $APP_NAME$.Users (UserId)
+	PRIMARY KEY (UserId, ProgramName, SchoolId, SchoolYear, EndTS),
+	FOREIGN KEY (UserId) REFERENCES $APP_NAME$.Users (UserId)
 --	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
 );
 

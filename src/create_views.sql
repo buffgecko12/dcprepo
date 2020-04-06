@@ -60,19 +60,23 @@ SELECT
 FROM $APP_NAME$.Lookup_Profile_Picture;
 
 -- Teacher
-CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_ProgramAll AS SELECT * FROM $APP_NAME$.Teacher_Program;
-CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_Program AS SELECT * FROM $APP_NAME$Views.Teacher_ProgramAll WHERE EndTS = TIMESTAMP '9999-12-31 23:59:59';
+CREATE OR REPLACE VIEW $APP_NAME$Views.User_ProgramAll AS SELECT * FROM $APP_NAME$.User_Program;
+CREATE OR REPLACE VIEW $APP_NAME$Views.User_Program AS SELECT * FROM $APP_NAME$Views.User_ProgramAll WHERE EndTS = TIMESTAMP '9999-12-31 23:59:59';
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_Class AS SELECT * FROM $APP_NAME$.Teacher_Class;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_Program_Info AS 
-SELECT tp.TeacherUserId, tp.SchoolYear, tp.SchoolId, tp.MaxBudget, tp.TeacherSurveyTS, StudentSurveyURL, COALESCE(sv.NumStudentSurveys, 0) AS NumStudentSurveys, tp.Notes
-FROM $APP_NAME$Views.Teacher_Program tp
+SELECT up.UserId, up.ProgramName, up.SchoolId, up.SchoolYear, up.MaxBudget, 
+	up.Details->'teachersurveyts' AS TeacherSurveyTS, 
+	up.Details->'studentsurveyURL' AS StudentSurveyURL, 
+	up.Details->'notes' AS Notes,
+	COALESCE(sv.NumStudentSurveys, 0) AS NumStudentSurveys
+FROM $APP_NAME$Views.User_Program up
 LEFT JOIN (
 	SELECT tc.TeacherUserId, c.SchoolYear, SUM(c.NumStudentSurveys) AS NumStudentSurveys
 	FROM $APP_NAME$Views.Teacher_Class tc
 	INNER JOIN $APP_NAME$Views.Class c ON tc.ClassId = c.ClassId -- Get class info
 	GROUP BY tc.TeacherUserId, c.SchoolYear
-) sv ON tp.TeacherUserId = sv.TeacherUserId AND tp.SchoolYear = sv.SchoolYear -- Get class survey info
+) sv ON up.UserId = sv.TeacherUserId AND up.SchoolYear = sv.SchoolYear -- Get class survey info
 ;
 
 -- Sample view

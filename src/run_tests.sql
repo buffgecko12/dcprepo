@@ -48,7 +48,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);
 -- Add teacher info
 SELECT $APP_NAME$Views.SP_DCPUpsertTeacherClass(100,100,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertTeacherClass(100,NULL,'{101,102}');
-SELECT $APP_NAME$Views.SP_DCPUpsertTeacherProgram(100, 2020, 100, 400000, NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUserProgram(100, 'incentives', 100, 2020, 400000, NULL, NULL);
 
 -- Get reward info
 SELECT $APP_NAME$Views.SP_DCPGetReward(1,NULL);
@@ -106,7 +106,7 @@ SELECT $APP_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL,NULL);
 -- Get user info
 SELECT $APP_NAME$Views.SP_DCPGetTeacherClass(100, 100);
 SELECT $APP_NAME$Views.SP_DCPGetTeacherClass(100, NULL);
-SELECT $APP_NAME$Views.SP_DCPGetTeacherProgram(100, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPGetUserProgram(100, NULL, NULL, NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUser(100,'MyTeacher',NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUserReputationEvent(100,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetUserBadge(100,NULL);
@@ -150,7 +150,7 @@ SELECT $APP_NAME$Views.SP_DCPDeleteContractParty(100,100,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteContract(100);
 
 SELECT $APP_NAME$Views.SP_DCPDeleteTeacherClass(100,100);
-SELECT $APP_NAME$Views.SP_DCPDeleteTeacherProgram(100,2020);
+SELECT $APP_NAME$Views.SP_DCPDeleteUserProgram(100,'incentives',100,2020);
 
 -- Meta
 SELECT $APP_NAME$Views.SP_DCPGetNextId('dummyvalue');

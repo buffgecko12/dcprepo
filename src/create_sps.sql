@@ -17,9 +17,9 @@
 \i install/sps/SP_DCPDeleteTeacherClass.spl
 \i install/sps/SP_DCPGetTeacherClass.spl
 
-\i install/sps/SP_DCPUpsertTeacherProgram.spl
-\i install/sps/SP_DCPDeleteTeacherProgram.spl
-\i install/sps/SP_DCPGetTeacherProgram.spl
+\i install/sps/SP_DCPUpsertUserProgram.spl
+\i install/sps/SP_DCPDeleteUserProgram.spl
+\i install/sps/SP_DCPGetUserProgram.spl
 
 -- School
 \i install/sps/SP_DCPUpsertSchool.spl
