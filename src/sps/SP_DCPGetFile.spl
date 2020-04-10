@@ -28,6 +28,7 @@ BEGIN
     AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
     AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
     AND (f.FileSource = pFileSource OR pFileSource IS NULL)
+    ORDER BY f.StartTS DESC
     ;
 END;
 $$
