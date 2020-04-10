@@ -149,7 +149,7 @@ SELECT $APP_NAME$Views.SP_DCPDeleteContractParty(100,100,NULL);
 
 SELECT $APP_NAME$Views.SP_DCPDeleteContract(100);
 
-SELECT $APP_NAME$Views.SP_DCPDeleteTeacherClass(100,100);
+SELECT $APP_NAME$Views.SP_DCPDeleteTeacherClass(100,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteUserProgram(100,'testprogram',100,2020);
 
 -- Meta
