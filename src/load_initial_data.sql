@@ -18,21 +18,6 @@ INSERT INTO $APP_NAME$.NextId (IdType, NextValue) VALUES
 ('file', 1),
 ('role', 1);
 
--- Default Roles
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'General', 'Todos los usuarios', TRUE, NULL, NULL, NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Docentes', 'Todos los docentes', FALSE, NULL, '{TR}', NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Administradores de colegio', 'Todos los administradores de colegio', FALSE, NULL, '{SF}', NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Administrador del sitio', 'Todos los administradores del sitio', FALSE, NULL, '{AD}', NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'S' || U&'\00FA' || 'per usuario', 'Todos los s' || U&'\00FA' || 'per usuarios', FALSE, NULL, '{SU}', NULL);
-
--- Default objects
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'school');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'class');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'contract');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'reward');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'file');
-SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'role');
-
 -- Load categories
 INSERT INTO $APP_NAME$.Lookup_Category
 (CategoryClass, CategoryType, CategoryDisplayName, Description) VALUES

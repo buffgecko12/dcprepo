@@ -28,14 +28,6 @@ BEGIN
             FROM JSONB_TO_RECORDSET(pACLList) AS batch (RoleId INTEGER, AclInfo JSONB)
         ) src    
         CROSS JOIN JSONB_ARRAY_ELEMENTS(src.aclinfo) AS acl		
-		
---		SELECT batch.RoleId, batch.ObjectId, batch.ObjectClass, batch.AccessLevel
---		FROM JSONB_TO_RECORDSET(pACLList) AS batch (
---			RoleId INTEGER,
---			ObjectId INTEGER,
---			ObjectClass CHAR(2),
---			AccessLevel SMALLINT
---		)
 		WHERE pACLList IS NOT NULL
 	) src
 	WHERE RoleId IS NOT NULL
