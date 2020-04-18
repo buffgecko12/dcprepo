@@ -12,7 +12,7 @@ BEGIN
     FROM $APP_NAME$Views.Role r
     WHERE (r.RoleId = pRoleId OR pRoleId IS NULL)
     AND (r.Name = pName OR pName IS NULL)
-    ORDER BY r.PublicFlag, r.SchoolList, r.UserTypeList, r.UserList, r.Name
+    ORDER BY r.Name, r.PublicFlag, r.SchoolList, r.UserTypeList, r.UserList, r.RoleId
     ;
 END;
 $$ LANGUAGE 'plpgsql';
