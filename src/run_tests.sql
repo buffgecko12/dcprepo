@@ -3,9 +3,9 @@ SELECT $APP_NAME$Views.SP_DCPUpsertObject(NULL, 'BO', 'some_object');
 SELECT $APP_NAME$Views.SP_DCPUpsertObject(2, 'VW', 'some_view');
 
 -- Create Roles (do NULL ID upsert first to preserve next ID ordering)
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, 'Some role', 'Some description', NULL, '{200}', NULL, NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(2, 'Some role (school 1)', 'Some description', NULL, '{100}', NULL, NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, 'Some role (school 2)', 'Some description', NULL, '{200}', NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(NULL, NULL, 'Some role', 'Some description', NULL, '{200}', NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(2, 'PG', 'Some role (school 1)', 'Some description', NULL, '{100}', NULL, NULL, TRUE);
+SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, NULL, 'Some role (school 2)', 'Some description', NULL, '{200}', NULL, NULL, NULL);
 
 -- Update files
 SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
@@ -88,7 +88,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertContractPartyReward(100,100,100,1, 10, 10000,
 SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO', NULL);
 
 -- Role / ACL
-SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetRoleACL(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,200,'FL',4); -- Check read access on specified file for given user
 SELECT $APP_NAME$Views.SP_DCPModifyRoleItem(1,100,NULL,NULL,'A');
@@ -133,8 +133,8 @@ SELECT $APP_NAME$Views.SP_DCPDeleteObject(NULL,NULL);
 
 -- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPDeleteRoleACL(3, 200, 'FL');
-SELECT $APP_NAME$Views.SP_DCPDeleteRole(2);
-SELECT $APP_NAME$Views.SP_DCPDeleteRole(NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteRole(2, NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteRole(NULL, NULL);
 
 -- User
 SELECT $APP_NAME$Views.SP_DCPDeleteUser(100);

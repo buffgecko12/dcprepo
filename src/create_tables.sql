@@ -3,12 +3,14 @@
 -- Permissions
 CREATE TABLE $APP_NAME$.Role (
 	RoleId INTEGER NOT NULL,
+	RoleClass CHAR(2),
 	Name VARCHAR(100) NOT NULL UNIQUE,
 	Description VARCHAR(500),
 	PublicFlag BOOLEAN,
 	SchoolList INTEGER[],
 	UserTypeList CHAR(2)[],
 	UserList INTEGER[],
+	InternalFlag BOOLEAN,
 	PRIMARY KEY (RoleId)
 );
 

@@ -1,17 +1,21 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetRole(
     pRoleId INTEGER,
-    pName VARCHAR(100)
+    pRoleClass CHAR(2)[],
+    pName VARCHAR(100),
+    pInternalFlag BOOLEAN
 )
 RETURNS TABLE (
-  RoleId INTEGER, Name VARCHAR(100), Description VARCHAR(500), PublicFlag BOOLEAN, 
-  SchoolList INTEGER[], UserList INTEGER[], UserTypeList CHAR(2)[]
+  RoleId INTEGER, RoleClass CHAR(2), Name VARCHAR(100), Description VARCHAR(500), PublicFlag BOOLEAN, 
+  SchoolList INTEGER[], UserList INTEGER[], UserTypeList CHAR(2)[], InternalFlag BOOLEAN
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT r.RoleId, r.Name, r.Description, r.PublicFlag, r.SchoolList, r.UserList, r.UserTypeList
+    SELECT r.RoleId, r.RoleClass, r.Name, r.Description, r.PublicFlag, r.SchoolList, r.UserList, r.UserTypeList, r.InternalFlag
     FROM $APP_NAME$Views.Role r
     WHERE (r.RoleId = pRoleId OR pRoleId IS NULL)
+    AND (r.RoleClass = ANY(pRoleClass) OR pRoleClass IS NULL)
     AND (r.Name = pName OR pName IS NULL)
+    AND (r.InternalFlag = pInternalFlag OR pInternalFlag IS NULL)
     ORDER BY r.Name, r.PublicFlag, r.SchoolList, r.UserTypeList, r.UserList, r.RoleId
     ;
 END;

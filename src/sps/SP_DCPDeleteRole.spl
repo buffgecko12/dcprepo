@@ -1,5 +1,6 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteRole (
-    pRoleId INTEGER
+    pRoleId INTEGER,
+    pInternalFlag BOOLEAN
 ) 
 RETURNS VOID AS $$
 BEGIN	
@@ -8,7 +9,10 @@ BEGIN
 	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(pRoleId, NULL, NULL);
 
 	-- Delete role
-	DELETE FROM $APP_NAME$.Role	WHERE (RoleId = pRoleId OR pRoleId IS NULL);	
+	DELETE FROM $APP_NAME$.Role	
+	WHERE (RoleId = pRoleId OR pRoleId IS NULL)
+	AND (InternalFlag IS NOT TRUE OR pInternalFlag IS TRUE) -- Only delete internal flags if specified
+	;
 	
 END;
 $$ LANGUAGE 'plpgsql';

@@ -19,6 +19,21 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="RoleClass" id="C5AA988B-5DB5-DFFD-5D71-2C036B4558D2">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-18 07:07:58 UTC</createdTime>
+<comment><![CDATA[US - User
+FL - File
+PG - Program]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>2</dataTypeSize>
+<ownDataTypeParameters>2,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="Name" id="208B0959-8B62-DC1B-560D-AF93F2B16BB1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-27 03:34:16 UTC</createdTime>
@@ -87,6 +102,18 @@
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>0860E90D-C9DB-C33A-1E96-B5CEC2DEB28D</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="InternalFlag" id="896DB11C-8240-8383-3C6F-783F85334240">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-18 07:07:58 UTC</createdTime>
+<comment><![CDATA[Internal]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>

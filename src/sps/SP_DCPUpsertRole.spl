@@ -1,11 +1,13 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertRole (
 	pRoleId INTEGER,
+	pRoleClass CHAR(2),
 	pName VARCHAR(100),
 	pDescription VARCHAR(500),
 	pPublicFlag BOOLEAN,
 	pSchoolList INTEGER[],
 	pUserTypeList CHAR(2)[],
-	pUserList INTEGER[]
+	pUserList INTEGER[],
+	pInternalFlag BOOLEAN
 ) 
 RETURNS INTEGER AS $$
 DECLARE 
@@ -20,15 +22,17 @@ BEGIN
     END IF;
     
     -- Upsert role
-    INSERT INTO $APP_NAME$.Role(RoleId, Name, Description, PublicFlag, SchoolList, UserTypeList, UserList)
-    VALUES(MyRoleId, pName, pDescription, pPublicFlag, pSchoolList, pUserTypeList, pUserList)
+    INSERT INTO $APP_NAME$.Role(RoleId, RoleClass, Name, Description, PublicFlag, SchoolList, UserTypeList, UserList, InternalFlag)
+    VALUES(MyRoleId, pRoleClass, pName, pDescription, pPublicFlag, pSchoolList, pUserTypeList, pUserList, pInternalFlag)
     ON CONFLICT(RoleId) DO UPDATE SET
+	    RoleClass = EXCLUDED.RoleClass,
 	    Name = EXCLUDED.Name,
 	    Description = EXCLUDED.Description,
 	    PublicFlag = EXCLUDED.PublicFlag,
 	    SchoolList = EXCLUDED.SchoolList,
 	    UserTypeList = EXCLUDED.UserTypeList,
-	    UserList = EXCLUDED.UserList
+	    UserList = EXCLUDED.UserList,
+	    InternalFlag = EXCLUDED.InternalFlag
     ;   
     
 	-- Return new id (if new school)
