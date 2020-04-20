@@ -23,7 +23,7 @@ INSERT INTO $APP_NAME$.Lookup_Category
 (CategoryClass, CategoryType, CategoryDisplayName, Description) VALUES
 
 -- Programs
-('program', 'ICT', 'Programa de incentivos', NULL),
+('program', 'incentive', 'Programa de incentivos', NULL),
 
 -- File classes
 ('fileclass', 'CT', 'Contrato', NULL),
