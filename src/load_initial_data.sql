@@ -22,6 +22,13 @@ INSERT INTO $APP_NAME$.NextId (IdType, NextValue) VALUES
 INSERT INTO $APP_NAME$.Lookup_Category
 (CategoryClass, CategoryType, CategoryDisplayName, Description) VALUES
 
+-- Programs
+('program', 'ICT', 'Programa de incentivos', NULL),
+
+-- File classes
+('fileclass', 'CT', 'Contrato', NULL),
+('fileclass', 'PG', 'Programa', NULL),
+
 -- Contract files
 ('contractfile', 'CT', 'Contrato', 'Propuesta de contrato'),
 ('contractfile', 'CTE', 'Evidencia', 'Evidencias del cumplimiento del contrato'),
