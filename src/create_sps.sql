@@ -12,14 +12,19 @@
 \i install/sps/SP_DCPClearUserNotification.spl
 \i install/sps/SP_DCPGetUserProfilePicture.spl
 
--- Teacher Info
-\i install/sps/SP_DCPUpsertTeacherClass.spl
-\i install/sps/SP_DCPDeleteTeacherClass.spl
-\i install/sps/SP_DCPGetTeacherClass.spl
+-- Program
+\i install/sps/SP_DCPUpsertProgram.spl
+\i install/sps/SP_DCPDeleteProgram.spl
+\i install/sps/SP_DCPGetProgram.spl
 
 \i install/sps/SP_DCPUpsertUserProgram.spl
 \i install/sps/SP_DCPDeleteUserProgram.spl
 \i install/sps/SP_DCPGetUserProgram.spl
+
+-- Teacher
+\i install/sps/SP_DCPUpsertTeacherClass.spl
+\i install/sps/SP_DCPDeleteTeacherClass.spl
+\i install/sps/SP_DCPGetTeacherClass.spl
 
 -- School
 \i install/sps/SP_DCPUpsertSchool.spl

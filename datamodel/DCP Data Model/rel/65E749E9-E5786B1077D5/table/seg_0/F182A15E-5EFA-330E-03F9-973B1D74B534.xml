@@ -1,0 +1,79 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F182A15E-5EFA-330E-03F9-973B1D74B534" name="Program">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:03:46 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<ordsAlias>table_26</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ProgramName" id="D3A8B5AD-8851-4647-22FC-0808D61EB972">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:06:39 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SchoolYear" id="8602424D-0917-B60F-767A-45D3DE983F36">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:06:39 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<domain>0C1B21FB-030A-C377-B9CE-8A75408CA30E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ProgramDetails" id="7CCC4EF3-29FB-DB10-67FB-36A6F8A4E0F1">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:17:40 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>A7589D02-CD9D-ABCD-D1B3-01F930CAC241</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="StartTS" id="3EB633A1-C6BF-B4C2-01F4-B8C03225F736">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:06:39 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>49BB7B42-FD69-8A7E-7CF4-772E8ED8791E</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EndTS" id="2055D29C-039A-B387-7512-BF56E2134EC5">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:06:39 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>E4155C6E-0255-E167-D11B-6A7661D675F3</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BE0FCFE9-DD15-5D1A-19D0-06FDAC391BFD" name="PKv12">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-22 18:06:39 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D3A8B5AD-8851-4647-22FC-0808D61EB972"/>
+<colUsage columnID="8602424D-0917-B60F-767A-45D3DE983F36"/>
+<colUsage columnID="2055D29C-039A-B387-7512-BF56E2134EC5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

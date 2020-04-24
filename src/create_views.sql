@@ -59,9 +59,14 @@ SELECT
   CAST(FileName || '.' || FileExtension AS VARCHAR(300)) AS ProfilePictureFileName
 FROM $APP_NAME$.Lookup_Profile_Picture;
 
--- Teacher
+-- Program
+CREATE OR REPLACE VIEW $APP_NAME$Views.ProgramAll AS SELECT * FROM $APP_NAME$.Program;
+CREATE OR REPLACE VIEW $APP_NAME$Views.Program AS SELECT * FROM $APP_NAME$Views.ProgramAll WHERE EndTS = TIMESTAMP '9999-12-31 23:59:59';
+
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_ProgramAll AS SELECT * FROM $APP_NAME$.User_Program;
 CREATE OR REPLACE VIEW $APP_NAME$Views.User_Program AS SELECT * FROM $APP_NAME$Views.User_ProgramAll WHERE EndTS = TIMESTAMP '9999-12-31 23:59:59';
+
+-- Teacher
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_Class AS SELECT * FROM $APP_NAME$.Teacher_Class;
 
 CREATE OR REPLACE VIEW $APP_NAME$Views.Teacher_Program_Info AS 

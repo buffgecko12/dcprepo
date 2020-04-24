@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertProgram (
+    pProgramName VARCHAR(50), 
+    pSchoolYear INTEGER,
+    pProgramDetails JSONB
+) 
+RETURNS VOID AS $$
+BEGIN
+
+    -- Close current row
+    UPDATE $APP_NAME$.Program
+    SET EndTS = CURRENT_TIMESTAMP
+    WHERE ProgramName = pProgramName
+    AND SchoolYear = pSchoolYear
+    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+    ;
+    
+    INSERT INTO $APP_NAME$.Program(ProgramName, SchoolYear, ProgramDetails, StartTS, EndTS)
+    SELECT pProgramName, pSchoolYear, pProgramDetails, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
+    ;
+        
+END;
+$$ LANGUAGE 'plpgsql';

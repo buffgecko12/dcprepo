@@ -1,0 +1,22 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetProgram(
+    pProgramName VARCHAR(50),
+    pSchoolYear INTEGER,
+    pProgramDetails JSONB
+) 
+RETURNS TABLE (
+	ProgramName VARCHAR(50), SchoolYear SMALLINT, CalendarId VARCHAR(250), ProgramDetails JSONB
+) AS $$
+BEGIN
+	RETURN QUERY
+	SELECT 
+		p.ProgramName,
+		p.SchoolYear,
+		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId,
+		p.ProgramDetails
+	FROM $APP_NAME$Views.Program p
+	WHERE (p.ProgramName = pProgramName OR pProgramName IS NULL)
+	AND (p.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	AND (p.ProgramDetails @> pProgramDetails OR pProgramDetails IS NULL)
+	;
+END;
+$$ LANGUAGE 'plpgsql';
