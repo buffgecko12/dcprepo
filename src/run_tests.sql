@@ -50,7 +50,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertTeacherClass(100,100,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertTeacherClass(100,NULL,'{101,102}');
 
 -- Program
-SELECT $APP_NAME$Views.SP_DCPUpsertProgram('incentive', 0, 2020, NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertProgram('testprogram', 0, 2020, NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertUserProgram(100, 'testprogram', 100, 2020, 400000, NULL, NULL);
 
 -- Get reward info
@@ -160,7 +160,7 @@ SELECT $APP_NAME$Views.SP_DCPDeleteTeacherClass(100,NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteUserProgram(100,'testprogram',100,2020);
 
 -- Program
-SELECT $APP_NAME$Views.SP_DCPDeleteProgram('incentive', NULL, 2020);
+SELECT $APP_NAME$Views.SP_DCPDeleteProgram('testprogram', NULL, 2020);
 
 -- Meta
 SELECT $APP_NAME$Views.SP_DCPGetNextId('dummyvalue');
