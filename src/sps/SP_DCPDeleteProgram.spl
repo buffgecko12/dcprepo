@@ -1,17 +1,19 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPDeleteProgram (
 	pProgramName VARCHAR(50),
+	pSchoolId INTEGER,
 	pSchoolYear INTEGER
 ) 
 RETURNS VOID AS $$
 BEGIN	
 
 	-- Delete child objects
-	PERFORM $APP_NAME$Views.SP_DCPDeleteUserprogram(NULL, pProgramName, NULL, pSchoolYear);
+	PERFORM $APP_NAME$Views.SP_DCPDeleteUserprogram(NULL, pProgramName, pSchoolId, pSchoolYear);
 
 	-- Delete program
 	UPDATE $APP_NAME$.Program
 	SET EndTS = CURRENT_TIMESTAMP
 	WHERE (ProgramName = pProgramName OR pProgramName IS NULL)
+	AND (SchoolId = pSchoolId OR pSchoolId IS NULL)
 	AND (SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
 	;

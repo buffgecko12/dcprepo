@@ -19,6 +19,16 @@
 <ownDataTypeParameters>50,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="SchoolId" id="DED993D7-089A-98C9-EA5C-0E985483C2A2">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-04-25 13:42:50 UTC</createdTime>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="SchoolYear" id="8602424D-0917-B60F-767A-45D3DE983F36">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-04-22 18:06:39 UTC</createdTime>
@@ -71,6 +81,7 @@
 <isSurrogateKey>false</isSurrogateKey>
 <indexColumnUsage>
 <colUsage columnID="D3A8B5AD-8851-4647-22FC-0808D61EB972"/>
+<colUsage columnID="DED993D7-089A-98C9-EA5C-0E985483C2A2"/>
 <colUsage columnID="8602424D-0917-B60F-767A-45D3DE983F36"/>
 <colUsage columnID="2055D29C-039A-B387-7512-BF56E2134EC5"/>
 </indexColumnUsage>

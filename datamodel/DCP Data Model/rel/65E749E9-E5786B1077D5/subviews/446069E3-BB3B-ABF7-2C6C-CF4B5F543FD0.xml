@@ -118,7 +118,7 @@
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="F182A15E-5EFA-330E-03F9-973B1D74B534" otype="Table" vid="9FCA0D57-BF55-25CA-0A56-AE06A640360B">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
-<bounds x="1180" y="660" width="244" height="116"/>
+<bounds x="1191" y="664" width="236" height="130"/>
 </OView>
 <OView class="oracle.dbtools.crest.swingui.relational.TVTable" oid="FF86B0D6-95DF-DEFD-0156-5434A4203FE9" otype="Table" vid="BA4B2DDE-E25F-7DD1-76DC-16288E06A4D2">
 <hideElementsInCurrentOnly>false</hideElementsInCurrentOnly>
@@ -203,8 +203,8 @@
 <backgroundColor>-2472729</backgroundColor>
 <lineWidth>1</lineWidth>
 <points>
-<point x="1200" y="660"/>
-<point x="1200" y="613"/>
+<point x="1205" y="664"/>
+<point x="1205" y="613"/>
 </points>
 </Connector>
 <Connector class="oracle.dbtools.crest.swingui.relational.TVImpliedForeignKey" oid="30A30615-77BA-CB47-825E-CE9A12EC7E67" otype="ImpliedForeignKey" vid_source="935C1E67-7D4E-B6C0-482F-DC35C6DB30AD" vid_target="A8223B5A-C9C8-6FEE-3F79-1F3CDC9E309F">

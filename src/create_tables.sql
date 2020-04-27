@@ -161,11 +161,12 @@ CREATE TABLE $APP_NAME$.Class (
 -- Programs
 CREATE TABLE $APP_NAME$.Program (
 	ProgramName VARCHAR(50) NOT NULL,
+	SchoolID INTEGER, -- General (ID = 0)
 	SchoolYear SMALLINT NOT NULL,
 	ProgramDetails JSONB,
 	StartTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	EndTS TIMESTAMP NOT NULL DEFAULT TIMESTAMP '9999-12-31 23:59:59',
-	PRIMARY KEY (ProgramName, SchoolYear, EndTS)
+	PRIMARY KEY (ProgramName, SchoolId, SchoolYear, EndTS)
 );
 
 -- USER: Profile
