@@ -13,7 +13,7 @@ BEGIN
 		p.ProgramName,
 		p.SchoolId,
 		p.SchoolYear,
-		s.SchoolAbbreviation,
+		CASE WHEN s.SchoolId = 0 THEN '' ELSE s.SchoolAbbreviation END AS SchoolAbbreviation,
 		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId,
 		p.ProgramDetails
 	FROM $APP_NAME$Views.Program p
