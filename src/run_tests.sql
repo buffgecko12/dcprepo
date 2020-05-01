@@ -125,7 +125,7 @@ SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearnewrepnotification'
 SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',NULL);
 SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
 
-SELECT SP_DCPGetFile(100, NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL);
+SELECT SP_DCPGetFile(100, NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Delete objects
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);

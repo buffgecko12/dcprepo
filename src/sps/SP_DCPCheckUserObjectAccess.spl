@@ -43,7 +43,7 @@ BEGIN
 			END AS MyAccessLevel
 		FROM (
 			-- Explicit permissions
-			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass, ra.AccessLevel
+			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass, acl.AccessLevel
 			FROM (
 				-- Files
 				SELECT CAST(f.FileId AS INTEGER) AS ObjectId, pObjectClass AS ObjectClass 
@@ -59,15 +59,19 @@ BEGIN
 				WHERE o.ObjectClass = pObjectClass
 				AND (o.ObjectId = pObjectId OR pObjectId IS NULL)
 			) o -- Objects
-			INNER JOIN $APP_NAME$Views.Role_ACL ra ON o.ObjectId = ra.ObjectId AND o.ObjectClass = ra.ObjectClass -- Roles associated with objects
-			INNER JOIN $APP_NAME$Views.Role r ON ra.RoleId = r.RoleId -- Role info
-			INNER JOIN $APP_NAME$Views.Users u ON u.UserId = pUserId -- User info
-			WHERE r.PublicFlag IS TRUE -- Public
-			OR u.UserId = ANY(r.UserList) -- Specific user
+			LEFT JOIN (
+				SELECT ra.ObjectId, ra.ObjectClass, ra.AccessLevel, r.PublicFlag, r.UserList, r.SchoolList, r.UserTypeList, u.UserId, u.SchoolId, u.UserType
+				FROM $APP_NAME$Views.Role_ACL ra
+				INNER JOIN $APP_NAME$Views.Role r ON ra.RoleId = r.RoleId -- Role info
+				INNER JOIN $APP_NAME$Views.Users u ON u.UserId = pUserId -- User info
+			) acl ON o.ObjectId = acl.ObjectId AND o.ObjectClass = acl.ObjectClass -- ACLs associated with objects
+			WHERE acl.PublicFlag IS TRUE -- Public
+			OR acl.UserId = ANY(acl.UserList) -- Specific user
 			OR ( -- Check School and UserType together (in case they are both are specified)
-			    (u.SchoolId = ANY(r.SchoolList) OR r.SchoolList IS NULL) AND -- School
-			    (u.UserType = ANY(r.UserTypeList) OR r.UserTypeList IS NULL ) -- UserType
+			    (acl.SchoolId = ANY(acl.SchoolList) OR acl.SchoolList IS NULL) AND -- School
+			    (acl.UserType = ANY(acl.UserTypeList) OR acl.UserTypeList IS NULL ) -- UserType
 			)
+			OR pUserId IS NULL -- Ignore ACLs
 			
 			UNION ALL
 			
@@ -75,7 +79,7 @@ BEGIN
 			SELECT f.FileId AS ObjectId, pObjectClass AS ObjectClass, 4 AS AccessLevel
 			FROM $APP_NAME$Views.File f
 			INNER JOIN $APP_NAME$Views.Contract_Party cp ON f.ContractId = cp.ContractId -- Get users related to contract file
-			WHERE cp.TeacherUserId = pUserId
+			WHERE (cp.TeacherUserId = pUserId OR pUserId IS NULL)
 			AND (f.FileId = pObjectId OR pObjectId IS NULL)
 			AND pObjectClass = 'FL'
 		) src
