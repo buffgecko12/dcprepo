@@ -9,9 +9,9 @@ SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, NULL, 'Some role (school 2)', 'Some d
 
 -- Update files
 SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
-SELECT $APP_NAME$Views.SP_DCPUpsertFile(200,'MySchoolDataPolicy2','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
+SELECT $APP_NAME$Views.SP_DCPUpsertFileBatch(JSONB('[{"filename": "filetest1", "filesource":"GD", "alternatefileid": "12345"}]'));
 
-SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 200, 'FL', 4, NULL); -- Set role ACL
+SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 100, 'FL', 4, NULL); -- Set role ACL
 
 -- Add reward info
 SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'FD', 'Pizza Show');
@@ -93,7 +93,7 @@ SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO', NULL);
 -- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetRoleACL(NULL,NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,200,'FL',4); -- Check read access on specified file for given user
+SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,100,'FL',4); -- Check read access on specified file for given user
 SELECT $APP_NAME$Views.SP_DCPModifyRoleItem(1,100,NULL,NULL,'A');
 
 -- Get contract info
@@ -134,12 +134,13 @@ SELECT $APP_NAME$Views.SP_DCPDeleteClass(100);
 SELECT $APP_NAME$Views.SP_DCPDeleteSchool(100);
 SELECT $APP_NAME$Views.SP_DCPDeleteSchool(200);
 SELECT $APP_NAME$Views.SP_DCPDeleteFile(100, NULL, NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteFile(NULL, NULL, NULL, '12345', NULL);
 
 -- Object
 SELECT $APP_NAME$Views.SP_DCPDeleteObject(NULL,NULL);
 
 -- Role / ACL
-SELECT $APP_NAME$Views.SP_DCPDeleteRoleACL(3, 200, 'FL');
+SELECT $APP_NAME$Views.SP_DCPDeleteRoleACL(3, 100, 'FL');
 SELECT $APP_NAME$Views.SP_DCPDeleteRole(2, NULL);
 SELECT $APP_NAME$Views.SP_DCPDeleteRole(NULL, NULL);
 

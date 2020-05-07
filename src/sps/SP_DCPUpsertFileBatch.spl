@@ -1,0 +1,72 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFileBatch(
+	pFileInfo JSONB,
+--	pGoogleDriveSyncFlag BOOLEAN DEFAULT TRUE,
+	pAlternateFileSource CHAR(2) DEFAULT NULL
+)
+RETURNS TABLE(NewFileId INTEGER) AS $$
+BEGIN
+
+	-- Temp table to store records
+	CREATE TEMPORARY TABLE IF NOT EXISTS tFiles 
+	ON COMMIT DROP AS 
+	SELECT src.*, CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END AS ExistsFlag, 
+		CAST(COALESCE(
+			f.FileId, -- Use current fileId if file already exists
+			ni.NextId + (ROW_NUMBER() OVER(ORDER BY CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END DESC) - 1) -- Generate new ids for new files
+		) AS INTEGER) AS MyFileId
+	FROM JSONB_POPULATE_RECORDSET(NULL::File, pFileInfo) src
+	LEFT JOIN $APP_NAME$.File f ON ( -- Check if file is known in repository
+		(src.FileId = f.FileId AND pAlternateFileSource IS NULL) OR -- Regular files
+		(src.AlternateFileId = f.AlternateFileId AND f.FileSource = pAlternateFileSource) -- i.e. Google Drive
+	) AND f.EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	CROSS JOIN $APP_NAME$Views.SP_DCPGetNextId('file') ni
+	WITH DATA
+	;
+
+	-- Close out any existing rows
+	UPDATE $APP_NAME$.File
+	SET EndTS = CURRENT_TIMESTAMP
+	WHERE (
+		(FileId IN (SELECT FileId FROM tFiles) AND pAlternateFileSource IS NULL) OR -- Regular files
+		(AlternateFileId IN (SELECT AlternateFileId FROM tFiles) AND FileSource = pAlternateFileSource) -- i.e. Google Drive
+	)
+	AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	;
+
+	-- Upsert files
+	INSERT INTO $APP_NAME$.File
+	(FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileSource, FileData, FileURL,
+		FilePath, FileClass, FileCategory, FileAttributes, AlternateFileId, ContractId, SchoolId, SchoolYear, StartTS, EndTS)
+	SELECT MyFileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileSource, FileData, FileURL, 
+		FilePath, FileClass, FileCategory, FileAttributes, AlternateFileId, ContractId, SchoolId, SchoolYear, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
+	FROM tFiles
+	ON CONFLICT(FileId, EndTS) DO UPDATE
+	SET FileName = EXCLUDED.FileName,
+		FileExtension = EXCLUDED.FileExtension,
+		FileSize = EXCLUDED.FileSize,
+		FileType = EXCLUDED.FileType,
+		FileDescription =EXCLUDED.FileDescription,
+		FileSource = EXCLUDED.FileSource,
+		FileData = EXCLUDED.FileData,
+		FileURL = EXCLUDED.FileURL,
+		FilePath = EXCLUDED.FilePath,
+		FileClass = EXCLUDED.FileClass,
+		FileCategory = EXCLUDED.FileCategory,
+		FileAttributes = EXCLUDED.FileAttributes,
+		AlternateFileId = EXCLUDED.AlternateFileId,
+		ContractId = EXCLUDED.ContractId,
+		SchoolId = EXCLUDED.SchoolId,
+		SchoolYear = EXCLUDED.SchoolYear
+	;
+
+	-- Increment counter with newly added rows
+	PERFORM $APP_NAME$Views.SP_DCPGetNextId('file', (SELECT CAST(COUNT(*) AS INTEGER) - 1 FROM tFiles WHERE ExistsFlag IS FALSE));
+
+	-- Get file list to return
+    RETURN QUERY SELECT MyFileId FROM tFiles;
+
+	-- Temp table is dropped automatically after transaction/function completes and COMMITs
+
+END;
+$$
+LANGUAGE 'plpgsql';

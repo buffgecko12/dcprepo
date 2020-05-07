@@ -1,25 +1,26 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetNextId (
-	pIdType VARCHAR(50)
+	pIdType VARCHAR(50),
+	pOffset INTEGER DEFAULT NULL
 ) 
-RETURNS INTEGER AS $$
+RETURNS TABLE(NextId INTEGER) AS $$
 DECLARE 
-	NewId INTEGER; -- Store new Id value
+	NextId INTEGER; -- Store new Id value
 BEGIN   
 
 	-- Get next id
-    SELECT NextValue INTO NewId
+    SELECT NextValue INTO NextId
     FROM $APP_NAME$.NextId
     WHERE IdType = pIdType
     FOR UPDATE -- Use "Update" row-lock so it is not read by any other queries also using "Update" row-lock
 	;
-	
+
     -- Increment id value
     UPDATE $APP_NAME$.NextId
-    SET NextValue = NextValue + 1
+    SET NextValue = NextValue + COALESCE(pOffset, 1)
     WHERE IdType = pIdType
     ;		
 
 	-- Return new id
-    RETURN NewId;   
+    RETURN QUERY SELECT NextId;
 END;
 $$ LANGUAGE 'plpgsql';
