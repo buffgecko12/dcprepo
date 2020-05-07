@@ -1,9 +1,9 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetCategory(
     pCategoryClass VARCHAR(50),
-    pCategoryType VARCHAR(10)
+    pCategoryType VARCHAR(25)
 ) 
 RETURNS TABLE (
-	CategoryClass VARCHAR(50), CategoryType VARCHAR(10), CategoryDisplayName VARCHAR(100), Description VARCHAR(500)
+	CategoryClass VARCHAR(50), CategoryType VARCHAR(25), CategoryDisplayName VARCHAR(100), Description VARCHAR(500)
 ) AS $$
 BEGIN
     RETURN QUERY

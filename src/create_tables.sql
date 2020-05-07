@@ -40,7 +40,7 @@ CREATE TABLE $APP_NAME$.NextId (
 -- LOOKUP: Category
 CREATE TABLE $APP_NAME$.Lookup_Category (
 	CategoryClass VARCHAR(50) NOT NULL,
-	CategoryType VARCHAR(10) NOT NULL,
+	CategoryType VARCHAR(25) NOT NULL,
 	CategoryDisplayName VARCHAR(100),
 	Description VARCHAR(500),
 	PRIMARY KEY(CategoryClass, CategoryType)

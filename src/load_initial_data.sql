@@ -26,8 +26,8 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('program', 'incentive', 'Programa de incentivos', NULL),
 
 -- File classes
-('fileclass', 'CT', 'Contrato', NULL),
-('fileclass', 'PG', 'Programa', NULL),
+('fileclass', 'contractfile', 'Contrato', NULL),
+('fileclass', 'programfile', 'Programa', NULL),
 
 -- Contract files
 ('contractfile', 'CT', 'Contrato', 'Propuesta de contrato'),

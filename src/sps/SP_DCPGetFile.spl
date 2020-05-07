@@ -13,16 +13,18 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
 RETURNS TABLE (
 	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
 	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), FileAttributes JSONB, AlternateFileId VARCHAR(256),
-	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT
+	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, FileClassDisplayName VARCHAR(100), FileCategoryDisplayName VARCHAR(100)
 ) AS $$
 BEGIN
 	-- Check permissions (same query as below except with permissions check); separated for performance and ease of maintenance
 	IF(pAccessInfo IS NOT NULL) THEN
 	    RETURN QUERY
-	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, 
-	    	   f.FilePath, f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear
+	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath, f.FileClass,
+	    	   f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear, COALESCE(fc.CategoryDisplayName, 'General'), COALESCE(fct.CategoryDisplayName, 'General')
 	    FROM $APP_NAME$Views.File f
 	    INNER JOIN $APP_NAME$Views.SP_DCPCheckUserObjectAccess(CAST(pAccessInfo->'userid' AS INTEGER), f.FileId, 'FL', CAST(pAccessInfo->'requestedaccesslevel' AS INTEGER)) a ON f.FileId = a.ObjectId
+	    LEFT JOIN $APP_NAME$Views.Lookup_Category fc ON f.FileClass = fc.CategoryType AND fc.CategoryClass = 'fileclass' -- Get file class info
+	    LEFT JOIN $APP_NAME$Views.Lookup_Category fct ON f.FileCategory = fct.CategoryType AND fct.CategoryClass = fc.CategoryType -- Get file type info
 	    WHERE (f.FileId = pFileId OR pFileId IS NULL)
 	    AND (f.FileClass = pFileClass OR pFileClass IS NULL)
 	    AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
@@ -32,14 +34,16 @@ BEGIN
 	    AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	    AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
 	    AND (f.FileSource = pFileSource OR pFileSource IS NULL)
-	    ORDER BY f.StartTS DESC;
+	    ORDER BY fc.CategoryDisplayName, fct.CategoryDisplayName, f.FileName, f.StartTS DESC;
 	
 	-- No permissions    
     ELSE
 	    RETURN QUERY
-	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, 
-	    	   f.FilePath, f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear
+	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath, f.FileClass,
+	    	   f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear, COALESCE(fc.CategoryDisplayName, 'General'), COALESCE(fct.CategoryDisplayName, 'General')
 	    FROM $APP_NAME$Views.File f
+	    LEFT JOIN $APP_NAME$Views.Lookup_Category fc ON f.FileClass = fc.CategoryType AND fc.CategoryClass = 'fileclass' -- Get file class info
+	    LEFT JOIN $APP_NAME$Views.Lookup_Category fct ON f.FileCategory = fct.CategoryType AND fct.CategoryClass = fc.CategoryType -- Get file type info
 	    WHERE (f.FileId = pFileId OR pFileId IS NULL)
 	    AND (f.FileClass = pFileClass OR pFileClass IS NULL)
 	    AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
@@ -49,7 +53,7 @@ BEGIN
 	    AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	    AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
 	    AND (f.FileSource = pFileSource OR pFileSource IS NULL)
-	    ORDER BY f.StartTS DESC;
+	    ORDER BY fc.CategoryDisplayName, fct.CategoryDisplayName, f.FileName, f.StartTS DESC;
     END IF;
 END;
 $$
