@@ -12,14 +12,14 @@ BEGIN
 	SELECT src.*, CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END AS ExistsFlag, 
 		CAST(COALESCE(
 			f.FileId, -- Use current fileId if file already exists
-			ni.NextId + (ROW_NUMBER() OVER(ORDER BY CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END DESC) - 1) -- Generate new ids for new files
+			ni.NextId + (ROW_NUMBER() OVER(ORDER BY CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END ASC) - 1) -- Generate new ids for new files
 		) AS INTEGER) AS MyFileId
 	FROM JSONB_POPULATE_RECORDSET(NULL::File, pFileInfo) src
 	LEFT JOIN $APP_NAME$.File f ON ( -- Check if file is known in repository
 		(src.FileId = f.FileId AND pAlternateFileSource IS NULL) OR -- Regular files
 		(src.AlternateFileId = f.AlternateFileId AND f.FileSource = pAlternateFileSource) -- i.e. Google Drive
 	) AND f.EndTS = TIMESTAMP '9999-12-31 23:59:59'
-	CROSS JOIN $APP_NAME$Views.SP_DCPGetNextId('file') ni
+	CROSS JOIN $APP_NAME$Views.SP_DCPGetNextId('file', 0) ni
 	WITH DATA
 	;
 
@@ -60,7 +60,7 @@ BEGIN
 	;
 
 	-- Increment counter with newly added rows
-	PERFORM $APP_NAME$Views.SP_DCPGetNextId('file', (SELECT CAST(COUNT(*) AS INTEGER) - 1 FROM tFiles WHERE ExistsFlag IS FALSE));
+	PERFORM $APP_NAME$Views.SP_DCPGetNextId('file', (SELECT CAST(COUNT(*) AS INTEGER) FROM tFiles WHERE ExistsFlag IS FALSE));
 
 	-- Get file list to return
     RETURN QUERY SELECT MyFileId FROM tFiles;
