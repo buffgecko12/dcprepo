@@ -9,10 +9,10 @@ USE CASES
 1. Check if user has access to view contracts
 2. Check if user has access to download a file
 
-0 - No access
-1 - Browse / List
-4 - Read /download
-8 - Edit / Write
+ 0 - No access
+ 1 - Browse / List
+ 4 - Read /download
+ 8 - Edit / Write
 10 - Create
 12 - Delete
 
@@ -22,7 +22,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPCheckUserObjectAccess(
     pUserId INTEGER,
     pObjectId INTEGER,
     pObjectClass CHAR(2),
-    pRequestedAccessLevel INTEGER
+    pRequestedAccessLevel INTEGER,
+    pBusinessObjectPermissionsFlag BOOLEAN DEFAULT FALSE
 )
 RETURNS TABLE (
 	UserId INTEGER, -- Need to return PK field for Django user object
@@ -43,21 +44,30 @@ BEGIN
 			END AS MyAccessLevel
 		FROM (
 			-- Explicit permissions
-			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass, acl.AccessLevel
+			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass,
+			CASE WHEN acl.Accesslevel = 0 THEN acl.AccessLevel ELSE -- Give revoked permission precedence
+	            GREATEST(
+		            MAX(CASE WHEN o.ObjectClass = 'BO' AND o.ObjectName = CASE WHEN pObjectClass = 'FL' THEN 'file' END AND pBusinessObjectPermissionsFlag IS TRUE THEN acl.AccessLevel END) OVER(), -- Business object access
+		            acl.AccessLevel -- specific object access
+	            ) 
+            END AS AccessLevel
 			FROM (
+				-- Objects (don't re-use other object classes, i.e. 'FL')
+				SELECT o.ObjectId, o.ObjectClass, o.ObjectName
+				FROM $APP_NAME$Views.Object o
+				WHERE (
+					o.ObjectClass = pObjectClass AND
+					(o.ObjectId = pObjectId OR pObjectId IS NULL)
+				)
+				OR (o.ObjectClass = 'BO' AND o.ObjectName = CASE WHEN pObjectClass = 'FL' THEN 'file' END AND pBusinessObjectPermissionsFlag IS TRUE) -- Include business-object permissions
+
+				UNION ALL
+
 				-- Files
-				SELECT CAST(f.FileId AS INTEGER) AS ObjectId, pObjectClass AS ObjectClass 
+				SELECT CAST(f.FileId AS INTEGER) AS ObjectId, pObjectClass AS ObjectClass, NULL
 				FROM $APP_NAME$Views.File f
 				WHERE pObjectClass = 'FL'
 				AND (f.FileId = pObjectId OR pObjectId IS NULL)
-				
-				UNION ALL
-		
-				-- Objects (don't re-use other object classes, i.e. 'FL')
-				SELECT o.ObjectId, o.ObjectClass 
-				FROM $APP_NAME$Views.Object o
-				WHERE o.ObjectClass = pObjectClass
-				AND (o.ObjectId = pObjectId OR pObjectId IS NULL)
 			) o -- Objects
 			LEFT JOIN (
 				SELECT ra.ObjectId, ra.ObjectClass, ra.AccessLevel, r.PublicFlag, r.UserList, r.SchoolList, r.UserTypeList, u.UserId, u.SchoolId, u.UserType
@@ -83,6 +93,7 @@ BEGIN
 			AND (f.FileId = pObjectId OR pObjectId IS NULL)
 			AND pObjectClass = 'FL'
 		) src
+		WHERE src.ObjectClass = pObjectClass -- Filter out any non-requested object classes used in calculation
 		GROUP BY src.ObjectId, src.ObjectClass
 	) src
 	WHERE (MyAccessLevel >= pRequestedAccessLevel OR pRequestedAccessLevel IS NULL)
