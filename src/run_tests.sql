@@ -37,10 +37,10 @@ SELECT $APP_NAME$Views.SP_DCPUpsertSchoolRubric(NULL,100,2020,'PT','Entrega de l
 SELECT $APP_NAME$Views.SP_DCPGetSchoolRubric(NULL,NULL,NULL);
 
 -- Add users
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (100, 100, 'MyTeacher','TR','Joe','Smith','joe1@smith.com',NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (101, 100, 'MyStudent1','ST','Nic','Cage','nic@cage.com',NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (102, 100, 'MyStudent2','ST','Sean','Connery','the@besht.com',NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (103, 100, 'MyStudent3','ST','Elsa','Benitez','the@shipoopee.com',NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (100, 100, 'MyTeacher','TR','Joe','Smith','joe1@smith.com',NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (101, 100, 'MyStudent1','ST','Nic','Cage','nic@cage.com',NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (102, 100, 'MyStudent2','ST','Sean','Connery','the@besht.com',NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (103, 100, 'MyStudent3','ST','Elsa','Benitez','the@shipoopee.com',NULL,NULL,NULL,NULL);
 
 -- Add user notification
 SELECT $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);

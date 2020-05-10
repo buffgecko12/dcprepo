@@ -182,6 +182,7 @@ CREATE TABLE $APP_NAME$.Users (
     ReputationValue INTEGER DEFAULT 0,
     ReputationValueLastSeenTS TIMESTAMP WITH TIME ZONE,
     ProfilePictureId INTEGER,
+    SharedAccountflag BOOLEAN,
     Last_Login TIMESTAMP WITH TIME ZONE,
 	Is_Active BOOLEAN, -- Required for django authentication
     PRIMARY KEY(UserId)

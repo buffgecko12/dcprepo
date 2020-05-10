@@ -166,8 +166,21 @@ Used to calculate newly gained reputation points]]></comment>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
-<dataTypeSize>100</dataTypeSize>
-<ownDataTypeParameters>100,,</ownDataTypeParameters>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SharedAccountFlag" id="0E895AF7-8C56-017B-951F-9C3FEFAB0796">
+<createdBy>ravioli</createdBy>
+<createdTime>2020-05-10 16:34:14 UTC</createdTime>
+<comment><![CDATA[Whether account is shared among multiple people.  
+
+This is used to disable certain features, like changing user account settings.]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<domain>57E9802B-A079-FA56-0EDD-CC9E619EEE7D</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
 <Column name="Last_Login" id="27CFB008-CB29-FB9B-3275-74CD14025FEC">
