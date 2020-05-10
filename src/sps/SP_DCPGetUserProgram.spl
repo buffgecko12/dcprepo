@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetUserProgram(
 RETURNS TABLE (
 	UserId INTEGER, ProgramName VARCHAR(50), SchoolId INTEGER, SchoolYear SMALLINT, MaxBudget INTEGER, BudgetSpent INTEGER, AvailableBudget INTEGER,
 	UploadDirectoryId INTEGER, UploadDirectoryId_gd VARCHAR(256), Details JSONB, SchoolAbbreviation VARCHAR(25), UserDisplayName VARCHAR(250),
-	ProgramDetails JSONB, GoogleCalendarId VARCHAR(250)
+	ProgramDetails JSONB, CalendarId VARCHAR(250)
 ) AS $$
 BEGIN
 	RETURN QUERY
@@ -25,7 +25,7 @@ BEGIN
 		u.SchoolAbbreviation,
 		u.UserDisplayName,
 		p.ProgramDetails,
-		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS GoogleCalendarId
+		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId
 	FROM $APP_NAME$Views.User_Program up
 	INNER JOIN $APP_NAME$Views.Program p ON up.ProgramName = p.ProgramName AND up.SchoolId = p.SchoolId AND up.SchoolYear = p.SchoolYear
 	LEFT JOIN $APP_NAME$Views.SP_DCPGetUser(pUserId, NULL, NULL, NULL) u ON up.UserId = u.UserId -- Get user info
