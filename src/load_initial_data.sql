@@ -76,7 +76,8 @@ INSERT INTO $APP_NAME$.Lookup_Category
 -- User classes
 ('roleclass', 'US', 'Usuarios', NULL),
 ('roleclass', 'FL', 'Archivos', NULL),
-('roleclass', 'PG', 'Programa', NULL)
+('roleclass', 'PG', 'Programa', NULL),
+('roleclass', 'OT', 'Otra', NULL)
 ;
 
 -- Load events
