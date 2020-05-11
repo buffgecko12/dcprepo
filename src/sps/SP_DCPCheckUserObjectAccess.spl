@@ -29,22 +29,23 @@ RETURNS TABLE (
 	UserId INTEGER, -- Need to return PK field for Django user object
 	ObjectId INTEGER,
 	ObjectClass CHAR(2),
+	ObjectName VARCHAR(100),
 	AccessLevel INTEGER
 ) AS $$
 BEGIN
 
 	RETURN QUERY
-	SELECT pUserId, src.ObjectId, src.ObjectClass, MyAccessLevel
+	SELECT pUserId, src.ObjectId, src.ObjectClass, src.ObjectName, MyAccessLevel
 	FROM (
 		-- Get highest access level per object
-		SELECT src.ObjectId, src.ObjectClass, 
+		SELECT src.ObjectId, src.ObjectClass, CAST(MAX(src.ObjectName) AS VARCHAR(100)) AS ObjectName, 
 			CASE 
 				WHEN MIN(src.AccessLevel) <> 0 THEN MAX(src.AccessLevel) -- Return most permissible access only if it has not been revoked
 				ELSE 0 -- No access
 			END AS MyAccessLevel
 		FROM (
 			-- Explicit permissions
-			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass,
+			SELECT CAST(o.ObjectId AS INTEGER) AS ObjectId, CAST(o.ObjectClass AS CHAR(2)) AS ObjectClass, o.ObjectName, 
 			CASE WHEN acl.Accesslevel = 0 THEN acl.AccessLevel ELSE -- Give revoked permission precedence
 	            GREATEST(
 		            MAX(CASE WHEN o.ObjectClass = 'BO' AND o.ObjectName = CASE WHEN pObjectClass = 'FL' THEN 'file' END AND pBusinessObjectPermissionsFlag IS TRUE THEN acl.AccessLevel END) OVER(), -- Business object access
@@ -86,7 +87,7 @@ BEGIN
 			UNION ALL
 			
 			-- Implicit permissions (i.e. user-related contracts)
-			SELECT f.FileId AS ObjectId, pObjectClass AS ObjectClass, 4 AS AccessLevel
+			SELECT f.FileId AS ObjectId, pObjectClass AS ObjectClass, NULL, 4 AS AccessLevel
 			FROM $APP_NAME$Views.File f
 			INNER JOIN $APP_NAME$Views.Contract_Party cp ON f.ContractId = cp.ContractId -- Get users related to contract file
 			WHERE (cp.TeacherUserId = pUserId OR pUserId IS NULL)
