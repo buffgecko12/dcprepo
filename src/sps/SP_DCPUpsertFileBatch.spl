@@ -1,9 +1,11 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFileBatch(
 	pFileInfo JSONB,
---	pGoogleDriveSyncFlag BOOLEAN DEFAULT TRUE,
-	pAlternateFileSource CHAR(2) DEFAULT NULL
+	pAlternateFileSource CHAR(2) DEFAULT NULL,
+	pDeleteInfo JSONB DEFAULT NULL
 )
 RETURNS TABLE(NewFileId INTEGER) AS $$
+DECLARE
+	ExcludeFilesList VARCHAR(250)[];
 BEGIN
 
 	-- Temp table to store records
@@ -61,6 +63,24 @@ BEGIN
 
 	-- Increment counter with newly added rows
 	PERFORM $APP_NAME$Views.SP_DCPGetNextId('file', (SELECT CAST(COUNT(*) AS INTEGER) FROM tFiles WHERE ExistsFlag IS FALSE));
+
+	-- Delete files not in list (i.e. for a sync)
+	IF(CAST(pDeleteInfo->'deleteremovedflag' AS BOOLEAN) IS TRUE) THEN
+	
+		IF(pDeleteInfo->'excludefiles' IS NULL) THEN
+			ExcludeFilesList = '{}';
+		ELSE
+			ExcludeFilesList = (SELECT array_agg(ary)::text[] FROM jsonb_array_elements_text(pDeleteInfo->'excludefiles') AS ary);			
+		END IF;
+	
+		UPDATE $APP_NAME$.File
+		SET EndTS = CURRENT_TIMESTAMP
+		WHERE FileSource = pAlternateFileSource
+		AND AlternateFileId NOT IN (SELECT AlternateFileId FROM tFiles)
+		AND AlternateFileId <> ALL (ExcludeFilesList)
+		AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+		;
+	END IF;
 
 	-- Get file list to return
     RETURN QUERY SELECT MyFileId FROM tFiles;
