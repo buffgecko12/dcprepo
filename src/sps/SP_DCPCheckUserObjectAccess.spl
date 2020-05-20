@@ -12,7 +12,7 @@ USE CASES
  0 - No access
  1 - Browse / List
  4 - Read /download
- 8 - Edit / Write
+ 8 - Edit / Write / Execute
 10 - Create
 12 - Delete
 
