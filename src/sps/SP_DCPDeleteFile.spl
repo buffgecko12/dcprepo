@@ -9,7 +9,7 @@ RETURNS VOID AS $$
 BEGIN	
 
 	-- Delete dependencies first
-	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(NULL, pFileId, 'FL'); -- ACLs
+	PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(NULL, COALESCE(pFileId, -1), 'FL'); -- ACLs (don't delete all ACLs with NULL FileId if removing alternate file)
 
 	-- Delete file
 	UPDATE $APP_NAME$.File 
