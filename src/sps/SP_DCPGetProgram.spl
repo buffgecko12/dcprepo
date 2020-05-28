@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetProgram(
     pProgramDetails JSONB
 ) 
 RETURNS TABLE (
-	ProgramName VARCHAR(50), SchoolId INTEGER, SchoolYear SMALLINT, SchoolAbbreviation VARCHAR(25), CalendarId VARCHAR(250), ProgramDetails JSONB
+	ProgramName VARCHAR(50), SchoolId INTEGER, SchoolYear SMALLINT, SchoolAbbreviation VARCHAR(25), CalendarId VARCHAR(250), DefaultRoleId INTEGER, ProgramDetails JSONB
 ) AS $$
 BEGIN
 	RETURN QUERY
@@ -15,6 +15,7 @@ BEGIN
 		p.SchoolYear,
 		CASE WHEN s.SchoolId = 0 THEN '' ELSE s.SchoolAbbreviation END AS SchoolAbbreviation,
 		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId,
+		CAST(p.ProgramDetails->'defaultroleid' AS INTEGER) AS DefaultRoleId,
 		p.ProgramDetails
 	FROM $APP_NAME$Views.Program p
 	LEFT JOIN $APP_NAME$Views.School s ON p.SchoolId = s.SchoolId
