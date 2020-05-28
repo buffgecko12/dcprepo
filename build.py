@@ -119,6 +119,7 @@ install_files = [
     ("create_tables.sql", "Creating tables", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
     ("create_views.sql", "Creating views", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
     ("create_sps.sql", "Creating SPs", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
+    ("create_udfs.sql", "Creating UDFs", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
 #    ("create_triggers.sql", "Creating Triggers", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
 #    ("create_indexes.sql", "Creating Indexes", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),
     ("load_initial_data.sql", "Loading initial data", DB_APP_USER, DB_APP_PASSWORD, DB_APP_DATABASE),

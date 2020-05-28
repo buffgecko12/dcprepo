@@ -69,8 +69,10 @@
 
 -- File
 \i install/sps/SP_DCPGetFile.spl
+\i install/sps/SP_DCPGetFileHierarchy.spl
 \i install/sps/SP_DCPUpsertFile.spl
 \i install/sps/SP_DCPUpsertFileBatch.spl
+\i install/sps/SP_DCPUpdateFileAttributes.spl
 \i install/sps/SP_DCPDeleteFile.spl
 
 -- Object

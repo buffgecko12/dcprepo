@@ -1,0 +1,62 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpdateFileAttributes(
+    pFileIdList INTEGER[],
+    pFileInfo JSONB,
+    pACLList JSONB
+)
+RETURNS VOID AS $$
+BEGIN
+
+    -- Close current rows
+    UPDATE $APP_NAME$.File
+    SET EndTS = CURRENT_TIMESTAMP
+    WHERE FileId = ANY (pFileIdList)
+    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+    ;
+
+    -- Add new rows
+	INSERT INTO $APP_NAME$.File (FileId, FileName, FileExtension, FileSize, FileType, FileDescription, FileSource, FileData, FileURL,
+		FilePath, FileClass, FileCategory, FileAttributes, AlternateFileId, ContractId, SchoolId, SchoolYear, StartTS, EndTS)
+	SELECT
+		MyFileId, 
+		f.FileName, 
+		f.FileExtension, 
+		f.FileSize, 
+		f.FileType,
+	    CASE WHEN pFileInfo ? 'filedescription' IS TRUE THEN pFileInfo->>'filedescription' ELSE f.FileDescription END AS Description,
+	    f.FileSource, 
+	    f.FileData, 
+	    CASE WHEN pFileInfo ? 'url' IS TRUE THEN pFileInfo->>'url' ELSE f.FileURL END AS URL,
+	    f.FilePath, 
+	    CASE WHEN pFileInfo ? 'fileclass' IS TRUE THEN pFileInfo->>'fileclass' ELSE f.FileClass END AS FileClass,
+	    CASE WHEN pFileInfo ? 'filecategory' IS TRUE THEN pFileInfo->>'filecategory' ELSE f.FileCategory END AS FileCategory,
+		JSONB_MERGE_DEEP(
+			f.FileAttributes, 
+			JSONB_BUILD_OBJECT( -- Use new values only if keys exist
+				'userid', CASE WHEN pFileInfo ? 'userid' IS TRUE THEN CAST(pFileInfo->>'userid' AS INTEGER) ELSE CAST(f.FileAttributes->>'userid' AS INTEGER) END,
+				'programname', CASE WHEN pFileInfo ? 'programname' IS TRUE THEN pFileInfo->>'programname' ELSE f.FileAttributes->>'programname' END,
+				'repository', JSONB_BUILD_OBJECT(
+				    'filedescription', CASE WHEN pFileInfo ? 'filedescription' IS TRUE THEN pFileInfo->>'filedescription' ELSE f.FileDescription END,
+				    'filecategory', CASE WHEN pFileInfo ? 'filecategory' IS TRUE THEN pFileInfo->>'filecategory' ELSE f.FileCategory END,
+				    'contractid', CASE WHEN pFileInfo ? 'contractid' IS TRUE THEN CAST(pFileInfo->>'contractid' AS INTEGER) ELSE f.ContractId END,
+				    'schoolid', CASE WHEN pFileInfo ? 'schoolid' IS TRUE THEN CAST(pFileInfo->>'schoolid' AS INTEGER) ELSE f.SchoolId END,
+				    'schoolyear', CASE WHEN pFileInfo ? 'schoolyear' IS TRUE THEN CAST(pFileInfo->>'schoolyear' AS SMALLINT) ELSE f.SchoolYear END
+				)
+			)
+		),
+		f.AlternateFileId,
+	    CASE WHEN pFileInfo ? 'contractid' IS TRUE THEN CAST(pFileInfo->>'contractid' AS INTEGER) ELSE f.ContractId END AS ContractId,
+	    CASE WHEN pFileInfo ? 'schoolid' IS TRUE THEN CAST(pFileInfo->>'schoolid' AS INTEGER) ELSE f.SchoolId END AS SchoolId,
+	    CASE WHEN pFileInfo ? 'schoolyear' IS TRUE THEN CAST(pFileInfo->>'schoolyear' AS SMALLINT) ELSE f.SchoolYear END AS SchoolYear,
+	    CURRENT_TIMESTAMP,
+	    TIMESTAMP '9999-12-31 23:59:59'
+	FROM UNNEST(pFileIdList) AS MyFileId
+	LEFT JOIN $APP_NAME$.File f ON MyFileId = f.FileId -- Get replaced row's info (if any)
+	WHERE EndTS = CURRENT_TIMESTAMP
+	;
+	
+	-- Register ACLs
+	PERFORM $APP_NAME$Views.SP_DCPUpsertRoleACL(NULL, NULL, NULL, NULL, pACLList);
+	
+END;
+$$
+LANGUAGE 'plpgsql';

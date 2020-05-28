@@ -10,6 +10,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertRole(3, NULL, 'Some role (school 2)', 'Some d
 -- Update files
 SELECT $APP_NAME$Views.SP_DCPUpsertFile(100,'MySchoolDataPolicy','.pdf',1000,'pdf','My description','DB',NULL,NULL,NULL,'Other','MS',NULL,NULL,NULL,NULL,2020);
 SELECT $APP_NAME$Views.SP_DCPUpsertFileBatch(JSONB('[{"filename": "filetest1", "filesource":"GD", "alternatefileid": "12345"}]'));
+SELECT $APP_NAME$Views.SP_DCPUpdateFileAttributes(ARRAY[ 1,2], JSONB('{"fileclass":"PG"}'), JSONB('[{"roleid": "3", "aclinfo": [{"objectid": 2, "objectclass": "FL", "accesslevel": 4}]}]'));
 
 SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 100, 'FL', 4, NULL); -- Set role ACL
 
@@ -126,6 +127,7 @@ SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications',
 SELECT $APP_NAME$Views.SP_DCPManageUserDisplayInfo(100,'clearusernotifications','BD');
 
 SELECT SP_DCPGetFile(100, NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+SELECT SP_DCPGetFileHierarchy(NULL, NULL,NULL,NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Delete objects
 SELECT $APP_NAME$Views.SP_DCPClearUserNotification(100, NULL, NULL, NULL);

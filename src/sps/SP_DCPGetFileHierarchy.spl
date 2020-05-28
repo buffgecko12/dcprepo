@@ -1,0 +1,56 @@
+CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFileHierarchy(
+    pFileId INTEGER,
+	pFileClass VARCHAR(50),
+	pFileCategory VARCHAR(10),
+	pAlternateFileId VARCHAR(256),
+	pContractId INTEGER,
+	pSchoolId INTEGER,
+	pSchoolYear INTEGER,
+	pFileAttributes JSONB,
+	pFileSource CHAR(2),
+	pAccessInfo JSONB,
+	pRelativeRoot VARCHAR(250) DEFAULT NULL
+) 
+RETURNS TABLE (
+	FileId INTEGER, Depth SMALLINT, ParentDirectory VARCHAR(250), FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
+	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), FileAttributes JSONB, AlternateFileId VARCHAR(256),
+	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, FileClassDisplayName VARCHAR(100), FileCategoryDisplayName VARCHAR(100), DirectoryFlag BOOLEAN, DisplayIndent SMALLINT
+) AS $$
+BEGIN
+    RETURN QUERY
+    WITH RECURSIVE cte AS (
+		-- Get all files
+    	WITH files AS (
+    		SELECT * 
+    		FROM $APP_NAME$Views.SP_DCPGetFile(pFileId, pFileClass, pFileCategory, pAlternateFileId, pContractid, pSchoolId, pSchoolYear, pFileAttributes, pFileSource, pAccessInfo) src
+	    )
+
+	    -- Get relative root
+	    SELECT fs.FileId, CAST('' AS VARCHAR(250)) AS ParentDirectory, fs.FileName, fs.FilEextension, fs.FileSize, fs.FileType, fs.FileDescription, fs.FileSource, fs.FileData, fs.FileURL, fs.FilePath, 
+	    	fs.FileClass, fs.FileCategory, fs.FileAttributes, fs.AlternateFileId, fs.ContractId, fs.SchoolId, fs.SchoolYear, fs.FileClassDisplayName, fs.FileCategoryDisplayName, fs.DirectoryFlag, CAST(1 AS SMALLINT) AS Depth,
+	    	CAST(fs.FileId AS VARCHAR(1000)) AS DirectoryTreePath
+	    FROM files fs
+	    WHERE fs.FileSource = 'GD'
+	    AND (
+	    	(fs.Fileattributes->>'gd_locator' = 'root' AND pRelativeRoot IS NULL) OR -- Default to 'root'
+	    	(fs.AlternateFileId = pRelativeRoot AND pRelativeRoot IS NOT NULL)
+    	)
+
+		UNION ALL
+		
+	    -- Get all children    
+	    SELECT f.FileId, CAST(cte.FileName AS VARCHAR(250)) AS ParentDirectory, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath,
+	    	f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear, f.FileClassDisplayName, f.FileCategoryDisplayName, f.DirectoryFlag, CAST(cte.Depth + 1 AS SMALLINT),
+            CAST(cte.DirectoryTreePath || '-' || CAST(ROW_NUMBER() OVER(PARTITION BY cte.AlternateFileId ORDER BY f.FileName) AS VARCHAR(10)) AS VARCHAR(1000))
+	    FROM files f
+	    INNER JOIN cte ON cte.AlternateFileId = f.FileAttributes->>'parentid'
+	    WHERE f.FileSource = 'GD'
+    )
+	SELECT cte.FileId, cte.Depth, cte.ParentDirectory, cte.FileName, cte.FileExtension, cte.FileSize, cte.FileType, cte.FileDescription, cte.FileSource, cte.FileData, cte.FileURL, cte.FilePath, cte.FileClass, cte.FileCategory, cte.FileAttributes,
+		cte.AlternateFileId, cte.ContractId, cte.SchoolId, cte.SchoolYear, cte.FileClassDisplayName, cte.FileCategoryDisplayName, cte.DirectoryFlag, CAST((cte.Depth - 2) * 2 AS SMALLINT) AS DisplayIndent
+	FROM cte 
+	WHERE cte.Depth <> 1
+    ORDER BY cte.DirectoryTreePath;
+END;
+$$
+LANGUAGE 'plpgsql';

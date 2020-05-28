@@ -1,0 +1,23 @@
+-- https://stackoverflow.com/questions/42944888/merging-jsonb-values-in-postgresql
+CREATE OR REPLACE FUNCTION JSONB_MERGE_DEEP(JSONB, JSONB)
+  RETURNS JSONB
+  LANGUAGE SQL
+  IMMUTABLE
+AS $$
+  SELECT CASE JSONB_TYPEOF($1)
+    WHEN 'object' THEN CASE JSONB_TYPEOF($2)
+      WHEN 'object' THEN (
+        SELECT JSONB_OBJECT_AGG(k, CASE
+                    WHEN e2.v IS NULL THEN e1.v
+                    WHEN e1.v IS NULL THEN e2.v
+                    ELSE JSONB_MERGE_DEEP(e1.v, e2.v)
+                  END)
+        FROM JSONB_EACH($1) e1(k, v)
+        FULL JOIN JSONB_EACH($2) e2(k, v) USING (k)
+      )
+      ELSE $2
+    END
+    WHEN 'array' THEN $1 || $2
+    ELSE $2
+  END
+$$;
