@@ -4,6 +4,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpdateFileAttributes(
     pACLList JSONB
 )
 RETURNS VOID AS $$
+DECLARE
+	MyFileItem INTEGER;
 BEGIN
 
     -- Close current rows
@@ -54,6 +56,12 @@ BEGIN
 	WHERE EndTS = CURRENT_TIMESTAMP
 	;
 	
+	-- Delete ACLs associated with objects to be modified
+	FOREACH MyFileItem IN ARRAY pFileIdList
+	LOOP
+	    PERFORM $APP_NAME$Views.SP_DCPDeleteRoleACL(NULL, MyFileItem, 'FL');
+	END LOOP;
+  	
 	-- Register ACLs
 	PERFORM $APP_NAME$Views.SP_DCPUpsertRoleACL(NULL, NULL, NULL, NULL, pACLList);
 	
