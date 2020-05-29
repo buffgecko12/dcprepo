@@ -83,7 +83,7 @@ BEGIN
 			    (acl.UserType = ANY(acl.UserTypeList) OR acl.UserTypeList IS NULL ) -- UserType
 			)
 			OR pUserId IS NULL -- Ignore ACLs
-			OR pBusinessObjectPermissionsFlag IS TRUE -- Allow business-object level override
+			OR pBusinessObjectPermissionsFlag IS TRUE -- Allow business-object level override (TO-DO: Need to check this)
 			
 			UNION ALL
 			

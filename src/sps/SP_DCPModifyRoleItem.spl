@@ -13,7 +13,6 @@ BEGIN
 			CASE WHEN pUserId IS NOT NULL THEN 
 				CASE pChangeType
 					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(UserList || pUserId) e) -- Don't add duplicates
---					WHEN 'A' THEN ARRAY_APPEND(UserList, pUserId)
 					WHEN 'D' THEN ARRAY_REMOVE(UserList, pUserId)
 				END
 			ELSE UserList
@@ -21,8 +20,7 @@ BEGIN
 		SchoolList = 
 			CASE WHEN pSchoolId IS NOT NULL THEN 
 				CASE pChangeType
-					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(SchoolList || pSchoolId) e) -- Don't add duplicates
---					WHEN 'A' THEN ARRAY_APPEND(SchoolList, pSchoolId)
+					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(SchoolList || pSchoolId) e)
 					WHEN 'D' THEN ARRAY_REMOVE(SchoolList, pSchoolId)
 				END
 			ELSE SchoolList
@@ -30,8 +28,7 @@ BEGIN
 		UserTypeList = 
 			CASE WHEN pUserType IS NOT NULL THEN 
 				CASE pChangeType
-					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(UserTypeList || pUserType) e) -- Don't add duplicates
---					WHEN 'A' THEN ARRAY_APPEND(UserTypeList, pUserType)
+					WHEN 'A' THEN (SELECT ARRAY_AGG(DISTINCT e) FROM UNNEST(UserTypeList || pUserType) e)
 					WHEN 'D' THEN ARRAY_REMOVE(UserTypeList, pUserType)
 				END
 			ELSE UserTypeList
