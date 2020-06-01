@@ -1,7 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertFileBatch(
 	pFileInfo JSONB,
 	pAlternateFileSource CHAR(2) DEFAULT NULL,
-	pDeleteInfo JSONB DEFAULT NULL
+	pDeleteInfo JSONB DEFAULT NULL,
+	pOverrideCustomFieldsFlag BOOLEAN DEFAULT TRUE
 )
 RETURNS TABLE(NewFileId INTEGER) AS $$
 DECLARE
@@ -11,11 +12,23 @@ BEGIN
 	-- Temp table to store records
 	CREATE TEMPORARY TABLE IF NOT EXISTS tFiles 
 	ON COMMIT DROP AS 
-	SELECT src.*, CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END AS ExistsFlag, 
+	SELECT 
+		-- Determine fileid
 		CAST(COALESCE(
 			f.FileId, -- Use current fileId if file already exists
 			ni.NextId + (ROW_NUMBER() OVER(ORDER BY CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END ASC) - 1) -- Generate new ids for new files
-		) AS INTEGER) AS MyFileId
+		) AS INTEGER) AS MyFileId,
+		-- Use provided info for new files or if override enabled
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.FileDescription ELSE f.FileDescription END AS FileDescription, 
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.FileClass ELSE f.FileClass END AS FileClass, 
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.FileCategory ELSE f.FileCategory END AS FileCategory, 
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.ContractId ELSE f.ContractId END AS ContractId, 
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.SchoolId ELSE f.SchoolId END AS SchoolId, 
+		CASE WHEN pOverrideCustomFieldsFlag IS TRUE OR f.FileId IS NULL THEN src.SchoolYear ELSE f.SchoolYear END AS SchoolYear, 
+		-- Standard fields
+		src.FileName, src.FileExtension, src.FileSize, src.FileType, src.FileSource, src.FileData, src.FileURL, src.FilePath, src.AlternateFileId,
+		src.FileAttributes, 
+		CASE WHEN f.FileId IS NOT NULL THEN TRUE ELSE FALSE END AS ExistsFlag
 	FROM JSONB_POPULATE_RECORDSET(NULL::File, pFileInfo) src
 	LEFT JOIN $APP_NAME$.File f ON ( -- Check if file is known in repository
 		(src.FileId = f.FileId AND pAlternateFileSource IS NULL) OR -- Regular files
@@ -47,7 +60,7 @@ BEGIN
 		FileExtension = EXCLUDED.FileExtension,
 		FileSize = EXCLUDED.FileSize,
 		FileType = EXCLUDED.FileType,
-		FileDescription =EXCLUDED.FileDescription,
+		FileDescription = EXCLUDED.FileDescription,
 		FileSource = EXCLUDED.FileSource,
 		FileData = EXCLUDED.FileData,
 		FileURL = EXCLUDED.FileURL,
