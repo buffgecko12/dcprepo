@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFileHierarchy(
-    pFileId INTEGER,
+    pFileId INTEGER[],
 	pFileClass VARCHAR(50),
 	pFileCategory VARCHAR(10),
 	pAlternateFileId VARCHAR(256),

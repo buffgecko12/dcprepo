@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
-    pFileId INTEGER,
+    pFileId INTEGER[],
 	pFileClass VARCHAR(50),
 	pFileCategory VARCHAR(10),
 	pAlternateFileId VARCHAR(256),
@@ -32,7 +32,7 @@ BEGIN
     	) a ON f.FileId = a.ObjectId
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fc ON f.FileClass = fc.CategoryType AND fc.CategoryClass = 'fileclass' -- Get file class info
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fct ON f.FileCategory = fct.CategoryType AND fct.CategoryClass = fc.CategoryType -- Get file type info
-	    WHERE (f.FileId = pFileId OR pFileId IS NULL)
+	    WHERE (f.FileId = ANY(pFileId) OR pFileId IS NULL)
 	    AND (f.FileClass = pFileClass OR pFileClass IS NULL)
 	    AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
 	    AND (f.AlternateFileId = pAlternateFileId OR pAlternateFileId IS NULL)
@@ -52,7 +52,7 @@ BEGIN
 	    FROM $APP_NAME$Views.File f
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fc ON f.FileClass = fc.CategoryType AND fc.CategoryClass = 'fileclass' -- Get file class info
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fct ON f.FileCategory = fct.CategoryType AND fct.CategoryClass = fc.CategoryType -- Get file type info
-	    WHERE (f.FileId = pFileId OR pFileId IS NULL)
+	    WHERE (f.FileId = ANY(pFileId) OR pFileId IS NULL)
 	    AND (f.FileClass = pFileClass OR pFileClass IS NULL)
 	    AND (f.FileCategory= pFileCategory OR pFileCategory IS NULL)
 	    AND (f.AlternateFileId = pAlternateFileId OR pAlternateFileId IS NULL)
