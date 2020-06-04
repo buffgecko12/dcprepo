@@ -150,25 +150,29 @@ Used to lookup info for known file types (i.e. Contract Scan, Congratulations vi
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-28 04:01:54 UTC</createdTime>
 <comment><![CDATA[Contract
-CT - Contract scan file
-CE - Contract evidences
-CC - Contract congratulations video
+CT - Scan file
+CTE - Evidences
+CTC - Congratulations video
+CTP - Prize video
+CTO - Other
 
 Interviews
-IV - Interview video
-IT - Interview transcript
+IVV - Interview video
+IVT - Interview transcript
 
 Program
 WV - Welcome video
-YR - Yearly report
-TL - Thank-you letter (teachers)
+RT - Report
+RTY - Yearly report
+LTT - Thank-you letter (teachers)
+LTI - Invitation lette
 
 Forms
-CF - Contract Form
+CTF - Contract Form
 
 Surveys
-ST - Survey results (teacher)
-SS - Survey results (student)]]></comment>
+SVT - Survey results (teacher)
+SVS - Survey results (student)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
 <nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>

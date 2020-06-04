@@ -38,15 +38,15 @@ INSERT INTO $APP_NAME$.Lookup_Category
 
 -- Program files
 ('programfile', 'CTF', 'Formulario de contrato', 'Un modelo del contrato'),
-('programfile', 'WV', 'Video de bienvenida', 'Video de bienvenida para invitar a los integrantes'),
-('programfile', 'IV', 'Entrevista', 'Entrevista para animar a los estudiantes'),
-('programfile', 'IVF', 'Transcripci' || U&'\00F3' || 'n de entrevista', NULL),
+('programfile', 'VW', 'Video de bienvenida', 'Video de bienvenida para invitar a los integrantes'),
+('programfile', 'IVV', 'Entrevista', 'Entrevista para animar a los estudiantes'),
+('programfile', 'IVT', 'Transcripci' || U&'\00F3' || 'n de entrevista', NULL),
 ('programfile', 'LTT', 'Carta de agradecimiento', NULL),
 ('programfile', 'LTI', 'Carta de invitaci' || U&'\00F3' || 'n', NULL),
 ('programfile', 'RTY', 'Informe anual', NULL),
 ('programfile', 'RT', 'Informe', NULL),
-('programfile', 'SVT', 'Resultados de entrevista (docente)', NULL),
-('programfile', 'SVS', 'Resultados de entrevista (estudiante)', NULL),
+('programfile', 'SVT', 'Resultados de encuesta (docente)', NULL),
+('programfile', 'SVS', 'Resultados de encuesta (estudiante)', NULL),
 
 -- Reward categories
 ('reward', 'PT', 'Participaci' || U&'\00F3' || 'n', NULL),
