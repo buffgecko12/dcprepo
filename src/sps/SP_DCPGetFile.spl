@@ -13,7 +13,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFile(
 RETURNS TABLE (
 	FileId INTEGER, FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
 	FileData BYTEA, FileURL VARCHAR(500), FilePath VARCHAR(256), FileClass VARCHAR(50), FileCategory VARCHAR(10), FileAttributes JSONB, AlternateFileId VARCHAR(256),
-	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, FileClassDisplayName VARCHAR(100), FileCategoryDisplayName VARCHAR(100), DirectoryFlag BOOLEAN, GD_Locator VARCHAR(100)
+	ContractId INTEGER, SchoolId INTEGER, SchoolYear SMALLINT, FileClassDisplayName VARCHAR(100), FileCategoryDisplayName VARCHAR(100), DirectoryFlag BOOLEAN, ShortcutDetails JSONB, GD_Locator VARCHAR(100)
 ) AS $$
 BEGIN
 	-- Check permissions (same query as below except with permissions check); separated for performance and ease of maintenance
@@ -21,7 +21,9 @@ BEGIN
 	    RETURN QUERY
 	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, 
 	    	f.ContractId, f.SchoolId, f.SchoolYear, COALESCE(fc.CategoryDisplayName, 'General'), COALESCE(fct.CategoryDisplayName, 'General'), 
-	    	CASE WHEN f.FileSource = 'GD' AND f.FileType = 'application/vnd.google-apps.folder' THEN TRUE ELSE FALSE END AS DirectoryFlag, CAST(f.fileattributes->>'gd_locator' AS VARCHAR(100)) AS GD_Locator
+	    	CASE WHEN f.FileSource = 'GD' AND f.FileType = 'application/vnd.google-apps.folder' THEN TRUE ELSE FALSE END AS DirectoryFlag, 
+	    	CASE WHEN f.FileSource = 'GD' THEN f.FileAttributes->'gd'->'shortcutDetails' END AS ShortcutDetails, 
+	    	CAST(f.fileattributes->>'gd_locator' AS VARCHAR(100)) AS GD_Locator
 	    FROM $APP_NAME$Views.File f
 	    INNER JOIN $APP_NAME$Views.SP_DCPCheckUserObjectAccess(
 	    	CAST(pAccessInfo->'userid' AS INTEGER), 
@@ -48,7 +50,9 @@ BEGIN
 	    RETURN QUERY
 	    SELECT f.FileId, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath, f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, 
 	    	f.ContractId, f.SchoolId, f.SchoolYear, COALESCE(fc.CategoryDisplayName, 'General'), COALESCE(fct.CategoryDisplayName, 'General'),
-    	    CASE WHEN f.FileSource = 'GD' AND f.FileType = 'application/vnd.google-apps.folder' THEN TRUE ELSE FALSE END AS DirectoryFlag, CAST(f.fileattributes->>'gd_locator' AS VARCHAR(100)) AS GD_Locator
+    	    CASE WHEN f.FileSource = 'GD' AND f.FileType = 'application/vnd.google-apps.folder' THEN TRUE ELSE FALSE END AS DirectoryFlag, 
+	    	CASE WHEN f.FileSource = 'GD' THEN f.FileAttributes->'gd'->'shortcutDetails' END AS ShortcutDetails, 
+    	    CAST(f.fileattributes->>'gd_locator' AS VARCHAR(100)) AS GD_Locator
 	    FROM $APP_NAME$Views.File f
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fc ON f.FileClass = fc.CategoryType AND fc.CategoryClass = 'fileclass' -- Get file class info
 	    LEFT JOIN $APP_NAME$Views.Lookup_Category fct ON f.FileCategory = fct.CategoryType AND fct.CategoryClass = fc.CategoryType -- Get file type info
