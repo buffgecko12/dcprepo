@@ -43,7 +43,7 @@ BEGIN
 	    AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	    AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
 	    AND (f.FileSource = pFileSource OR pFileSource IS NULL)
-	    ORDER BY fc.CategoryDisplayName, fct.CategoryDisplayName, f.FileName, f.StartTS DESC;
+	    ORDER BY f.FileName, f.StartTS DESC;
 	
 	-- No permissions    
     ELSE
@@ -65,7 +65,7 @@ BEGIN
 	    AND (f.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	    AND (f.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL) -- Check if attributes contain all filters (i.e. '{ "userid":request.user.userid }')
 	    AND (f.FileSource = pFileSource OR pFileSource IS NULL)
-	    ORDER BY fc.CategoryDisplayName, fct.CategoryDisplayName, f.FileName, f.StartTS DESC;
+	    ORDER BY f.FileName, f.StartTS DESC;
     END IF;
 END;
 $$
