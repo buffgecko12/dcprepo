@@ -52,7 +52,7 @@ CREATE TABLE $APP_NAME$.Reward (
 	SchoolYear SMALLINT NOT NULL,
 	RewardDisplayName VARCHAR(100) NOT NULL,
 	RewardDescription VARCHAR(500),
-	RewardValue INTEGER NOT NULL DEFAULT 0,
+	RewardValue INTEGER,
 	RewardCategory VARCHAR(10),
 	Vendor VARCHAR(100),
     StartTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -127,7 +127,7 @@ CREATE TABLE $APP_NAME$.School_Reward (
 	SchoolId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	SchoolYear SMALLINT NOT NULL,
-	RewardValue INTEGER NOT NULL,
+	RewardValue INTEGER,
 	PRIMARY KEY (SchoolId, RewardId)
 --	FOREIGN KEY (SchoolId) REFERENCES $APP_NAME$.School (SchoolId) -- Can't use with history rows
 --	FOREIGN KEY (RewardId) REFERENCES $APP_NAME$.Reward (RewardId) -- Can't use with history rows
@@ -269,7 +269,7 @@ CREATE TABLE $APP_NAME$.Contract_Party_Reward (
 	ClassId INTEGER NOT NULL,
 	RewardId INTEGER NOT NULL,
 	Quantity SMALLINT NOT NULL,
-	ActualRewardValue INTEGER NOT NULL,
+	ActualRewardValue INTEGER,
 	Status CHAR(1),
 	PRIMARY KEY (ContractId, TeacherUserId, ClassId, RewardId),
 	FOREIGN KEY (ContractId, TeacherUserId, ClassId) REFERENCES $APP_NAME$.Contract_Party (ContractId, TeacherUserId, ClassId)

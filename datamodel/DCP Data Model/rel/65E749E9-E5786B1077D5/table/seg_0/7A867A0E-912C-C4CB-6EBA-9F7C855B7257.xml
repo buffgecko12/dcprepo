@@ -57,6 +57,7 @@
 <createdTime>2018-07-05 19:44:24 UTC</createdTime>
 <commentInRDBMS><![CDATA[Item cost per student]]></commentInRDBMS>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

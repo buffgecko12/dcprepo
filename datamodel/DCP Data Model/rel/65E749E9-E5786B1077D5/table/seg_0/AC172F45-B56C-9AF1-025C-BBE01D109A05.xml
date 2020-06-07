@@ -77,6 +77,7 @@
 <createdTime>2020-01-15 18:47:54 UTC</createdTime>
 <comment><![CDATA[Actual reward value (if different from set value)]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

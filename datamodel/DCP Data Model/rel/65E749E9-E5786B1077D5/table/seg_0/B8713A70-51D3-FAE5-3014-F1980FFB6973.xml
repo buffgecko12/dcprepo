@@ -45,6 +45,7 @@
 <createdTime>2020-03-08 16:56:41 UTC</createdTime>
 <comment><![CDATA[School-specific value.]]></comment>
 <ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>
