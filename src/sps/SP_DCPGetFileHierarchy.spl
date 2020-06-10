@@ -28,11 +28,11 @@ BEGIN
 	    -- Get relative root
 	    SELECT fs.FileId, CAST('' AS VARCHAR(250)) AS ParentDirectory, fs.FileName, fs.FilEextension, fs.FileSize, fs.FileType, fs.FileDescription, fs.FileSource, fs.FileData, fs.FileURL, fs.FilePath, 
 	    	fs.FileClass, fs.FileCategory, fs.FileAttributes, fs.AlternateFileId, fs.ContractId, fs.SchoolId, fs.SchoolYear, fs.FileClassDisplayName, fs.FileCategoryDisplayName, fs.DirectoryFlag, CAST(1 AS SMALLINT) AS Depth,
-	    	CAST(fs.FileId AS VARCHAR(1000)) AS DirectoryTreePath
+	    	LPAD(CAST(fs.FileId AS VARCHAR(1000)),3,'0') AS DirectoryTreePath
 	    FROM files fs
 	    WHERE fs.FileSource = 'GD'
 	    AND (
-	    	(fs.Fileattributes->>'gd_locator' = 'root' AND pRelativeRoot IS NULL) OR -- Default to 'root'
+	    	(fs.gd_locator = 'root' AND pRelativeRoot IS NULL) OR -- Default to 'root'
 	    	(fs.AlternateFileId = pRelativeRoot AND pRelativeRoot IS NOT NULL)
     	)
 
@@ -41,7 +41,7 @@ BEGIN
 	    -- Get all children    
 	    SELECT f.FileId, CAST(cte.FileName AS VARCHAR(250)) AS ParentDirectory, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath,
 	    	f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear, f.FileClassDisplayName, f.FileCategoryDisplayName, f.DirectoryFlag, CAST(cte.Depth + 1 AS SMALLINT),
-            CAST(cte.DirectoryTreePath || '-' || CAST(ROW_NUMBER() OVER(PARTITION BY cte.AlternateFileId ORDER BY f.FileName) AS VARCHAR(10)) AS VARCHAR(1000))
+            CAST(cte.DirectoryTreePath || '-' || LPAD(CAST(ROW_NUMBER() OVER(PARTITION BY cte.AlternateFileId ORDER BY f.FileName) AS VARCHAR(10)),3,'0') AS VARCHAR(1000))
 	    FROM files f
 	    INNER JOIN cte ON cte.AlternateFileId = f.FileAttributes->>'parentid'
 	    WHERE f.FileSource = 'GD'
