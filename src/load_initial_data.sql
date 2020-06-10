@@ -37,14 +37,16 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('contractfile', 'CTO', 'Otro', NULL),
 
 -- Program files
-('programfile', 'CTF', 'Formulario de contrato', 'Un modelo del contrato'),
-('programfile', 'VW', 'Video de bienvenida', 'Video de bienvenida para invitar a los integrantes'),
+('programfile', 'FCT', 'Formulario de contrato', 'Un modelo del contrato'),
+('programfile', 'VW',  'Video de bienvenida', 'Video de bienvenida para invitar a los integrantes'),
 ('programfile', 'IVV', 'Entrevista', 'Entrevista para animar a los estudiantes'),
 ('programfile', 'IVT', 'Transcripci' || U&'\00F3' || 'n de entrevista', NULL),
 ('programfile', 'LTT', 'Carta de agradecimiento', NULL),
 ('programfile', 'LTI', 'Carta de invitaci' || U&'\00F3' || 'n', NULL),
+('programfile', 'OT',  'Otro', NULL),
+('programfile', 'DTG', 'Documento - general', NULL),
 ('programfile', 'RTY', 'Informe anual', NULL),
-('programfile', 'RT', 'Informe', NULL),
+('programfile', 'RT',  'Informe', NULL),
 ('programfile', 'SVT', 'Resultados de encuesta (docente)', NULL),
 ('programfile', 'SVS', 'Resultados de encuesta (estudiante)', NULL),
 
@@ -56,15 +58,15 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('reward', 'OT', 'Otro', NULL),
 
 -- Calendar items
-('calendar', 'SP', 'Inicio de programa', NULL),
-('calendar', 'EP', 'Fin de programa', NULL),
+('calendar', 'SP',  'Inicio de programa', NULL),
+('calendar', 'EP',  'Fin de programa', NULL),
 ('calendar', 'CTP', 'Entregar los acuerdos (propuestas) con firmas', NULL),
 ('calendar', 'CTE', 'Entregar las evaluaciones y las evidencias', NULL),
-('calendar', 'ID', 'Entrega de incentivos', NULL),
+('calendar', 'ID',  'Entrega de incentivos', NULL),
 ('calendar', 'SVS', 'Presentar las encuestas de estudiante', NULL),
 ('calendar', 'SVT', 'Presentar las encuestas de docente', NULL),
-('calendar', 'FR', 'Recibir el informe con los resultados del programa', NULL),
-('calendar', 'OT', 'Otro', NULL),
+('calendar', 'FR',  'Recibir el informe con los resultados del programa', NULL),
+('calendar', 'OT',  'Otro', NULL),
 
 -- User types
 ('usertype', 'SA', 'Administrador del sitio', NULL),
