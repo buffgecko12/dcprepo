@@ -9,7 +9,8 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetFileHierarchy(
 	pFileAttributes JSONB,
 	pFileSource CHAR(2),
 	pAccessInfo JSONB,
-	pRelativeRoot VARCHAR(250) DEFAULT NULL
+	pRelativeRoot VARCHAR(250) DEFAULT NULL,
+	pOrderByHierarchyFlag BOOLEAN DEFAULT TRUE
 ) 
 RETURNS TABLE (
 	FileId INTEGER, Depth SMALLINT, ParentDirectory VARCHAR(250), FileName VARCHAR(500), FileExtension VARCHAR(50), FileSize INTEGER, FileType VARCHAR(100), FileDescription VARCHAR(500), FileSource CHAR(2),
@@ -22,7 +23,8 @@ BEGIN
 		-- Get all files
     	WITH files AS (
     		SELECT * 
-    		FROM $APP_NAME$Views.SP_DCPGetFile(pFileId, pFileClass, pFileCategory, pAlternateFileId, pContractid, pSchoolId, pSchoolYear, pFileAttributes, pFileSource, pAccessInfo) src
+    		FROM $APP_NAME$Views.SP_DCPGetFile(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, pFileSource, pAccessInfo) src
+--    		FROM $APP_NAME$Views.SP_DCPGetFile(pFileId, pFileClass, pFileCategory, pAlternateFileId, pContractid, pSchoolId, pSchoolYear, pFileAttributes, pFileSource, pAccessInfo) src
 	    )
 
 	    -- Get relative root
@@ -50,7 +52,19 @@ BEGIN
 		cte.AlternateFileId, cte.ContractId, cte.SchoolId, cte.SchoolYear, cte.FileClassDisplayName, cte.FileCategoryDisplayName, cte.DirectoryFlag, CAST((cte.Depth - 2) * 2 AS SMALLINT) AS DisplayIndent
 	FROM cte 
 	WHERE cte.Depth <> 1
-    ORDER BY cte.DirectoryTreePath;
+    AND (cte.FileClass = pFileClass OR pFileClass IS NULL) -- Apply filters after building hierarchy
+    AND (cte.FileCategory= ANY(pFileCategory) OR pFileCategory IS NULL)
+    AND (cte.AlternateFileId = pAlternateFileId OR pAlternateFileId IS NULL)
+    AND (cte.ContractId = pContractId OR pContractId IS NULL)
+    AND (cte.SchoolId = pSchoolId OR pSchoolId IS NULL)
+    AND (cte.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+    AND (cte.FileAttributes @> pFileAttributes OR pFileAttributes IS NULL)
+    AND (cte.FileSource = pFileSource OR pFileSource IS NULL)
+    ORDER BY 
+    	CASE WHEN pOrderByHierarchyFlag IS TRUE THEN NULL ELSE cte.SchoolYear END DESC, -- Order by most recent school year / filename (if "hierarchy flag" disabled)
+    	CASE WHEN pOrderByHierarchyFlag IS TRUE THEN NULL ELSE cte.FileName END,
+    	cte.DirectoryTreePath
+	;
 END;
 $$
 LANGUAGE 'plpgsql';
