@@ -73,6 +73,7 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('usertype', 'AD', 'Administrador del programa', NULL),
 ('usertype', 'SF', 'Administrador del colegio', NULL),
 ('usertype', 'TR', 'Docente', NULL),
+('usertype', 'ST', 'Estudiante', NULL),
 ('usertype', 'OT', 'Otro', NULL),
 
 -- User classes
