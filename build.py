@@ -1,6 +1,21 @@
+'''
+Build configurations:
+  build.py -t install_logic -o
+  build.py -t install_schema -o
+  build.py -t clean_logic -o
+  build.py -t upgrade -u 2.0.0 -o
+   -u
+   -u asd
+   -u 2.0.2
+   -u 2.0.1
+  build.py -t create_files -o
+  build.py -t clean_full -o
+  build.py -t install_full -d
+'''
+
 # Import modules
-import os
-import sys, getopt
+import os, sys, getopt
+import versioninfo
 
 from lib.FileDirectoryTools import *
 from lib.FileReadWrite import *
@@ -35,6 +50,9 @@ DB_APP_USER = DB_ADMIN_USER
 DB_APP_PASSWORD = DB_ADMIN_PASSWORD
 DB_APP_DATABASE = DB_ADMIN_DATABASE
 
+VERSION_HISTORY = versioninfo.VERSION_HISTORY
+CODE_VERSION = versioninfo.CODE_VERSION
+
 # Specify installation files
 INSTALL_FILES = {
 #   (file_name, comment, db_user, db_password, db_logon_database),
@@ -61,22 +79,27 @@ def main(argv):
         "\n[install_schema] - Install schemas only (no data is modified)" + \
         "\n[clean_full] - Delete all data and drop schemas" + \
         "\n[clean_logic] - Delete views, functions and procedures (no data is modified)" + \
+        "\n[upgrade] - Upgrade existing repository (no data is modified)" + \
         "\n[create_files] - Create install files only (no changes made)"
     
-    usage = 'Usage: build.py -t <buildtype> -d\n\n' + \
-            '-t Build type: \n' + \
+    usage = 'Usage: build.py -t [buildtype] -u [currentversion] -d -o\n\n' + \
+            '-t [Build type]: \n' + \
             installoptions.replace("\n","\n   ") + \
-            '\n\n-d Skip Django configuration'
+            '\n\n-u [Current version] (i.e. 2.0.0)' + \
+            '\n-d Skip Django configuration (flag only)' + \
+            '\n-o Output flag (flag only)'
 
     # Initialize build parameters
     buildtype = ''
+    upgradefromversion = ''
     skipdjangoconfig = False
+    outputflag = False
 
     print("")
     
     # Read input arguments
     try:
-        opts, args = getopt.getopt(argv, "ht:d", ["help=","buildtype=","skipdjangoconfig"])
+        opts, args = getopt.getopt(argv, "ht:u:do", ["help=","buildtype=","upgradefromversion=","skipdjangoconfig","outputflag"])
 
     except getopt.GetoptError:
         print (usage, '\n')
@@ -94,59 +117,91 @@ def main(argv):
         elif opt in ("-t", "--buildtype"):
             buildtype = arg
     
+        # Build type (-u)
+        elif opt in ("-u", "--upgradefromversion"):
+            upgradefromversion = arg
+    
         # Skip Django config flag (-d)
         elif opt in ("-d", "--skipdjangoconfig"):
             skipdjangoconfig = True
     
+        # Detailed output flag (-o)
+        elif opt in ("-o", "--outputflag"):
+            outputflag = True
+    
+    # Check build type parameters
+    if buildtype == "upgrade":
+        if not upgradefromversion:
+            print('Please specify source version using "-u" option:\n')
+            print_versions()
+            sys.exit(2)
+
+        # CHeck upgrade specifications
+        upgrade(upgradefromversion, precheck=True, outputflag=outputflag)
+
+    if buildtype not in ['install_full','install_logic','upgrade','install_schema','clean_full','clean_logic','create_files']:
+        print(usage, "\n")
+        sys.exit(2)
+
+    # Begin install
+    print(('### INSTALLING v{0} ("{1}"' + (' from {2}' if buildtype == "upgrade" else '') + ')\n').format(CODE_VERSION, buildtype, upgradefromversion))
+    
     # BUILD OPTIONS
     # Install (full)
     if buildtype == "install_full":
-        setup()
-        clean_full()
-        install_schema()
-        install_tables()
-        install_logic()
-        load_data()
-        run_tests()
-        configure_django() if not skipdjangoconfig else ()
-        verify()
+        setup(outputflag=outputflag)
+        clean_full(outputflag=outputflag)
+        install_schema(outputflag=outputflag)
+        install_tables(outputflag=outputflag)
+        install_logic(outputflag=outputflag)
+        load_data(outputflag=outputflag)
+        run_tests(outputflag=outputflag)
+        configure_django(outputflag=outputflag) if not skipdjangoconfig else ()
+        verify(outputflag=outputflag)
         
     # Install (logic only)
     elif buildtype == "install_logic":
-        setup()
-        clean_logic()
-        install_logic()
-        run_tests()
-        verify()
+        setup(outputflag=outputflag)
+        clean_logic(outputflag=outputflag)
+        install_logic(outputflag=outputflag)
+        run_tests(outputflag=outputflag)
+        verify(outputflag=outputflag)
+    
+    # Upgrade
+    elif buildtype == "upgrade":
+
+#         print("### Upgrade from v{0} to v{1}\n".format(upgradefromversion, CODE_VERSION))
+        
+        setup(outputflag=outputflag)
+        clean_logic(outputflag=outputflag)
+        upgrade(upgradefromversion, outputflag=outputflag)
+        install_logic(outputflag=outputflag)
+        run_tests(outputflag=outputflag)
+        verify(outputflag=outputflag)
     
     # Install (schema only)
     elif buildtype == "install_schema":
-        setup()
-        install_schema()
+        setup(outputflag=outputflag)
+        install_schema(outputflag=outputflag)
     
     # Clean (full)
     elif buildtype == "clean_full":
-        setup()
-        clean_full()
+        setup(outputflag=outputflag)
+        clean_full(outputflag=outputflag)
     
     # Clean (logic only)
     elif buildtype == "clean_logic":
-        setup()
-        clean_logic()
+        setup(outputflag=outputflag)
+        clean_logic(outputflag=outputflag)
     
     # Create setup files
     elif buildtype == "create_files":
-        setup()
+        setup(outputflag=outputflag)
+
+    print("") if not outputflag else ()
     
-    elif buildtype == "":
-        print(usage, "\n")
-
-    else:
-        print(
-            "Invalid build type specified.  Please use one of the options below:\n", installoptions, "\n")
-
 # Prepare install files
-def setup():
+def setup(outputflag=False):
 
     # Check if src directory exists and has files
     if(os.listdir(SRC_DIR)):
@@ -154,13 +209,13 @@ def setup():
         # Cleanup and prepare for install
         if(FileExists(TGT_DIR)):
             print("### Cleaning up old install files")
-            DeleteDirectoryContents(TGT_DIR)
-            print("")
+            DeleteDirectoryContents(TGT_DIR, outputflag=outputflag)
+            print("") if outputflag else ()
         
         # Create new target directory
         print("### Creating new install files")
-        CreateDirectory(TGT_DIR)
-        CreateDirectory(JoinPath(TGT_DIR,"logs"))
+        CreateDirectory(TGT_DIR, outputflag=outputflag)
+        CreateDirectory(JoinPath(TGT_DIR,"logs"), outputflag=outputflag)
         
         # Create placeholder/build value dictionary
         replace_dict = {
@@ -181,7 +236,7 @@ def setup():
     
             # Create sub-directories in current directory
             for sub_dir in src_dir_names:       
-                CreateDirectory(JoinPath(new_tgt_dir_path, sub_dir))
+                CreateDirectory(JoinPath(new_tgt_dir_path, sub_dir), outputflag=outputflag)
     
             # Loop through all files in current sub-directory
             for src_file in src_file_names:
@@ -194,7 +249,7 @@ def setup():
                 tgt_file_path = JoinPath(new_tgt_dir_path, src_file)
                 tgt_file = ""
     
-                print("Copying file: \"" + tgt_file_path + "\" ...", end="")
+                print("Copying file: \"" + tgt_file_path + "\" ...", end="") if outputflag else ()
                 
                 # Loop through source file
                 while(src_file_fh):
@@ -218,12 +273,12 @@ def setup():
                 # Write new file to target directory
                 FileWrite(tgt_file_path, tgt_file)
                 
-                print("SUCCESS")
-        print("")
+                print("SUCCESS") if outputflag else ()
+        print("") if outputflag else ()
     else:
         print("No source files found or no access to source directory.")
     
-def execute(install_files):
+def execute(install_files, outputflag=False):
 
     # Loop through and execute install files - array of tuples[(file_name, comment, db_user, db_password, db_logon_database)]
     for install_file in install_files:
@@ -234,61 +289,107 @@ def execute(install_files):
         mydb = install_file[4]
     
         # Run install file    
-        RunSQLFile(SERVER_NAME, myuser, mypass, mydb, CHAR_SET, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + myfile + '.log'), '### ' + mycomment, True)
+        RunSQLFile(SERVER_NAME, myuser, mypass, mydb, CHAR_SET, JoinPath(TGT_DIR, myfile), JoinPath(TGT_DIR, 'logs/' + os.path.splitext(os.path.split(myfile)[1])[0] + '.log'), '### ' + mycomment, True, outputflag=outputflag)
 
-def clean_full():
+def clean_full(outputflag=False):
     execute([
         INSTALL_FILES["clean_full"]
-    ])
+    ],
+    outputflag=outputflag)
 
-def clean_logic():
+def clean_logic(outputflag=False):
     execute([
         INSTALL_FILES["clean_logic"]
-    ])
+    ],
+    outputflag=outputflag)
 
-def install_schema():
+def install_schema(outputflag=False):
     execute([
         INSTALL_FILES["create_users"],
         INSTALL_FILES["create_databases"]
-    ])
+    ],
+    outputflag=outputflag)
 
-def install_tables():
+def install_tables(outputflag=False):
     execute([
         INSTALL_FILES["create_tables"]
-    ])
+    ],
+    outputflag=outputflag)
 
-def install_logic():
+def install_logic(outputflag=False):
     execute([
         INSTALL_FILES["create_udfs"],
         INSTALL_FILES["create_views"],
         INSTALL_FILES["create_sps"],
 #         INSTALL_FILES["create_triggers"],
 #         INSTALL_FILES["create_indexes"],
-    ])
+    ],
+    outputflag=outputflag)
 
-def load_data():
+def upgrade(fromversion, precheck=False, outputflag=False):
+    toversion = CODE_VERSION
+
+    targetversion = VERSION_HISTORY.get(CODE_VERSION)
+    sourceversion = VERSION_HISTORY.get(fromversion)
+
+    # Check upgrade options first
+    if precheck:
+        
+        # Check versions are valid
+        if not targetversion or not sourceversion:
+            print('Invalid', 'source' if not sourceversion else 'target', 'version. Versions:\n')
+            print_versions()
+            sys.exit(2)
+    
+        # Verify target version is newer than source version
+        if not sourceversion['order'] < targetversion['order']:
+            print('Target version ({0}) must be newer than current version ({1}). Versions:\n'.format(targetversion['version'], sourceversion['version']))
+            print_versions()
+            sys.exit(2)
+
+    # Install upgrade
+    else:
+    
+        # Generate list of files to run
+        filelist = []
+    
+        # Generate file list
+        for version, versioninfo in VERSION_HISTORY.items():
+            if targetversion['order'] >= versioninfo['order'] > sourceversion['order']:
+                filelist.append((
+                    versioninfo['upgradefile'], 
+                    "Applying v{0} changes".format(versioninfo['version']), 
+                    DB_APP_USER, 
+                    DB_APP_PASSWORD, 
+                    DB_APP_DATABASE)
+                )
+    
+        execute(filelist, outputflag=outputflag)
+
+def load_data(outputflag=False):
     execute([
         INSTALL_FILES['load_initial_data'],
 #         INSTALL_FILES['load_sample_data'],
-   ])
+    ],
+    outputflag=outputflag)
 
-def run_tests():
+def run_tests(outputflag=False):
     execute([
         INSTALL_FILES['run_tests'],
-    ])
+    ],
+    outputflag=outputflag)
 
-def configure_django():
+def configure_django(outputflag=False):
 
     # Run django config
     if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
-        print("### Configuring Django")
         env_dict = dict(os.environ)
         env_dict["PYTHONPATH"] = DJANGO_LIB
     
-        print("### Running migration ...\n")
-        ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict)
+        print("### Configuring Django")
+        ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict, outputflag=outputflag)
     
-        print("\n### Configuring environment")
+        print("\n" if outputflag else "", "### Configuring web app", sep="")
         ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
                 'import os; ' + \
                 'import setup; ' + \
@@ -296,13 +397,13 @@ def configure_django():
                 'os.chdir(r' + '""' + DJANGO_BASEDIR + '""' + '); ' + \
                 'setup.setup_all(); ' + \
                 '"'
-             , 'Y', my_env = env_dict)
-        print("")
+             , 'Y', my_env = env_dict,
+             outputflag=outputflag)
 
-def verify():
+def verify(outputflag=False):
     
     # Verify install completed successfully
-    print("Verifying install ...", end="")
+    print("\nVerifying install ...", end="", sep="")
     
     # Pass correct setting (depends on "ENV" variable)
     if(os.environ.get('ENV') != 'development'):
@@ -324,7 +425,13 @@ def verify():
     else:
         print("FAIL")
         
-    print("")
-    
+    print("") if outputflag else ()
+
+def print_versions():
+    for key, versioninfo in VERSION_HISTORY.items():
+        print(versioninfo['version'])
+
+    print()
+
 if __name__ == "__main__":
     main(sys.argv[1:])
