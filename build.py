@@ -164,19 +164,14 @@ def main(argv):
         setup(outputflag=outputflag)
         clean_logic(outputflag=outputflag)
         install_logic(outputflag=outputflag)
-        run_tests(outputflag=outputflag)
         verify(outputflag=outputflag)
     
     # Upgrade
     elif buildtype == "upgrade":
-
-#         print("### Upgrade from v{0} to v{1}\n".format(upgradefromversion, CODE_VERSION))
-        
         setup(outputflag=outputflag)
         clean_logic(outputflag=outputflag)
         upgrade(upgradefromversion, outputflag=outputflag)
         install_logic(outputflag=outputflag)
-        run_tests(outputflag=outputflag)
         verify(outputflag=outputflag)
     
     # Install (schema only)
