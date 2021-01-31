@@ -144,7 +144,7 @@ def main(argv):
         sys.exit(2)
 
     # Begin install
-    print(('### INSTALLING v{0} ("{1}"' + (' from {2}' if buildtype == "upgrade" else '') + ')\n').format(CODE_VERSION, buildtype, upgradefromversion))
+    print(('Installing DCP {0} ({1}' + (' from {2}' if buildtype == "upgrade" else '') + ')\n').format(CODE_VERSION, buildtype, upgradefromversion))
     
     # BUILD OPTIONS
     # Install (full)
