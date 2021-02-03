@@ -8,19 +8,23 @@ DECLARE
 	MyObjectId INTEGER;
 BEGIN
 
-	-- Get next id value (for new object only)
-	IF(pObjectId IS NULL) THEN
-	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('object') INTO MyObjectId;
-    ELSE
-    	MyObjectId = pObjectId;
-    END IF;
-
-    INSERT INTO $APP_NAME$.Object(ObjectId, ObjectClass, ObjectName)
-    VALUES(MyObjectId, pObjectClass, pObjectName)
-    ON CONFLICT(ObjectId) DO UPDATE
-    SET ObjectClass = EXCLUDED.ObjectClass,
-    	ObjectName = EXCLUDED.ObjectName
-    ;
+	-- Only do upsert if object name is unique
+	IF NOT EXISTS(SELECT 1 FROM $APP_NAME$.Object WHERE ObjectName = pObjectName) THEN
+		-- Get next id value (for new object only)
+		IF(pObjectId IS NULL) THEN
+		    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('object') INTO MyObjectId;
+	    ELSE
+	    	MyObjectId = pObjectId;
+	    END IF;
+	
+	    INSERT INTO $APP_NAME$.Object(ObjectId, ObjectClass, ObjectName)
+	    SELECT MyObjectId, pObjectClass, pObjectName
+	    WHERE NOT EXISTS(SELECT 1 FROM $APP_NAME$.Object WHERE ObjectName = pObjectName) -- Make sure object name does not already exist
+	    ON CONFLICT(ObjectId) DO UPDATE
+	    SET ObjectClass = EXCLUDED.ObjectClass,
+	    	ObjectName = EXCLUDED.ObjectName
+	    ;
+	END IF;
 
 	-- Return id
     RETURN MyObjectId;   

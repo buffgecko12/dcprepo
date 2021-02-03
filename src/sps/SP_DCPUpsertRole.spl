@@ -14,26 +14,29 @@ DECLARE
 	MyRoleId INTEGER; -- Return new RoleId (if created)
 BEGIN   
 
-	-- Get next id value (for new role only)
-	IF(pRoleId IS NULL) THEN
-	    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('role') INTO MyRoleId;
-    ELSE
-    	MyRoleId = pRoleId;
-    END IF;
-    
-    -- Upsert role
-    INSERT INTO $APP_NAME$.Role(RoleId, RoleClass, Name, Description, PublicFlag, SchoolList, UserTypeList, UserList, InternalFlag)
-    VALUES(MyRoleId, pRoleClass, pName, pDescription, pPublicFlag, pSchoolList, pUserTypeList, pUserList, pInternalFlag)
-    ON CONFLICT(RoleId) DO UPDATE SET
-	    RoleClass = EXCLUDED.RoleClass,
-	    Name = EXCLUDED.Name,
-	    Description = EXCLUDED.Description,
-	    PublicFlag = EXCLUDED.PublicFlag,
-	    SchoolList = EXCLUDED.SchoolList,
-	    UserTypeList = EXCLUDED.UserTypeList,
-	    UserList = EXCLUDED.UserList,
-	    InternalFlag = EXCLUDED.InternalFlag
-    ;   
+	IF NOT EXISTS (SELECT 1 FROM $APP_NAME$.Role WHERE Name = pName) THEN 
+	
+		-- Get next id value (for new role only)
+		IF(pRoleId IS NULL) THEN
+		    SELECT * FROM $APP_NAME$Views.SP_DCPGetNextId('role') INTO MyRoleId;
+	    ELSE
+	    	MyRoleId = pRoleId;
+	    END IF;
+	    
+	    -- Upsert role
+	    INSERT INTO $APP_NAME$.Role(RoleId, RoleClass, Name, Description, PublicFlag, SchoolList, UserTypeList, UserList, InternalFlag)
+	    VALUES(MyRoleId, pRoleClass, pName, pDescription, pPublicFlag, pSchoolList, pUserTypeList, pUserList, pInternalFlag)
+	    ON CONFLICT(RoleId) DO UPDATE SET
+		    RoleClass = EXCLUDED.RoleClass,
+		    Name = EXCLUDED.Name,
+		    Description = EXCLUDED.Description,
+		    PublicFlag = EXCLUDED.PublicFlag,
+		    SchoolList = EXCLUDED.SchoolList,
+		    UserTypeList = EXCLUDED.UserTypeList,
+		    UserList = EXCLUDED.UserList,
+		    InternalFlag = EXCLUDED.InternalFlag
+	    ;   
+	END IF;
     
 	-- Return new id (if new school)
     RETURN MyRoleId;
