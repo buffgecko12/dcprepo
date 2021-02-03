@@ -137,7 +137,7 @@ def main(argv):
             sys.exit(2)
 
         # CHeck upgrade specifications
-        upgrade(upgradefromversion, precheck=True, outputflag=outputflag)
+        upgrade_setup(upgradefromversion, precheck=True, outputflag=outputflag)
 
     if buildtype not in ['install_full','install_logic','upgrade','install_schema','clean_full','clean_logic','create_files']:
         print(usage, "\n")
@@ -172,6 +172,7 @@ def main(argv):
         clean_logic(outputflag=outputflag)
         upgrade(upgradefromversion, outputflag=outputflag)
         install_logic(outputflag=outputflag)
+        configure_django(upgradefromversion=upgradefromversion, outputflag=outputflag) if not skipdjangoconfig else ()
         verify(outputflag=outputflag)
     
     # Install (schema only)
@@ -321,11 +322,9 @@ def install_logic(outputflag=False):
     ],
     outputflag=outputflag)
 
-def upgrade(fromversion, precheck=False, outputflag=False):
-    toversion = CODE_VERSION
-
+def upgrade_setup(upgradefromversion, precheck=False, outputflag=False):
     targetversion = VERSION_HISTORY.get(CODE_VERSION)
-    sourceversion = VERSION_HISTORY.get(fromversion)
+    sourceversion = VERSION_HISTORY.get(upgradefromversion)
 
     # Check upgrade options first
     if precheck:
@@ -341,25 +340,37 @@ def upgrade(fromversion, precheck=False, outputflag=False):
             print('Target version ({0}) must be newer than current version ({1}). Versions:\n'.format(targetversion['version'], sourceversion['version']))
             print_versions()
             sys.exit(2)
+        
+    # Generate list of upgrade versions to run
+    upgradeversionslist = []
 
-    # Install upgrade
-    else:
-    
-        # Generate list of files to run
-        filelist = []
-    
-        # Generate file list
-        for version, versioninfo in VERSION_HISTORY.items():
-            if targetversion['order'] >= versioninfo['order'] > sourceversion['order']:
-                filelist.append((
-                    versioninfo['upgradefile'], 
-                    "Applying v{0} changes".format(versioninfo['version']), 
-                    DB_APP_USER, 
-                    DB_APP_PASSWORD, 
-                    DB_APP_DATABASE)
-                )
-    
-        execute(filelist, outputflag=outputflag)
+    for version, versioninfo in VERSION_HISTORY.items():
+        if targetversion['order'] >= versioninfo['order'] > sourceversion['order']:
+            upgradeversionslist.append(versioninfo)
+            
+    return {
+        'targetversion':targetversion, 
+        'sourceversion':sourceversion, 
+        'upgradeversionslist':upgradeversionslist
+    }
+
+def upgrade(upgradefromversion, precheck=False, outputflag=False):
+    upgradeinfo = upgrade_setup(upgradefromversion=upgradefromversion)
+
+    # Generate list of files to run
+    filelist = []
+
+    # Generate file list
+    for upgradeversion in upgradeinfo.get('upgradeversionslist'):
+        filelist.append((
+            upgradeversion.get('repoupgradefile'), 
+            "Applying v{0} changes".format(upgradeversion.get('version')), 
+            DB_APP_USER, 
+            DB_APP_PASSWORD, 
+            DB_APP_DATABASE
+        ))
+
+    execute(filelist, outputflag=outputflag)
 
 def load_data(outputflag=False):
     execute([
@@ -374,25 +385,32 @@ def run_tests(outputflag=False):
     ],
     outputflag=outputflag)
 
-def configure_django(outputflag=False):
+def configure_django(upgradefromversion=None, outputflag=False):
+    
+    upgradeinfo = None
+    
+    # Get version info (upgrade only)
+    if upgradefromversion:
+        upgradeinfo = upgrade_setup(upgradefromversion=upgradefromversion, outputflag=outputflag)
 
     # Run django config
     if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
         env_dict = dict(os.environ)
         env_dict["PYTHONPATH"] = DJANGO_LIB
-    
-        print("### Configuring Django")
-        ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict, outputflag=outputflag)
+
+        # Ignore for upgrade
+        if not upgradefromversion:
+            print("### Configuring Django")
+            ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' migrate', 'Y', my_env = env_dict, outputflag=outputflag)
     
         print("\n" if outputflag else "", "### Configuring web app", sep="")
         ExecuteProcess('python "' + JoinPath(DJANGO_BASEDIR,'manage.py"') + ' shell -c "' + \
                 'import os; ' + \
-                'import setup; ' + \
-                'from django.contrib.auth import get_user_model; ' + \
+                'import ' + ('setup;' if not upgradefromversion else 'upgrade;') + \
                 'os.chdir(r' + '""' + DJANGO_BASEDIR + '""' + '); ' + \
-                'setup.setup_all(); ' + \
+                ('setup.setup_all(); ' if not upgradefromversion else ' upgrade.upgrade({0});'.format(upgradeinfo)) + \
                 '"'
-             , 'Y', my_env = env_dict,
+             , 'Y', my_env=env_dict,
              outputflag=outputflag)
 
 def verify(outputflag=False):
