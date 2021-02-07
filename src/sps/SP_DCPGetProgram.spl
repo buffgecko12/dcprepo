@@ -1,8 +1,9 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetProgram(
-    pProgramName VARCHAR(50),
-    pSchoolId INTEGER,
-    pSchoolYear INTEGER,
-    pProgramDetails JSONB
+    pProgramName VARCHAR(50) DEFAULT NULL,
+    pSchoolId INTEGER DEFAULT NULL,
+    pSchoolYear INTEGER DEFAULT NULL,
+    pProgramDetails JSONB DEFAULT NULL,
+    pExcludeGeneralFlag BOOLEAN DEFAULT FALSE
 ) 
 RETURNS TABLE (
 	ProgramName VARCHAR(50), SchoolId INTEGER, SchoolYear SMALLINT, SchoolAbbreviation VARCHAR(25), CalendarId VARCHAR(250), DefaultRoleId INTEGER, ProgramDetails JSONB
@@ -15,7 +16,7 @@ BEGIN
 		p.SchoolYear,
 		CASE WHEN s.SchoolId = 0 THEN '' ELSE s.SchoolAbbreviation END AS SchoolAbbreviation,
 		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId,
-		CAST(p.ProgramDetails->'defaultroleid' AS INTEGER) AS DefaultRoleId,
+		CAST(p.ProgramDetails->>'defaultroleid' AS INTEGER) AS DefaultRoleId,
 		p.ProgramDetails
 	FROM $APP_NAME$Views.Program p
 	LEFT JOIN $APP_NAME$Views.School s ON p.SchoolId = s.SchoolId
@@ -23,6 +24,7 @@ BEGIN
 	AND (p.SchoolId = pSchoolId OR pSchoolId IS NULL)
 	AND (p.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	AND (p.ProgramDetails @> pProgramDetails OR pProgramDetails IS NULL)
+	AND (p.SchoolId <> 0 OR NOT pExcludeGeneralFlag)
 	;
 END;
 $$ LANGUAGE 'plpgsql';
