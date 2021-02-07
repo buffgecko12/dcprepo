@@ -1,8 +1,8 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetRole(
-    pRoleId INTEGER,
-    pRoleClass CHAR(2)[],
-    pName VARCHAR(100),
-    pInternalFlag BOOLEAN
+    pRoleId INTEGER DEFAULT NULL,
+    pRoleClass CHAR(2)[] DEFAULT NULL,
+    pName VARCHAR(100) DEFAULT NULL,
+    pInternalFlag BOOLEAN DEFAULT NULL
 )
 RETURNS TABLE (
   RoleId INTEGER, RoleClass CHAR(2), Name VARCHAR(100), Description VARCHAR(500), PublicFlag BOOLEAN, 
