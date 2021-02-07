@@ -1,16 +1,12 @@
 '''
 Build configurations:
-  build.py -t install_logic -o
-  build.py -t install_schema -o
-  build.py -t clean_logic -o
-  build.py -t upgrade -u 2.0.0 -o
-   -u
-   -u asd
-   -u 2.0.2
-   -u 2.0.1
-  build.py -t create_files -o
-  build.py -t clean_full -o
-  build.py -t install_full -d
+  build.py -t install_logic
+  build.py -t install_schema
+  build.py -t clean_logic
+  build.py -t upgrade -u 2.0.0
+  build.py -t create_files
+  build.py -t clean_full
+  build.py -t install_full
 '''
 
 # Import modules
