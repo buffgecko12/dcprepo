@@ -94,6 +94,18 @@ AC - Academic]]></comment>
 <ownDataTypeParameters>100,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="SourceRewardId" id="7B51F93D-A94F-DB51-4269-3AC9A2ADF3D3">
+<createdBy>ravioli</createdBy>
+<createdTime>2021-01-29 04:42:47 UTC</createdTime>
+<comment><![CDATA[Source rewardId]]></comment>
+<ownerDesignName>DCP Data Model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<domain>C156DD6B-7DE0-3155-0140-EBC7D983755A</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 <Column name="StartTS" id="150A2350-E449-379D-824A-72877217DFB1">
 <createdBy>ravioli</createdBy>
 <createdTime>2020-01-25 17:50:52 UTC</createdTime>
