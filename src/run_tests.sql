@@ -15,8 +15,8 @@ SELECT $APP_NAME$Views.SP_DCPUpdateFileAttributes(ARRAY[ 1,2], JSONB('{"fileclas
 SELECT $APP_NAME$Views.SP_DCPUpsertRoleACL(2, 100, 'FL', 4, NULL); -- Set role ACL
 
 -- Add reward info
-SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'FD', 'Pizza Show');
-SELECT $APP_NAME$Views.SP_DCPUpsertReward(2, 2020, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 'ET', 'Innovo');
+SELECT $APP_NAME$Views.SP_DCPUpsertReward(NULL, 2020, 'Pizza', 'Pizza y gaseosa.', 5000, 'FD', 'Pizza Show', NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertReward(2, 2020, 'Tiquetes al cine', 'Tiquetes al cine en Innovo.', 6000, 'ET', 'Innovo', NULL);
 
 -- Create schools/classes
 SELECT $APP_NAME$Views.SP_DCPUpsertSchool(100, 'TS1', 'Test School 1', 'My Address','Duitama','Boyaca'); -- Schools
@@ -28,7 +28,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertClass(102, 100, 2020, '9-05', 9, NULL); -- Cl
 -- Create school-related items (rubric, calendar, rewards)
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(100,1,NULL,2020,1000);
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolReward(200,NULL,JSONB('[{"rewardid":1,"rewardvalue":1000},{"rewardid":2,"rewardvalue":4000}]'),2020,0);
-SELECT $APP_NAME$Views.SP_DCPGetSchoolReward(100,1,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetSchoolReward(100, 1, NULL, NULL);
 
 SELECT $APP_NAME$Views.SP_DCPUpsertSchoolCalendar(NULL,100,2020,CURRENT_DATE,'CTE','Entrega',1,NULL);
 SELECT $APP_NAME$Views.SP_DCPGetSchoolCalendar(NULL,NULL,NULL,NULL,NULL);
@@ -41,7 +41,7 @@ SELECT $APP_NAME$Views.SP_DCPGetSchoolRubric(NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertUser (100, 100, 'MyTeacher','TR','Joe','Smith','joe1@smith.com',NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertUser (101, 100, 'MyStudent1','ST','Nic','Cage','nic@cage.com',NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPUpsertUser (102, 100, 'MyStudent2','ST','Sean','Connery','the@besht.com',NULL,NULL,NULL,NULL);
-SELECT $APP_NAME$Views.SP_DCPUpsertUser (103, 100, 'MyStudent3','ST','Elsa','Benitez','the@shipoopee.com',NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPUpsertUser (103, 100, 'MyStudent3','ST','Elsa','Benitez','the@burger.com',NULL,NULL,NULL,NULL);
 
 -- Add user notification
 SELECT $APP_NAME$Views.SP_DCPUpsertUserNotification (100, 1001, NULL);
@@ -92,7 +92,7 @@ SELECT $APP_NAME$Views.SP_DCPUpsertContractPartyReward(100,100,100,1, 10, 10000,
 SELECT $APP_NAME$Views.SP_DCPGetObject(NULL, 'BO', NULL);
 
 -- Role / ACL
-SELECT $APP_NAME$Views.SP_DCPGetRole(NULL,NULL,NULL,NULL);
+SELECT $APP_NAME$Views.SP_DCPGetRole();
 SELECT $APP_NAME$Views.SP_DCPGetRoleACL(NULL,NULL,NULL,NULL);
 SELECT $APP_NAME$Views.SP_DCPCheckUserObjectAccess(100,100,'FL',4); -- Check read access on specified file for given user
 SELECT $APP_NAME$Views.SP_DCPModifyRoleItem(1,100,NULL,NULL,'A');
@@ -108,7 +108,7 @@ SELECT $APP_NAME$Views.SP_DCPGetSchool(100);
 SELECT $APP_NAME$Views.SP_DCPGetClass(100,NULL,NULL,NULL,NULL);
 
 -- Program
-SELECT $APP_NAME$Views.SP_DCPGetProgram(NULL, NULL, NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPGetProgram();
 
 -- Get user info
 SELECT $APP_NAME$Views.SP_DCPGetTeacherClass(100, 100);
@@ -144,7 +144,7 @@ SELECT $APP_NAME$Views.SP_DCPDeleteObject(NULL,NULL);
 -- Role / ACL
 SELECT $APP_NAME$Views.SP_DCPDeleteRoleACL(3, 100, 'FL');
 SELECT $APP_NAME$Views.SP_DCPDeleteRole(2, NULL);
-SELECT $APP_NAME$Views.SP_DCPDeleteRole(NULL, NULL);
+SELECT $APP_NAME$Views.SP_DCPDeleteRole(NULL, TRUE);
 
 -- User
 SELECT $APP_NAME$Views.SP_DCPDeleteUser(100);

@@ -1,17 +1,30 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetReward(
-    pRewardId INTEGER,
-    pSchoolYear INTEGER
+    pRewardId INTEGER DEFAULT NULL,
+    pSchoolYear INTEGER DEFAULT NULL,
+    pSourceRewardId INTEGER DEFAULT NULL
 )
 RETURNS TABLE (
 	RewardId INTEGER, SchoolYear SMALLINT, RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, 
-	RewardCategory VARCHAR(10), RewardCategoryDisplayName VARCHAR(100), Vendor VARCHAR(100)
+	RewardCategory VARCHAR(10), RewardCategoryDisplayName VARCHAR(100), Vendor VARCHAR(100), SourceRewardId INTEGER, RewardChildren INTEGER[]
 ) AS $$
 BEGIN
     RETURN QUERY
-	SELECT r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.RewardCategory, r.RewardCategoryDisplayName, r.Vendor
+	SELECT r.RewardId, 
+		r.SchoolYear, 
+		r.RewardDisplayName, 
+		r.RewardDescription, 
+		r.RewardValue, 
+		r.RewardCategory, 
+		r.RewardCategoryDisplayName, 
+		r.Vendor, 
+		r.SourceRewardId,
+		ARRAY_AGG(rc.RewardId ORDER BY rc.RewardId) AS RewardChildren
 	FROM $APP_NAME$Views.Reward r
+	LEFT JOIN $APP_NAME$Views.Reward rc ON r.RewardId = rc.SourceRewardId -- Get any children
 	WHERE (r.RewardId = pRewardId OR pRewardId IS NULL)
 	AND (r.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
+	AND (r.SourceRewardId = pSourceRewardId OR pSourceRewardId IS NULL)
+	GROUP BY r.RewardId, r.SchoolYear, r.RewardDisplayName, r.RewardDescription, r.RewardValue, r.RewardCategory, r.RewardCategoryDisplayName, r.Vendor, r.SourceRewardId
 	ORDER BY r.SchoolYear DESC, r.RewardCategoryDisplayName, r.Vendor, r.RewardDisplayName
 	;	
 END;

@@ -1,19 +1,21 @@
 CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPGetSchoolReward(
-    pSchoolId INTEGER,
-    pRewardId INTEGER,
-    pSchoolYear INTEGER
+    pSchoolId INTEGER DEFAULT NULL,
+    pRewardId INTEGER DEFAULT NULL,
+    pSchoolYear INTEGER DEFAULT NULL,
+    pSourceRewardId INTEGER DEFAULT NULL
 )
 RETURNS TABLE (
-  SchoolId INTEGER, SchoolAbbreviation VARCHAR(25), RewardId INTEGER, SchoolYear SMALLINT, 
-  Vendor VARCHAR(100), RewardDisplayName VARCHAR(100), RewardDescription VARCHAR(500), RewardValue INTEGER, RewardCategoryDisplayName VARCHAR(100)
+  SchoolId INTEGER, SchoolAbbreviation VARCHAR(25), RewardId INTEGER, SchoolYear SMALLINT, Vendor VARCHAR(100), RewardDisplayName VARCHAR(100), 
+  RewardDescription VARCHAR(500), RewardValue INTEGER, RewardCategoryDisplayName VARCHAR(100), SourceRewardId INTEGER
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, lr.RewardDescription, sr.RewardValue, lr.RewardCategoryDisplayName
+    SELECT s.SchoolId, s.SchoolAbbreviation, sr.RewardId, sr.SchoolYear, lr.Vendor, lr.RewardDisplayName, 
+    	   lr.RewardDescription, sr.RewardValue, lr.RewardCategoryDisplayName, lr.SourceRewardId
     FROM $APP_NAME$Views.School s
     INNER JOIN $APP_NAME$Views.School_Reward sr ON s.SchoolId = sr.SchoolId
     INNER JOIN (
-    	SELECT src.RewardId, src.Vendor, src.RewardDisplayName, src.RewardDescription, src.RewardValue, src.RewardCategoryDisplayName
+    	SELECT src.RewardId, src.Vendor, src.RewardDisplayName, src.RewardDescription, src.RewardValue, src.RewardCategoryDisplayName, src.SourceRewardId
     	FROM $APP_NAME$Views.SP_DCPGetReward(pRewardId, pSchoolYear) AS src
 	) lr ON sr.RewardId = lr.RewardId -- Get reward info
     WHERE (sr.SchoolId = pSchoolId OR pSchoolId IS NULL)
