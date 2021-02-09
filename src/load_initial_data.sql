@@ -69,12 +69,13 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('calendar', 'OT',  'Otro', NULL),
 
 -- User types
-('usertype', 'SA', 'Administrador del sitio', NULL),
 ('usertype', 'AD', 'Administrador del programa', NULL),
-('usertype', 'SF', 'Administrador del colegio', NULL),
-('usertype', 'TR', 'Docente', NULL),
-('usertype', 'ST', 'Estudiante', NULL),
+('usertype', 'BR', 'Comprador', NULL),
 ('usertype', 'OT', 'Otro', NULL),
+('usertype', 'SA', 'Administrador del sitio', NULL),
+('usertype', 'SF', 'Administrador del colegio', NULL),
+('usertype', 'ST', 'Estudiante', NULL),
+('usertype', 'TR', 'Docente', NULL),
 
 -- User classes
 ('roleclass', 'US', 'Usuarios', NULL),

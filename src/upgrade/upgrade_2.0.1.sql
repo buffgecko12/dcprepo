@@ -11,3 +11,9 @@
 
 -- Update Contract table
 ALTER TABLE $APP_NAME$.Reward ADD COLUMN SourceRewardId INTEGER;
+
+-- Add new user type (buyer)
+INSERT INTO $APP_NAME$.Lookup_Category (CategoryClass, CategoryType, CategoryDisplayName, Description) 
+VALUES ('usertype', 'BR', 'Comprador', NULL)
+ON CONFLICT (CategoryClass, CategoryType) DO NOTHING
+;
