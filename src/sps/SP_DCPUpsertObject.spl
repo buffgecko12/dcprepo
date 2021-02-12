@@ -30,6 +30,7 @@ BEGIN
 	    SET ObjectClass = pObjectClass,
 	    	ObjectName = pObjectName
 	    WHERE Objectid = MyObjectId
+	    AND NOT EXISTS(SELECT 1 FROM $APP_NAME$.Object WHERE ObjectName = pObjectName AND ObjectId <> MyObjectId) -- Don't use name that already exists for a different object
 	    ;
 
 	END IF;

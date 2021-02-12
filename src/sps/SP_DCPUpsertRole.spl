@@ -43,6 +43,7 @@ BEGIN
 	    	UserList = pUserList,
 	    	InternalFlag = pInternalFlag
 	    WHERE RoleId = MyRoleId
+	    AND NOT EXISTS (SELECT 1 FROM $APP_NAME$.Role WHERE Name = pName AND RoleId <> MyRoleId) -- Make sure name is not already in use by a different role
 	    ;
 	END IF;
     
