@@ -11,6 +11,7 @@ CREATE OR REPLACE FUNCTION $APP_NAME$Views.SP_DCPUpsertReward (
 RETURNS INTEGER AS $$
 DECLARE 
 	MyRewardId INTEGER; -- Return new reward id (if created)
+	MySourceRewardId INTEGER;
 BEGIN   
 
 	-- Get next id value (for new reward only)
@@ -20,16 +21,22 @@ BEGIN
     	MyRewardId = pRewardId;
     	
 	    -- Close current row
-	    UPDATE $APP_NAME$.Reward
-	    SET EndTS = CURRENT_TIMESTAMP
-	    WHERE RewardId = pRewardId
-	    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+	    WITH upd AS(
+		    UPDATE $APP_NAME$.Reward
+		    SET EndTS = CURRENT_TIMESTAMP
+		    WHERE RewardId = pRewardId
+		    AND EndTS = TIMESTAMP '9999-12-31 23:59:59'
+		    RETURNING SourceRewardId
+		)
+		SELECT SourceRewardId INTO MySourceRewardId -- Store sourcerewardid to reuse below if needed
+		FROM upd 
 	    ;
     END IF;
     
     -- Add new row
     INSERT INTO $APP_NAME$.Reward(RewardId, SchoolYear, RewardDisplayName, RewardDescription, RewardValue, RewardCategory, Vendor, SourceRewardId, StartTS, EndTS)
-    SELECT MyRewardId, pSchoolYear, pRewardDisplayName, pRewardDescription, pRewardValue, pRewardCategory, pVendor, pSourceRewardId, CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
+    SELECT MyRewardId, pSchoolYear, pRewardDisplayName, pRewardDescription, pRewardValue, pRewardCategory, pVendor, 
+    COALESCE(pSourceRewardId, MySourceRewardId), CURRENT_TIMESTAMP, TIMESTAMP '9999-12-31 23:59:59'
     ;   
     
 	-- Return id
