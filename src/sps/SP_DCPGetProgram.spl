@@ -24,7 +24,7 @@ BEGIN
 	AND (p.SchoolId = pSchoolId OR pSchoolId IS NULL)
 	AND (p.SchoolYear = pSchoolYear OR pSchoolYear IS NULL)
 	AND (p.ProgramDetails @> pProgramDetails OR pProgramDetails IS NULL)
-	AND (p.SchoolId <> 0 OR NOT pExcludeGeneralFlag)
+	AND (p.SchoolId <> 0 OR NOT COALESCE(pExcludeGeneralFlag, FALSE))
 	;
 END;
 $$ LANGUAGE 'plpgsql';
