@@ -382,7 +382,6 @@ def run_tests(outputflag=False):
     outputflag=outputflag)
 
 def configure_django(upgradefromversion=None, outputflag=False):
-    
     upgradeinfo = None
     
     # Get version info (upgrade only)
