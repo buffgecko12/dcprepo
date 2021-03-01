@@ -25,7 +25,7 @@ BEGIN
 		u.SchoolAbbreviation,
 		u.UserDisplayName,
 		p.ProgramDetails,
-		CAST(p.ProgramDetails->'google'->'calendar'->>'id' AS VARCHAR(250)) AS CalendarId
+		CAST(COALESCE(up.Details->'google'->'calendar'->>'id', p.ProgramDetails->'google'->'calendar'->>'id') AS VARCHAR(250)) AS CalendarId
 	FROM $APP_NAME$Views.User_Program up
 	INNER JOIN $APP_NAME$Views.Program p ON up.ProgramName = p.ProgramName AND up.SchoolId = p.SchoolId AND up.SchoolYear = p.SchoolYear
 	LEFT JOIN $APP_NAME$Views.SP_DCPGetUser(pUserId, NULL, NULL, NULL) u ON up.UserId = u.UserId -- Get user info
