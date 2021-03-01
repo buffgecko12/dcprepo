@@ -1,0 +1,22 @@
+-- https://gist.github.com/villelahdenvuo/5b1fbbf3f22853475bba14f8833faada
+CREATE OR REPLACE FUNCTION jsonb_set_deep(target jsonb, path text[], val jsonb)
+  RETURNS jsonb 
+ AS $$
+    DECLARE
+      k text;
+      p text[];
+    BEGIN
+      -- Create missing objects in the path.
+      IF (target IS NULL) THEN
+        target = '{}'::jsonb;
+      END IF;
+      FOREACH k IN ARRAY path LOOP
+        p := p || k;
+        IF (target #> p IS NULL) THEN
+          target := jsonb_set(target, p, '{}'::jsonb);
+        END IF;
+      END LOOP;
+      -- Set the value like normal.
+      RETURN jsonb_set(target, path, val);
+    END;
+  $$ LANGUAGE plpgsql;
