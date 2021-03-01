@@ -1,5 +1,5 @@
 # Current checked out version
-CODE_VERSION = '2.0.1'
+CODE_VERSION = '2.0.2'
 
 VERSION_HISTORY = {
     '2.0.0': {'order':1, 'version':'2.0.0', 'repoupgradefile':''},
