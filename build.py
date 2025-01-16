@@ -39,7 +39,7 @@ DB_APP_SCHEMA = str(params["db_app_schema"])
 DB_CHECK_VALUE = params["db_check_value"]
 
 DJANGO_BASEDIR = str(params.get('django_basedir'))
-DJANGO_LIB = DJANGO_BASEDIR + "\lib"
+DJANGO_LIB = DJANGO_BASEDIR + "\\lib"
 
 # Heroku Only: Use DB Admin user as the App user
 DB_APP_USER = DB_ADMIN_USER
@@ -392,6 +392,7 @@ def configure_django(upgradefromversion=None, outputflag=False):
     if(DJANGO_BASEDIR and FileExists(DJANGO_BASEDIR)):
         env_dict = dict(os.environ)
         env_dict["PYTHONPATH"] = DJANGO_LIB
+#        env_dict["PYTHONPATH"] += ';C:\\Users\\ravioli\\projects\\.venv\\dcp2-prd\\Lib\\site-packages\\' # TO-DO: Need to fix this
 
         # Ignore for upgrade
         if not upgradefromversion:
