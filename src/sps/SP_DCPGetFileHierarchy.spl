@@ -43,7 +43,21 @@ BEGIN
 	    -- Get all children    
 	    SELECT f.FileId, CAST(cte.FileName AS VARCHAR(250)) AS ParentDirectory, f.FileName, f.FileExtension, f.FileSize, f.FileType, f.FileDescription, f.FileSource, f.FileData, f.FileURL, f.FilePath,
 	    	f.FileClass, f.FileCategory, f.FileAttributes, f.AlternateFileId, f.ContractId, f.SchoolId, f.SchoolYear, f.FileClassDisplayName, f.FileCategoryDisplayName, f.DirectoryFlag, CAST(cte.Depth + 1 AS SMALLINT),
-            CAST(cte.DirectoryTreePath || '-' || LPAD(CAST(ROW_NUMBER() OVER(PARTITION BY cte.AlternateFileId ORDER BY f.FileName) AS VARCHAR(10)),3,'0') AS VARCHAR(1000))
+            CAST(
+                cte.DirectoryTreePath || '-' || 
+                LPAD(
+                    CAST(
+                        ROW_NUMBER() OVER(
+                            PARTITION BY cte.AlternateFileId 
+                            ORDER BY 
+                                COALESCE(f.SchoolYear, 0) DESC,
+                                f.FileName
+                        ) AS VARCHAR(10)
+                    ),
+                    3,
+                    '0'
+                ) AS VARCHAR(1000)
+            )
 	    FROM files f
 	    INNER JOIN cte ON cte.AlternateFileId = f.FileAttributes->>'parentid'
 	    WHERE f.FileSource = 'GD'
