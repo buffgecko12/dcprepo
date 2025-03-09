@@ -11,4 +11,5 @@
 
 */
 
+-- No schema / metadata changes
 -- Updated sort in SP_DCPGetFileHierarchy
