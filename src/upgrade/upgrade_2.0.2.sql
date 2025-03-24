@@ -11,5 +11,14 @@
 
 */
 
--- No schema / metadata changes
 -- Updated sort in SP_DCPGetFileHierarchy
+
+-- Add new file types
+insert into $APP_NAME$.LOOKUP_CATEGORY (CategoryClass, CategoryType, CategoryDisplayName, Description) 
+select 'programfile', 'PHT', 'Foto', null
+where not exists (
+    select 1 
+    from $APP_NAME$.LOOKUP_CATEGORY
+    where CategoryClass = 'programfile'
+    and CategoryType = 'PHT'
+)
