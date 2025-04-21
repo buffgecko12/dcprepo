@@ -36,7 +36,8 @@ BEGIN
 			JSONB_BUILD_OBJECT( -- Use new values only if keys exist
 				'userid', CASE WHEN pFileInfo ? 'userid' IS TRUE THEN CAST(pFileInfo->>'userid' AS INTEGER) ELSE CAST(f.FileAttributes->>'userid' AS INTEGER) END,
 				'programname', CASE WHEN pFileInfo ? 'programname' IS TRUE THEN pFileInfo->>'programname' ELSE f.FileAttributes->>'programname' END,
-			    'gd_locator', CASE WHEN pFileInfo ? 'gd_locator' IS TRUE THEN pFileInfo->>'gd_locator' ELSE f.FileAttributes->>'gd_locator' END /*,
+                'project', CASE WHEN pFileInfo ? 'project' IS TRUE THEN pFileInfo->'project' ELSE f.FileAttributes->'project' END, -- Use "->" instead of "-->" to keep as jsonb instead of text
+                'gd_locator', CASE WHEN pFileInfo ? 'gd_locator' IS TRUE THEN pFileInfo->>'gd_locator' ELSE f.FileAttributes->>'gd_locator' END /*,
 			    'filedescription', CASE WHEN pFileInfo ? 'filedescription' IS TRUE THEN pFileInfo->>'filedescription' ELSE f.FileDescription END,
 			    'filecategory', CASE WHEN pFileInfo ? 'filecategory' IS TRUE THEN pFileInfo->>'filecategory' ELSE f.FileCategory END,
 			    'contractid', CASE WHEN pFileInfo ? 'contractid' IS TRUE THEN CAST(pFileInfo->>'contractid' AS INTEGER) ELSE f.ContractId END,
