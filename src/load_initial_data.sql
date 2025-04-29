@@ -45,6 +45,7 @@ INSERT INTO $APP_NAME$.Lookup_Category
 ('programfile', 'LTI', 'Carta de invitaci' || U&'\00F3' || 'n', NULL),
 ('programfile', 'OT',  'Otro', NULL),
 ('programfile', 'DTG', 'Documento - general', NULL),
+('programfile', 'PHT', 'Foto', NULL),
 ('programfile', 'RTY', 'Informe anual', NULL),
 ('programfile', 'RT',  'Informe', NULL),
 ('programfile', 'SVT', 'Resultados de encuesta (docente)', NULL),
